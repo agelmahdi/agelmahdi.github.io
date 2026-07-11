@@ -120,13 +120,12 @@
         <!-- App Header with Tab Switcher -->
         <header class="app-header">
             <div class="brand-logo">
-                <span class="logo-icon-container">
-                    <svg class="logo-icon" viewBox="0 0 100 100" fill="none">
-                        <path class="layer-orange" d="M50 20 L20 40 L50 60 L80 40 Z" stroke="var(--orange)" stroke-width="7.5" stroke-linejoin="round"/>
-                        <path class="layer-gold" d="M20 60 L50 75 L80 60" stroke="var(--gold)" stroke-width="7.5" stroke-linecap="round"/>
-                        <path class="layer-orange" d="M20 75 L50 90 L80 75" stroke="var(--orange)" stroke-width="7.5" stroke-linecap="round"/>
-                    </svg>
-                </span>
+               <div class="header-actions-row">
+                    <button class="mode-btn" id="modeBtn" data-mode="standard">
+                        <span class="mode-icon">⚙️</span>
+                        <span id="modeText" data-translate="modeStandard">Standard</span>
+                    </button
+                </div>
                 <span class="logo-text">
                     <span class="logo-name-row">
                         <span class="logo-name">Ahmed El-Mahdi</span>
@@ -148,19 +147,7 @@
                     </button>
                 </nav>
                 
-                <div class="header-actions-row">
-                    <button class="mode-btn" id="modeBtn" data-mode="standard">
-                        <span class="mode-icon">⚙️</span>
-                        <span id="modeText" data-translate="modeStandard">Standard</span>
-                    </button>
-                    
-                    <a href="https://wa.me/201558333533" target="_blank" class="header-whatsapp-btn" aria-label="Direct WhatsApp">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.727-1.465L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.086-2.885-6.948C15.772 2.016 13.31 1.018 10.7 1.018c-5.44 0-9.866 4.372-9.87 9.802 0 1.714.457 3.39 1.32 4.896l-.993 3.629 3.771-.974zm13.153-5.263c-.292-.147-1.73-.849-1.998-.946-.268-.099-.463-.147-.658.147-.195.295-.754.946-.925 1.14-.171.196-.341.22-.633.073-.292-.147-1.233-.45-2.35-1.44-.868-.767-1.455-1.716-1.625-2.012-.172-.293-.018-.452.129-.597.132-.131.293-.341.439-.512.146-.171.195-.293.292-.488.098-.195.049-.366-.025-.513-.073-.146-.658-1.573-.902-2.157-.238-.567-.479-.49-.658-.499-.17-.009-.366-.01-.56-.01-.196 0-.513.073-.78.366-.268.293-1.024 1.001-1.024 2.44 0 1.438 1.048 2.829 1.194 3.023.147.195 2.062 3.123 4.995 4.368.698.296 1.242.474 1.666.607.7.222 1.338.19 1.843.115.562-.083 1.73-.701 1.974-1.378.243-.677.243-1.256.17-1.378-.072-.121-.268-.195-.56-.341z"/></svg>
-                        <span data-translate="headerWhatsapp">WhatsApp</span>
-                    </a>
-                    
-                    <button class="lang-btn" id="langBtn">العربية</button>
-                </div>
+            
             </div>
         </header>
 

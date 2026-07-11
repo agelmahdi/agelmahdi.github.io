@@ -334,19 +334,34 @@ body[dir="rtl"] {
 
 /* AI Twin Chat Panel Layout */
 .chat-wrapper {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 2.8fr 1.2fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+        "messages suggestions"
+        "input suggestions";
+    gap: 16px;
     height: 100%;
     width: 100%;
+    min-height: 0;
+}
+
+body[dir="rtl"] .chat-wrapper {
+    grid-template-columns: 1.2fr 2.8fr;
+    grid-template-areas:
+        "suggestions messages"
+        "suggestions input";
 }
 
 .chat-messages {
+    grid-area: messages;
     flex: 1;
     overflow-y: auto;
     padding: 12px 6px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    min-height: 0;
 }
 
 /* Custom Scrollbar for Chat Messages */
@@ -443,26 +458,44 @@ body[dir="rtl"] {
 
 /* Chat Suggestions Chips */
 .chat-suggestions {
+    grid-area: suggestions;
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 8px 4px;
-    margin-bottom: 12px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    overflow-y: auto;
+    max-height: 100%;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
 .suggestion-chip {
     background: rgba(255, 255, 255, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.8);
     color: var(--text-main);
-    padding: 8px 14px;
-    border-radius: 50px;
+    padding: 10px 14px;
+    border-radius: 12px;
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: start;
+    line-height: 1.3;
+    width: 100%;
+    white-space: normal;
+}
+
+body[dir="rtl"] .suggestion-chip {
+    text-align: right;
+    justify-content: flex-start;
 }
 
 .suggestion-chip:hover {
@@ -474,6 +507,7 @@ body[dir="rtl"] {
 
 /* Chat Input Form styling */
 .chat-input-form {
+    grid-area: input;
     display: flex;
     background: rgba(255, 255, 255, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.7);
@@ -987,6 +1021,55 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
         padding-bottom: 2.5rem;
         scrollbar-width: thin;
     }
+
+    /* Mobile Chat Grid Overrides */
+    .chat-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto auto;
+        grid-template-areas:
+            "messages"
+            "suggestions"
+            "input";
+        gap: 10px;
+    }
+    
+    body[dir="rtl"] .chat-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "messages"
+            "suggestions"
+            "input";
+    }
+    
+    .chat-suggestions {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 6px 0;
+        margin-bottom: 0;
+        gap: 8px;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .chat-suggestions::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .chat-suggestions .suggestion-chip {
+        width: auto;
+        flex-shrink: 0;
+        white-space: nowrap;
+        border-radius: 50px;
+        padding: 6px 12px;
+        font-size: 0.78rem;
+        justify-content: center;
+        text-align: center;
+    }
 }
 
 @media (max-width: 580px) {
@@ -1014,9 +1097,9 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
     .animation-container {
         padding: 0 40px;
     }
-    .suggestion-chip {
+    .chat-suggestions .suggestion-chip {
         padding: 6px 10px;
-        font-size: 0.76rem;
+        font-size: 0.75rem;
     }
     .chat-input {
         padding: 10px 12px;
