@@ -983,10 +983,22 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
     
     .app-header {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         height: auto;
         padding-bottom: 12px;
         align-items: center;
+    }
+    
+    .brand-logo {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+    }
+    
+    .logo-text {
+        align-items: center;
+        text-align: center;
     }
 
     .animation-container {

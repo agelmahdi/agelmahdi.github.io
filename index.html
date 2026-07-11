@@ -120,12 +120,13 @@
         <!-- App Header with Tab Switcher -->
         <header class="app-header">
             <div class="brand-logo">
-               <div class="header-actions-row">
-                    <button class="mode-btn" id="modeBtn" data-mode="standard">
-                        <span class="mode-icon">⚙️</span>
-                        <span id="modeText" data-translate="modeStandard">Standard</span>
-                    </button
-                </div>
+                <span class="logo-icon-container">
+                    <svg class="logo-icon" viewBox="0 0 100 100" fill="none">
+                        <path class="layer-orange" d="M50 20 L20 40 L50 60 L80 40 Z" stroke="var(--orange)" stroke-width="7.5" stroke-linejoin="round"/>
+                        <path class="layer-gold" d="M20 60 L50 75 L80 60" stroke="var(--gold)" stroke-width="7.5" stroke-linecap="round"/>
+                        <path class="layer-orange" d="M20 75 L50 90 L80 75" stroke="var(--orange)" stroke-width="7.5" stroke-linecap="round"/>
+                    </svg>
+                </span>
                 <span class="logo-text">
                     <span class="logo-name-row">
                         <span class="logo-name">Ahmed El-Mahdi</span>
@@ -147,7 +148,12 @@
                     </button>
                 </nav>
                 
-            
+                <div class="header-actions-row">
+                    <button class="mode-btn" id="modeBtn" data-mode="standard">
+                        <span class="mode-icon">⚙️</span>
+                        <span id="modeText" data-translate="modeStandard">Standard</span>
+                    </button>
+                </div>
             </div>
         </header>
 
