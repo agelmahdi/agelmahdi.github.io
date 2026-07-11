@@ -1161,6 +1161,13 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
     align-items: center;
     gap: 4px;
     transition: all 0.2s ease;
+    margin-left: 6px;
+    flex-shrink: 0;
+}
+
+body[dir="rtl"] .mode-btn {
+    margin-left: 0;
+    margin-right: 6px;
 }
 
 .mode-tooltip {

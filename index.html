@@ -101,7 +101,7 @@
     
 
     <link rel="icon" type="image/jpg" href="profile.jpg">
-    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="style.css?v=1.2">
 </head>
 <body>
     <!-- Background Noise & Ambient Orbs -->
@@ -145,15 +145,7 @@
                     <button class="nav-tab" id="tabPortfolio" data-tab="portfolio" data-translate="tabPortfolio">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                         Credentials Board
-                    </button>
                 </nav>
-                
-                <div class="header-actions-row">
-                    <button class="mode-btn" id="modeBtn" data-mode="standard">
-                        <span class="mode-icon">⚙️</span>
-                        <span id="modeText" data-translate="modeStandard">Standard</span>
-                    </button>
-                </div>
             </div>
         </header>
 
@@ -184,6 +176,11 @@
 
                 <!-- Chat Input Form -->
                 <form class="chat-input-form" id="chatForm">
+                    <button type="button" class="mode-btn" id="modeBtn" data-mode="standard">
+                        <span class="mode-icon">⚙️</span>
+                        <span id="modeText" data-translate="modeStandard">Standard</span>
+                        <span class="mode-tooltip" data-translate="modeTooltip">For advanced content, please leave a message via WhatsApp; we will contact you as soon as possible.</span>
+                    </button>
                     <input type="text" id="chatInput" class="chat-input" placeholder="Ask about AI architecture, costs, pipelines..." data-translate="chatPlaceholder" autocomplete="off">
                     <button type="submit" class="chat-submit-btn" aria-label="Send Message">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
