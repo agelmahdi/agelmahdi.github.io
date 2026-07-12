@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Ahmed is a distributed systems expert and AI architect with over 10 years of experience. He specializes in building scalable, secure, and governed AI applications.
         <br><br>
         You can explore his career metrics, technical skills, and verified certifications under the <strong>Credentials Board</strong> tab, or connect with him directly via LinkedIn, Email, or WhatsApp (+201558333533) using the contact buttons at the end of the board!`,
-        fallback: `That is an excellent AI engineering question! I would love to analyze your specific system constraints. Feel free to connect with Ahmed via <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">Linkedin</a> or drop a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a> to discuss this architecture further!`,
+        fallback: `I would love to analyze your specific system constraints. Feel free to connect with Ahmed via <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">Linkedin</a> or drop a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a> to discuss this architecture further!`,
         
         // AI Engineering Pillars Tailored Responses (English)
         phase_a: `<strong>AI Pillar A: Architecture Vision & AI Alignment:</strong><br>
