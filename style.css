@@ -1260,6 +1260,46 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
         padding: 10px 14px;
         font-size: 0.88rem;
     }
+
+    /* Responsive grid formatting for chat input form and mode switcher */
+    .chat-input-form {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        grid-template-rows: auto auto !important;
+        gap: 8px !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+    
+    .mode-btn {
+        grid-column: 1 / span 2 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        align-self: start !important;
+        justify-content: center !important;
+        padding: 8px 12px !important;
+        border-radius: 12px !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        border: 1px solid rgba(15, 23, 42, 0.12) !important;
+    }
+    
+    .chat-input {
+        grid-column: 1 !important;
+        background: rgba(255, 255, 255, 0.4) !important;
+        border: 1px solid rgba(255, 255, 255, 0.7) !important;
+        border-radius: 16px !important;
+        padding: 12px 14px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02) !important;
+    }
+    
+    .chat-submit-btn {
+        grid-column: 2 !important;
+        width: 46px !important;
+        height: 46px !important;
+        border-radius: 16px !important;
+    }
 }
 
 /* Mode Button Switcher Styles */

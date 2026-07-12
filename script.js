@@ -203,12 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Ahmed is a distributed systems expert and AI architect with over 10 years of experience. He specializes in building scalable, secure, and governed AI applications.
         <br><br>
         You can explore his career metrics, technical skills, and verified certifications under the <strong>Credentials Board</strong> tab, or connect with him directly via LinkedIn, Email, or WhatsApp (+201558333533) using the contact buttons at the end of the board!`,
-        fallback: `That is an excellent AI engineering question! Optimizing this scenario requires decoupling your workflows:
-        <ul>
-            <li>Using an asynchronous API queue for long-running processes to prevent timeout bottlenecks.</li>
-            <li>Setting up evaluation benchmarks (e.g. using Ragas or promptflow) to monitor latency and response quality.</li>
-        </ul>
-        I would love to analyze your specific system constraints. Feel free to connect with Ahmed via LinkedIn or drop a message to discuss this architecture further!`,
+        fallback: `That is an excellent AI engineering question! I would love to analyze your specific system constraints. Feel free to connect with Ahmed via <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">Linkedin</a> or drop a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a> to discuss this architecture further!`,
         
         // AI Engineering Pillars Tailored Responses (English)
         phase_a: `<strong>AI Pillar A: Architecture Vision & AI Alignment:</strong><br>
@@ -262,6 +257,115 @@ document.addEventListener('DOMContentLoaded', () => {
         </ul>`
     };
 
+    // Predefined structured responses matching Ahmed's expertise (Arabic)
+    const botResponsesAR = {
+        rag: `<strong>دقة البيانات وRAG بدون تهييس:</strong><br>
+        عشان نبني أنظمة استرجاع (RAG) دقيقة وموثوقة، بنعتمد على:
+        <ul>
+            <li><strong>الاسترجاع الهجين (Hybrid Retrieval):</strong> دمج البحث الدلالي (Vector) مع البحث النصي التقليدي (BM25) لضمان أعلى دقة.</li>
+            <li><strong>طبقة إعادة الترتيب (Reranking):</strong> استخدام نماذج مثل Cohere/BGE إعادة ترتيب مستندات البحث وعرض الأنسب فوراً.</li>
+            <li><strong>التحقق الذاتي (Self-Correction Loops):</strong> فحص الإجابات والتحقق من مطابقتها للحقائق المسترجعة قبل ما تظهر للمستخدم لمنع الهلوسة تماماً.</li>
+            <li><strong>حواجز الأمان (Guardrails):</strong> منع هجمات حقن الأوامر (Prompt Injections) وتسريب البيانات الحساسة.</li>
+        </ul>`,
+        agent: `<strong>أنظمة الوكلاء التلقائية (Agentic Workflows):</strong><br>
+        عشان ننفذ المهام المعقدة بشكل ذاتي، بنصمم وبننشر:
+        <ul>
+            <li><strong>بنية المشرف المنسق (Supervisor Topology):</strong> وكيل رئيسي بينظم الشغل ويوزعه على وكلاء فرعيين متخصصين.</li>
+            <li><strong>إدارة الحالة والذاكرة (State Management):</strong> باستخدام LangGraph لضمان استرجاع خطوات العمل والتحكم الكامل في التدفق.</li>
+            <li><strong>موافقة العنصر البشري (Human-in-the-Loop):</strong> وضع نقاط تدقيق وتحقق بشرية للعمليات الحرجة زي تعديل قواعد البيانات.</li>
+            <li><strong>المحاولة التلقائية (Auto-Retry):</strong> معالجة الأخطاء ذاتياً لما تفشل خدمات الـ API الخارجية.</li>
+        </ul>`,
+        cost: `<strong>تقليل تكاليف نماذج اللغة (LLM Cost Optimization):</strong><br>
+        عشان نوفر في استهلاك التوكنز وتكاليف الاستضافة، بنطبق:
+        <ul>
+            <li><strong>الكاش الدلالي (Semantic Caching):</strong> استخدام Redis لحفظ الإجابات السابقة وعرضها مباشرة للأسئلة المتشابهة لتفادي استدعاء النماذج مجدداً.</li>
+            <li><strong>توجيه الأسئلة الذكي (Intelligent Routing):</strong> توجيه المهام البسيطة للنماذج الصغيرة المفتوحة، وتوفير النماذج الكبيرة للمهام المعقدة فقط.</li>
+            <li><strong>الضبط الدقيق (PEFT/LoRA):</strong> تدريب نماذج مفتوحة المصدر لتحقيق أداء ممتاز بتكلفة استضافة بسيطة جداً مقارنة بالنماذج المغلقة.</li>
+            <li><strong>ضغط السياق (Prompt Compaction):</strong> ضغط حجم الأوامر والمدخلات لتوفير استهلاك التوكنز.</li>
+        </ul>`,
+        togaf: `<strong>دورة حياة ركائز هندسة الذكاء الاصطناعي:</strong><br>
+        بنصمم الأنظمة بناءً على الركائز الـ 8 الأساسية لهندسة الذكاء الاصطناعي للمؤسسات:
+        <ul style="margin-top: 6px;">
+            <li><strong>الركيزة A (الرؤية والمواءمة):</strong> صياغة حالات الاستخدام وتحديد مؤشرات الأداء للأعمال.</li>
+            <li><strong>الركيزة B (العنصر البشري):</strong> تصميم مسارات العمل بنقاط موافقة بشرية (HITL).</li>
+            <li><strong>الركيزة C (المعلومات والبيانات):</strong> إعداد قواعد بيانات الفيكتور وطبقات الكاش للـ RAG.</li>
+            <li><strong>الركيزة D (التقنية والبنية التحتية):</strong> إعداد بيئات استضافة الـ GPU وتوسيع السيرفرات تلقائياً على Kubernetes.</li>
+            <li><strong>الركيزة E (الحلول والاستراتيجية):</strong> تقييم استئجار النماذج المغلقة عبر الـ API مقابل استضافتها ذاتياً (vLLM).</li>
+            <li><strong>الركيزة F (التكامل والترحيل):</strong> إعداد خطط النشر وتأمين بدائل للنماذج في حالة انقطاع الخدمة.</li>
+            <li><strong>الركيزة G (الحوكمة والأمان):</strong> تشفير البيانات بالكامل، حجب البيانات الحساسة (PII)، وحماية الأنظمة.</li>
+            <li><strong>الركيزة H (إدارة التغيير والتعلم):</strong> تدريب النماذج بشكل مستمر وتقييم دقتها دورياً لمنع الانحراف الدلالي.</li>
+        </ul>`,
+        reliability: `<strong>اعتمادية وأمان أنظمة الذكاء الاصطناعي للمؤسسات:</strong><br>
+        بناءً على مبادئ هندسة موثوقية الأنظمة (SRE) والذكاء الاصطناعي الموثوق، بتشمل استراتيجياتنا:
+        <ul>
+            <li><strong>AI SRE:</strong> استضافة وتأمين خدمات الذكاء الاصطناعي على Kubernetes مع خاصية الإصلاح الذاتي.</li>
+            <li><strong>أمان الـ Zero-Trust:</strong> حماية قوية للهوية والوصول وتأمين النماذج ضد التهديدات وحقن الأوامر.</li>
+            <li><strong>MLOps و CI/CD:</strong> أتمتة اختبار ونشر خطوط البيانات والنماذج لضمان قابلية التدقيق والمراجعة.</li>
+            <li><strong>التحقق الإحصائي:</strong> مراجعة مخرجات النماذج للتأكد من اتساقها الإحصائي قبل توجيهها للمستخدم النهائي.</li>
+        </ul>`,
+        greeting: `أهلاً بك يا فندم! أنا التوأم الرقمي للبشمهندس أحمد. أقدر أساعدك إزاي النهاردة في استكشاف بنى الذكاء الاصطناعي، الأنظمة الموزعة، أو استراتيجيات تقليل التكاليف؟`,
+        about: `<strong>البشمهندس أحمد المهدي - كبير مهندسي الذكاء الاصطناعي:</strong><br>
+        أحمد هو خبير في الأنظمة الموزعة ومعماري ذكاء اصطناعي بخبرة تزيد عن 10 سنوات، متخصص في بناء وإدارة تطبيقات الذكاء الاصطناعي الآمنة والموفرة للمؤسسات.
+        <br><br>
+        تقدر تشوف أرقام الإنجازات، المهارات التقنية، والشهادات المعتمدة في تبويب <strong>لوحة الاعتمادات والخبرات</strong>، أو تتواصل معاه مباشرة عبر LinkedIn، الإيميل، أو الواتساب (+201558333533) من خلال أزرار الاتصال في آخر اللوحة!`,
+        fallback: `ده سؤال ممتاز جداً في هندسة الذكاء الاصطناعي! عشان نعمل ده بشكل احترافي، بنحتاج نفصل مسارات العمل:
+        <ul>
+            <li>عمل طابور مهام غير متزامن (Asynchronous API Queue) للعمليات الطويلة لتفادي بطء الاستجابة.</li>
+            <li>إعداد بيئة تقييم واختبار (Evaluation Benchmarks) زي Ragas لمراقبة زمن الاستجابة وجودة المخرجات.</li>
+        </ul>
+        يسعدني جداً نناقش تفاصيل حالتك الخاصة. تقدر تتواصل مع البشمهندس أحمد عبر LinkedIn أو تبعتله رسالة مباشرة لمناقشة التفاصيل!`,
+        
+        // AI Engineering Pillars Tailored Responses (Arabic)
+        phase_a: `<strong>الركيزة A: رؤية البنية التحتية ومواءمة الذكاء الاصطناعي:</strong><br>
+        الركيزة A بتحدد خارطة الطريق وأهداف العمل الأساسية. بنطبقها من خلال:
+        <ul>
+            <li><strong>تحديد حالات الاستخدام:</strong> صياغة المشاكل الحقيقية وتوضيح إمكانات الـ LLM المناسبة لحلها.</li>
+            <li><strong>تحديد مؤشرات الأداء (KPIs):</strong> وضع مقاييس جودة المخرجات واحتساب العائد المالي والاستثماري للحل التقني.</li>
+        </ul>`,
+        phase_b: `<strong>الركيزة B: تصميم مسارات العمل وتكامل العنصر البشري (HITL):</strong><br>
+        الركيزة B بتنظم طريقة عمل الموظفين مع الذكاء الاصطناعي:
+        <ul>
+            <li><strong>العنصر البشري في الحلقة (HITL):</strong> تصميم شاشات مراجعة بشرية للقرارات المهمة قبل اعتمادها.</li>
+            <li><strong>مصفوفة المهام:</strong> توزيع المهام والعمليات التلقائية على وكلاء ذكاء اصطناعي متخصصين.</li>
+        </ul>`,
+        phase_c: `<strong>الركيزة C: بنية البيانات ونماذج الـ RAG:</strong><br>
+        الركيزة C هي قلب هندسة الذكاء الاصطناعي للمؤسسات:
+        <ul>
+            <li><strong>بنية البيانات:</strong> تصميم وتدشين خطوط نقل البيانات (ELT)، قواعد بيانات الفيكتور، والكاش الدلالي للـ RAG.</li>
+            <li><strong>إعداد النماذج:</strong> ضبط معايير تشغيل النماذج الكبيرة وتتبع استهلاك التوكنز في كل عملية.</li>
+        </ul>`,
+        phase_d: `<strong>الركيزة D: البنية التحتية والتقنيات السحابية:</strong><br>
+        الركيزة D بتغطي الاستضافة السحابية وموارد الـ GPU:
+        <ul>
+            <li><strong>التوسع التلقائي:</strong> تشغيل النماذج على سيرفرات Kubernetes وتوسيعها ذاتياً حسب كثافة الطلبات.</li>
+            <li><strong>توزيع الأحمال:</strong> تهيئة كلاسترز الـ GPU وتوجيه الطلبات لتقليل زمن الاستجابة (Latency) لأقل حد ممكن.</li>
+        </ul>`,
+        phase_e: `<strong>الركيزة E: دراسة البدائل والحلول المقترحة:</strong><br>
+        الركيزة E بتقيم أفضل مسارات التطوير والاستثمار:
+        <ul>
+            <li><strong>البناء أم الشراء:</strong> المقارنة بين تكلفة الاعتماد على النماذج المغلقة (API) مقابل استضافة النماذج المفتوحة ذاتياً (vLLM).</li>
+            <li><strong>التطوير المرحلي:</strong> بناء نماذج تجريبية سريعة قبل الدخول في استثمار بنى الـ RAG والضبط الدقيق (PEFT).</li>
+        </ul>`,
+        phase_f: `<strong>الركيزة F: خطط الترحيل والنشر للمنتج النهائي:</strong><br>
+        الركيزة F بتنظم جدول النشر والتشغيل الفعلي:
+        <ul>
+            <li><strong>تخفيف المخاطر:</strong> إعداد خطط بديلة وسيرفرات احتياطية في حال تعطل خدمات النماذج الخارجية.</li>
+            <li><strong>ترحيل البيانات:</strong> تحديث وتغذية قواعد بيانات الفيكتور دورياً بدون التسبب في توقف النظام.</li>
+        </ul>`,
+        phase_g: `<strong>الركيزة G: حوكمة الحماية، الأمان والامتثال:</strong><br>
+        الركيزة G بتضمن سلامة وأمن الأنظمة في البيئة الإنتاجية:
+        <ul>
+            <li><strong>التصدي للثغرات:</strong> فحص المدخلات دورياً لمنع محاولات الاختراق وحقن الأوامر.</li>
+            <li><strong>حظر تسريب البيانات (PII):</strong> تشفير وفلترة بيانات العملاء الحساسة تلقائياً قبل إرسالها خارج المؤسسة.</li>
+        </ul>`,
+        phase_h: `<strong>الركيزة H: إدارة التغيير والتعلم المستمر للنظام:</strong><br>
+        الركيزة H بتنظم تحسين وتحديث النظام بعد النشر:
+        <ul>
+            <li><strong>تتبع الانحراف الدلالي (Drift):</strong> مراقبة دقة إجابات النموذج مع الوقت لرصد أي تراجع في الجودة.</li>
+            <li><strong>التدريب التلقائي:</strong> برمجة خطوط تدريب وتحديث النماذج تلقائياً كلما توفرت بيانات صحيحة جديدة.</li>
+        </ul>`
+    };
+
     // Dictionary of translations for all static texts in index.html
     const translations = {
         en: {
@@ -274,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chipRag: '🎯 Hallucination-Free RAG',
             chipAgent: '🤖 Agentic Workflows',
             chipCost: '💰 LLM Cost Reduction',
-            chipTogaf: '🏗️ AI Engineering Pillars',
+            chipTogaf: '🏗️ AI Pillars',
             chipReliability: '🛡️ AI SRE & Zero-Trust',
             chatPlaceholder: 'Ask about AI architecture, costs, pipelines...',
             modeStandard: 'Standard',
@@ -297,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
             arsenalCat1: 'Generative AI & Agentic Systems',
             arsenalCat2: 'Core AI & Data Engineering',
             arsenalCat3: 'Cloud & Architecture',
-            credentialsTitle: 'Enterprise Architecture Framework',
+            credentialsTitle: 'AI Architecture Framework',
             credentialsSubtitle: 'Enterprise AI Engineering Pillars Lifecycle',
             ctaTitle: "Let's Connect & Build",
             headerWhatsapp: 'WhatsApp',
@@ -310,6 +414,52 @@ document.addEventListener('DOMContentLoaded', () => {
             phaseGName: 'G: Security Guardrails',
             phaseHName: 'H: Drift & Feedback'
         },
+        ar: {
+            tabConsultant: 'مستشار الذكاء الاصطناعي',
+            tabPortfolio: 'لوحة الاعتمادات والخبرات',
+            brandBadge: 'كبير مهندسي الذكاء الاصطناعي',
+            greetingTitle: 'مرحباً بك في معمل هندسة الذكاء الاصطناعي',
+            greetingDesc: 'أنا التوأم الرقمي للمهندس أحمد، متخصص في أنظمة الذكاء الاصطناعي الإنتاجية، وبنى الـ RAG، وبيئات الوكلاء الذاتية.',
+            greetingPrompt: 'كيف يمكنني مساعدتك في استراتيجية الذكاء الاصطناعي الخاصة بك اليوم؟',
+            chipRag: '🎯 RAG بدون تهييس',
+            chipAgent: '🤖 مسارات عمل الوكلاء',
+            chipCost: '💰 تقليل تكلفة الـ LLMs',
+            chipTogaf: '🏗️ ركائز الـ AI',
+            chipReliability: '🛡️ أمان واعتمادية الـ AI',
+            chatPlaceholder: 'اسأل عن بنية الذكاء الاصطناعي، التكاليف، خطوط البيانات...',
+            modeStandard: 'عادي',
+            modePremium: 'متقدم',
+            modeTooltip: 'المحتوى المتقدم مخصص للعملاء المميزين. من فضلك اترك رسالة عبر الواتساب وسنتواصل معك.',
+            titleBadge: 'كبير مهندسي الذكاء الاصطناعي',
+            manifestoQuote: '"بناء أنظمة ذكاء اصطناعي قابلة للتوسع، آمنة، خاضعة للحوكمة وذاتية العمل تفتح آفاقاً حقيقية للأعمال."',
+            manifestoTitle: 'بيان المعماري (المانيفستو)',
+            manifestoDesc1: 'أمتلك خبرة تمتد لأكثر من عقد في هندسة البرمجيات، النظم الموزعة، والقيادة التقنية المرنة.',
+            manifestoDesc2: 'أنا لا أكتب الأكواد البرمجية فقط؛ بل أقوم بهندسة حلول ذكية ومتكاملة.',
+            manifestoDesc3: 'أعمل في نقطة التلاقي بين التقنيات العميقة، الأنظمة الموزعة، واستراتيجيات الأعمال لربط قدرات الذكاء الاصطناعي بالعائد الاستثماري الملموس.',
+            metricsTitle: 'المقاييس والأرقام',
+            metricsRagTitle: 'الدقة ومكافحة التهييس',
+            metricsRagDesc: 'هندسة نظم RAG ضخمة قللت بشكل كبير من معدلات الهلوسة في نطاقات الأعمال المتخصصة.',
+            metricsModelTitle: 'تخصيص النماذج والبيانات',
+            metricsModelDesc: 'ضبط النماذج بدقة (PEFT/LoRA) وبناء خطوط نقل بيانات مؤتمتة لإزالة معوقات تدفق الذكاء الاصطناعي.',
+            metricsCostTitle: 'كفاءة التكلفة والمرونة',
+            metricsCostDesc: 'قيادة استراتيجيات وكلاء الذكاء الاصطناعي والبنية التحتية كأكواد (IaC) لتقليص تكاليف التشغيل وتسريع النشر.',
+            arsenalTitle: 'الترسانة التقنية',
+            arsenalCat1: 'الذكاء الاصطناعي التوليدي وأنظمة الوكلاء',
+            arsenalCat2: 'هندسة البيانات والذكاء الاصطناعي الأساسي',
+            arsenalCat3: 'السحابة والبنية التحتية',
+            credentialsTitle: 'إطار هندسة الذكاء الاصطناعي',
+            credentialsSubtitle: 'دورة حياة ركائز هندسة الذكاء الاصطناعي للمؤسسات',
+            ctaTitle: 'لنبدأ البناء معاً',
+            headerWhatsapp: 'واتساب',
+            phaseAName: 'A: الرؤية والمواءمة',
+            phaseBName: 'B: تصميم الأعمال والعنصر البشري',
+            phaseCName: 'C: البيانات وبنية الـ RAG',
+            phaseDName: 'D: السحابة واستضافة الـ GPU',
+            phaseEName: 'E: استراتيجية البناء أم الشراء',
+            phaseFName: 'F: الترحيل والتكامل والنشر',
+            phaseGName: 'G: حوكمة الحماية والأمان',
+            phaseHName: 'H: إدارة التغيير والتعلم المستمر'
+        }
     };
 
     // Lang toggle event listener
@@ -337,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Show standard/premium alert message to user in chat
                 const welcomeMsg = 
-                   `🛡️ <strong>Enterprise Mode Enabled:</strong> Future responses will feature highly detailed technical architectures. For advanced content, please leave a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #25D366; font-weight: bold; text-decoration: underline;">WhatsApp</a>; we will contact you as soon as possible.`;
+                   `🛡️ <strong>Enterprise Mode Enabled:</strong> Future responses will feature highly detailed technical architectures. For advanced content, please leave a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a>; we will contact you as soon as possible.`;
                 addMessage('bot', welcomeMsg, true);
             } else {
                 modeBtn.classList.remove('premium-active');
@@ -467,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     // Lock premium technical content and show WhatsApp gate message
                     responseText = 
-                        `🔒 <strong>Enterprise Architecture Blueprint Locked:</strong> Advanced production plans, GPU topologies, and custom cost optimizations are reserved for advanced content. Please leave a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #25D366; font-weight: bold; text-decoration: underline;">WhatsApp</a>, and we will contact you as soon as possible to grant access.`;
+                        `🔒 <strong>Enterprise Architecture Blueprint Locked:</strong> Advanced production plans, GPU topologies, and custom cost optimizations are reserved for advanced content. Please leave a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a>, and we will contact you as soon as possible to grant access.`;
                 }
             } else {
                 // Standard mode - show standard concise content
