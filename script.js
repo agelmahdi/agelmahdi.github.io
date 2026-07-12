@@ -29,10 +29,53 @@ document.addEventListener('DOMContentLoaded', () => {
             contentPortfolio.classList.add('active');
             resetAutoPlay(); // Resume autoplay when looking at portfolio
         }
+        updateWhatsAppLinks();
     }
 
     tabConsultant.addEventListener('click', () => switchTab('consultant'));
     tabPortfolio.addEventListener('click', () => switchTab('portfolio'));
+
+    function updateWhatsAppLinks() {
+        let text = '';
+        if (activeTab === 'portfolio') {
+            if (currentIndex === 0) {
+                text = currentLang === 'ar' 
+                    ? 'مرحباً أحمد، قرأت بيان المعماري الخاص بك وأود مناقشة بناء أنظمة ذكاء اصطناعي قابلة للتوسع لشركتي.'
+                    : "Hi Ahmed, I read your Manifesto and I'd like to discuss building scalable AI systems for my business.";
+            } else if (currentIndex === 1) {
+                text = currentLang === 'ar'
+                    ? 'مرحباً أحمد، رأيت مقاييس الدقة الخاص بك وأود مناقشة بناء أنظمة RAG خالية من الهلوسة.'
+                    : 'Hi Ahmed, I saw your Grounding & Accuracy metrics and would like to discuss building hallucination-free RAG systems.';
+            } else if (currentIndex === 2) {
+                text = currentLang === 'ar'
+                    ? 'مرحباً أحمد، رأيت مقاييس تخصيص النماذج وأود مناقشة الضبط الدقيق لـ LLMs وتحسين خطوط البيانات.'
+                    : 'Hi Ahmed, I saw your Model Specialization metrics and want to discuss custom LLM fine-tuning and pipeline optimization.';
+            } else if (currentIndex === 3) {
+                text = currentLang === 'ar'
+                    ? 'مرحباً أحمد، أنا مهتم بإطار ركائز هندسة الذكاء الاصطناعي للمؤسسات وكيفية تطبيقه في منظمتي.'
+                    : 'Hi Ahmed, I am interested in your Enterprise AI Engineering Pillars framework and how to implement it in my organization.';
+            } else if (currentIndex === 4) {
+                text = currentLang === 'ar'
+                    ? 'مرحباً أحمد، رأيت اعتمادات أمان واعتمادية أنظمة الذكاء الاصطناعي وأود مناقشة بنى النشر الآمنة.'
+                    : 'Hi Ahmed, I saw your AI Systems Reliability & Security credentials and want to discuss secure deployment structures.';
+            }
+        } else {
+            if (isPremiumMode) {
+                text = currentLang === 'ar'
+                    ? 'مرحباً أحمد، أود الاستفسار عن تفعيل الوصول إلى خطط إنتاج بنية المؤسسات المميزة.'
+                    : 'Hi Ahmed, I would like to inquire about unlocking the premium Enterprise Architecture Blueprints.';
+            } else {
+                text = currentLang === 'ar'
+                    ? 'مرحباً أحمد، أود مناقشة بعض الأفكار والاستشارات أو فرص الشراكة.'
+                    : 'Hi Ahmed, I would like to discuss some ideas, business or partnership opportunities.';
+            }
+        }
+        
+        const newHref = `https://wa.me/201558333533?text=${encodeURIComponent(text)}`;
+        document.querySelectorAll('a[href*="wa.me/201558333533"]').forEach(el => {
+            el.href = newHref;
+        });
+    }
 
 
     // --- Portfolio Carousel Deck Logic ---
@@ -78,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dot.classList.toggle('active', index === currentIndex);
             });
         }
+        updateWhatsAppLinks();
     }
 
     function goToSlide(index) {
@@ -494,6 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const welcomeMsg = translations[currentLang].msgStandardRestored;
                 addMessage('bot', welcomeMsg, true);
             }
+            updateWhatsAppLinks();
         });
     }
 
@@ -609,7 +654,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     responseText = questionKey ? responses[questionKey] : responses.about;
                 } else {
                     // Lock premium technical content and show WhatsApp gate message
-                    responseText = translations[currentLang].msgBlueprintLocked;
+                    let topicName = '';
+                    if (questionKey) {
+                        if (questionKey.startsWith('phase_')) {
+                            const phaseLetter = questionKey.split('_')[1].toUpperCase();
+                            const keyName = `phase${phaseLetter}Name`;
+                            topicName = translations[currentLang][keyName] || questionKey;
+                        } else {
+                            const chipKey = 'chip' + questionKey.charAt(0).toUpperCase() + questionKey.slice(1);
+                            topicName = translations[currentLang][chipKey] || questionKey;
+                        }
+                    } else {
+                        topicName = currentLang === 'ar' ? 'استشارة مخصصة لهندسة الذكاء الاصطناعي' : 'Custom AI Architecture Query';
+                    }
+
+                    const waText = currentLang === 'ar'
+                        ? `مرحباً أحمد، أود تفعيل الوصول لمخطط بنية المؤسسات الخاص بـ: ${topicName}`
+                        : `Hi Ahmed, I would like to unlock the Enterprise Architecture Blueprint for: ${topicName}`;
+
+                    const waHref = `https://wa.me/201558333533?text=${encodeURIComponent(waText)}`;
+                    
+                    // Replace the wa.me link in the translations message dynamically
+                    let lockedMsg = translations[currentLang].msgBlueprintLocked;
+                    responseText = lockedMsg.replace('https://wa.me/201558333533', waHref);
                 }
             } else {
                 // Standard mode - show standard concise content
