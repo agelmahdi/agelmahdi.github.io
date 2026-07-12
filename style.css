@@ -430,6 +430,21 @@ body[dir="rtl"] .chat-wrapper {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
+.message-content ul, 
+.message-content ol {
+    margin: 6px 0 0 0;
+    padding-inline-start: 16px;
+}
+
+.message-content li {
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+}
+
+.message-content li:last-child {
+    margin-bottom: 0;
+}
+
 .chat-message.user .message-content {
     background: rgba(180, 83, 9, 0.08); /* Transparent gold tint */
     border-color: rgba(180, 83, 9, 0.2);
@@ -445,17 +460,7 @@ body[dir="rtl"] .chat-wrapper {
     margin-bottom: 6px;
 }
 
-.chat-message ul {
-    margin-left: 20px;
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
 
-.chat-message li {
-    font-size: 0.9rem;
-}
 
 /* Chat Suggestions Chips */
 .chat-suggestions {
