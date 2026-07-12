@@ -7,6 +7,96 @@ document.addEventListener('DOMContentLoaded', () => {
     // Apply document direction
     document.body.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
 
+    // --- User Profile & Interaction Tracking ---
+    let userProfile = {
+        userId: '',
+        firstVisit: '',
+        lastVisit: '',
+        language: currentLang,
+        mode: 'standard',
+        interactions: []
+    };
+
+    function initUserProfile() {
+        const cached = localStorage.getItem('ahmed_twin_profile');
+        if (cached) {
+            try {
+                userProfile = JSON.parse(cached);
+                userProfile.lastVisit = new Date().toISOString();
+                userProfile.language = currentLang;
+                userProfile.mode = isPremiumMode ? 'enterprise' : 'standard';
+            } catch (e) {
+                createProfile();
+            }
+        } else {
+            createProfile();
+        }
+        saveProfile();
+        
+        // Log initialization
+        console.log(
+            `%c[AI Twin Analytics]%c Profile Initialized. User ID: ${userProfile.userId}`,
+            'color: #b45309; font-weight: bold; background: rgba(180, 83, 9, 0.08); padding: 2px 6px; border-radius: 4px;',
+            'color: inherit;'
+        );
+    }
+
+    function createProfile() {
+        userProfile.userId = 'usr_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        userProfile.firstVisit = new Date().toISOString();
+        userProfile.lastVisit = new Date().toISOString();
+        userProfile.language = currentLang;
+        userProfile.mode = isPremiumMode ? 'enterprise' : 'standard';
+        userProfile.interactions = [];
+    }
+
+    function saveProfile() {
+        // Keep interactions array capped to prevent storage bloat
+        if (userProfile.interactions.length > 100) {
+            userProfile.interactions = userProfile.interactions.slice(-100);
+        }
+        localStorage.setItem('ahmed_twin_profile', JSON.stringify(userProfile));
+    }
+
+    function trackEvent(eventType, metadata = {}) {
+        const event = {
+            timestamp: new Date().toISOString(),
+            type: eventType,
+            ...metadata
+        };
+        userProfile.interactions.push(event);
+        saveProfile();
+
+        console.log(
+            `%c[AI Twin Analytics]%c Event: %c${eventType}%c`,
+            'color: #b45309; font-weight: bold; background: rgba(180, 83, 9, 0.08); padding: 2px 6px; border-radius: 4px;',
+            'color: inherit;',
+            'color: #b45309; font-weight: bold;',
+            'color: inherit;',
+            metadata
+        );
+    }
+
+    // Expose inspect hook globally
+    window.getAhmedTwinAnalytics = () => {
+        return userProfile;
+    };
+
+    initUserProfile();
+
+    // Track WhatsApp Redirect Click Events
+    document.addEventListener('click', (e) => {
+        const anchor = e.target.closest('a[href*="wa.me/201558333533"]');
+        if (anchor) {
+            trackEvent('whatsapp_redirect', { 
+                href: anchor.href,
+                text: anchor.textContent.trim(),
+                currentTab: activeTab,
+                carouselIndex: activeTab === 'portfolio' ? currentIndex : null
+            });
+        }
+    });
+
     // --- Tab Switching Logic ---
     const tabConsultant = document.getElementById('tabConsultant');
     const tabPortfolio = document.getElementById('tabPortfolio');
@@ -15,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function switchTab(targetTab) {
         activeTab = targetTab;
+        trackEvent('tab_switch', { target: targetTab });
 
         if (targetTab === 'consultant') {
             tabConsultant.classList.add('active');
@@ -121,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dot.classList.toggle('active', index === currentIndex);
             });
         }
+        trackEvent('slide_view', { index: currentIndex });
         updateWhatsAppLinks();
     }
 
@@ -516,6 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modeBtn) {
         modeBtn.addEventListener('click', () => {
             isPremiumMode = !isPremiumMode;
+            trackEvent('mode_toggle', { newMode: isPremiumMode ? 'enterprise' : 'standard' });
             if (isPremiumMode) {
                 modeBtn.classList.add('premium-active');
                 modeBtn.setAttribute('data-mode', 'premium');
@@ -733,6 +826,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const queryText = chatInput.value.trim();
         if (!queryText) return;
 
+        trackEvent('custom_query', { query: queryText });
+
         // Add user bubble
         addMessage('user', queryText);
         chatInput.value = '';
@@ -748,6 +843,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const questionKey = chip.getAttribute('data-question');
         const questionText = chip.textContent.trim();
+
+        trackEvent('chip_click', { question: questionKey, text: questionText });
 
         // Add user bubble
         addMessage('user', questionText);
@@ -765,6 +862,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const phaseLetter = node.getAttribute('data-phase');
             const phaseTitle = node.getAttribute('data-title') || `Phase ${phaseLetter}`;
             
+            trackEvent('pillar_click', { phase: phaseLetter, title: phaseTitle });
+
             // Switch to Chat Tab
             switchTab('consultant');
 
@@ -783,6 +882,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const centerTogafNode = document.getElementById('centerTogafNode');
     if (centerTogafNode) {
         centerTogafNode.addEventListener('click', () => {
+            trackEvent('center_node_click', { title: 'AI Pillars Lifecycle Core' });
             switchTab('consultant');
             const queryText = translations[currentLang].queryPillarsOverview;
             addMessage('user', queryText);
