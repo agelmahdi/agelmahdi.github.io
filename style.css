@@ -336,23 +336,18 @@ body[dir="rtl"] {
 /* AI Twin Chat Panel Layout */
 .chat-wrapper {
     display: grid;
-    grid-template-columns: 2.8fr 1.2fr;
+    grid-template-columns: 1.2fr 2.8fr;
     grid-template-rows: 1fr auto;
     grid-template-areas:
-        "messages suggestions"
-        "input suggestions";
+        "suggestions messages"
+        "suggestions input";
     gap: 16px;
     height: 100%;
     width: 100%;
     min-height: 0;
 }
 
-body[dir="rtl"] .chat-wrapper {
-    grid-template-columns: 1.2fr 2.8fr;
-    grid-template-areas:
-        "suggestions messages"
-        "suggestions input";
-}
+
 
 .chat-messages {
     grid-area: messages;
