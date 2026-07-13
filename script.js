@@ -177,6 +177,56 @@ document.addEventListener('DOMContentLoaded', () => {
     tabPortfolio.addEventListener('click', () => switchTab('portfolio'));
     if (tabMedia) tabMedia.addEventListener('click', () => switchTab('media'));
 
+    // ── Side Drawer (hamburger menu) ─────────────────────────────────
+    const navHamburger = document.getElementById('navHamburger');
+    const sideDrawer = document.getElementById('sideDrawer');
+    const sideDrawerOverlay = document.getElementById('sideDrawerOverlay');
+    const sideDrawerClose = document.getElementById('sideDrawerClose');
+
+    function openDrawer() {
+        if (!sideDrawer) return;
+        sideDrawer.classList.add('open');
+        sideDrawerOverlay.classList.add('visible');
+        if (navHamburger) navHamburger.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+        if (!sideDrawer) return;
+        sideDrawer.classList.remove('open');
+        sideDrawerOverlay.classList.remove('visible');
+        if (navHamburger) navHamburger.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    if (navHamburger) navHamburger.addEventListener('click', openDrawer);
+    if (sideDrawerClose) sideDrawerClose.addEventListener('click', closeDrawer);
+    if (sideDrawerOverlay) sideDrawerOverlay.addEventListener('click', closeDrawer);
+
+    // Drawer tab buttons trigger switchTab and close drawer
+    document.querySelectorAll('.side-drawer-tab[data-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchTab(btn.dataset.tab);
+            closeDrawer();
+            // Sync active state in drawer
+            document.querySelectorAll('.side-drawer-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+
+    // Keep drawer tab active state in sync with main nav
+    function syncDrawerActive() {
+        document.querySelectorAll('.side-drawer-tab[data-tab]').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.tab === activeTab);
+        });
+    }
+
+    // Close drawer on Escape key
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeDrawer();
+    });
+    // ─────────────────────────────────────────────────────────────────
+
     function updateWhatsAppLinks() {
         let text = '';
         if (activeTab === 'portfolio') {
@@ -741,7 +791,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Auto-scroll chat to the bottom
     function scrollToBottom() {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        chatMessages.scrollTo({
+            top: chatMessages.scrollHeight,
+            behavior: 'smooth'
+        });
     }
 
     // Add a new message in the chat

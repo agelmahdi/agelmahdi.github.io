@@ -135,11 +135,11 @@ body::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
     padding-bottom: 16px;
     margin-bottom: 12px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    height: 50px;
-    max-height: 100px;
+    max-height: 150px;  /* tall enough for stacked logo + nav on mobile */
     opacity: 1;
     transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin 0.4s ease, padding 0.4s ease, opacity 0.4s ease, border-color 0.4s ease;
     overflow: hidden;
@@ -1090,24 +1090,25 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
     }
     
     .app-header {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
         height: auto;
         padding-bottom: 12px;
-        align-items: center;
+        flex-wrap: nowrap;
     }
     
     .brand-logo {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        text-align: center;
         gap: 6px;
+        flex-shrink: 1;
+        min-width: 0;
     }
-    
-    .logo-text {
-        align-items: center;
-        text-align: center;
-    }
+
+    .logo-name { font-size: 0.92rem; }
+    .logo-badge { font-size: 0.65rem; }
 
     #contentPortfolio {
         position: relative;
@@ -1210,17 +1211,268 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
     }
 }
 
-@media (max-width: 580px) {
-    .header-nav-wrapper {
-        flex-direction: column;
+/* ===================================================
+   SIDE DRAWER + HAMBURGER NAV  (Premium Glass Edition)
+   =================================================== */
+
+/* ── Hamburger button ─────────────────────────────── */
+.nav-hamburger {
+    display: none;                   /* shown only on mobile via media query */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.50);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.nav-hamburger span {
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: transform 0.32s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.25s ease,
+                width 0.25s ease;
+}
+
+.nav-hamburger:hover {
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+/* Animated → X when open */
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Overlay backdrop ─────────────────────────────── */
+.side-drawer-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 900;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.side-drawer-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ── Side Drawer panel (Premium Glass) ────────────── */
+.side-drawer {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 260px;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 18px 32px;
+    transition: right 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* ── Matches script-modal style ── */
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    border-radius: 24px 0 0 24px;
+}
+
+.side-drawer.open { right: 0; }
+
+/* RTL — drawer slides from the left */
+body[dir="rtl"] .side-drawer {
+    right: auto;
+    left: -300px;
+    transition: left 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 0 24px 24px 0;
+}
+body[dir="rtl"] .side-drawer.open { left: 0; }
+
+/* ── Drawer header row ────────────────────────────── */
+.side-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+
+.side-drawer-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.85;
+}
+
+/* ── Close button ─────────────────────────────────── */
+.side-drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    flex-shrink: 0;
+}
+.side-drawer-close:hover {
+    background: rgba(180,83,9,0.08);
+    color: var(--gold);
+    transform: rotate(90deg);
+}
+
+/* ── Nav items list ───────────────────────────────── */
+.side-drawer-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.side-drawer-tab {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 13px;
+    border: 1px solid transparent;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+    transition:
+        background  0.2s ease,
+        color       0.2s ease,
+        border-color 0.2s ease,
+        transform   0.18s cubic-bezier(0.34,1.56,0.64,1),
+        box-shadow  0.2s ease;
+}
+body[dir="rtl"] .side-drawer-tab {
+    text-align: right;
+    flex-direction: row-reverse;
+}
+
+.side-drawer-tab svg {
+    flex-shrink: 0;
+    opacity: 0.55;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+.side-drawer-tab:hover {
+    background: rgba(255,255,255,0.65);
+    border-color: rgba(255,255,255,0.8);
+    color: var(--text-main);
+    transform: translateX(3px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.side-drawer-tab:hover svg { opacity: 1; }
+
+body[dir="rtl"] .side-drawer-tab:hover { transform: translateX(-3px); }
+
+.side-drawer-tab.active {
+    background: linear-gradient(135deg, rgba(255,183,0,0.13), rgba(234,88,12,0.07));
+    border-color: rgba(180,83,9,0.18);
+    color: var(--gold);
+    box-shadow: 0 2px 12px rgba(180,83,9,0.08);
+}
+.side-drawer-tab.active svg { opacity: 1; color: var(--gold); }
+
+/* Language link — bottom of drawer */
+.side-drawer-lang {
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+/* =====================
+   RESPONSIVE BREAKPOINTS
+   ===================== */
+
+/* ── ≤768px: stack header vertically ─────────────── */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: flex-start;
         gap: 10px;
+        height: auto;
+        padding-bottom: 12px;
+    }
+    .brand-logo {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
         width: 100%;
     }
-    .app-nav {
+    body[dir="rtl"] .brand-logo { flex-direction: row-reverse; justify-content: center; }
+    .header-nav-wrapper {
         width: 100%;
-        display: flex;
         justify-content: center;
     }
+    .app-nav {
+        justify-content: center;
+    }
+}
+
+/* ── ≤580px: hamburger appears, overflow tabs hide ── */
+@media (max-width: 580px) {
+    /* Overflow tabs → move to drawer */
+    .nav-tab--drawer-hidden { display: none !important; }
+
+    /* Reveal hamburger */
+    .nav-hamburger { display: flex; }
+
+    /* Nav row: center-aligned with hamburger on the right */
+    .header-nav-wrapper {
+        flex-direction: row;
+        gap: 8px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .app-nav {
+        gap: 4px;
+        padding: 3px;
+    }
+    .nav-tab {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        gap: 4px;
+    }
+    .nav-tab svg { width: 14px; height: 14px; }
 }
 
 @media (max-width: 480px) {
@@ -1236,7 +1488,10 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
     }
     .app-header {
         margin-bottom: 8px;
+        padding-bottom: 10px;
     }
+    /* Tighter nav pill on small screens */
+    .nav-tab { padding: 5px 9px; font-size: 0.78rem; }
     .animation-container {
         padding: 0 12px;
     }
@@ -1274,45 +1529,49 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
         font-size: 0.88rem;
     }
 
-    /* Responsive grid formatting for chat input form and mode switcher */
+    /* Chat input form — keep as flex row, mode-btn stays inline */
     .chat-input-form {
-        display: grid !important;
-        grid-template-columns: 1fr auto !important;
-        grid-template-rows: auto auto !important;
-        gap: 8px !important;
-        background: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-        box-shadow: none !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 0 !important;
+        padding: 3px !important;
     }
-    
+
+    /* Icon-only pill — hide text label, keep emoji */
     .mode-btn {
-        grid-column: 1 / span 2 !important;
-        margin: 0 !important;
-        width: 100% !important;
-        align-self: start !important;
+        flex-shrink: 0 !important;
+        margin: 0 2px !important;
+        padding: 6px 8px !important;
+        font-size: 0.72rem !important;
+        border-radius: 10px !important;
+        min-width: 34px !important;
         justify-content: center !important;
-        padding: 8px 12px !important;
-        border-radius: 12px !important;
-        background: rgba(255, 255, 255, 0.6) !important;
-        border: 1px solid rgba(15, 23, 42, 0.12) !important;
     }
-    
+    /* Hide the text label, show only the icon */
+    .mode-btn .mode-label { display: none !important; }
+    .mode-icon { font-size: 1rem !important; }
+
     .chat-input {
-        grid-column: 1 !important;
-        background: rgba(255, 255, 255, 0.4) !important;
-        border: 1px solid rgba(255, 255, 255, 0.7) !important;
-        border-radius: 16px !important;
-        padding: 12px 14px !important;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02) !important;
+        flex: 1 !important;
+        padding: 10px 8px !important;
+        font-size: 0.85rem !important;
+        min-width: 0 !important;
     }
-    
+
     .chat-submit-btn {
-        grid-column: 2 !important;
-        width: 46px !important;
-        height: 46px !important;
-        border-radius: 16px !important;
+        flex-shrink: 0 !important;
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 11px !important;
     }
+}
+
+/* ── ≤380px: ultra-narrow phones ───────────────────── */
+@media (max-width: 380px) {
+    .logo-name  { font-size: 0.9rem; }
+    .nav-tab    { padding: 5px 7px; font-size: 0.74rem; }
+    .nav-tab svg { display: none; }  /* label only on extreme narrow */
 }
 
 /* Mode Button Switcher Styles */
@@ -1567,6 +1826,8 @@ body[dir="rtl"] .footer-buttons {
 .reels-header {
     text-align: center;
     margin-bottom: 4px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 .reels-header h2 {

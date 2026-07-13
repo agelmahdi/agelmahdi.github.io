@@ -133,7 +133,6 @@
         <!-- App Header with Tab Switcher -->
         <header class="app-header">
             <div class="brand-logo">
-
                 <span class="logo-text">
                     <span class="logo-name-row">
                         <span class="logo-name">أحمد المهدي</span>
@@ -145,6 +144,7 @@
             
             <div class="header-nav-wrapper">
                 <nav class="app-nav">
+                    <!-- Always visible tabs -->
                     <button class="nav-tab active" id="tabConsultant" data-tab="consultant" data-translate="tabConsultant">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                    محادثة
@@ -153,14 +153,36 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                      الاعتمادات
                     </button>
+                    <!-- Hidden on mobile (moved to drawer) -->
                     <button class="nav-tab" id="tabMedia" data-tab="media" data-translate="tabMedia">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
                         الوسائط
                     </button>
-                    <a class="nav-tab lang-btn" id="langBtn" href="index.html">EN</a>
+                    <a class="nav-tab lang-btn nav-tab--drawer-hidden" id="langBtn" href="index.html">EN</a>
+                    <!-- Hamburger button (mobile only) -->
+                    <button class="nav-hamburger" id="navHamburger" aria-label="المزيد من الخيارات">
+                        <span></span><span></span><span></span>
+                    </button>
                 </nav>
             </div>
         </header>
+
+        <!-- Side Drawer (mobile overflow nav) -->
+        <div class="side-drawer-overlay" id="sideDrawerOverlay"></div>
+        <nav class="side-drawer" id="sideDrawer" aria-label="المزيد من التنقل">
+            <div class="side-drawer-header">
+                <span class="side-drawer-title">المزيد</span>
+                <button class="side-drawer-close" id="sideDrawerClose" aria-label="إغلاق القائمة">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="side-drawer-items">
+                <a class="side-drawer-tab side-drawer-lang" href="index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    English
+                </a>
+            </div>
+        </nav>
 
         <!-- Tab Content 1: AI Twin Consultant Chat -->
         <div class="tab-content active" id="contentConsultant">
@@ -191,7 +213,7 @@
                 <form class="chat-input-form" id="chatForm">
                     <button type="button" class="mode-btn" id="modeBtn" data-mode="standard">
                         <span class="mode-icon">⚙️</span>
-                        <span id="modeText" data-translate="modeStandard">عادي</span>
+                        <span class="mode-label" id="modeText" data-translate="modeStandard">عادي</span>
                     </button>
                     <input type="text" id="chatInput" class="chat-input" placeholder="اسأل عن بنية الذكاء الاصطناعي، التكاليف، خطوط البيانات..." data-translate="chatPlaceholder" autocomplete="off">
                     <button type="submit" class="chat-submit-btn" id="chatSubmitBtn" aria-label="إرسال الرسالة">
