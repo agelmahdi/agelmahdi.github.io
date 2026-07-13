@@ -1,4 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const reelsData = [
+        {
+            id: "reel_1",
+            iframeSrc: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1043026118474268%2F&show_text=false&width=267&t=0",
+            script: {
+                en: {
+                    title: 'What is a Data Pipeline?',
+                    content: `
+                        <p style="margin-bottom: 12px; line-height: 1.6;">A Data Pipeline is the engineered infrastructure that transforms chaotic, raw data into a reliable and actionable digital asset. Think of it as the "nervous system" of any enterprise AI architecture. It automates the process of extracting data from disparate sources, transforming and cleaning it, and securely delivering it to storage systems or AI models for consumption.</p>
+                        <p style="margin-bottom: 12px; line-height: 1.6; font-weight: 600;">From a business perspective, the robustness of a Data Pipeline is the deciding factor in the success of any AI initiative. It guarantees three core operational pillars:</p>
+                        <ul style="margin-top: 10px; padding-left: 20px; list-style-type: disc; display: flex; flex-direction: column; gap: 8px;">
+                            <li style="line-height: 1.5;"><strong>Reliability:</strong> Ensuring a continuous, fault-tolerant flow of high-quality data.</li>
+                            <li style="line-height: 1.5;"><strong>Security & Integrity:</strong> Filtering and safeguarding data against corruption or poisoning before it reaches the production model.</li>
+                            <li style="line-height: 1.5;"><strong>Scalability:</strong> The architectural flexibility to process massive data volumes as the business grows, maintaining an optimized ROI.</li>
+                        </ul>
+                    `
+                },
+                ar: {
+                    title: 'ما هو مسار تدفق البيانات؟',
+                    content: `
+                        <p style="margin-bottom: 12px; line-height: 1.6;">الـ Data Pipeline هو البنية التحتية الهندسية التي تحول البيانات الخام والعشوائية إلى أصل رقمي منظّم ذي قيمة. يمكنك اعتباره "الجهاز العصبي" لأي نظام ذكاء اصطناعي مؤسسي، حيث يقوم آلياً باستخراج البيانات من مصادر متعددة، تنظيفها ومعالجتها، ثم توجيهها بشكل آمن لتغذية نماذج الـ AI أو أنظمة اتخاذ القرار.</p>
+                        <p style="margin-bottom: 12px; line-height: 1.6; font-weight: 600;">في عالم الأعمال، قوة الـ Data Pipeline هي ما تحدد نجاح أو فشل مشاريع الذكاء الاصطناعي، لأنه يضمن ثلاثة عناصر أساسية:</p>
+                        <ul style="margin-top: 10px; padding-right: 20px; list-style-type: disc; display: flex; flex-direction: column; gap: 8px;">
+                            <li style="line-height: 1.5;"><strong>الموثوقية (Reliability):</strong> تدفق مستمر للبيانات بدون انقطاع أو أخطاء.</li>
+                            <li style="line-height: 1.5;"><strong>الأمان (Security & Integrity):</strong> فلترة البيانات وحمايتها من التلوث (Data Poisoning) قبل وصولها للموديل.</li>
+                            <li style="line-height: 1.5;"><strong>قابلية التوسع (Scalability):</strong> القدرة على استيعاب ومعالجة أحجام ضخمة من البيانات مع نمو حجم البيزنس بتكلفة تشغيلية محسوبة.</li>
+                        </ul>
+                    `
+                }
+            }
+        },
+        {
+            id: "reel_2",
+            iframeSrc: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1011685518110353%2F&show_text=false&width=267&t=0",
+            script: {
+                en: {
+                    title: 'Techno-Business Integration: The Fusion of AI and Strategy',
+                    content: `
+                        <p style="margin-bottom: 12px; line-height: 1.6;">"Techno-Business Integration" is the architectural philosophy that bridges the gap between deep-tech engineering and executive business objectives. It represents the crucial shift of Artificial Intelligence from an operational cost center (a mere IT tool) to a core strategic driver that maximizes ROI and builds sustainable competitive advantage.</p>
+                        <p style="margin-bottom: 12px; line-height: 1.6; font-weight: 600;">This fusion doesn't happen organically; it is engineered through three foundational pillars:</p>
+                        <ul style="margin-top: 10px; padding-left: 20px; list-style-type: disc; display: flex; flex-direction: column; gap: 8px;">
+                            <li style="line-height: 1.5;"><strong>Strategic Alignment:</strong> Every technical and architectural decision must be inherently tied to a business outcome. We do not build AI models to chase technological hype; we design architectures to solve specific market pain points, optimize operational costs, or unlock new revenue streams.</li>
+                            <li style="line-height: 1.5;"><strong>Asset Generation (The Competitive Edge):</strong> Moving beyond the "Business Tech Paradox" of relying solely on rented intelligence (off-the-shelf AI). This integration focuses on designing Custom AI Architectures and robust Data Pipelines that transform proprietary enterprise data into a heavily guarded digital asset, significantly increasing corporate valuation.</li>
+                            <li style="line-height: 1.5;"><strong>Engineered Execution:</strong> A business strategy without solid infrastructure is just a concept. True fusion is realized by deploying MLOps and scalable, secure, and highly reliable AI systems that can handle enterprise-level demands without compromising data integrity.</li>
+                        </ul>
+                    `
+                },
+                ar: {
+                    title: 'التكامل التقني-التجاري: دمج الذكاء الاصطناعي والاستراتيجية',
+                    content: `
+                        <p style="margin-bottom: 12px; line-height: 1.6;">مفهوم "التكامل التقني-التجاري" (Techno-Business Integration) هو الفلسفة التي تسد الفجوة بين "هندسة التكنولوجيا العميقة" وبين "أهداف البيزنس الاستراتيجية". باختصار، هو الانتقال بالذكاء الاصطناعي من كونه مجرد "أداة تقنية" (IT Tool) تستهلك الميزانية، إلى "محرك استراتيجي" (Strategic Driver) يضاعف العائد على الاستثمار (ROI) ويخلق ميزة تنافسية مستدامة.</p>
+                        <p style="margin-bottom: 12px; line-height: 1.6; font-weight: 600;">هذا الدمج لا يحدث بالصدفة، بل يعتمد على ثلاثة أعمدة رئيسية:</p>
+                        <ul style="margin-top: 10px; padding-right: 20px; list-style-type: disc; display: flex; flex-direction: column; gap: 8px;">
+                            <li style="line-height: 1.5;"><strong>التوافق الاستراتيجي (Strategic Alignment):</strong> كل قرار هندسي في بناء الـ AI يجب أن يحل مشكلة تجارية حقيقية. نحن لا نبني نماذج ذكاء اصطناعي لمجرد مواكبة الـ Trend، بل نبني أنظمة تزيد المبيعات، تقلل تكلفة التشغيل، أو تفتح أسواقاً جديدة.</li>
+                            <li style="line-height: 1.5;"><strong>بناء الأصول (Asset Generation):</strong> بدلاً من الاعتماد على "الذكاء المستأجر" (النماذج الجاهزة للمهام اليومية)، يركز هذا التكامل على بناء Custom AI Architecture و Data Pipelines تحول بيانات الشركة إلى أصل رقمي حصري (Digital Asset) يرفع من التقييم المالي للشركة.</li>
+                            <li style="line-height: 1.5;"><strong>التنفيذ الهندسي (Engineered Execution):</strong> الاستراتيجية بدون بنية تحتية هي مجرد فكرة. الدمج الحقيقي يظهر في بناء أنظمة قابلة للتوسع (Scalable)، آمنة (Secure)، وموثوقة (Reliable) لضمان استمرارية البيزنس تحت أي ضغط.</li>
+                        </ul>
+                        <p style="margin-top: 12px; line-height: 1.6; font-weight: 600;">الخلاصة: الـ Techno-Business Integration هو فن تحويل "الكود والبيانات" إلى "قرارات وأرباح".</p>
+                    `
+                }
+            }
+        }
+    ];
+
+
+
     // Current active tab state
     let activeTab = 'consultant'; // 'consultant' or 'portfolio'
     let isInitializing = true;
@@ -457,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tabMedia: 'Reels',
             reelsTitle: 'AI Architecture Reels',
             reelsDesc: 'Short-form insights, storyboards, and strategic execution walkthroughs.',
-            viewScriptBtn: 'View Script',
+            viewScriptBtn: 'Show Content',
             shareWhatsAppBtn: 'Discuss on WhatsApp',
             reel1Title: 'What is a Data Pipeline?',
             reel1Desc: 'A Data Pipeline is the engineered infrastructure that transforms chaotic, raw data into a reliable and actionable digital asset. Think of it as the "nervous system" of any enterprise AI architecture. It automates the process of extracting data from disparate sources, transforming and cleaning it, and securely delivering it to storage systems or AI models for consumption.',
@@ -1020,36 +1086,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Media Reels Hub Subsystem & Interactive Controls ---
-    const reelScripts = {
-        en: {
-            data_pipeline: {
-                title: 'What is a Data Pipeline?',
-                content: `
-                    <p style="margin-bottom: 12px; line-height: 1.6;">A Data Pipeline is the engineered infrastructure that transforms chaotic, raw data into a reliable and actionable digital asset. Think of it as the "nervous system" of any enterprise AI architecture. It automates the process of extracting data from disparate sources, transforming and cleaning it, and securely delivering it to storage systems or AI models for consumption.</p>
-                    <p style="margin-bottom: 12px; line-height: 1.6; font-weight: 600;">From a business perspective, the robustness of a Data Pipeline is the deciding factor in the success of any AI initiative. It guarantees three core operational pillars:</p>
-                    <ul style="margin-top: 10px; padding-left: 20px; list-style-type: disc; display: flex; flex-direction: column; gap: 8px;">
-                        <li style="line-height: 1.5;"><strong>Reliability:</strong> Ensuring a continuous, fault-tolerant flow of high-quality data.</li>
-                        <li style="line-height: 1.5;"><strong>Security & Integrity:</strong> Filtering and safeguarding data against corruption or poisoning before it reaches the production model.</li>
-                        <li style="line-height: 1.5;"><strong>Scalability:</strong> The architectural flexibility to process massive data volumes as the business grows, maintaining an optimized ROI.</li>
-                    </ul>
-                `
-            }
-        },
-        ar: {
-            data_pipeline: {
-                title: 'ما هو الـ Data Pipeline (مسار تدفق البيانات)؟',
-                content: `
-                    <p style="margin-bottom: 12px; line-height: 1.6;">الـ Data Pipeline هو البنية التحتية الهندسية التي تحول البيانات الخام والعشوائية إلى أصل رقمي منظّم ذي قيمة. يمكنك اعتباره "الجهاز العصبي" لأي نظام ذكاء اصطناعي مؤسسي، حيث يقوم آلياً باستخراج البيانات من مصادر متعددة، تنظيفها ومعالجتها، ثم توجيهها بشكل آمن لتغذية نماذج الـ AI أو أنظمة اتخاذ القرار.</p>
-                    <p style="margin-bottom: 12px; line-height: 1.6; font-weight: 600;">في عالم الأعمال، قوة الـ Data Pipeline هي ما تحدد نجاح أو فشل مشاريع الذكاء الاصطناعي، لأنه يضمن ثلاثة عناصر أساسية:</p>
-                    <ul style="margin-top: 10px; padding-right: 20px; list-style-type: disc; display: flex; flex-direction: column; gap: 8px;">
-                        <li style="line-height: 1.5;"><strong>الموثوقية (Reliability):</strong> تدفق مستمر للبيانات بدون انقطاع أو أخطاء.</li>
-                        <li style="line-height: 1.5;"><strong>الأمان (Security & Integrity):</strong> فلترة البيانات وحمايتها من التلوث (Data Poisoning) قبل وصولها للموديل.</li>
-                        <li style="line-height: 1.5;"><strong>قابلية التوسع (Scalability):</strong> القدرة على استيعاب ومعالجة أحجام ضخمة من البيانات مع نمو حجم البيزنس بتكلفة تشغيلية محسوبة.</li>
-                    </ul>
-                `
-            }
-        }
-    };
+    function renderReels() {
+        const reelsGrid = document.getElementById('reelsGrid');
+        if (!reelsGrid) return;
+        
+        reelsGrid.innerHTML = '';
+        
+        reelsData.forEach(reel => {
+            const btnText = translations[currentLang]?.viewScriptBtn || 'View Content';
+            const reelHTML = `
+                <div class="reel-card-wrapper">
+                    <div class="reel-outside-actions">
+                         <button class="reel-btn view-script-btn" data-reel-id="${reel.id}">
+                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                             <span data-translate="viewScriptBtn">${btnText}</span>
+                         </button>
+                     </div>
+                     <div class="reel-card has-iframe" data-reel-id="${reel.id}">
+                        <div class="reel-video-wrapper">
+                            <iframe src="${reel.iframeSrc}" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+                        </div>
+                     </div>  
+                </div>
+            `;
+            reelsGrid.insertAdjacentHTML('beforeend', reelHTML);
+        });
+    }
+
+    renderReels();
 
     // Wire custom card clicks for Play/Pause and progress logs
     document.querySelectorAll('.reel-card').forEach(card => {
@@ -1141,7 +1205,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const reelId = btn.getAttribute('data-reel-id') || (btn.closest('.reel-card') && btn.closest('.reel-card').getAttribute('data-reel-id'));
                 if (!reelId) return;
 
-                const scriptData = reelScripts[currentLang][reelId];
+                const reelDef = reelsData.find(r => r.id === reelId);
+                const scriptData = reelDef ? reelDef.script[currentLang] : null;
                 if (!scriptData) return;
 
                 trackEvent('view_script', { reelId: reelId });
