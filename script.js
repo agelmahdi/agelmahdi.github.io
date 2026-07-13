@@ -1243,83 +1243,80 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Scroll Collapse/Expand Header Logic ---
-    let lastScrollChat = 0;
-    let lastScrollReels = 0;
-    let isScrollTransitioning = false;
-
-    // Chat messages scroll listener
-    if (chatMessages) {
-        chatMessages.addEventListener('scroll', () => {
-            if (isInitializing) return; // Block scroll handling during page initialization
-            if (isScrollTransitioning) {
-                lastScrollChat = chatMessages.scrollTop;
-                return;
-            }
-            const scrollTop = chatMessages.scrollTop;
-            let stateChanged = false;
-
-            if (scrollTop > lastScrollChat && scrollTop > 30) {
-                if (appHeader && !appHeader.classList.contains('collapsed')) {
-                    appHeader.classList.add('collapsed');
-                    if (appFooter) appFooter.classList.add('collapsed');
-                    stateChanged = true;
-                }
-            } else if (scrollTop < lastScrollChat || scrollTop <= 5) {
-                if (appHeader && appHeader.classList.contains('collapsed')) {
-                    appHeader.classList.remove('collapsed');
-                    if (appFooter) appFooter.classList.remove('collapsed');
-                    stateChanged = true;
-                }
-            }
-            lastScrollChat = scrollTop;
-
-            if (stateChanged) {
-                isScrollTransitioning = true;
-                setTimeout(() => {
-                    isScrollTransitioning = false;
-                    lastScrollChat = chatMessages.scrollTop;
-                }, 450);
-            }
-        });
+    // --- Robust Scroll Collapse/Expand Header Logic ---
+    // Uses touch/wheel events instead of 'scroll' to prevent layout-thrashing loops.
+    let touchStartY = 0;
+    
+    function toggleHeaderFooter(collapse) {
+        if (!appHeader) return;
+        const isCollapsed = appHeader.classList.contains('collapsed');
+        if (collapse && !isCollapsed) {
+            appHeader.classList.add('collapsed');
+            if (appFooter) appFooter.classList.add('collapsed');
+        } else if (!collapse && isCollapsed) {
+            appHeader.classList.remove('collapsed');
+            if (appFooter) appFooter.classList.remove('collapsed');
+        }
     }
 
-    // Reels container scroll listener
+    function handleUserInputScroll(deltaY, currentScrollTop) {
+        if (isInitializing) return;
+        
+        // Always expand if we are at the very top
+        if (currentScrollTop <= 10) {
+            toggleHeaderFooter(false);
+            return;
+        }
+        
+        // deltaY > 0 means scrolling down the content
+        if (deltaY > 15 && currentScrollTop > 50) {
+            toggleHeaderFooter(true);
+        } else if (deltaY < -15) {
+            toggleHeaderFooter(false);
+        }
+    }
+
+    // Chat Listeners
+    if (chatMessages) {
+        chatMessages.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        chatMessages.addEventListener('touchmove', (e) => {
+            const touchCurrentY = e.touches[0].clientY;
+            const deltaY = touchStartY - touchCurrentY; 
+            
+            if (Math.abs(deltaY) > 15) {
+                handleUserInputScroll(deltaY, chatMessages.scrollTop);
+                touchStartY = touchCurrentY; // Reset to catch reverse swipes seamlessly
+            }
+        }, { passive: true });
+
+        chatMessages.addEventListener('wheel', (e) => {
+            handleUserInputScroll(e.deltaY, chatMessages.scrollTop);
+        }, { passive: true });
+    }
+
+    // Reels Listeners
     const reelsContainer = document.getElementById('reelsContainer');
     if (reelsContainer) {
-        reelsContainer.addEventListener('scroll', () => {
-            if (isInitializing) return; // Block scroll handling during page initialization
-            if (isScrollTransitioning) {
-                lastScrollReels = reelsContainer.scrollTop;
-                return;
+        reelsContainer.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        reelsContainer.addEventListener('touchmove', (e) => {
+            const touchCurrentY = e.touches[0].clientY;
+            const deltaY = touchStartY - touchCurrentY;
+            
+            if (Math.abs(deltaY) > 15) {
+                handleUserInputScroll(deltaY, reelsContainer.scrollTop);
+                touchStartY = touchCurrentY;
             }
-            const scrollTop = reelsContainer.scrollTop;
-            let stateChanged = false;
+        }, { passive: true });
 
-            // Use threshold of 150px to keep header/footer visible on first reel snap (due to header offset)
-            if (scrollTop > lastScrollReels && scrollTop > 150) {
-                if (appHeader && !appHeader.classList.contains('collapsed')) {
-                    appHeader.classList.add('collapsed');
-                    if (appFooter) appFooter.classList.add('collapsed');
-                    stateChanged = true;
-                }
-            } else if (scrollTop < lastScrollReels || scrollTop <= 150) {
-                if (appHeader && appHeader.classList.contains('collapsed')) {
-                    appHeader.classList.remove('collapsed');
-                    if (appFooter) appFooter.classList.remove('collapsed');
-                    stateChanged = true;
-                }
-            }
-            lastScrollReels = scrollTop;
-
-            if (stateChanged) {
-                isScrollTransitioning = true;
-                setTimeout(() => {
-                    isScrollTransitioning = false;
-                    lastScrollReels = reelsContainer.scrollTop;
-                }, 450);
-            }
-        });
+        reelsContainer.addEventListener('wheel', (e) => {
+            handleUserInputScroll(e.deltaY, reelsContainer.scrollTop);
+        }, { passive: true });
     }
 
     // Bind hashchange listener and execute on initial boot
