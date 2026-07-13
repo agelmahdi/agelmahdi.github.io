@@ -146,11 +146,27 @@ body::before {
 }
 
 .app-header.collapsed {
-    max-height: 0 !important;
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-    opacity: 0 !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 4px !important;
     border-bottom-color: transparent !important;
+}
+
+.app-header .brand-logo,
+.app-header .header-actions {
+    max-height: 100px;
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease, margin 0.4s ease, padding 0.4s ease;
+}
+
+.app-header.collapsed .brand-logo,
+.app-header.collapsed .header-actions {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     pointer-events: none;
 }
 
