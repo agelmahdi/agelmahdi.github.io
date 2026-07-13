@@ -161,13 +161,10 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                         Credentials
                     </button>
-                    <!-- Hidden on mobile (moved to drawer) -->
                     <button class="nav-tab" id="tabMedia" data-tab="media" data-translate="tabMedia">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
                         Reels
                     </button>
-                    <a class="nav-tab lang-btn nav-tab--drawer-hidden" id="langBtn" href="index-ar.html">AR</a>
-                    <!-- Hamburger button (mobile only) -->
                     <button class="nav-hamburger" id="navHamburger" aria-label="More options">
                         <span></span><span></span><span></span>
                     </button>
@@ -185,6 +182,10 @@
                 </button>
             </div>
             <div class="side-drawer-items">
+                <button type="button" class="side-drawer-tab" id="modeBtn" data-mode="standard">
+                    <span class="mode-icon">⚙️</span>
+                    <span class="mode-label" id="modeText" data-translate="modeStandard">Standard</span>
+                </button>
                 <a class="side-drawer-tab side-drawer-lang" href="index-ar.html">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     العربية
@@ -218,10 +219,6 @@
 
                 <!-- Chat Input Form -->
                 <form class="chat-input-form" id="chatForm">
-                    <button type="button" class="mode-btn" id="modeBtn" data-mode="standard">
-                        <span class="mode-icon">⚙️</span>
-                        <span class="mode-label" id="modeText" data-translate="modeStandard">Standard</span>
-                    </button>
                     <input type="text" id="chatInput" class="chat-input" placeholder="Ask about AI architecture, costs, pipelines..." data-translate="chatPlaceholder" autocomplete="off">
                     <button type="submit" class="chat-submit-btn" id="chatSubmitBtn" aria-label="Send Message">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
@@ -346,24 +343,23 @@
         <div class="tab-content" id="contentMedia">
             <div class="reels-container" id="reelsContainer">
                 <div class="reels-header">
-                    <h2 data-translate="reelsTitle">AI Architecture stories</h2>
                     <p data-translate="reelsDesc">Short-form insights, storyboards, and strategic execution walkthroughs.</p>
                 </div>
                 <div class="reels-grid-wrapper">
                     <div class="reels-grid" id="reelsGrid">
                         <!-- Reel Card Wrapper -->
                         <div class="reel-card-wrapper">
-                             <div class="reel-card has-iframe" data-reel-id="data_pipeline">
-                                <div class="reel-video-wrapper">
-                                    <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1043026118474268%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-                                </div>
-                             </div>
-                             <div class="reel-outside-actions">
+                            <div class="reel-outside-actions">
                                  <button class="reel-btn view-script-btn" data-reel-id="data_pipeline" data-translate="viewScriptBtn">
                                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                                      View Script
                                  </button>
                              </div>
+                             <div class="reel-card has-iframe" data-reel-id="data_pipeline">
+                                <div class="reel-video-wrapper">
+                                    <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1043026118474268%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+                                </div>
+                             </div>  
                         </div>
                     </div>
                 </div>
@@ -374,7 +370,6 @@
         <div class="script-modal" id="scriptModal">
             <div class="script-modal-content">
                 <div class="script-modal-header">
-                    <h3 id="modalReelTitle">Reel Script & Storyboard</h3>
                     <button class="script-modal-close" id="modalCloseBtn" aria-label="Close Modal">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>

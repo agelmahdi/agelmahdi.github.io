@@ -576,8 +576,8 @@ document.addEventListener('DOMContentLoaded', () => {
             chipTogaf: '🏗️ ركائز الـ AI',
             chipReliability: '🛡️ أمان واعتمادية الـ AI',
             chatPlaceholder: 'اسأل عن بنية الذكاء الاصطناعي، التكاليف، خطوط البيانات...',
-            modeStandard: 'عادي',
-            modePremium: 'متقدم',
+            modeStandard: 'الوضع القياس',
+            modePremium: 'الوضع المتقدم',
             modeTooltip: 'المحتوى المتقدم مخصص للعملاء المميزين. من فضلك اترك رسالة عبر الواتساب وسنتواصل معك.',
             titleBadge: 'إستشاري ذكاء اصطناعي',
             manifestoQuote: '"بناء أنظمة ذكاء اصطناعي قابلة للتوسع، آمنة، خاضعة للحوكمة وذاتية العمل تفتح آفاقاً حقيقية للأعمال."',
@@ -609,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
             phaseGName: 'G: حوكمة الحماية والأمان',
             phaseHName: 'H: إدارة التغيير والتعلم المستمر',
             msgEnterpriseEnabled: '🛡️ <strong>تم تفعيل الوضع المتقدم:</strong> الإجابات القادمة ستتضمن تفاصيل البنية التحتية الدقيقة. للمحتوى المتقدم، يرجى ترك رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">الواتساب</a> وسنتواصل معك في أقرب وقت.',
-            msgStandardRestored: '💡 <strong>تم استعادة الوضع العادي:</strong> الإجابات القادمة ستكون ملخصات عالية المستوى.',
+            msgStandardRestored: '💡 <strong>تم استعادة الوضع القياسي:</strong> الإجابات القادمة ستكون ملخصات عالية المستوى.',
             msgBlueprintLocked: '🔒 <strong>مخطط البنية المؤسسية مقفل:</strong> خطط الإنتاج المتقدمة، وهيكليات وحدات معالجة الرسومات (GPU)، وتحسينات التكلفة المخصصة محجوزة للمحتوى المتقدم. يرجى ترك رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a>، وسنتواصل معك في أقرب وقت ممكن لمنحك صلاحية الوصول.',
             queryExplainPhase: 'اشرح لي إزاي بتطبق {title} في هندسة الذكاء الاصطناعي؟',
             queryPillarsOverview: 'إزاي منهجية هندسة الذكاء الاصطناعي بتاعتك بتتماشى مع ركائز هندسة الذكاء الاصطناعي للمؤسسات؟',
@@ -755,6 +755,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 addMessage('bot', welcomeMsg, true);
             }
             updateWhatsAppLinks();
+            closeDrawer();
         });
     }
 
@@ -1318,7 +1319,6 @@ document.addEventListener('DOMContentLoaded', () => {
             handleUserInputScroll(e.deltaY, reelsContainer.scrollTop);
         }, { passive: true });
     }
-
     // Bind hashchange listener and execute on initial boot
     window.addEventListener('hashchange', restoreState);
     restoreState();
