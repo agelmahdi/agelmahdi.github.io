@@ -139,6 +139,18 @@ body::before {
     margin-bottom: 12px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     height: 50px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    overflow: hidden;
+}
+
+.app-header.collapsed {
+    height: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    opacity: 0 !important;
+    border-bottom-color: transparent !important;
+    pointer-events: none;
 }
 
 .brand-logo {

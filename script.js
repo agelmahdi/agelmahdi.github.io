@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Tab Switching Logic ---
+    const appHeader = document.querySelector('.app-header');
     const tabConsultant = document.getElementById('tabConsultant');
     const tabPortfolio = document.getElementById('tabPortfolio');
     const tabMedia = document.getElementById('tabMedia');
@@ -130,6 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
         trackEvent('tab_switch', { target: targetTab });
 
         pauseAllVideos();
+
+        // Expand header on tab transition
+        if (appHeader) appHeader.classList.remove('collapsed');
 
         tabConsultant.classList.toggle('active', targetTab === 'consultant');
         tabPortfolio.classList.toggle('active', targetTab === 'portfolio');
@@ -1182,6 +1186,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
+    }
+
+    // --- Scroll Collapse/Expand Header Logic ---
+    let lastScrollChat = 0;
+    let lastScrollReels = 0;
+
+    // Chat messages scroll listener
+    if (chatMessages) {
+        chatMessages.addEventListener('scroll', () => {
+            const scrollTop = chatMessages.scrollTop;
+            if (scrollTop > lastScrollChat && scrollTop > 20) {
+                if (appHeader) appHeader.classList.add('collapsed');
+            } else if (scrollTop < lastScrollChat || scrollTop <= 5) {
+                if (appHeader) appHeader.classList.remove('collapsed');
+            }
+            lastScrollChat = scrollTop;
+        });
+    }
+
+    // Reels container scroll listener
+    const reelsGrid = document.getElementById('reelsGrid');
+    if (reelsGrid) {
+        reelsGrid.addEventListener('scroll', () => {
+            const scrollTop = reelsGrid.scrollTop;
+            if (scrollTop > lastScrollReels && scrollTop > 20) {
+                if (appHeader) appHeader.classList.add('collapsed');
+            } else if (scrollTop < lastScrollReels || scrollTop <= 5) {
+                if (appHeader) appHeader.classList.remove('collapsed');
+            }
+            lastScrollReels = scrollTop;
+        });
     }
 
     // Bind hashchange listener and execute on initial boot
