@@ -1244,7 +1244,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Simplified Scroll Collapse Logic (Show only at top) ---
+    // --- Scroll Collapse Logic ---
+    let lastScrollTopReels = 0;
+    let isTransitioning = false;
+    let transitionTimeout;
+
+    function lockScrollEvents() {
+        isTransitioning = true;
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        transitionTimeout = setTimeout(() => {
+            isTransitioning = false;
+            const rc = document.getElementById('reelsContainer');
+            if (rc) lastScrollTopReels = rc.scrollTop;
+        }, 450);
+    }
+
     function toggleHeaderFooter(collapse) {
         if (!appHeader) return;
         const isCollapsed = appHeader.classList.contains('collapsed');
@@ -1252,26 +1266,52 @@ document.addEventListener('DOMContentLoaded', () => {
         if (collapse && !isCollapsed) {
             appHeader.classList.add('collapsed');
             if (appFooter) appFooter.classList.add('collapsed');
+            lockScrollEvents();
         } else if (!collapse && isCollapsed) {
             appHeader.classList.remove('collapsed');
             if (appFooter) appFooter.classList.remove('collapsed');
+            lockScrollEvents();
         }
     }
     
+    // Simple logic for Chat (only check zero)
     function setupSimpleScrollCollapse(container) {
         if (!container) return;
-        
         container.addEventListener('scroll', () => {
-            if (window.innerWidth > 768) return; // Only apply on mobile screens
+            if (window.innerWidth > 768) return; 
             if (isInitializing) return;
+            
+            if (container.scrollTop <= 2) {
+                toggleHeaderFooter(false);
+            } else {
+                toggleHeaderFooter(true);
+            }
+        }, { passive: true });
+    }
+
+    // Directional logic for Reels
+    function setupDirectionalScrollCollapse(container) {
+        if (!container) return;
+        container.addEventListener('scroll', () => {
+            if (window.innerWidth > 768) return;
+            if (isInitializing || isTransitioning) return;
             
             const currentScrollTop = container.scrollTop;
             
-            // Only show header/footer if scroll is exactly at the top (0 or near 0 for safety)
-            if (currentScrollTop <= 2) {
-                toggleHeaderFooter(false); // Show
-            } else {
-                toggleHeaderFooter(true); // Hide
+            if (currentScrollTop <= 10) {
+                toggleHeaderFooter(false);
+                lastScrollTopReels = currentScrollTop;
+                return;
+            }
+            
+            const deltaY = currentScrollTop - lastScrollTopReels;
+            if (Math.abs(deltaY) > 15) {
+                if (deltaY > 0 && currentScrollTop > 50) {
+                    toggleHeaderFooter(true);
+                } else if (deltaY < 0) {
+                    toggleHeaderFooter(false);
+                }
+                lastScrollTopReels = currentScrollTop;
             }
         }, { passive: true });
     }
@@ -1284,7 +1324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reels Listeners
     const reelsContainer = document.getElementById('reelsContainer');
     if (reelsContainer) {
-        setupSimpleScrollCollapse(reelsContainer);
+        setupDirectionalScrollCollapse(reelsContainer);
     }
     
     // Expand headers on desktop if resized
