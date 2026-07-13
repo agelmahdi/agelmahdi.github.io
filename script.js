@@ -576,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chipTogaf: '🏗️ ركائز الـ AI',
             chipReliability: '🛡️ أمان واعتمادية الـ AI',
             chatPlaceholder: 'اسأل عن بنية الذكاء الاصطناعي، التكاليف، خطوط البيانات...',
-            modeStandard: 'الوضع القياس',
+            modeStandard: 'الوضع القياسي',
             modePremium: 'الوضع المتقدم',
             modeTooltip: 'المحتوى المتقدم مخصص للعملاء المميزين. من فضلك اترك رسالة عبر الواتساب وسنتواصل معك.',
             titleBadge: 'إستشاري ذكاء اصطناعي',
@@ -609,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
             phaseGName: 'G: حوكمة الحماية والأمان',
             phaseHName: 'H: إدارة التغيير والتعلم المستمر',
             msgEnterpriseEnabled: '🛡️ <strong>تم تفعيل الوضع المتقدم:</strong> الإجابات القادمة ستتضمن تفاصيل البنية التحتية الدقيقة. للمحتوى المتقدم، يرجى ترك رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">الواتساب</a> وسنتواصل معك في أقرب وقت.',
-            msgStandardRestored: '💡 <strong>تم استعادة الوضع القياسي:</strong> الإجابات القادمة ستكون ملخصات عالية المستوى.',
+            msgStandardRestored: '💡 <strong>تم استعادة الوضع العادي:</strong> الإجابات القادمة ستكون ملخصات عالية المستوى.',
             msgBlueprintLocked: '🔒 <strong>مخطط البنية المؤسسية مقفل:</strong> خطط الإنتاج المتقدمة، وهيكليات وحدات معالجة الرسومات (GPU)، وتحسينات التكلفة المخصصة محجوزة للمحتوى المتقدم. يرجى ترك رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a>، وسنتواصل معك في أقرب وقت ممكن لمنحك صلاحية الوصول.',
             queryExplainPhase: 'اشرح لي إزاي بتطبق {title} في هندسة الذكاء الاصطناعي؟',
             queryPillarsOverview: 'إزاي منهجية هندسة الذكاء الاصطناعي بتاعتك بتتماشى مع ركائز هندسة الذكاء الاصطناعي للمؤسسات؟',
@@ -1244,81 +1244,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Robust Scroll Collapse/Expand Header Logic ---
-    // Uses touch/wheel events instead of 'scroll' to prevent layout-thrashing loops.
-    let touchStartY = 0;
+    // --- Robust Scroll Collapse/Expand Header Logic (with Transition Lock) ---
+    let lastScrollTopChat = 0;
+    let lastScrollTopReels = 0;
+    let isTransitioning = false;
+    let transitionTimeout;
     
     function toggleHeaderFooter(collapse) {
         if (!appHeader) return;
         const isCollapsed = appHeader.classList.contains('collapsed');
+        
         if (collapse && !isCollapsed) {
             appHeader.classList.add('collapsed');
             if (appFooter) appFooter.classList.add('collapsed');
+            lockScrollEvents();
         } else if (!collapse && isCollapsed) {
             appHeader.classList.remove('collapsed');
             if (appFooter) appFooter.classList.remove('collapsed');
+            lockScrollEvents();
         }
     }
+    
+    function lockScrollEvents() {
+        isTransitioning = true;
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        // Lock for 450ms to outlast the 0.4s CSS transition
+        transitionTimeout = setTimeout(() => {
+            isTransitioning = false;
+            // Sync the last scroll position after the layout has settled to prevent instant snapping back
+            if (chatMessages) lastScrollTopChat = chatMessages.scrollTop;
+            const rc = document.getElementById('reelsContainer');
+            if (rc) lastScrollTopReels = rc.scrollTop;
+        }, 450);
+    }
 
-    function handleUserInputScroll(deltaY, currentScrollTop) {
-        if (isInitializing) return;
+    function setupScrollCollapse(container, getLastScrollTop, setLastScrollTop) {
+        if (!container) return;
         
-        // Always expand if we are at the very top
-        if (currentScrollTop <= 10) {
-            toggleHeaderFooter(false);
-            return;
-        }
-        
-        // deltaY > 0 means scrolling down the content
-        if (deltaY > 15 && currentScrollTop > 50) {
-            toggleHeaderFooter(true);
-        } else if (deltaY < -15) {
-            toggleHeaderFooter(false);
-        }
+        container.addEventListener('scroll', () => {
+            if (window.innerWidth > 768) return; // Only apply on mobile screens
+            if (isInitializing || isTransitioning) return;
+            const currentScrollTop = container.scrollTop;
+            
+            // Always expand at the very top
+            if (currentScrollTop <= 10) {
+                toggleHeaderFooter(false);
+                setLastScrollTop(currentScrollTop);
+                return;
+            }
+            
+            const lastScrollTop = getLastScrollTop();
+            const deltaY = currentScrollTop - lastScrollTop;
+            
+            // Significant scroll distance to change state (prevents jitter)
+            if (Math.abs(deltaY) > 15) {
+                if (deltaY > 0 && currentScrollTop > 50) {
+                    toggleHeaderFooter(true);
+                } else if (deltaY < 0) {
+                    toggleHeaderFooter(false);
+                }
+                setLastScrollTop(currentScrollTop);
+            }
+        }, { passive: true });
     }
 
     // Chat Listeners
     if (chatMessages) {
-        chatMessages.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-        
-        chatMessages.addEventListener('touchmove', (e) => {
-            const touchCurrentY = e.touches[0].clientY;
-            const deltaY = touchStartY - touchCurrentY; 
-            
-            if (Math.abs(deltaY) > 15) {
-                handleUserInputScroll(deltaY, chatMessages.scrollTop);
-                touchStartY = touchCurrentY; // Reset to catch reverse swipes seamlessly
-            }
-        }, { passive: true });
-
-        chatMessages.addEventListener('wheel', (e) => {
-            handleUserInputScroll(e.deltaY, chatMessages.scrollTop);
-        }, { passive: true });
+        setupScrollCollapse(
+            chatMessages,
+            () => lastScrollTopChat,
+            (val) => { lastScrollTopChat = val; }
+        );
     }
 
     // Reels Listeners
     const reelsContainer = document.getElementById('reelsContainer');
     if (reelsContainer) {
-        reelsContainer.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-        
-        reelsContainer.addEventListener('touchmove', (e) => {
-            const touchCurrentY = e.touches[0].clientY;
-            const deltaY = touchStartY - touchCurrentY;
-            
-            if (Math.abs(deltaY) > 15) {
-                handleUserInputScroll(deltaY, reelsContainer.scrollTop);
-                touchStartY = touchCurrentY;
-            }
-        }, { passive: true });
-
-        reelsContainer.addEventListener('wheel', (e) => {
-            handleUserInputScroll(e.deltaY, reelsContainer.scrollTop);
-        }, { passive: true });
+        setupScrollCollapse(
+            reelsContainer,
+            () => lastScrollTopReels,
+            (val) => { lastScrollTopReels = val; }
+        );
     }
+    
+    // Expand headers on desktop if resized
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            toggleHeaderFooter(false);
+        }
+    });
+    
     // Bind hashchange listener and execute on initial boot
     window.addEventListener('hashchange', restoreState);
     restoreState();
