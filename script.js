@@ -1193,19 +1193,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Scroll Collapse/Expand Header Logic ---
     let lastScrollChat = 0;
     let lastScrollReels = 0;
+    let isScrollTransitioning = false;
 
     // Chat messages scroll listener
     if (chatMessages) {
         chatMessages.addEventListener('scroll', () => {
+            if (isInitializing) return; // Block scroll handling during page initialization
+            if (isScrollTransitioning) {
+                lastScrollChat = chatMessages.scrollTop;
+                return;
+            }
             const scrollTop = chatMessages.scrollTop;
-            if (scrollTop > lastScrollChat && scrollTop > 20) {
-                if (appHeader) appHeader.classList.add('collapsed');
-                if (appFooter) appFooter.classList.add('collapsed');
+            let stateChanged = false;
+
+            if (scrollTop > lastScrollChat && scrollTop > 30) {
+                if (appHeader && !appHeader.classList.contains('collapsed')) {
+                    appHeader.classList.add('collapsed');
+                    if (appFooter) appFooter.classList.add('collapsed');
+                    stateChanged = true;
+                }
             } else if (scrollTop < lastScrollChat || scrollTop <= 5) {
-                if (appHeader) appHeader.classList.remove('collapsed');
-                if (appFooter) appFooter.classList.remove('collapsed');
+                if (appHeader && appHeader.classList.contains('collapsed')) {
+                    appHeader.classList.remove('collapsed');
+                    if (appFooter) appFooter.classList.remove('collapsed');
+                    stateChanged = true;
+                }
             }
             lastScrollChat = scrollTop;
+
+            if (stateChanged) {
+                isScrollTransitioning = true;
+                setTimeout(() => {
+                    isScrollTransitioning = false;
+                    lastScrollChat = chatMessages.scrollTop;
+                }, 450);
+            }
         });
     }
 
@@ -1213,15 +1235,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const reelsContainer = document.getElementById('reelsContainer');
     if (reelsContainer) {
         reelsContainer.addEventListener('scroll', () => {
+            if (isInitializing) return; // Block scroll handling during page initialization
+            if (isScrollTransitioning) {
+                lastScrollReels = reelsContainer.scrollTop;
+                return;
+            }
             const scrollTop = reelsContainer.scrollTop;
-            if (scrollTop > lastScrollReels && scrollTop > 20) {
-                if (appHeader) appHeader.classList.add('collapsed');
-                if (appFooter) appFooter.classList.add('collapsed');
-            } else if (scrollTop < lastScrollReels || scrollTop <= 5) {
-                if (appHeader) appHeader.classList.remove('collapsed');
-                if (appFooter) appFooter.classList.remove('collapsed');
+            let stateChanged = false;
+
+            // Use threshold of 150px to keep header/footer visible on first reel snap (due to header offset)
+            if (scrollTop > lastScrollReels && scrollTop > 150) {
+                if (appHeader && !appHeader.classList.contains('collapsed')) {
+                    appHeader.classList.add('collapsed');
+                    if (appFooter) appFooter.classList.add('collapsed');
+                    stateChanged = true;
+                }
+            } else if (scrollTop < lastScrollReels || scrollTop <= 150) {
+                if (appHeader && appHeader.classList.contains('collapsed')) {
+                    appHeader.classList.remove('collapsed');
+                    if (appFooter) appFooter.classList.remove('collapsed');
+                    stateChanged = true;
+                }
             }
             lastScrollReels = scrollTop;
+
+            if (stateChanged) {
+                isScrollTransitioning = true;
+                setTimeout(() => {
+                    isScrollTransitioning = false;
+                    lastScrollReels = reelsContainer.scrollTop;
+                }, 450);
+            }
         });
     }
 
