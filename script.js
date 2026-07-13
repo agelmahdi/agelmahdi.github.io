@@ -1206,10 +1206,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Reels container scroll listener
-    const reelsGrid = document.getElementById('reelsGrid');
-    if (reelsGrid) {
-        reelsGrid.addEventListener('scroll', () => {
-            const scrollTop = reelsGrid.scrollTop;
+    const reelsContainer = document.getElementById('reelsContainer');
+    if (reelsContainer) {
+        reelsContainer.addEventListener('scroll', () => {
+            const scrollTop = reelsContainer.scrollTop;
             if (scrollTop > lastScrollReels && scrollTop > 20) {
                 if (appHeader) appHeader.classList.add('collapsed');
             } else if (scrollTop < lastScrollReels || scrollTop <= 5) {
