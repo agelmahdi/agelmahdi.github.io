@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Tab Switching Logic ---
     const appHeader = document.querySelector('.app-header');
+    const appFooter = document.querySelector('.app-footer');
     const tabConsultant = document.getElementById('tabConsultant');
     const tabPortfolio = document.getElementById('tabPortfolio');
     const tabMedia = document.getElementById('tabMedia');
@@ -132,8 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pauseAllVideos();
 
-        // Expand header on tab transition
+        // Expand header and footer on tab transition
         if (appHeader) appHeader.classList.remove('collapsed');
+        if (appFooter) appFooter.classList.remove('collapsed');
 
         tabConsultant.classList.toggle('active', targetTab === 'consultant');
         tabPortfolio.classList.toggle('active', targetTab === 'portfolio');
@@ -1198,8 +1200,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const scrollTop = chatMessages.scrollTop;
             if (scrollTop > lastScrollChat && scrollTop > 20) {
                 if (appHeader) appHeader.classList.add('collapsed');
+                if (appFooter) appFooter.classList.add('collapsed');
             } else if (scrollTop < lastScrollChat || scrollTop <= 5) {
                 if (appHeader) appHeader.classList.remove('collapsed');
+                if (appFooter) appFooter.classList.remove('collapsed');
             }
             lastScrollChat = scrollTop;
         });
@@ -1212,8 +1216,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const scrollTop = reelsContainer.scrollTop;
             if (scrollTop > lastScrollReels && scrollTop > 20) {
                 if (appHeader) appHeader.classList.add('collapsed');
+                if (appFooter) appFooter.classList.add('collapsed');
             } else if (scrollTop < lastScrollReels || scrollTop <= 5) {
                 if (appHeader) appHeader.classList.remove('collapsed');
+                if (appFooter) appFooter.classList.remove('collapsed');
             }
             lastScrollReels = scrollTop;
         });
