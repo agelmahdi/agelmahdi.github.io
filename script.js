@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Current active tab state
     let activeTab = 'consultant'; // 'consultant' or 'portfolio'
+    let isInitializing = true;
     let currentLang = document.documentElement.lang === 'ar' ? 'ar' : 'en'; // 'en' or 'ar'
     let isPremiumMode = false; // false = Standard, true = Enterprise
 
@@ -100,31 +101,75 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Tab Switching Logic ---
     const tabConsultant = document.getElementById('tabConsultant');
     const tabPortfolio = document.getElementById('tabPortfolio');
+    const tabMedia = document.getElementById('tabMedia');
     const contentConsultant = document.getElementById('contentConsultant');
     const contentPortfolio = document.getElementById('contentPortfolio');
+    const contentMedia = document.getElementById('contentMedia');
+
+    function pauseAllVideos() {
+        document.querySelectorAll('#contentMedia video').forEach(v => {
+            v.pause();
+            const card = v.closest('.reel-card');
+            if (card) {
+                const indicator = card.querySelector('.reel-play-indicator');
+                if (indicator) {
+                    indicator.classList.add('paused');
+                    indicator.style.opacity = '1';
+                }
+            }
+        });
+        document.querySelectorAll('#contentMedia iframe').forEach(f => {
+            const src = f.src;
+            f.src = '';
+            f.src = src;
+        });
+    }
 
     function switchTab(targetTab) {
         activeTab = targetTab;
         trackEvent('tab_switch', { target: targetTab });
 
-        if (targetTab === 'consultant') {
-            tabConsultant.classList.add('active');
-            tabPortfolio.classList.remove('active');
-            contentConsultant.classList.add('active');
-            contentPortfolio.classList.remove('active');
-            stopAutoPlay(); // Pause carousel autoplay to save CPU when chatting
+        pauseAllVideos();
+
+        tabConsultant.classList.toggle('active', targetTab === 'consultant');
+        tabPortfolio.classList.toggle('active', targetTab === 'portfolio');
+        if (tabMedia) tabMedia.classList.toggle('active', targetTab === 'media');
+
+        contentConsultant.classList.toggle('active', targetTab === 'consultant');
+        contentPortfolio.classList.toggle('active', targetTab === 'portfolio');
+        if (contentMedia) contentMedia.classList.toggle('active', targetTab === 'media');
+
+        if (targetTab === 'portfolio') {
+            resetAutoPlay();
         } else {
-            tabConsultant.classList.remove('active');
-            tabPortfolio.classList.add('active');
-            contentConsultant.classList.remove('active');
-            contentPortfolio.classList.add('active');
-            resetAutoPlay(); // Resume autoplay when looking at portfolio
+            stopAutoPlay();
         }
+
         updateWhatsAppLinks();
+        updateUrlHash();
+
+        // Save active tab state to browser storage
+        localStorage.setItem('ahmed_twin_active_tab', targetTab);
+    }
+
+    function updateUrlHash() {
+        if (isInitializing) return;
+        let hash = '';
+        if (activeTab === 'consultant') {
+            hash = '#chat';
+        } else if (activeTab === 'media') {
+            hash = '#media';
+        } else if (activeTab === 'portfolio') {
+            hash = `#portfolio-${currentIndex + 1}`;
+        }
+        if (window.location.hash !== hash) {
+            window.history.replaceState(null, null, hash);
+        }
     }
 
     tabConsultant.addEventListener('click', () => switchTab('consultant'));
     tabPortfolio.addEventListener('click', () => switchTab('portfolio'));
+    if (tabMedia) tabMedia.addEventListener('click', () => switchTab('media'));
 
     function updateWhatsAppLinks() {
         let text = '';
@@ -150,6 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? 'مرحباً أحمد، رأيت اعتمادات أمان واعتمادية أنظمة الذكاء الاصطناعي وأود مناقشة بنى النشر الآمنة.'
                     : 'Hi Ahmed, I saw your AI Systems Reliability & Security credentials and want to discuss secure deployment structures.';
             }
+        } else if (activeTab === 'media') {
+            text = currentLang === 'ar'
+                ? 'مرحباً أحمد، شاهدت فيديوهاتك القصيرة وأود مناقشة استشارات هندسة الذكاء الاصطناعي.'
+                : 'Hi Ahmed, I saw your Reels and short insights, and would like to discuss your AI Architecture consulting.';
         } else {
             if (isPremiumMode) {
                 text = currentLang === 'ar'
@@ -214,6 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         trackEvent('slide_view', { index: currentIndex });
         updateWhatsAppLinks();
+        updateUrlHash();
+
+        // Save active slide index to browser storage
+        localStorage.setItem('ahmed_twin_slide_index', currentIndex);
     }
 
     function goToSlide(index) {
@@ -345,6 +398,13 @@ document.addEventListener('DOMContentLoaded', () => {
             msgBlueprintLocked: '🔒 <strong>Enterprise Architecture Blueprint Locked:</strong> Advanced production plans, GPU topologies, and custom cost optimizations are reserved for advanced content. Please leave a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a>, and we will contact you as soon as possible to grant access.',
             queryExplainPhase: 'Explain how you apply {title} in AI engineering?',
             queryPillarsOverview: 'How does your AI engineering methodology align with the AI Engineering Pillars?',
+            tabMedia: 'Reels',
+            reelsTitle: 'AI Architecture Reels',
+            reelsDesc: 'Short-form insights, storyboards, and strategic execution walkthroughs.',
+            viewScriptBtn: 'View Script',
+            shareWhatsAppBtn: 'Discuss on WhatsApp',
+            reel1Title: 'What is a Data Pipeline?',
+            reel1Desc: 'A Data Pipeline is the engineered infrastructure that transforms chaotic, raw data into a reliable and actionable digital asset. Think of it as the "nervous system" of any enterprise AI architecture. It automates the process of extracting data from disparate sources, transforming and cleaning it, and securely delivering it to storage systems or AI models for consumption.',
             responses: {
                 rag: `<strong>Hallucination-Free RAG:</strong><br>
         To build accurate and grounded retrieval systems, we use:
@@ -394,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 about: `<strong>Ahmed El-Mahdi - Principal AI Architect:</strong><br>
         Ahmed is a distributed systems expert and AI architect with over 10 years of experience. He specializes in building scalable, secure, and governed AI applications.
         <br><br>
-        You can explore his career metrics, technical skills, and verified certifications under the <strong>Credentials Board</strong> tab, or connect with him directly via LinkedIn, Email, or WhatsApp (+201558333533) using the contact buttons at the end of the board!`,
+        You can explore his career metrics, technical skills, and verified certifications under the <strong>Credentials Board</strong> tab, or connect with him directly via <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">Linkedin</a> or drop a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a>!`,
                 fallback: `I would love to analyze your specific system constraints. Feel free to connect with Ahmed via <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">Linkedin</a> or drop a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a> to discuss this architecture further!`,
                 phase_a: `<strong>AI Pillar A: Architecture Vision & AI Alignment:</strong><br>
         Pillar A establishes the high-level roadmap and business vision. For enterprise AI deployments, I apply it to:
@@ -497,6 +557,13 @@ document.addEventListener('DOMContentLoaded', () => {
             msgBlueprintLocked: '🔒 <strong>مخطط البنية المؤسسية مقفل:</strong> خطط الإنتاج المتقدمة، وهيكليات وحدات معالجة الرسومات (GPU)، وتحسينات التكلفة المخصصة محجوزة للمحتوى المتقدم. يرجى ترك رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a>، وسنتواصل معك في أقرب وقت ممكن لمنحك صلاحية الوصول.',
             queryExplainPhase: 'اشرح لي إزاي بتطبق {title} في هندسة الذكاء الاصطناعي؟',
             queryPillarsOverview: 'إزاي منهجية هندسة الذكاء الاصطناعي بتاعتك بتتماشى مع ركائز هندسة الذكاء الاصطناعي للمؤسسات؟',
+            tabMedia: 'الوسائط',
+            reelsTitle: 'عروض توضيحية',
+            reelsDesc: 'رؤى استراتيجية سريعة، تفاصيل التنفيذ والسيناريوهات المتقدمة لذكاء اصطناعي آمن وقابل للتوسع.',
+            viewScriptBtn: 'عرض السيناريو',
+            shareWhatsAppBtn: 'ناقش التفاصيل على واتساب',
+            reel1Title: 'ما هو الـ Data Pipeline (مسار تدفق البيانات)؟',
+            reel1Desc: 'الـ Data Pipeline هو البنية التحتية الهندسية التي تحول البيانات الخام والعشوائية إلى أصل رقمي منظّم ذي قيمة. يمكنك اعتباره "الجهاز العصبي" لأي نظام ذكاء اصطناعي مؤسسي، حيث يقوم آلياً باستخراج البيانات من مصادر متعددة، تنظيفها ومعالجتها، ثم توجيهها بشكل آمن لتغذية نماذج الـ AI أو أنظمة اتخاذ القرار.',
             responses: {
                 rag: `<strong>دقة البيانات وRAG بدون تهييس:</strong><br>
         عشان نبني أنظمة استرجاع (RAG) دقيقة وموثوقة، بنعتمد على:
@@ -546,7 +613,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 about: `<strong>البشمهندس أحمد المهدي - إستشاري ذكاء اصطناعي:</strong><br>
         أحمد هو خبير في الأنظمة الموزعة ومعماري ذكاء اصطناعي بخبرة تزيد عن 10 سنوات، متخصص في بناء وإدارة تطبيقات الذكاء الاصطناعي الآمنة والموفرة للمؤسسات.
         <br><br>
-        تقدر تشوف أرقام الإنجازات، المهارات التقنية، والشهادات المعتمدة في تبويب <strong>لوحة الاعتمادات والخبرات</strong>، أو تتواصل معاه مباشرة عبر LinkedIn، الإيميل، أو الواتساب (+201558333533) من خلال أزرار الاتصال في آخر اللوحة!`,
+         أودّ تحليل قيود نظامك بالتحديد. تواصل مع المهدي عبر <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">لينكدإن</a> أو أرسل رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a> لمناقشة هذه البنية بمزيد من التفصيل!`,
                 fallback: `أودّ تحليل قيود نظامك بالتحديد. تواصل مع المهدي عبر <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">لينكدإن</a> أو أرسل رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a> لمناقشة هذه البنية بمزيد من التفصيل!`,
                 phase_a: `<strong>الركيزة A: رؤية البنية التحتية ومواءمة الذكاء الاصطناعي:</strong><br>
         الركيزة A بتحدد خارطة الطريق وأهداف العمل الأساسية. بنطبقها من خلال:
@@ -657,6 +724,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> ` + translations[lang][key];
                 } else if (key === 'tabPortfolio') {
                     el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> ` + translations[lang][key];
+                } else if (key === 'tabMedia') {
+                    el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg> ` + translations[lang][key];
                 } else {
                     el.innerHTML = translations[lang][key];
                 }
@@ -889,4 +958,235 @@ document.addEventListener('DOMContentLoaded', () => {
             handleBotReply('togaf');
         });
     }
+
+    // --- Media Reels Hub Subsystem & Interactive Controls ---
+    const reelScripts = {
+        en: {
+            data_pipeline: {
+                title: 'What is a Data Pipeline?',
+                content: `
+                    <p style="margin-bottom: 12px; line-height: 1.6;">A Data Pipeline is the engineered infrastructure that transforms chaotic, raw data into a reliable and actionable digital asset. Think of it as the "nervous system" of any enterprise AI architecture. It automates the process of extracting data from disparate sources, transforming and cleaning it, and securely delivering it to storage systems or AI models for consumption.</p>
+                    <p style="margin-bottom: 12px; line-height: 1.6; font-weight: 600;">From a business perspective, the robustness of a Data Pipeline is the deciding factor in the success of any AI initiative. It guarantees three core operational pillars:</p>
+                    <ul style="margin-top: 10px; padding-left: 20px; list-style-type: disc; display: flex; flex-direction: column; gap: 8px;">
+                        <li style="line-height: 1.5;"><strong>Reliability:</strong> Ensuring a continuous, fault-tolerant flow of high-quality data.</li>
+                        <li style="line-height: 1.5;"><strong>Security & Integrity:</strong> Filtering and safeguarding data against corruption or poisoning before it reaches the production model.</li>
+                        <li style="line-height: 1.5;"><strong>Scalability:</strong> The architectural flexibility to process massive data volumes as the business grows, maintaining an optimized ROI.</li>
+                    </ul>
+                `
+            }
+        },
+        ar: {
+            data_pipeline: {
+                title: 'ما هو الـ Data Pipeline (مسار تدفق البيانات)؟',
+                content: `
+                    <p style="margin-bottom: 12px; line-height: 1.6;">الـ Data Pipeline هو البنية التحتية الهندسية التي تحول البيانات الخام والعشوائية إلى أصل رقمي منظّم ذي قيمة. يمكنك اعتباره "الجهاز العصبي" لأي نظام ذكاء اصطناعي مؤسسي، حيث يقوم آلياً باستخراج البيانات من مصادر متعددة، تنظيفها ومعالجتها، ثم توجيهها بشكل آمن لتغذية نماذج الـ AI أو أنظمة اتخاذ القرار.</p>
+                    <p style="margin-bottom: 12px; line-height: 1.6; font-weight: 600;">في عالم الأعمال، قوة الـ Data Pipeline هي ما تحدد نجاح أو فشل مشاريع الذكاء الاصطناعي، لأنه يضمن ثلاثة عناصر أساسية:</p>
+                    <ul style="margin-top: 10px; padding-right: 20px; list-style-type: disc; display: flex; flex-direction: column; gap: 8px;">
+                        <li style="line-height: 1.5;"><strong>الموثوقية (Reliability):</strong> تدفق مستمر للبيانات بدون انقطاع أو أخطاء.</li>
+                        <li style="line-height: 1.5;"><strong>الأمان (Security & Integrity):</strong> فلترة البيانات وحمايتها من التلوث (Data Poisoning) قبل وصولها للموديل.</li>
+                        <li style="line-height: 1.5;"><strong>قابلية التوسع (Scalability):</strong> القدرة على استيعاب ومعالجة أحجام ضخمة من البيانات مع نمو حجم البيزنس بتكلفة تشغيلية محسوبة.</li>
+                    </ul>
+                `
+            }
+        }
+    };
+
+    // Wire custom card clicks for Play/Pause and progress logs
+    document.querySelectorAll('.reel-card').forEach(card => {
+        const video = card.querySelector('video');
+        const playIndicator = card.querySelector('.reel-play-indicator');
+        const muteBtn = card.querySelector('.reel-mute-btn');
+        const progressBar = card.querySelector('.reel-progress-bar');
+        const reelId = card.getAttribute('data-reel-id');
+
+        if (!video) return;
+
+        // Toggle Play/Pause on video block click
+        const videoWrapper = card.querySelector('.reel-video-wrapper');
+        const overlay = card.querySelector('.reel-overlay');
+
+        function togglePlay(e) {
+            // Ignore click if it was on action buttons
+            if (e.target.closest('.reel-btn') || e.target.closest('.reel-mute-btn')) {
+                return;
+            }
+
+            if (video.paused) {
+                // Pause all other videos first to prevent overlapping playbacks
+                pauseAllVideos();
+                
+                video.play().then(() => {
+                    playIndicator.classList.remove('paused');
+                    playIndicator.style.opacity = '0';
+                    trackEvent('reel_play', { reelId: reelId });
+                }).catch(() => {});
+            } else {
+                video.pause();
+                playIndicator.classList.add('paused');
+                playIndicator.style.opacity = '1';
+                trackEvent('reel_pause', { reelId: reelId });
+            }
+        }
+
+        if (videoWrapper) videoWrapper.addEventListener('click', togglePlay);
+        // Bind overlay background click but bypass buttons
+        if (overlay) overlay.addEventListener('click', togglePlay);
+
+        // Mute / Unmute
+        if (muteBtn) {
+            muteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                video.muted = !video.muted;
+                const isMuted = video.muted;
+                
+                trackEvent('reel_mute', { reelId: reelId, muted: isMuted });
+
+                // Update icon
+                if (isMuted) {
+                    muteBtn.innerHTML = `<svg class="muted-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
+                } else {
+                    muteBtn.innerHTML = `<svg class="unmuted-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+                }
+            });
+        }
+
+        // Live progress bar update
+        video.addEventListener('timeupdate', () => {
+            if (progressBar && video.duration) {
+                const percent = (video.currentTime / video.duration) * 100;
+                progressBar.style.width = `${percent}%`;
+            }
+        });
+
+        // Reset progress on end
+        video.addEventListener('ended', () => {
+            if (progressBar) progressBar.style.width = '0%';
+            playIndicator.classList.add('paused');
+            playIndicator.style.opacity = '1';
+        });
+    });
+
+    // --- Script Modals / Storyboard Drawers ---
+    const scriptModal = document.getElementById('scriptModal');
+    const modalReelTitle = document.getElementById('modalReelTitle');
+    const modalBody = document.getElementById('modalBody');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalShareBtn = document.getElementById('modalShareBtn');
+
+    if (scriptModal) {
+        // Open Modal click handler
+        document.querySelectorAll('.view-script-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const reelId = btn.getAttribute('data-reel-id') || (btn.closest('.reel-card') && btn.closest('.reel-card').getAttribute('data-reel-id'));
+                if (!reelId) return;
+
+                const scriptData = reelScripts[currentLang][reelId];
+                if (!scriptData) return;
+
+                trackEvent('view_script', { reelId: reelId });
+
+                // Set Title
+                if (modalReelTitle) modalReelTitle.textContent = scriptData.title;
+
+                // Build Body Content HTML
+                let bodyHtml = '';
+                if (scriptData.content) {
+                    bodyHtml = `<div class="script-detailed-desc">${scriptData.content}</div>`;
+                } else if (scriptData.scenes) {
+                    scriptData.scenes.forEach(scene => {
+                        bodyHtml += `
+                            <div class="script-section">
+                                <h4 class="script-section-title">⏱️ ${scene.time} - ${scene.name}</h4>
+                                <div class="script-section-body">
+                                    <strong>${currentLang === 'ar' ? 'الوصف البصري:' : 'Visual:'}</strong> ${scene.visual}
+                                    <br><br>
+                                    <strong>${currentLang === 'ar' ? 'الصوت والكلام:' : 'Audio:'}</strong> ${scene.audio}
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                if (modalBody) modalBody.innerHTML = bodyHtml;
+
+                // Pre-fill WhatsApp CTA link
+                if (modalShareBtn) {
+                    const waText = currentLang === 'ar'
+                        ? `مرحباً أحمد، شاهدت الفيديو القصير الخاص بك حول: "${scriptData.title}" وأود الاستفسار ومناقشته معك!`
+                        : `Hi Ahmed, I watched your Reel regarding: "${scriptData.title}" and would like to discuss it!`;
+                    modalShareBtn.href = `https://wa.me/201558333533?text=${encodeURIComponent(waText)}`;
+                }
+
+                // Show Modal
+                scriptModal.classList.add('active');
+            });
+        });
+
+        // Close button click
+        if (modalCloseBtn) {
+            modalCloseBtn.addEventListener('click', () => {
+                scriptModal.classList.remove('active');
+            });
+        }
+
+        // Close on clicking backdrop
+        scriptModal.addEventListener('click', (e) => {
+            if (e.target === scriptModal) {
+                scriptModal.classList.remove('active');
+            }
+        });
+
+        // Track share button click
+        if (modalShareBtn) {
+            modalShareBtn.addEventListener('click', () => {
+                const titleText = modalReelTitle ? modalReelTitle.textContent : '';
+                trackEvent('whatsapp_share_click', { topic: titleText });
+            });
+        }
+    }
+
+    // --- Restore Page & Tab State on Reload via URL Hash & localStorage ---
+    function restoreState() {
+        const hash = window.location.hash;
+        if (hash) {
+            if (hash === '#chat') {
+                switchTab('consultant');
+                return;
+            } else if (hash === '#media') {
+                switchTab('media');
+                return;
+            } else if (hash.startsWith('#portfolio')) {
+                switchTab('portfolio');
+                const parts = hash.split('-');
+                if (parts.length > 1) {
+                    const slideNum = parseInt(parts[1], 10);
+                    if (!isNaN(slideNum) && slideNum >= 1 && slideNum <= scenes.length) {
+                        goToSlide(slideNum - 1);
+                    }
+                }
+                return;
+            }
+        }
+
+        // Fallback to localStorage if no hash is present in the URL
+        const savedTab = localStorage.getItem('ahmed_twin_active_tab');
+        if (savedTab) {
+            switchTab(savedTab);
+            if (savedTab === 'portfolio') {
+                const savedSlide = localStorage.getItem('ahmed_twin_slide_index');
+                if (savedSlide !== null) {
+                    const slideIndex = parseInt(savedSlide, 10);
+                    if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < scenes.length) {
+                        goToSlide(slideIndex);
+                    }
+                }
+            }
+        }
+    }
+
+    // Bind hashchange listener and execute on initial boot
+    window.addEventListener('hashchange', restoreState);
+    restoreState();
+    isInitializing = false;
+    updateUrlHash();
 });
