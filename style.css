@@ -385,6 +385,7 @@ body[dir="rtl"] {
     overflow-y: auto;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
+    overflow-anchor: none;
     padding: 12px 6px;
     display: flex;
     flex-direction: column;
@@ -1777,9 +1778,11 @@ body[dir="rtl"] .footer-buttons {
     height: 100%;
     width: 100%;
     min-height: 0;
+    flex: 1;
     overflow-y: scroll;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
+    overflow-anchor: none;
     scroll-snap-type: y mandatory;
     padding: 6px 6px 120px 6px;
     scrollbar-width: none;
