@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed El-Mahdi - Principal AI Architect | Production-Grade AI</title>
+    <title>Ahmed El-Mahdi - Production-Grade AI</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="profile-circle.png">
@@ -182,8 +182,35 @@
                 </button>
             </div>
             <div class="side-drawer-items">
+                <button type="button" class="side-drawer-tab side-drawer-link" data-scene="2">
+                    <span class="mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
+                    </span>
+                    <span class="mode-label" data-translate="navTechno">AI & Business</span>
+                </button>
+                <button type="button" class="side-drawer-tab side-drawer-link" data-scene="3">
+                    <span class="mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    </span>
+                    <span class="mode-label" data-translate="navArchitecture">AI Architecture</span>
+                </button>
+                <button type="button" class="side-drawer-tab side-drawer-link" data-scene="4">
+                    <span class="mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    </span>
+                    <span class="mode-label" data-translate="navMetrics">The Metrics</span>
+                </button>
+                <button type="button" class="side-drawer-tab side-drawer-link" data-scene="5">
+                    <span class="mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </span>
+                    <span class="mode-label" data-translate="navFAQ">Executive FAQs</span>
+                </button>
+                <div style="height: 1px; background: rgba(0,0,0,0.1); margin: 8px 0;"></div>
                 <button type="button" class="side-drawer-tab" id="modeBtn" data-mode="standard">
-                    <span class="mode-icon">⚙️</span>
+                    <span class="mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </span>
                     <span class="mode-label" id="modeText" data-translate="modeStandard">Standard</span>
                 </button>
                 <a class="side-drawer-tab side-drawer-lang" href="index-ar.html">
@@ -210,11 +237,26 @@
                 
                 <!-- Suggestions Chips -->
                 <div class="chat-suggestions" id="chatSuggestions">
-                    <button class="suggestion-chip" id="chipTogaf" data-question="togaf" data-translate="chipTogaf">🏗️ AI Pillars</button>
-                    <button class="suggestion-chip" id="chipRag" data-question="rag" data-translate="chipRag">🎯 Hallucination-Free</button>
-                    <button class="suggestion-chip" id="chipAgent" data-question="agent" data-translate="chipAgent">🤖 Agentic Workflows</button>
-                    <button class="suggestion-chip" id="chipCost" data-question="cost" data-translate="chipCost">💰 LLM Cost Reduction</button>
-                    <button class="suggestion-chip" id="chipReliability" data-question="reliability" data-translate="chipReliability">🛡️ AI SRE & Zero-Trust</button>
+                    <button class="suggestion-chip" id="chipTogaf" data-question="togaf">
+                        <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></span>
+                        <span data-translate="chipTogaf">AI Pillars</span>
+                    </button>
+                    <button class="suggestion-chip" id="chipRag" data-question="rag">
+                        <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg></span>
+                        <span data-translate="chipRag">Hallucination-Free</span>
+                    </button>
+                    <button class="suggestion-chip" id="chipAgent" data-question="agent">
+                        <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg></span>
+                        <span data-translate="chipAgent">Agentic Workflows</span>
+                    </button>
+                    <button class="suggestion-chip" id="chipCost" data-question="cost">
+                        <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                        <span data-translate="chipCost">LLM Cost Reduction</span>
+                    </button>
+                    <button class="suggestion-chip" id="chipReliability" data-question="reliability">
+                        <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>
+                        <span data-translate="chipReliability">AI SRE & Zero-Trust</span>
+                    </button>
                 </div>
 
                 <!-- Chat Input Form -->
@@ -269,28 +311,36 @@
                     <div class="value-pipeline">
                         <div class="pipeline-line"></div>
                         <div class="pipeline-node node-1" data-step="alignment" style="cursor: pointer;">
-                            <div class="node-icon">🎯</div>
+                            <div class="node-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                            </div>
                             <div class="node-content">
                                 <h3 data-translate="integrationPillar1Title">1. Strategic Alignment</h3>
                                 <p data-translate="integrationPillar1Desc">Every technical decision is tied to a business outcome—solving pain points, optimizing costs, or unlocking revenue.</p>
                             </div>
                         </div>
                         <div class="pipeline-node node-2" data-step="asset" style="cursor: pointer;">
-                            <div class="node-icon">💎</div>
+                            <div class="node-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M6 3h12l4 6-10 13L2 9z"></path><path d="M11 3 8 9l4 13 4-13-3-6"></path><path d="M2 9h20"></path></svg>
+                            </div>
                             <div class="node-content">
                                 <h3 data-translate="integrationPillar2Title">2. Asset Generation</h3>
                                 <p data-translate="integrationPillar2Desc">Designing Custom AI and Data Pipelines to transform enterprise data into a heavily guarded digital asset.</p>
                             </div>
                         </div>
                         <div class="pipeline-node node-3" data-step="execution" style="cursor: pointer;">
-                            <div class="node-icon">⚙️</div>
+                            <div class="node-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            </div>
                             <div class="node-content">
                                 <h3 data-translate="integrationPillar3Title">3. Engineered Execution</h3>
                                 <p data-translate="integrationPillar3Desc">Deploying MLOps and scalable, secure AI systems capable of handling enterprise demands reliably.</p>
                             </div>
                         </div>
                         <div class="pipeline-peak" data-step="roi" style="cursor: pointer;">
-                            <div class="peak-icon">🚀</div>
+                            <div class="peak-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                            </div>
                             <div class="peak-content">
                                 <h3 data-translate="integrationPeakTitle">High ROI & Competitive Edge</h3>
                             </div>
@@ -323,28 +373,36 @@
 
                         <!-- 8 ADM Phase Nodes with Descriptive Naming -->
                         <div class="network-node node-a" id="nodeA" data-phase="A" data-title="Phase A: Architecture Vision">
-                            <span class="phase-name" data-translate="phaseAName">A: Vision & Alignment</span>
+                            <span class="node-icon-small"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                            <span class="phase-name" data-translate="phaseAName"> Vision & Alignment</span>
                         </div>
                         <div class="network-node node-b" id="nodeB" data-phase="B" data-title="Phase B: Business Architecture">
-                            <span class="phase-name" data-translate="phaseBName">B: Business & HITL</span>
+                            <span class="node-icon-small"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="14" height="14"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+                            <span class="phase-name" data-translate="phaseBName"> Business & HITL</span>
                         </div>
                         <div class="network-node node-c" id="nodeC" data-phase="C" data-title="Phase C: Information Systems">
-                            <span class="phase-name" data-translate="phaseCName">C: Data & RAG Setup</span>
+                            <span class="node-icon-small"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="14" height="14"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></span>
+                            <span class="phase-name" data-translate="phaseCName"> Data & RAG Setup</span>
                         </div>
                         <div class="network-node node-d" id="nodeD" data-phase="D" data-title="Phase D: Technology Architecture">
-                            <span class="phase-name" data-translate="phaseDName">D: Cloud & GPU Hosting</span>
+                            <span class="node-icon-small"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="14" height="14"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg></span>
+                            <span class="phase-name" data-translate="phaseDName"> Cloud & GPU Hosting</span>
                         </div>
                         <div class="network-node node-e" id="nodeE" data-phase="E" data-title="Phase E: Opportunities & Solutions">
-                            <span class="phase-name" data-translate="phaseEName">E: Build vs Buy Strategy</span>
+                            <span class="node-icon-small"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="14" height="14"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg></span>
+                            <span class="phase-name" data-translate="phaseEName"> Build vs Buy Strategy</span>
                         </div>
                         <div class="network-node node-f" id="nodeF" data-phase="F" data-title="Phase F: Migration Planning">
-                            <span class="phase-name" data-translate="phaseFName">F: Rollout & Migration</span>
+                            <span class="node-icon-small"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="14" height="14"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></span>
+                            <span class="phase-name" data-translate="phaseFName"> Rollout & Migration</span>
                         </div>
                         <div class="network-node node-g" id="nodeG" data-phase="G" data-title="Phase G: Implementation Governance">
-                            <span class="phase-name" data-translate="phaseGName">G: Security Guardrails</span>
+                            <span class="node-icon-small"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="14" height="14"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>
+                            <span class="phase-name" data-translate="phaseGName"> Security Guardrails</span>
                         </div>
                         <div class="network-node node-h" id="nodeH" data-phase="H" data-title="Phase H: Architecture Change Management">
-                            <span class="phase-name" data-translate="phaseHName">H: Drift & Feedback</span>
+                            <span class="node-icon-small"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="14" height="14"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></span>
+                            <span class="phase-name" data-translate="phaseHName"> Drift & Feedback</span>
                         </div>
                     </div>
                 </div>
@@ -355,15 +413,24 @@
                     <h2 class="scene-header" data-translate="metricsTitle">The Metrics</h2>
                     <div class="cards-container vertical-stack">
                         <div class="glass-card wide-card metric-card" data-metric="rag_metric" style="cursor: pointer;">
-                            <h3 class="card-title text-gold" data-translate="metricsRagTitle">Grounding & Accuracy</h3>
+                            <h3 class="card-title text-gold" style="display: flex; align-items: center; gap: 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                                <span data-translate="metricsRagTitle">Grounding & Accuracy</span>
+                            </h3>
                             <p class="card-desc" data-translate="metricsRagDesc">Architected high-scale RAG systems that significantly reduced domain-specific hallucination rates.</p>
                         </div>
                         <div class="glass-card wide-card metric-card" data-metric="model_metric" style="cursor: pointer;">
-                            <h3 class="card-title text-gold" data-translate="metricsModelTitle">Model Specialization & Data</h3>
+                            <h3 class="card-title text-gold" style="display: flex; align-items: center; gap: 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="flex-shrink: 0;"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                <span data-translate="metricsModelTitle">Model Specialization & Data</span>
+                            </h3>
                             <p class="card-desc" data-translate="metricsModelDesc">Fine-tuned LLMs (PEFT/LoRA) and built scalable automated ELT pipelines to eliminate AI bottlenecks.</p>
                         </div>
                         <div class="glass-card wide-card metric-card" data-metric="cost_metric" style="cursor: pointer;">
-                            <h3 class="card-title text-gold" data-translate="metricsCostTitle">Cost Efficiency & Agility</h3>
+                            <h3 class="card-title text-gold" style="display: flex; align-items: center; gap: 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="flex-shrink: 0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                <span data-translate="metricsCostTitle">Cost Efficiency & Agility</span>
+                            </h3>
                             <p class="card-desc" data-translate="metricsCostDesc">Spearheaded Agentic AI and IaC strategies, slashing operational costs and enabling rapid deployments.</p>
                         </div>
                     </div>

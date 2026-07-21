@@ -280,6 +280,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Drawer link buttons trigger switchTab to portfolio, change slide, and close drawer
+    document.querySelectorAll('.side-drawer-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const sceneIndex = parseInt(link.getAttribute('data-scene'));
+            
+            // Switch to Portfolio Tab
+            switchTab('portfolio');
+            
+            // Sync active state in drawer (make Portfolio active if it was in the drawer)
+            document.querySelectorAll('.side-drawer-tab').forEach(t => t.classList.remove('active'));
+            
+            // Go to specific scene
+            if (!isNaN(sceneIndex)) {
+                if (typeof goToSlide === 'function') {
+                    goToSlide(sceneIndex);
+                    if (typeof resetAutoPlay === 'function') resetAutoPlay();
+                } else {
+                    // Fallback if goToSlide is scoped differently or not initialized yet
+                    setTimeout(() => {
+                        if (typeof goToSlide === 'function') goToSlide(sceneIndex);
+                        if (typeof resetAutoPlay === 'function') resetAutoPlay();
+                    }, 50);
+                }
+            }
+            
+            closeDrawer();
+        });
+    });
+
     // Keep drawer tab active state in sync with main nav
     function syncDrawerActive() {
         document.querySelectorAll('.side-drawer-tab[data-tab]').forEach(btn => {
@@ -477,11 +506,11 @@ document.addEventListener('DOMContentLoaded', () => {
             greetingTitle: 'Welcome to the AI Architecture Lab',
             greetingDesc: "I am Mahdi's AI Twin, specialized in production-grade AI, RAG architectures, and agentic ecosystems.",
             greetingPrompt: 'How can I assist you with your AI strategy today?',
-            chipRag: '🎯 Hallucination-Free RAG',
-            chipAgent: '🤖 Agentic Workflows',
-            chipCost: '💰 LLM Cost Reduction',
-            chipTogaf: '🏗️ AI Pillars',
-            chipReliability: '🛡️ AI SRE & Zero-Trust',
+            chipRag: 'Hallucination-Free RAG',
+            chipAgent: 'Agentic Workflows',
+            chipCost: 'LLM Cost Reduction',
+            chipTogaf: 'AI Pillars',
+            chipReliability: 'AI SRE & Zero-Trust',
             chatPlaceholder: 'Ask about AI architecture, costs, pipelines...',
             modeStandard: 'Standard',
             modePremium: 'Enterprise',
@@ -514,6 +543,10 @@ document.addEventListener('DOMContentLoaded', () => {
             integrationPeakTitle: 'High ROI & Competitive Edge',
             faqTitle: 'Frequently Asked Questions',
             faqSubtitle: 'Click any question for a detailed architectural illustration.',
+            navTechno: 'Business-Tech Synergy',
+            navArchitecture: 'Enterprise AI Architecture',
+            navMetrics: 'Proven ROI & Metrics',
+            navFAQ: 'Executive FAQs',
             faqQ1: '1. Should I build custom AI or buy SaaS APIs?',
             faqQ2: '2. How do you align AI engineering with Business ROI?',
             faqQ3: '3. How do you guarantee AI security & reliability?',
@@ -670,19 +703,19 @@ document.addEventListener('DOMContentLoaded', () => {
         We bridge the gap between deep tech engineering and business goals to ensure high ROI.<br>
         <div class="value-pipeline" style="margin-top: 15px; padding: 1rem; border-radius: 8px;">
             <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
-                <div class="node-icon">🎯</div>
+                <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
                 <div class="node-content">
                     <h3 style="font-size: 1rem;">1. AI Alignment</h3>
                 </div>
             </div>
             <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
-                <div class="node-icon">🛡️</div>
+                <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M6 3h12l4 6-10 13L2 9z"></path><path d="M11 3 8 9l4 13 4-13-3-6"></path><path d="M2 9h20"></path></svg></div>
                 <div class="node-content">
                     <h3 style="font-size: 1rem;">2. Asset Generation</h3>
                 </div>
             </div>
             <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
-                <div class="node-icon">⚙️</div>
+                <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
                 <div class="node-content">
                     <h3 style="font-size: 1rem;">3. Engineered Execution</h3>
                 </div>
@@ -778,11 +811,11 @@ document.addEventListener('DOMContentLoaded', () => {
             greetingTitle: 'مرحباً بك في معمل هندسة الذكاء الاصطناعي',
             greetingDesc: 'أنا التوأم الذكي للمهندس أحمد المهدي، متخصص في أنظمة الذكاء الاصطناعي الإنتاجية، وبنى الـ Architecture وبيئات الوكلاء الذاتية.',
             greetingPrompt: 'كيف يمكنني مساعدتك في استراتيجية الذكاء الاصطناعي الخاصة بك اليوم؟',
-            chipRag: '🎯 RAG بدون تهييس',
-            chipAgent: '🤖 مسارات عمل الوكلاء',
-            chipCost: '💰 تقليل تكلفة الـ LLMs',
-            chipTogaf: '🏗️ ركائز الـ AI',
-            chipReliability: '🛡️ أمان واعتمادية الـ AI',
+            chipRag: 'RAG بدون تهييس',
+            chipAgent: 'مسارات عمل الوكلاء',
+            chipCost: 'تقليل تكلفة الـ LLMs',
+            chipTogaf: 'ركائز الـ AI',
+            chipReliability: 'أمان واعتمادية الـ AI',
             chatPlaceholder: 'اسأل عن بنية الذكاء الاصطناعي، التكاليف، خطوط البيانات...',
             modeStandard: 'الوضع القياسي',
             modePremium: 'الوضع المتقدم',
@@ -815,6 +848,10 @@ document.addEventListener('DOMContentLoaded', () => {
             integrationPeakTitle: 'عائد استثماري ضخم وميزة تنافسية',
             faqTitle: 'الأسئلة الشائعة (FAQs)',
             faqSubtitle: 'انقر على أي سؤال لعرض رسم توضيحي معماري مفصل.',
+            navTechno: 'التآزر بين التقنية والأعمال',
+            navArchitecture: 'بنية الذكاء الاصطناعي للمؤسسات',
+            navMetrics: 'مؤشرات الأداء والعائد المتوقع',
+            navFAQ: 'الأسئلة الاستراتيجية',
             faqQ1: '1. هل يجب أن أبني ذكاء اصطناعي مخصص أم أستأجر (SaaS)؟',
             faqQ2: '2. كيف يتم مواءمة الهندسة التقنية مع العائد على الاستثمار؟',
             faqQ3: '3. كيف تضمن أمان وموثوقية الذكاء الاصطناعي للمؤسسات؟',
@@ -971,19 +1008,19 @@ document.addEventListener('DOMContentLoaded', () => {
         نحن نسد الفجوة بين التقنية العميقة وأهداف العمل لضمان أعلى عائد على الاستثمار (ROI).<br>
         <div class="value-pipeline" style="margin-top: 15px; padding: 1rem; border-radius: 8px;" dir="rtl">
             <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
-                <div class="node-icon">🎯</div>
+                <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
                 <div class="node-content">
                     <h3 style="font-size: 1rem;">1. المواءمة الاستراتيجية</h3>
                 </div>
             </div>
             <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
-                <div class="node-icon">🛡️</div>
+                <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M6 3h12l4 6-10 13L2 9z"></path><path d="M11 3 8 9l4 13 4-13-3-6"></path><path d="M2 9h20"></path></svg></div>
                 <div class="node-content">
                     <h3 style="font-size: 1rem;">2. بناء الأصول الرقمية</h3>
                 </div>
             </div>
             <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
-                <div class="node-icon">⚙️</div>
+                <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
                 <div class="node-content">
                     <h3 style="font-size: 1rem;">3. التنفيذ الهندسي المتكامل</h3>
                 </div>
