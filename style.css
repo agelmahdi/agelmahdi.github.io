@@ -813,6 +813,124 @@ body[dir="rtl"] .suggestion-chip {
 .tags-row { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
 .tech-tag { background: rgba(234, 88, 12, 0.08); border: 1px solid rgba(234, 88, 12, 0.25); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color: var(--text-main); }
 
+/* Value Pipeline Diagram */
+.value-pipeline {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    margin: 1.5rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.pipeline-line {
+    position: absolute;
+    top: 2rem;
+    bottom: 2rem;
+    left: calc(1rem + 25px);
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(234, 88, 12, 1), rgba(234, 88, 12, 0.1));
+    z-index: 1;
+    transform: translateX(-50%);
+}
+
+[dir="rtl"] .pipeline-line {
+    left: auto;
+    right: calc(1rem + 25px);
+    transform: translateX(50%);
+}
+
+.pipeline-node, .pipeline-peak {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    text-align: left;
+}
+
+[dir="rtl"] .pipeline-node, [dir="rtl"] .pipeline-peak {
+    text-align: right;
+}
+
+.pipeline-node:hover {
+    transform: translateX(5px);
+    border-color: rgba(234, 88, 12, 0.4);
+    box-shadow: 0 5px 15px rgba(234, 88, 12, 0.1);
+}
+
+[dir="rtl"] .pipeline-node:hover {
+    transform: translateX(-5px);
+}
+
+.node-icon, .peak-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 2px solid rgba(234, 88, 12, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: inset 0 0 10px rgba(234, 88, 12, 0.1);
+    transition: all 0.3s ease;
+}
+
+.pipeline-node:hover .node-icon {
+    border-color: rgba(234, 88, 12, 0.8);
+    box-shadow: 0 0 15px rgba(234, 88, 12, 0.3), inset 0 0 10px rgba(234, 88, 12, 0.2);
+}
+
+.peak-icon {
+    border-color: var(--gold);
+    background: rgba(234, 88, 12, 0.15);
+    box-shadow: 0 0 20px rgba(234, 88, 12, 0.4);
+    animation: peak-pulse 2s infinite alternate;
+}
+
+@keyframes peak-pulse {
+    0% { box-shadow: 0 0 10px rgba(234, 88, 12, 0.3); transform: scale(1); }
+    100% { box-shadow: 0 0 25px rgba(234, 88, 12, 0.7); transform: scale(1.05); }
+}
+
+.pipeline-peak {
+    background: linear-gradient(135deg, rgba(234, 88, 12, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+    border: 1px solid rgba(234, 88, 12, 0.6);
+    margin-top: 0.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(234, 88, 12, 0.1);
+}
+
+.pipeline-peak h3 {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(234, 88, 12, 0.6);
+    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 800;
+}
+
+.node-content h3 {
+    color: var(--gold);
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+.node-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
 /* TOGAF ADM Network Layout */
 .togaf-network-container {
     position: relative;

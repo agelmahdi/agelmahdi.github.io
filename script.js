@@ -503,6 +503,14 @@ document.addEventListener('DOMContentLoaded', () => {
             arsenalCat1: 'Generative AI & Agentic Systems',
             arsenalCat2: 'Core AI & Data Engineering',
             arsenalCat3: 'Cloud & Architecture',
+            integrationTitle: 'Techno-Business Integration',
+            integrationSubtitle: 'The architectural philosophy that bridges the gap between deep-tech engineering and executive business objectives.',
+            integrationPillar1Title: '1. Strategic Alignment',
+            integrationPillar1Desc: 'Every technical decision is tied to a business outcome—solving pain points, optimizing costs, or unlocking revenue.',
+            integrationPillar2Title: '2. Asset Generation',
+            integrationPillar2Desc: 'Designing Custom AI and Data Pipelines to transform enterprise data into a heavily guarded digital asset.',
+            integrationPillar3Title: '3. Engineered Execution',
+            integrationPillar3Desc: 'Deploying MLOps and scalable, secure AI systems capable of handling enterprise demands reliably.',
             credentialsTitle: 'AI Architecture Framework',
             credentialsSubtitle: 'Enterprise AI Engineering Pillars Lifecycle',
             ctaTitle: "Let's Connect & Build",
@@ -571,6 +579,51 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><strong>Zero-Trust Security:</strong> Enforcing secure access controls and defending against prompt injections.</li>
             <li><strong>MLOps & CI/CD:</strong> Automating pipeline versioning and deployments to guarantee auditability.</li>
             <li><strong>Statistical Validation:</strong> Verifying ensemble outputs before routing requests.</li>
+        </ul>`,
+                alignment: `<strong>Strategic Alignment:</strong><br>
+        Every technical decision in AI engineering must solve a specific business problem. We prioritize:
+        <ul>
+            <li><strong>ROI Tracking:</strong> Defining clear KPIs before writing any code.</li>
+            <li><strong>Use Case Prioritization:</strong> Selecting high-impact, low-complexity models to ensure quick wins.</li>
+        </ul>`,
+                asset: `<strong>Asset Generation:</strong><br>
+        AI is not just software; it's a digital asset. This involves:
+        <ul>
+            <li><strong>Data Moats:</strong> Building proprietary datasets that competitors cannot easily replicate.</li>
+            <li><strong>Custom Models:</strong> Fine-tuning models on domain-specific data to create intellectual property (IP).</li>
+        </ul>`,
+                execution: `<strong>Engineered Execution:</strong><br>
+        Moving from notebooks to production seamlessly. Our execution includes:
+        <ul>
+            <li><strong>MLOps Pipelines:</strong> CI/CD for machine learning models ensuring zero downtime.</li>
+            <li><strong>Scalability:</strong> Utilizing Kubernetes and cloud-native services for elastic inference.</li>
+        </ul>`,
+                roi: `<strong>High ROI & Competitive Edge:</strong><br>
+        The ultimate goal of Techno-Business Integration. By aligning strategy with engineered execution, enterprises achieve:
+        <ul>
+            <li><strong>Exponential Growth:</strong> Unlocking new revenue streams via AI-driven products.</li>
+            <li><strong>Market Dominance:</strong> Outpacing competitors through data leverage and operational agility.</li>
+        </ul>`,
+                rag_metric: `<strong>Metrics: Grounding & Accuracy:</strong><br>
+        By architecting high-scale Retrieval-Augmented Generation (RAG) systems, we focus on:
+        <ul>
+            <li><strong>Reduced Hallucinations:</strong> Grounding AI responses exclusively in verified enterprise data.</li>
+            <li><strong>Contextual Accuracy:</strong> Employing hybrid search and reranking layers for precise document retrieval.</li>
+            <li><strong>Domain Specialization:</strong> Customizing vector embedding models to understand complex industry jargon.</li>
+        </ul>`,
+                model_metric: `<strong>Metrics: Model Specialization & Data:</strong><br>
+        Data is the fuel, and models are the engines. Our metric focus includes:
+        <ul>
+            <li><strong>PEFT/LoRA Fine-tuning:</strong> Specializing open-source models (like Llama/Mistral) on enterprise datasets without the massive costs of full training.</li>
+            <li><strong>Automated ELT Pipelines:</strong> Building scalable pipelines that clean, structure, and stream data seamlessly to AI endpoints.</li>
+            <li><strong>Data Moats:</strong> Transforming raw operational data into secure, proprietary assets.</li>
+        </ul>`,
+                cost_metric: `<strong>Metrics: Cost Efficiency & Agility:</strong><br>
+        AI should drive revenue, not drain IT budgets. Our optimization metrics:
+        <ul>
+            <li><strong>Agentic AI Automation:</strong> Replacing costly manual workflows with specialized AI agents.</li>
+            <li><strong>Infrastructure as Code (IaC):</strong> Rapidly deploying and scaling AI infrastructure using Terraform/Kubernetes to slash operational overhead.</li>
+            <li><strong>Token Optimization:</strong> Implementing semantic caching and prompt compression to drastically reduce LLM API bills.</li>
         </ul>`,
                 greeting: `Hello! I am Ahmed's AI Twin. How can I assist you with your generative AI architectures, distributed systems, or cost reduction strategies today?`,
                 about: `<strong>Ahmed El-Mahdi - Principal AI Architect:</strong><br>
@@ -662,6 +715,14 @@ document.addEventListener('DOMContentLoaded', () => {
             arsenalCat1: 'الذكاء الاصطناعي التوليدي وأنظمة الوكلاء',
             arsenalCat2: 'هندسة البيانات والذكاء الاصطناعي الأساسي',
             arsenalCat3: 'السحابة والبنية التحتية',
+            integrationTitle: 'التكامل التقني-التجاري',
+            integrationSubtitle: 'الفلسفة المعمارية التي تسد الفجوة بين هندسة التكنولوجيا العميقة وأهداف البيزنس الاستراتيجية.',
+            integrationPillar1Title: '1. التوافق الاستراتيجي',
+            integrationPillar1Desc: 'كل قرار تقني مرتبط بنتيجة تجارية—حل المشكلات، تحسين التكاليف، أو خلق إيرادات جديدة.',
+            integrationPillar2Title: '2. بناء الأصول الرقمية',
+            integrationPillar2Desc: 'تصميم أنظمة ذكاء اصطناعي وخطوط بيانات مخصصة لتحويل بيانات الشركة إلى أصل رقمي محمي ومربح.',
+            integrationPillar3Title: '3. التنفيذ الهندسي المتكامل',
+            integrationPillar3Desc: 'نشر أنظمة ذكاء اصطناعي قابلة للتوسع وآمنة عبر عمليات الـ MLOps لتلبية متطلبات الشركات بموثوقية عالية.',
             credentialsTitle: 'إطار هندسة الذكاء الاصطناعي',
             credentialsSubtitle: 'دورة حياة ركائز هندسة الذكاء الاصطناعي للمؤسسات',
             ctaTitle: 'لنبدأ البناء معاً',
@@ -730,6 +791,51 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><strong>أمان الـ Zero-Trust:</strong> حماية قوية للهوية والوصول وتأمين النماذج ضد التهديدات وحقن الأوامر.</li>
             <li><strong>MLOps و CI/CD:</strong> أتمتة اختبار ونشر خطوط البيانات والنماذج لضمان قابلية التدقيق والمراجعة.</li>
             <li><strong>التحقق الإحصائي:</strong> مراجعة مخرجات النماذج للتأكد من اتساقها الإحصائي قبل توجيهها للمستخدم النهائي.</li>
+        </ul>`,
+                alignment: `<strong>التوافق الاستراتيجي (Strategic Alignment):</strong><br>
+        يجب أن يحل كل قرار تقني في هندسة الذكاء الاصطناعي مشكلة تجارية محددة. نحن نركز على:
+        <ul>
+            <li><strong>تتبع العائد على الاستثمار:</strong> تحديد مؤشرات الأداء الرئيسية (KPIs) بوضوح قبل كتابة أي كود.</li>
+            <li><strong>تحديد أولويات حالات الاستخدام:</strong> اختيار النماذج ذات التأثير العالي والتعقيد المنخفض لضمان نجاح سريع.</li>
+        </ul>`,
+                asset: `<strong>بناء الأصول (Asset Generation):</strong><br>
+        الذكاء الاصطناعي ليس مجرد برمجيات؛ بل هو أصل رقمي. وهذا يشمل:
+        <ul>
+            <li><strong>خنادق البيانات (Data Moats):</strong> بناء مجموعات بيانات حصرية يصعب على المنافسين تكرارها.</li>
+            <li><strong>نماذج مخصصة:</strong> ضبط النماذج الدقيق على بيانات متخصصة لخلق ملكية فكرية (IP) للشركة.</li>
+        </ul>`,
+                execution: `<strong>التنفيذ الهندسي المتكامل (Engineered Execution):</strong><br>
+        الانتقال من بيئة التطوير إلى بيئة الإنتاج بسلاسة. يشمل تنفيذنا:
+        <ul>
+            <li><strong>عمليات MLOps:</strong> تكامل ونشر مستمر (CI/CD) لنماذج التعلم الآلي لضمان عدم توقف العمل.</li>
+            <li><strong>قابلية التوسع:</strong> استخدام Kubernetes والخدمات السحابية لمعالجة أحمال العمل المتغيرة.</li>
+        </ul>`,
+                roi: `<strong>عائد استثماري ضخم وميزة تنافسية (High ROI & Competitive Edge):</strong><br>
+        الهدف النهائي للتكامل التقني-التجاري. من خلال مواءمة الاستراتيجية مع التنفيذ الهندسي، تحقق المؤسسات:
+        <ul>
+            <li><strong>نمو متسارع:</strong> فتح مصادر دخل جديدة عبر منتجات مدعومة بالذكاء الاصطناعي.</li>
+            <li><strong>هيمنة على السوق:</strong> التفوق على المنافسين من خلال استغلال البيانات ومرونة العمليات.</li>
+        </ul>`,
+                rag_metric: `<strong>المقاييس: الدقة ومكافحة التهييس:</strong><br>
+        من خلال هندسة أنظمة RAG ضخمة، نركز على:
+        <ul>
+            <li><strong>تقليل الهلوسة:</strong> ربط إجابات الذكاء الاصطناعي حصرياً ببيانات المؤسسة الموثوقة.</li>
+            <li><strong>دقة السياق:</strong> استخدام البحث الهجين وطبقات إعادة الترتيب (Reranking) لاسترجاع أدق المستندات.</li>
+            <li><strong>التخصص في المجال:</strong> تخصيص نماذج الـ Embedding لفهم المصطلحات الصناعية المعقدة.</li>
+        </ul>`,
+                model_metric: `<strong>المقاييس: تخصيص النماذج والبيانات:</strong><br>
+        البيانات هي الوقود، والنماذج هي المحركات. تركيزنا يشمل:
+        <ul>
+            <li><strong>الضبط الدقيق (PEFT/LoRA):</strong> تخصيص النماذج مفتوحة المصدر لبيانات الشركة دون التكاليف الباهظة للتدريب الكامل.</li>
+            <li><strong>خطوط نقل بيانات (ELT) مؤتمتة:</strong> بناء مسارات تنظف وتهيكل وتدفق البيانات بسلاسة للذكاء الاصطناعي.</li>
+            <li><strong>خنادق البيانات:</strong> تحويل البيانات التشغيلية الخام إلى أصول حصرية وآمنة.</li>
+        </ul>`,
+                cost_metric: `<strong>المقاييس: كفاءة التكلفة والمرونة:</strong><br>
+        يجب أن يضاعف الذكاء الاصطناعي أرباحك، لا ميزانيتك. استراتيجياتنا للتحسين:
+        <ul>
+            <li><strong>أتمتة الوكلاء المستقلين:</strong> استبدال مسارات العمل اليدوية المكلفة بوكلاء ذكاء اصطناعي متخصصين.</li>
+            <li><strong>البنية التحتية كأكواد (IaC):</strong> نشر وتوسيع بنية الذكاء الاصطناعي بسرعة لتقليل التكاليف التشغيلية.</li>
+            <li><strong>تحسين استهلاك التوكنز:</strong> تطبيق الكاش الدلالي وضغط الـ Prompts لتقليل فواتير واجهات الـ LLM.</li>
         </ul>`,
                 greeting: `أهلاً بك يا فندم! أنا التوأم الذكي للبشمهندس المهدي. أقدر أساعدك إزاي النهاردة في استكشاف بنى الذكاء الاصطناعي، الأنظمة الموزعة، أو استراتيجيات تقليل التكاليف؟`,
                 about: `<strong>البشمهندس أحمد المهدي - إستشاري ذكاء اصطناعي:</strong><br>
@@ -1084,6 +1190,50 @@ document.addEventListener('DOMContentLoaded', () => {
             handleBotReply('togaf');
         });
     }
+
+    // --- Techno-Business Integration Pipeline Interactive Sync ---
+    document.querySelectorAll('.pipeline-node, .pipeline-peak').forEach(node => {
+        node.addEventListener('click', () => {
+            const stepId = node.getAttribute('data-step'); // e.g. 'alignment', 'asset', 'execution', 'roi'
+            const stepTitle = node.querySelector('h3').textContent;
+            
+            trackEvent('pipeline_click', { step: stepId, title: stepTitle });
+
+            // Switch to Chat Tab
+            switchTab('consultant');
+
+            // Send simulated user query
+            const query = currentLang === 'ar' ? `اشرح لي المزيد عن: ${stepTitle}` : `Expand on: ${stepTitle}`;
+            addMessage('user', query);
+
+            // Artificial delay before bot replies
+            setTimeout(() => {
+                handleBotReply(stepId);
+            }, 600);
+        });
+    });
+
+    // --- Metrics Interactive Sync ---
+    document.querySelectorAll('.metric-card').forEach(node => {
+        node.addEventListener('click', () => {
+            const metricId = node.getAttribute('data-metric'); // e.g. 'rag_metric', 'model_metric', 'cost_metric'
+            const metricTitle = node.querySelector('h3').textContent;
+            
+            trackEvent('metric_click', { metric: metricId, title: metricTitle });
+
+            // Switch to Chat Tab
+            switchTab('consultant');
+
+            // Send simulated user query
+            const query = currentLang === 'ar' ? `ما هي تفاصيل مقياس: ${metricTitle}؟` : `What are the details of the metric: ${metricTitle}?`;
+            addMessage('user', query);
+
+            // Artificial delay before bot replies
+            setTimeout(() => {
+                handleBotReply(metricId);
+            }, 600);
+        });
+    });
 
     // --- Media Reels Hub Subsystem & Interactive Controls ---
     function renderReels() {
