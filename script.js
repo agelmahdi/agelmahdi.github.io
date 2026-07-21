@@ -224,6 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('ahmed_twin_active_tab', targetTab);
     }
 
+    const sceneSlugs = ['intro', 'credentials', 'techno-business', 'architecture', 'metrics', 'faqs'];
+
     function updateUrlHash() {
         if (isInitializing) return;
         let hash = '';
@@ -232,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (activeTab === 'media') {
             hash = '#media';
         } else if (activeTab === 'portfolio') {
-            hash = `#portfolio-${currentIndex + 1}`;
+            hash = `#${sceneSlugs[currentIndex] || 'portfolio-' + (currentIndex + 1)}`;
         }
         if (window.location.hash !== hash) {
             window.history.replaceState(null, null, hash);
@@ -1666,16 +1668,24 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (hash === '#media') {
                 switchTab('media');
                 return;
-            } else if (hash.startsWith('#portfolio')) {
-                switchTab('portfolio');
-                const parts = hash.split('-');
-                if (parts.length > 1) {
-                    const slideNum = parseInt(parts[1], 10);
-                    if (!isNaN(slideNum) && slideNum >= 1 && slideNum <= scenes.length) {
-                        goToSlide(slideNum - 1);
+            } else {
+                const slug = hash.substring(1);
+                const slideIndex = sceneSlugs.indexOf(slug);
+                if (slideIndex !== -1) {
+                    switchTab('portfolio');
+                    goToSlide(slideIndex);
+                    return;
+                } else if (hash.startsWith('#portfolio')) {
+                    switchTab('portfolio');
+                    const parts = hash.split('-');
+                    if (parts.length > 1) {
+                        const slideNum = parseInt(parts[1], 10);
+                        if (!isNaN(slideNum) && slideNum >= 1 && slideNum <= scenes.length) {
+                            goToSlide(slideNum - 1);
+                        }
                     }
+                    return;
                 }
-                return;
             }
         }
 
