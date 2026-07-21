@@ -511,6 +511,19 @@ document.addEventListener('DOMContentLoaded', () => {
             integrationPillar2Desc: 'Designing Custom AI and Data Pipelines to transform enterprise data into a heavily guarded digital asset.',
             integrationPillar3Title: '3. Engineered Execution',
             integrationPillar3Desc: 'Deploying MLOps and scalable, secure AI systems capable of handling enterprise demands reliably.',
+            integrationPeakTitle: 'High ROI & Competitive Edge',
+            faqTitle: 'Frequently Asked Questions',
+            faqSubtitle: 'Click any question for a detailed architectural illustration.',
+            faqQ1: '1. Should I build custom AI or buy SaaS APIs?',
+            faqQ2: '2. How do you align AI engineering with Business ROI?',
+            faqQ3: '3. How do you guarantee AI security & reliability?',
+            faqQ4: "4. Agentic AI vs. Basic RAG: What's the difference?",
+            faqQ5: "5. How do we start an enterprise AI integration?",
+            faqQ6: "6. How do you handle data privacy and compliance?",
+            faqQ7: "7. What is the typical timeline for an AI integration project?",
+            faqQ8: "8. Can we train models on our own local servers?",
+            faqQ9: "9. What is AI Governance and why is it critical?",
+            faqQ10: "10. How do you prevent model drift and hallucination over time?",
             credentialsTitle: 'AI Architecture Framework',
             credentialsSubtitle: 'Enterprise AI Engineering Pillars Lifecycle',
             ctaTitle: "Let's Connect & Build",
@@ -629,8 +642,84 @@ document.addEventListener('DOMContentLoaded', () => {
                 about: `<strong>Ahmed El-Mahdi - Principal AI Architect:</strong><br>
         Ahmed is a distributed systems expert and AI architect with over 10 years of experience. He specializes in building scalable, secure, and governed AI applications.
         <br><br>
-        You can explore his career metrics, technical skills, and verified certifications under the <strong>Credentials Board</strong> tab, or connect with him directly via <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">Linkedin</a> or drop a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a>!`,
-                fallback: `I would love to analyze your specific system constraints. Feel free to connect with Ahmed via <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">Linkedin</a> or drop a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a> to discuss this architecture further!`,
+        I'd love to analyze your specific system constraints. Connect with him on <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">LinkedIn</a> or drop a message on <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a> to discuss this architecture in deeper detail!`,
+                fallback: `I'd love to analyze your specific system constraints. Connect with him on <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">LinkedIn</a> or drop a message on <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a> to discuss this architecture in deeper detail!`,
+                faq_build: `<strong>Build vs. Buy AI: The Strategic Choice</strong><br>
+        Renting AI APIs is good for prototyping, but engineering your own AI infrastructure is critical for enterprise dominance.<br>
+        <div class="build-vs-buy-grid" style="margin-top: 15px;">
+            <div class="buy-card" style="width: 100%;">
+                <h3 style="text-align: center;">Renting (APIs/SaaS)</h3>
+                <ul>
+                    <li>❌ Per-token recurring costs</li>
+                    <li>❌ Data privacy & leakage risks</li>
+                    <li>❌ Generic capabilities (No Moat)</li>
+                </ul>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="build-card glowing-border" style="width: 100%;">
+                <h3 style="text-align: center;">Building Custom AI</h3>
+                <ul>
+                    <li>✅ Absolute Data Sovereignty</li>
+                    <li>✅ Zero-Trust Security & Compliance</li>
+                    <li>✅ Proprietary IP & Domain Specificity</li>
+                </ul>
+                <div class="build-peak-icon">👑</div>
+            </div>
+        </div>`,
+                faq_roi: `<strong>Techno-Business Integration</strong><br>
+        We bridge the gap between deep tech engineering and business goals to ensure high ROI.<br>
+        <div class="value-pipeline" style="margin-top: 15px; padding: 1rem; border-radius: 8px;">
+            <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
+                <div class="node-icon">🎯</div>
+                <div class="node-content">
+                    <h3 style="font-size: 1rem;">1. AI Alignment</h3>
+                </div>
+            </div>
+            <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
+                <div class="node-icon">🛡️</div>
+                <div class="node-content">
+                    <h3 style="font-size: 1rem;">2. Asset Generation</h3>
+                </div>
+            </div>
+            <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
+                <div class="node-icon">⚙️</div>
+                <div class="node-content">
+                    <h3 style="font-size: 1rem;">3. Engineered Execution</h3>
+                </div>
+            </div>
+            <div class="pipeline-peak" style="padding: 10px;">
+                <h3 style="font-size: 1.1rem; text-align: center; color: var(--gold); margin: 0;">High ROI & Competitive Edge</h3>
+            </div>
+        </div>`,
+                faq_security: `<strong>Enterprise AI Security & Reliability</strong><br>
+        Guided by trustworthy AI paradigms and SRE principles, our systems are built to withstand enterprise demands.<br>
+        <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(234, 88, 12, 0.3); border-radius: 12px; padding: 1.2rem; margin-top: 15px; text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🔒</div>
+            <ul style="text-align: left; list-style: none; padding: 0;">
+                <li style="margin-bottom: 8px; color: var(--text-main);">🛡️ <strong>Zero-Trust Architecture</strong></li>
+                <li style="margin-bottom: 8px; color: var(--text-main);">🔄 <strong>Self-Healing Microservices</strong></li>
+                <li style="margin-bottom: 8px; color: var(--text-main);">🚫 <strong>Prompt Injection Guardrails</strong></li>
+                <li style="color: var(--text-main);">⚙️ <strong>Automated CI/CD MLOps</strong></li>
+            </ul>
+        </div>`,
+                faq_agents: `<strong>Agentic Workflows vs. Basic RAG</strong><br>
+        Basic RAG simply retrieves documents and summarizes them. It's passive.<br>
+        <strong>Agentic AI</strong> is proactive. We build supervisors that break down complex tasks, route them to specialized sub-agents, execute multi-step logic (like querying SQL, calling APIs, and generating reports), and verify the output before responding.`,
+                faq_start: `<strong>Getting Started: The Architecture Assessment</strong><br>
+        We begin with a zero-cost architecture assessment to map your current data infrastructure and identify high-ROI use cases. From there, we design a proof-of-concept (PoC) architecture using the AI Engineering Pillars to demonstrate tangible value within weeks.`,
+                faq_privacy: `<strong>Data Privacy & Compliance Architecture</strong><br>
+        We adopt a <strong>Zero-Trust</strong> approach. All enterprise data remains within your sovereign cloud environment. We deploy data-masking pipelines for PII before it ever hits an LLM, ensuring strict compliance with corporate security policies.`,
+                faq_timeline: `<strong>Strategic Delivery Timeline</strong><br>
+        Our delivery is phased for rapid value realization:<br>
+        • <strong>Weeks 1-2:</strong> Architecture Assessment & ROI Mapping.<br>
+        • <strong>Weeks 3-6:</strong> Secure PoC and baseline workflows.<br>
+        • <strong>Weeks 7-12:</strong> Enterprise-grade scaling and full deployment.`,
+                faq_onprem: `<strong>On-Premise vs. Sovereign Cloud AI</strong><br>
+        Absolutely. For clients with maximum security requirements, we build and deploy highly optimized models locally on your own GPU clusters using <strong>vLLM</strong> or <strong>TGI</strong>, guaranteeing that not a single token leaves your network.`,
+                faq_governance: `<strong>AI Governance Framework</strong><br>
+        Governance isn't just compliance—it's control. We implement robust frameworks to monitor model behavior, audit decision-making processes, and enforce strict role-based access control (RBAC). This ensures your AI operates ethically, transparently, and aligned with enterprise policies.`,
+                faq_drift: `<strong>Preventing Model Drift & Hallucinations</strong><br>
+        AI models degrade over time as real-world data changes. We establish continuous evaluation pipelines (MLOps) that detect semantic drift, alert engineers, and trigger automated retraining loops. Additionally, we use statistical verification to ground outputs and strictly suppress hallucinations.`,
                 phase_a: `<strong>AI Pillar A: Architecture Vision & AI Alignment:</strong><br>
         Pillar A establishes the high-level roadmap and business vision. For enterprise AI deployments, I apply it to:
         <ul>
@@ -723,6 +812,19 @@ document.addEventListener('DOMContentLoaded', () => {
             integrationPillar2Desc: 'تصميم أنظمة ذكاء اصطناعي وخطوط بيانات مخصصة لتحويل بيانات الشركة إلى أصل رقمي محمي ومربح.',
             integrationPillar3Title: '3. التنفيذ الهندسي المتكامل',
             integrationPillar3Desc: 'نشر أنظمة ذكاء اصطناعي قابلة للتوسع وآمنة عبر عمليات الـ MLOps لتلبية متطلبات الشركات بموثوقية عالية.',
+            integrationPeakTitle: 'عائد استثماري ضخم وميزة تنافسية',
+            faqTitle: 'الأسئلة الشائعة (FAQs)',
+            faqSubtitle: 'انقر على أي سؤال لعرض رسم توضيحي معماري مفصل.',
+            faqQ1: '1. هل يجب أن أبني ذكاء اصطناعي مخصص أم أستأجر (SaaS)؟',
+            faqQ2: '2. كيف يتم مواءمة الهندسة التقنية مع العائد على الاستثمار؟',
+            faqQ3: '3. كيف تضمن أمان وموثوقية الذكاء الاصطناعي للمؤسسات؟',
+            faqQ4: '4. ما الفرق بين وكلاء الذكاء الاصطناعي وأنظمة RAG العادية؟',
+            faqQ5: '5. كيف نبدأ في دمج الذكاء الاصطناعي في مؤسستنا؟',
+            faqQ6: '6. كيف تتعامل مع خصوصية البيانات والامتثال؟',
+            faqQ7: '7. ما هو الإطار الزمني المعتاد لمشاريع الذكاء الاصطناعي؟',
+            faqQ8: '8. هل يمكننا تدريب النماذج على خوادمنا المحلية؟',
+            faqQ9: '9. ما هي حوكمة الذكاء الاصطناعي ولماذا هي مهمة جداً؟',
+            faqQ10: '10. كيف تمنع انحراف النماذج والهلوسة بمرور الوقت؟',
             credentialsTitle: 'إطار هندسة الذكاء الاصطناعي',
             credentialsSubtitle: 'دورة حياة ركائز هندسة الذكاء الاصطناعي للمؤسسات',
             ctaTitle: 'لنبدأ البناء معاً',
@@ -843,6 +945,82 @@ document.addEventListener('DOMContentLoaded', () => {
         <br><br>
          أودّ تحليل قيود نظامك بالتحديد. تواصل مع المهدي عبر <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">لينكدإن</a> أو أرسل رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a> لمناقشة هذه البنية بمزيد من التفصيل!`,
                 fallback: `أودّ تحليل قيود نظامك بالتحديد. تواصل مع المهدي عبر <a href="https://www.linkedin.com/in/agelmahdi" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">لينكدإن</a> أو أرسل رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a> لمناقشة هذه البنية بمزيد من التفصيل!`,
+                faq_build: `<strong>بناء الذكاء الاصطناعي أم شراؤه: الخيار الاستراتيجي</strong><br>
+        استئجار واجهات الذكاء الاصطناعي الجاهزة (APIs) مفيد للنماذج الأولية، لكن بناء بنيتك التحتية الخاصة هو ما يميز الشركات الرائدة.<br>
+        <div class="build-vs-buy-grid" style="margin-top: 15px;" dir="rtl">
+            <div class="buy-card" style="width: 100%;">
+                <h3 style="text-align: center;">الاستئجار (APIs/SaaS)</h3>
+                <ul>
+                    <li>❌ تكاليف مستمرة لكل Token</li>
+                    <li>❌ مخاطر تسريب خصوصية البيانات</li>
+                    <li>❌ قدرات عامة (لا توفر ميزة تنافسية)</li>
+                </ul>
+            </div>
+            <div class="vs-badge">ضـد</div>
+            <div class="build-card glowing-border" style="width: 100%;">
+                <h3 style="text-align: center;">بناء أنظمة ذكية مخصصة</h3>
+                <ul>
+                    <li>✅ سيادة مطلقة على البيانات</li>
+                    <li>✅ أمان صارم (Zero-Trust) وتوافق</li>
+                    <li>✅ ملكية فكرية وحلول مخصصة لمجالك</li>
+                </ul>
+                <div class="build-peak-icon">👑</div>
+            </div>
+        </div>`,
+                faq_roi: `<strong>التكامل التقني والتجاري</strong><br>
+        نحن نسد الفجوة بين التقنية العميقة وأهداف العمل لضمان أعلى عائد على الاستثمار (ROI).<br>
+        <div class="value-pipeline" style="margin-top: 15px; padding: 1rem; border-radius: 8px;" dir="rtl">
+            <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
+                <div class="node-icon">🎯</div>
+                <div class="node-content">
+                    <h3 style="font-size: 1rem;">1. المواءمة الاستراتيجية</h3>
+                </div>
+            </div>
+            <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
+                <div class="node-icon">🛡️</div>
+                <div class="node-content">
+                    <h3 style="font-size: 1rem;">2. بناء الأصول الرقمية</h3>
+                </div>
+            </div>
+            <div class="pipeline-node" style="padding: 10px; margin-bottom: 10px;">
+                <div class="node-icon">⚙️</div>
+                <div class="node-content">
+                    <h3 style="font-size: 1rem;">3. التنفيذ الهندسي المتكامل</h3>
+                </div>
+            </div>
+            <div class="pipeline-peak" style="padding: 10px;">
+                <h3 style="font-size: 1.1rem; text-align: center; color: var(--gold); margin: 0;">عائد استثماري ضخم وميزة تنافسية</h3>
+            </div>
+        </div>`,
+                faq_security: `<strong>أمان وموثوقية الذكاء الاصطناعي</strong><br>
+        استناداً لمبادئ هندسة الموثوقية (SRE)، تُبنى أنظمتنا لتتحمل متطلبات المؤسسات الكبرى وتضمن حماية البيانات.<br>
+        <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(234, 88, 12, 0.3); border-radius: 12px; padding: 1.2rem; margin-top: 15px; text-align: center;" dir="rtl">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🔒</div>
+            <ul style="text-align: right; list-style: none; padding: 0;">
+                <li style="margin-bottom: 8px; color: var(--text-main);">🛡️ <strong>بنية خالية من الثقة (Zero-Trust)</strong></li>
+                <li style="margin-bottom: 8px; color: var(--text-main);">🔄 <strong>خدمات مصغرة ذاتية التعافي</strong></li>
+                <li style="margin-bottom: 8px; color: var(--text-main);">🚫 <strong>جدران حماية ضد الاختراق (Prompt Injection)</strong></li>
+                <li style="color: var(--text-main);">⚙️ <strong>مسارات نشر وتشغيل مؤتمتة (MLOps)</strong></li>
+            </ul>
+        </div>`,
+                faq_agents: `<strong>وكلاء الذكاء الاصطناعي مقابل الـ RAG العادي</strong><br>
+        نظام الـ RAG الأساسي يقتصر على استرجاع المستندات وتلخيصها؛ وهو نظام سلبي.<br>
+        أما <strong>وكلاء الذكاء الاصطناعي (Agentic AI)</strong> فهي أنظمة استباقية. نقوم ببناء أنظمة إشرافية تقسم المهام المعقدة وتوجهها لوكلاء فرعيين متخصصين لتنفيذ خطوات متعددة (مثل الاستعلام من قواعد البيانات، استدعاء واجهات برمجة التطبيقات APIs، وإنشاء التقارير) والتحقق من صحتها قبل الرد.`,
+                faq_start: `<strong>نقطة البداية: التقييم المعماري</strong><br>
+        نبدأ بتقييم البنية التحتية لبياناتك وتحديد حالات الاستخدام ذات العائد الاستثماري الأعلى (High-ROI). بناءً على ذلك، نصمم نموذج إثبات المفهوم (PoC) باستخدام ركائز هندسة الذكاء الاصطناعي لإثبات القيمة الفعلية خلال أسابيع معدودة.`,
+                faq_privacy: `<strong>بنية الخصوصية والامتثال للبيانات</strong><br>
+        نحن نعتمد نهج <strong>Zero-Trust</strong> (انعدام الثقة). تظل جميع بيانات المؤسسة داخل بيئتك السحابية. نقوم ببناء مسارات لحجب البيانات الحساسة (PII) قبل وصولها لأي نموذج ذكاء اصطناعي، مما يضمن التوافق التام مع سياسات الأمان.`,
+                faq_timeline: `<strong>الإطار الزمني الاستراتيجي للتنفيذ</strong><br>
+        يتم التسليم على مراحل لضمان تحقيق قيمة سريعة:<br>
+        • <strong>الأسابيع 1-2:</strong> التقييم المعماري وتحديد العائد على الاستثمار.<br>
+        • <strong>الأسابيع 3-6:</strong> إطلاق نموذج إثبات المفهوم (PoC) وبناء مسارات الوكلاء الأساسية.<br>
+        • <strong>الأسابيع 7-12:</strong> التوسع المؤسسي والنشر النهائي للأنظمة.`,
+                faq_onprem: `<strong>الاستضافة المحلية للذكاء الاصطناعي</strong><br>
+        بالتأكيد. للعملاء ذوي المتطلبات الأمنية القصوى، نقوم ببناء ونشر نماذج محسّنة محلياً على خوادم الـ GPU الخاصة بك باستخدام <strong>vLLM</strong> أو <strong>TGI</strong>، مما يضمن عدم تسريب أي بيانات خارج شبكتك المغلقة.`,
+                faq_governance: `<strong>إطار عمل حوكمة الذكاء الاصطناعي</strong><br>
+        الحوكمة ليست مجرد امتثال للقوانين—إنها سيطرة تامة. نحن نطبق أطراً قوية لمراقبة سلوك النماذج، تدقيق عمليات اتخاذ القرار، وفرض ضوابط وصول صارمة (RBAC). هذا يضمن أن الذكاء الاصطناعي يعمل بشفافية وبما يتماشى تماماً مع سياسات مؤسستك.`,
+                faq_drift: `<strong>منع الانحراف والهلوسة بمرور الوقت</strong><br>
+        تتراجع دقة النماذج تدريجياً مع تغير البيانات في العالم الحقيقي. لمنع ذلك، نبني مسارات تقييم مستمرة (MLOps) تكتشف الانحراف الدلالي وتُفعّل دورات إعادة التدريب تلقائياً. كما نستخدم آليات تحقق إحصائية لضمان دقة المخرجات وقمع الهلوسة تماماً.`,
                 phase_a: `<strong>الركيزة A: رؤية البنية التحتية ومواءمة الذكاء الاصطناعي:</strong><br>
         الركيزة A بتحدد خارطة الطريق وأهداف العمل الأساسية. بنطبقها من خلال:
         <ul>
@@ -1231,6 +1409,27 @@ document.addEventListener('DOMContentLoaded', () => {
             // Artificial delay before bot replies
             setTimeout(() => {
                 handleBotReply(metricId);
+            }, 600);
+        });
+    });
+
+    // --- FAQs Interactive Sync ---
+    document.querySelectorAll('.faq-card').forEach(node => {
+        node.addEventListener('click', () => {
+            const faqId = node.getAttribute('data-faq'); // e.g. 'faq_build', 'faq_roi', 'faq_security'
+            const faqTitle = node.querySelector('h3').textContent;
+            
+            trackEvent('faq_click', { faq: faqId, title: faqTitle });
+
+            // Switch to Chat Tab
+            switchTab('consultant');
+
+            // Send simulated user query
+            addMessage('user', faqTitle);
+
+            // Artificial delay before bot replies
+            setTimeout(() => {
+                handleBotReply(faqId);
             }, 600);
         });
     });
