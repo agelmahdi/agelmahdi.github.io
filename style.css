@@ -750,7 +750,24 @@ body[dir="rtl"] .suggestion-chip {
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     overflow-y: auto;
     overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
     padding: 10px 15px 30px 15px; /* Breathing room at bottom */
+}
+
+/* Custom Scrollbar for Scenes (matching Chat scrollbar) */
+.scene::-webkit-scrollbar {
+    width: 6px;
+}
+.scene::-webkit-scrollbar-track {
+    background: transparent;
+}
+.scene::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+.scene::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
 }
 .scene > * {
     flex-shrink: 0;
@@ -1087,11 +1104,12 @@ body[dir="rtl"] .suggestion-chip {
     width: 100%;
     max-width: 680px;
     aspect-ratio: 1.65;
-    margin: 20px auto 0;
+    margin: 10px auto 0;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
+    transform-origin: top center;
 }
 
 .network-svg {
@@ -1211,7 +1229,7 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     overflow: visible;
     margin-top: 10px;
 }
@@ -1324,23 +1342,52 @@ body[dir="rtl"] .node-h { left: auto; right: 10%; transform: translateY(-50%); }
     }
 }
 
-/* Scaled up views for larger screens */
-@media (min-width: 1200px) {
+/* Scaled views for larger screens (requiring sufficient height to prevent vertical clipping) */
+@media (min-width: 1200px) and (min-height: 750px) {
     .togaf-network-container {
-        transform: scale(1.35);
-        transform-origin: center center;
+        transform: scale(1.18);
+        transform-origin: top center;
     }
     .network-wrapper {
-        height: 510px;
+        height: 480px;
     }
 }
-@media (min-width: 1500px) {
+@media (min-width: 1500px) and (min-height: 850px) {
     .togaf-network-container {
-        transform: scale(1.55);
-        transform-origin: center center;
+        transform: scale(1.35);
+        transform-origin: top center;
     }
     .network-wrapper {
-        height: 590px;
+        height: 550px;
+    }
+}
+
+/* Scaling down for short viewport heights (e.g., half-height desktop windows or landscape screens) */
+@media (max-height: 750px) and (min-width: 769px) {
+    .togaf-network-container {
+        transform: scale(0.82);
+        transform-origin: top center;
+    }
+    .network-wrapper {
+        height: 340px;
+    }
+}
+@media (max-height: 640px) and (min-width: 769px) {
+    .togaf-network-container {
+        transform: scale(0.68);
+        transform-origin: top center;
+    }
+    .network-wrapper {
+        height: 285px;
+    }
+}
+@media (max-height: 520px) and (min-width: 769px) {
+    .togaf-network-container {
+        transform: scale(0.55);
+        transform-origin: top center;
+    }
+    .network-wrapper {
+        height: 230px;
     }
 }
 
@@ -2001,50 +2048,7 @@ body[dir="rtl"] .footer-buttons {
     }
 }
 
-/* Short viewport heights adjustments (e.g. mobile landscape, short desktops) */
-@media (max-height: 640px) {
-    body {
-        align-items: flex-start !important;
-        overflow-y: auto !important;
-        padding: 10px 0 !important;
-        height: auto !important;
-        min-height: 100vh !important;
-    }
-    
-    .main-container {
-        position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
-        transform: none !important;
-        width: 95% !important;
-        max-width: 1400px !important;
-        height: auto !important;
-        min-height: calc(100vh - 20px) !important;
-        margin: 10px auto !important;
-    }
-    
-    .chat-wrapper {
-        height: 480px !important;
-    }
-    
-    #contentPortfolio {
-        height: 480px !important;
-    }
 
-    @media (min-width: 769px) {
-        .togaf-network-container {
-            transform: scale(0.85) !important;
-            transform-origin: center center !important;
-        }
-        .network-wrapper {
-            height: 340px !important;
-        }
-    }
-    
-    .scene {
-        padding-bottom: 5.5rem !important;
-    }
-}
 
 
 /* --- Media Reels Hub Section --- */
@@ -2497,13 +2501,7 @@ body[dir="rtl"] .reel-source-badge {
     height: 16px;
 }
 
-/* Height limitation safeguards for Reels Container */
-@media (max-height: 640px) {
-    .chat-wrapper, #contentPortfolio, #contentMedia {
-        height: auto !important;
-        min-height: 480px;
-    }
-}
+
 
 /* Facebook/Other Iframe Embed styles */
 .reel-video-wrapper iframe {
