@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const appFooter = document.querySelector('.app-footer');
     const tabConsultant = document.getElementById('tabConsultant');
     const tabPortfolio = document.getElementById('tabPortfolio');
-    const tabMedia = document.getElementById('tabMedia');
+    const tabMedia = document.getElementById('tabMedia') || document.getElementById('drawerTabMedia');
     const contentConsultant = document.getElementById('contentConsultant');
     const contentPortfolio = document.getElementById('contentPortfolio');
     const contentMedia = document.getElementById('contentMedia');
@@ -206,6 +206,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tabConsultant.classList.toggle('active', targetTab === 'consultant');
         tabPortfolio.classList.toggle('active', targetTab === 'portfolio');
         if (tabMedia) tabMedia.classList.toggle('active', targetTab === 'media');
+        document.querySelectorAll('.side-drawer-tab[data-tab]').forEach(btn => {
+            btn.classList.toggle('active', targetTab === btn.dataset.tab);
+        });
 
         contentConsultant.classList.toggle('active', targetTab === 'consultant');
         contentPortfolio.classList.toggle('active', targetTab === 'portfolio');
@@ -228,17 +231,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateUrlHash() {
         if (isInitializing) return;
-        let hash = '';
+        let tabQuery = '';
         if (activeTab === 'consultant') {
-            hash = '#chat';
+            tabQuery = 'chat';
         } else if (activeTab === 'media') {
-            hash = '#media';
+            tabQuery = 'media';
         } else if (activeTab === 'portfolio') {
-            hash = `#${sceneSlugs[currentIndex] || 'portfolio-' + (currentIndex + 1)}`;
+            const currentSlug = sceneSlugs[currentIndex] || 'portfolio-' + (currentIndex + 1);
+            tabQuery = currentSlug;
         }
-        if (window.location.hash !== hash) {
-            window.history.replaceState(null, null, hash);
-        }
+
+        try {
+            const currentSearch = new URLSearchParams(window.location.search);
+            currentSearch.set('tab', tabQuery);
+            const newUrl = window.location.pathname + '?' + currentSearch.toString();
+            window.history.replaceState(null, null, newUrl);
+        } catch (e) {}
     }
 
     tabConsultant.addEventListener('click', () => switchTab('consultant'));
@@ -341,8 +349,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     : 'Hi Ahmed, I saw your Model Specialization metrics and want to discuss custom LLM fine-tuning and pipeline optimization.';
             } else if (currentIndex === 3) {
                 text = currentLang === 'ar'
-                    ? 'مرحباً أحمد، أنا مهتم بإطار ركائز هندسة الذكاء الاصطناعي للمؤسسات وكيفية تطبيقه في منظمتي.'
-                    : 'Hi Ahmed, I am interested in your Enterprise AI Engineering Pillars framework and how to implement it in my organization.';
+                    ? 'مرحباً أحمد، أود حجز جلسة استشارة متعمقة (Deep Dive) لمناقشة معماريات الذكاء الاصطناعي المتقدمة وإطار ركائز المؤسسات.'
+                    : 'Hi Ahmed, I would like to schedule a Deep Dive consultation for Advanced AI Architecture and Enterprise Engineering Pillars.';
             } else if (currentIndex === 4) {
                 text = currentLang === 'ar'
                     ? 'مرحباً أحمد، رأيت اعتمادات أمان واعتمادية أنظمة الذكاء الاصطناعي وأود مناقشة بنى النشر الآمنة.'
@@ -549,7 +557,10 @@ document.addEventListener('DOMContentLoaded', () => {
             navArchitecture: 'Enterprise AI Architecture',
             navMetrics: 'Proven ROI & Metrics',
             navFAQ: 'Executive FAQs',
-            navDevelopers: 'Developers (Soon)',
+            navDevelopers: 'AI Architectures',
+            navAIArchitectures: 'AI Architectures',
+            tabArchitectures: 'AI Architectures',
+            navMedia: 'Reels',
             faqQ1: '1. Should I build custom AI or buy SaaS APIs?',
             faqQ2: '2. How do you align AI engineering with Business ROI?',
             faqQ3: '3. How do you guarantee AI security & reliability?',
@@ -855,7 +866,10 @@ document.addEventListener('DOMContentLoaded', () => {
             navArchitecture: 'بنية الذكاء الاصطناعي للمؤسسات',
             navMetrics: 'مؤشرات الأداء والعائد المتوقع',
             navFAQ: 'الأسئلة الاستراتيجية',
-            navDevelopers: 'المطورين (قريباً)',
+            navDevelopers: 'معماريات الذكاء الاصطناعي',
+            navAIArchitectures: 'معماريات الذكاء الاصطناعي',
+            tabArchitectures: 'معماريات الذكاء الاصطناعي',
+            navMedia: 'الوسائط',
             faqQ1: '1. هل يجب أن أبني ذكاء اصطناعي مخصص أم أستأجر (SaaS)؟',
             faqQ2: '2. كيف يتم مواءمة الهندسة التقنية مع العائد على الاستثمار؟',
             faqQ3: '3. كيف تضمن أمان وموثوقية الذكاء الاصطناعي للمؤسسات؟',
@@ -1174,6 +1188,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> ` + translations[lang][key];
                 } else if (key === 'tabMedia') {
                     el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg> ` + translations[lang][key];
+                } else if (key === 'tabArchitectures') {
+                    el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> ` + translations[lang][key];
                 } else {
                     el.innerHTML = translations[lang][key];
                 }
@@ -1660,8 +1676,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Restore Page & Tab State on Reload via URL Hash & localStorage ---
+    // --- Restore Page & Tab State on Reload via URL Query, Hash & localStorage ---
     function restoreState() {
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const tabParam = params.get('tab') || params.get('scene') || params.get('slide') || params.get('id');
+            if (tabParam) {
+                if (tabParam === 'chat' || tabParam === 'consultant' || tabParam === 'tabConsultant') {
+                    switchTab('consultant');
+                    return;
+                }
+                if (tabParam === 'media' || tabParam === 'reels' || tabParam === 'drawerTabMedia') {
+                    switchTab('media');
+                    return;
+                }
+                const slideIndex = sceneSlugs.indexOf(tabParam);
+                if (slideIndex !== -1) {
+                    switchTab('portfolio');
+                    goToSlide(slideIndex);
+                    return;
+                }
+                if (tabParam === 'portfolio' || tabParam === 'credentials' || tabParam === 'tabPortfolio') {
+                    switchTab('portfolio');
+                    return;
+                }
+                const drawerMatch = {
+                    'drawerTabTechno': 2,
+                    'techno-business': 2,
+                    'drawerTabArchitecture': 3,
+                    'architecture': 3,
+                    'drawerTabMetrics': 4,
+                    'metrics': 4,
+                    'drawerTabFAQ': 5,
+                    'faqs': 5
+                }[tabParam];
+                if (drawerMatch !== undefined) {
+                    switchTab('portfolio');
+                    goToSlide(drawerMatch);
+                    return;
+                }
+            }
+        } catch (e) {}
+
         const hash = window.location.hash;
         if (hash) {
             if (hash === '#chat') {
@@ -1691,7 +1747,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Fallback to localStorage if no hash is present in the URL
+        // Fallback to localStorage if no query or hash is present in the URL
         const savedTab = localStorage.getItem('ahmed_twin_active_tab');
         if (savedTab) {
             switchTab(savedTab);
@@ -1797,8 +1853,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Bind hashchange listener and execute on initial boot
+    // Bind hashchange and popstate listeners and execute on initial boot
     window.addEventListener('hashchange', restoreState);
+    window.addEventListener('popstate', restoreState);
     restoreState();
     isInitializing = false;
     updateUrlHash();

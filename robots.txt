@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /index-ar.html
+Allow: /ai%20architecture/presentation.html
+
+# Prevent indexing of proprietary consultation-gated Deep Dive tabs
+Disallow: /*?tab=tab-sec-mandate
+Disallow: /*?tab=tab-sec-enterprise-ai-arch
+Disallow: /*?tab=tab-sec-cloud-patterns
+Disallow: /*?tab=tab-sec-llm-inference
+Disallow: /*?tab=tab-sec-architecture
+Disallow: /*?tab=tab-sec-security
+Disallow: /*?tab=tab-sec-efficiency
+Disallow: /*?tab=tab-sec-data-mlops
+Disallow: /*?tab=tab-sec-kafka-k8s
+Disallow: /*?tab=tab-sec-llmops
+Disallow: /*?tab=tab-sec-mbse
+Disallow: /*?tab=tab-sec-workflow
+Disallow: /*?tab=tab-sec-visuals
+Disallow: /*?tab=tab-sec-tools
+Disallow: /*?tab=tab-sec-interview
+
+Sitemap: https://agelmahdi.github.io/sitemap.xml
