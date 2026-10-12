@@ -492,7 +492,7 @@
                     <h2 style="font-size: 1.75rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.85rem; line-height: 1.3;">
                         ${cleanTitle}
                     </h2>
-                    <p style="color: #94a3b8; font-size: 0.98rem; line-height: 1.65; margin-bottom: 2rem;">
+                    <p style="color: #cbd5e1; font-size: 0.98rem; line-height: 1.65; margin-bottom: 2rem;">
                         ${meta.desc}
                     </p>
                     <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
@@ -1278,9 +1278,9 @@ data: {
                 resultsBox.innerHTML = `
 <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 8px; padding: 1.25rem;">
     <strong style="color: #f87171; font-size: 1rem;">🚨 PIPELINE HALTED: ADVERSARIAL VIOLATION DETECTED</strong>
-    <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #cbd5e1;"><strong>Component Intercepted:</strong> NVIDIA NeMo Guardrails (Colang 2.0 Flow)</p>
-    <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #cbd5e1;"><strong>Threat Vector:</strong> Direct Prompt Injection / System Prompt Extraction Attempt</p>
-    <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #cbd5e1;"><strong>Security Action:</strong> Request dropped with 403 Forbidden. GPU inference aborted ($0.00 cost). Forensics dispatched to ClickHouse.</p>
+    <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #e2e8f0;"><strong>Component Intercepted:</strong> NVIDIA NeMo Guardrails (Colang 2.0 Flow)</p>
+    <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #e2e8f0;"><strong>Threat Vector:</strong> Direct Prompt Injection / System Prompt Extraction Attempt</p>
+    <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #e2e8f0;"><strong>Security Action:</strong> Request dropped with 403 Forbidden. GPU inference aborted ($0.00 cost). Forensics dispatched to ClickHouse.</p>
 </div>`;
                 return;
             }
@@ -1378,7 +1378,7 @@ data: {
                     <div style="font-size: 1.1rem; font-weight: 700; color: #f8fafc;">
                         Readiness Score: <span id="score-percent-val" style="color: #60a5fa;">0%</span> (0/${quizQuestions.length} Scenarios Answered)
                     </div>
-                    <p style="margin: 0.35rem 0 0 0; font-size: 0.88rem; color: #94a3b8;">
+                    <p style="margin: 0.35rem 0 0 0; font-size: 0.88rem; color: #cbd5e1;">
                         Select your responses below to simulate executive architectural defense scenarios.
                     </p>
                 </div>
@@ -1390,10 +1390,10 @@ data: {
                 <div class="quiz-question" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-light, rgba(255,255,255,0.1)); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
                         <h4 style="margin: 0; color: var(--text-primary, #f8fafc); font-size: 1.1rem;">
-                            <span style="color: #f59e0b; font-weight: 700;">Scenario ${index + 1}:</span> ${q.title}
+                            <span style="color: #fbbf24; font-weight: 700;">Scenario ${index + 1}:</span> ${q.title}
                         </h4>
                     </div>
-                    <p style="color: #cbd5e1; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6;">
+                    <p style="color: #e2e8f0; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6;">
                         <strong>The Question:</strong> "${q.scenario}"
                     </p>
                     <div class="options-grid" style="display: grid; gap: 0.75rem;">
@@ -1472,7 +1472,7 @@ data: {
                 <div style="font-size: 1.1rem; font-weight: 700; color: #f8fafc;">
                     Readiness Score: <span style="color: ${scorePercent >= 70 ? 'var(--color-emerald-light, #34d399)' : '#fbbf24'}">${scorePercent}%</span> (${correctCount}/${quizQuestions.length} Scenarios Mastered)
                 </div>
-                <p style="margin: 0.35rem 0 0 0; font-size: 0.88rem; color: #94a3b8;">
+                <p style="margin: 0.35rem 0 0 0; font-size: 0.88rem; color: #cbd5e1;">
                     ${scorePercent >= 70 ? '🎉 Exceptional leadership positioning! Ready for senior executive interview rounds.' : 'Review the scenario talking points above to refine your enterprise architectural delivery.'}
                 </p>
             `;
@@ -1571,7 +1571,7 @@ data: {
                     </div>
                     <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-family: var(--font-mono, monospace);">${data.latency}</span>
                 </div>
-                <p style="margin: 0 0 0.75rem 0; font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;">
+                <p style="margin: 0 0 0.75rem 0; font-size: 0.88rem; color: #e2e8f0; line-height: 1.5;">
                     <strong>Why This Wins:</strong> ${data.why}
                 </p>
                 <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; padding: 0.65rem 1rem; border-radius: 0 6px 6px 0; font-size: 0.84rem; color: #e2e8f0; font-style: italic;">
@@ -2701,11 +2701,11 @@ chunks = semantic_chunker.create_documents([transcript_text])`;
                                                           └─────────────────────────────────┘`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #8b5cf6;">
                 <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Storage Architecture</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Single Vector Database (Qdrant/Milvus). Payload stores full proposition string. No secondary docstore needed.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Single Vector Database (Qdrant/Milvus). Payload stores full proposition string. No secondary docstore needed.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
                 <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;"><strong>Risk:</strong> High vector count &amp; context fragmentation.<br><strong>Mitigation:</strong> Set Top-K to 12 and apply Cross-Encoder Re-ranking to assemble coherent atoms.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> High vector count &amp; context fragmentation.<br><strong>Mitigation:</strong> Set Top-K to 12 and apply Cross-Encoder Re-ranking to assemble coherent atoms.</span>
             </div>`,
             code: `# 1:1 Atomic Proposition Ingestion in Qdrant
 from qdrant_client import QdrantClient
@@ -2733,11 +2733,11 @@ client.upsert(collection_name="enterprise_knowledge", points=[point])`
                       └─── [1..N] ──► [ Child Chunk C_N (128t) ] ──► [ Vector v_N in HNSW ]`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
                 <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Storage Architecture</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Polyglot Persistence: Vector DB stores child embeddings + foreign key <code>parent_id</code>. Key-Value DocStore (Redis / S3) stores full parent text.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Polyglot Persistence: Vector DB stores child embeddings + foreign key <code>parent_id</code>. Key-Value DocStore (Redis / S3) stores full parent text.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;"><strong>Risk:</strong> Orphaned chunks on document update or deletion.<br><strong>Mitigation:</strong> Implement cascading deletion by document UUID across both Vector DB and DocStore.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> Orphaned chunks on document update or deletion.<br><strong>Mitigation:</strong> Implement cascading deletion by document UUID across both Vector DB and DocStore.</span>
             </div>`,
             code: `# 1:N Parent-Child Storage Architecture
 parent_chunk = {"doc_id": "doc_991", "text": full_1024_text}
@@ -2766,11 +2766,11 @@ RETRIEVAL DEDUPLICATION:
 [ Hit Child C_3 (Parent #42) ] ──┘                                        (Zero duplicate prompt tokens!)`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Storage Architecture</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Ingestion: Streaming embedding buffer tracks moving cosine distance. Retrieval: In-memory hash set deduplicates parent IDs in O(1) time.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Ingestion: Streaming embedding buffer tracks moving cosine distance. Retrieval: In-memory hash set deduplicates parent IDs in O(1) time.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
                 <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;"><strong>Risk:</strong> Too many distinct parents retrieved exhausts LLM context.<br><strong>Mitigation:</strong> Set parent token budget quota (e.g. max 3 parents = 3,072 tokens).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> Too many distinct parents retrieved exhausts LLM context.<br><strong>Mitigation:</strong> Set parent token budget quota (e.g. max 3 parents = 3,072 tokens).</span>
             </div>`,
             code: `# N:1 Retrieval Deduplication Resolver
 retrieved_hits = qdrant.search(collection="chunks", query_vector=query_vec, limit=10)
@@ -2799,11 +2799,11 @@ COLPALI LATE INTERACTION (N:M):
 Query Tokens Q (N) [q_1 .. q_n] ─── [N:M MaxSim Token-Patch Matrix] ───► Doc D (M patches) [d_1 .. d_m]`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #8b5cf6;">
                 <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Storage Architecture</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Hybrid Multi-Model: Graph Database (Neo4j/Amazon Neptune) holds entity nodes &amp; edges; Vector DB holds chunk text &amp; token embeddings.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Hybrid Multi-Model: Graph Database (Neo4j/Amazon Neptune) holds entity nodes &amp; edges; Vector DB holds chunk text &amp; token embeddings.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
                 <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;"><strong>Risk:</strong> Entity explosion &amp; graph traversal latency spikes.<br><strong>Mitigation:</strong> Entity resolution deduplication (spaCy / GLiNER) + cap graph traversal depth to 2 hops.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> Entity explosion &amp; graph traversal latency spikes.<br><strong>Mitigation:</strong> Entity resolution deduplication (spaCy / GLiNER) + cap graph traversal depth to 2 hops.</span>
             </div>`,
             code: `# Graph RAG N:M Cypher Query
 MATCH (c:Chunk)-[:MENTIONS]->(e:Entity {name: "Satya Nadella"})-[:PARTNERED_WITH]->(org:Entity)
@@ -2830,11 +2830,11 @@ RETURN c.text, org.name, c2.text LIMIT 5`
                           skip_node() [Cost: 1 CPU cycle, 0 distance calcs!]`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Index Architecture</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Roaring Bitmaps in RAM. For extreme multi-tenancy, use hard Partition Keys (Milvus Partition Key) to physically isolate vector segments.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Roaring Bitmaps in RAM. For extreme multi-tenancy, use hard Partition Keys (Milvus Partition Key) to physically isolate vector segments.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
                 <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Advantage</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero graph disconnection; predictable latency under heavy enterprise concurrency; negligible RAM footprint (&lt;50MB for 1M vectors).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero graph disconnection; predictable latency under heavy enterprise concurrency; negligible RAM footprint (&lt;50MB for 1M vectors).</span>
             </div>`,
             code: `# Low-Cardinality Payload Index & Bitmask Query in Qdrant
 client.create_payload_index(
@@ -2867,11 +2867,11 @@ results = client.search(
                                                                  ✅ Returned: Top 4 matches in 0.8ms!`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Index Architecture</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">B-Tree / LSM-tree inverted payload index. Stored on NVMe SSD / memory-mapped to prevent RAM explosion.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">B-Tree / LSM-tree inverted payload index. Stored on NVMe SSD / memory-mapped to prevent RAM explosion.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
                 <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;"><strong>Risk:</strong> Graph disconnection leading to false negative zero results.<br><strong>Mitigation:</strong> Ensure vector DB uses iterative graph filtering with automatic inverted-list brute-force fallback.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> Graph disconnection leading to false negative zero results.<br><strong>Mitigation:</strong> Ensure vector DB uses iterative graph filtering with automatic inverted-list brute-force fallback.</span>
             </div>`,
             code: `# High-Cardinality Payload Indexing with Exact Fallback
 client.create_payload_index(
@@ -3215,11 +3215,11 @@ merged_model.save_pretrained("./production_merged_model", safe_serialization=Tru
          Deployment: Merged Weight W_new = W_0 + (α/r)(B x A) ──► Zero Serving Latency!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Cuts VRAM requirements by 65%. Allows multi-tenant dynamic adapter hot-swapping in vLLM (serve 100 customer adapters on 1 base model). Merged weights add 0ms latency.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Cuts VRAM requirements by 65%. Allows multi-tenant dynamic adapter hot-swapping in vLLM (serve 100 customer adapters on 1 base model). Merged weights add 0ms latency.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Cannot learn radically foreign language vocabularies (e.g. teaching an English model Japanese from scratch). Must target all linear modules (<code>all-linear</code>) for maximum quality.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Cannot learn radically foreign language vocabularies (e.g. teaching an English model Japanese from scratch). Must target all linear modules (<code>all-linear</code>) for maximum quality.</span>
             </div>`,
             code: `# Production LoRA Configuration via Hugging Face PEFT + TRL
 from peft import LoraConfig, get_peft_model
@@ -3253,11 +3253,11 @@ peft_model.print_trainable_parameters()`
               Paged AdamW Optimizer (Spills to CPU RAM if GPU VRAM spikes)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Democratizes fine-tuning: Fine-tune Llama-3-70B on 2x A100-80GB GPUs instead of requiring an 8x H100 cluster! Preserves 99.3% of 16-bit LoRA accuracy.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Democratizes fine-tuning: Fine-tune Llama-3-70B on 2x A100-80GB GPUs instead of requiring an 8x H100 cluster! Preserves 99.3% of 16-bit LoRA accuracy.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">20-30% slower training throughput than 16-bit LoRA due to repeated dequantization overhead on memory bus (unless using Unsloth optimized kernels).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">20-30% slower training throughput than 16-bit LoRA due to repeated dequantization overhead on memory bus (unless using Unsloth optimized kernels).</span>
             </div>`,
             code: `# QLoRA 4-bit NF4 Configuration with BitsAndBytes
 from transformers import BitsAndBytesConfig
@@ -3288,11 +3288,11 @@ Memory Accounting per Parameter:
 Total Memory Required: 16 - 18 Bytes / Parameter! (144GB for an 8B model)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Maximum model plasticity. Capable of learning fundamentally new reasoning structures and complex mathematical systems that exceed low-rank subspace capacity.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Maximum model plasticity. Capable of learning fundamentally new reasoning structures and complex mathematical systems that exceed low-rank subspace capacity.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
                 <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Extreme GPU cluster infrastructure cost. Severe risk of Catastrophic Forgetting. High storage cost (each tenant requires an entire 14GB–140GB model checkpoint).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Extreme GPU cluster infrastructure cost. Severe risk of Catastrophic Forgetting. High storage cost (each tenant requires an entire 14GB–140GB model checkpoint).</span>
             </div>`,
             code: `# Full Fine-Tuning with DeepSpeed ZeRO-3
 # deepspeed --num_gpus=8 train_fft.py --deepspeed ds_zero3_config.json
@@ -3319,11 +3319,11 @@ EBITDA was $42.5M, up 14% YoY.<|im_end|> ──► [ COMPUTED CROSS-ENTROPY LOSS
                                            (Gradients update weights strictly on response!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Transforms unpredictable raw base models into compliant assistants. Establishes core system-prompt respect, multi-turn conversation memory, and tool-call invocation syntax.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Transforms unpredictable raw base models into compliant assistants. Establishes core system-prompt respect, multi-turn conversation memory, and tool-call invocation syntax.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Does not resolve nuanced preferences or subtle policy decisions (e.g. choosing between two technically correct answers where one is more concise or compliant). Requires follow-up DPO.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Does not resolve nuanced preferences or subtle policy decisions (e.g. choosing between two technically correct answers where one is more concise or compliant). Requires follow-up DPO.</span>
             </div>`,
             code: `# SFT with Prompt Loss Masking via TRL
 from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
@@ -3356,11 +3356,11 @@ LogProb(y_w) & LogProb(y_l)                     LogProb(y_w) & LogProb(y_l)
         Guarantees chosen probability rises while rejected probability falls!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Completely eliminates PPO instability, reward hacking, and hyperparameter sensitivity. Half the GPU memory footprint of PPO (no value networks or critic models).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Completely eliminates PPO instability, reward hacking, and hyperparameter sensitivity. Half the GPU memory footprint of PPO (no value networks or critic models).</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Requires high-quality preference data pairs. Sensitive to hyperparameter beta (if beta too high, model refuses to learn; if beta too low, model degenerates into repetitive loops).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Requires high-quality preference data pairs. Sensitive to hyperparameter beta (if beta too high, model refuses to learn; if beta too low, model degenerates into repetitive loops).</span>
             </div>`,
             code: `# DPO Training Pipeline with TRL
 from trl import DPOTrainer
@@ -3389,11 +3389,11 @@ trainer = DPOTrainer(
          [ Follow up with SFT & DPO for conversational obedience ]`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Deepest conceptual adaptation. Teaches foundation models specialized terminology and syntax completely absent from public internet pre-training sets.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Deepest conceptual adaptation. Teaches foundation models specialized terminology and syntax completely absent from public internet pre-training sets.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
                 <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Highest compute budget ($10k&ndash;$50k in GPU compute). Prone to catastrophic forgetting if domain corpus is not mixed with 15-20% general web data.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Highest compute budget ($10k&ndash;$50k in GPU compute). Prone to catastrophic forgetting if domain corpus is not mixed with 15-20% general web data.</span>
             </div>`,
             code: `# Continued Pre-Training with Hugging Face Trainer
 from transformers import Trainer, TrainingArguments
@@ -3559,11 +3559,11 @@ training_args = TrainingArguments(
 • Automatic memory coalescing, vectorization, and asynchronous tensor copy (cp.async on Hopper).`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #6366f1;">
                 <strong style="color: #818cf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Why Fine-Tuning Relies on Triton</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Powers FlashAttention-2/3, Unsloth, and vLLM custom ops. Allows writing fused LoRA backward passes in 200 lines of Python instead of 2,000 lines of fragile C++/CUDA.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Powers FlashAttention-2/3, Unsloth, and vLLM custom ops. Allows writing fused LoRA backward passes in 200 lines of Python instead of 2,000 lines of fragile C++/CUDA.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚡ Silicon Efficiency</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Achieves up to 92% of theoretical hardware memory bandwidth saturation on NVIDIA H100 SXM5 (\\(3.0\\text{ TB/s}\\) out of \\(3.35\\text{ TB/s}\\)) with zero C++ compilation steps.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Achieves up to 92% of theoretical hardware memory bandwidth saturation on NVIDIA H100 SXM5 (\\(3.0\\text{ TB/s}\\) out of \\(3.35\\text{ TB/s}\\)) with zero C++ compilation steps.</span>
             </div>`,
             code: `# Production OpenAI Triton JIT Fused Addition Kernel
 import triton
@@ -3601,11 +3601,11 @@ Input ──► [ Load ONCE from HBM ]
           └──► [ Write ONCE to HBM ] ──► 1 HBM round-trip! (4x bandwidth reduction!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
                 <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🚀 4x Memory Traffic Reduction</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">By keeping intermediate tensors inside on-chip SRAM registers, Triton kernels eliminate memory bus thrashing and keep Tensor Cores fully fed.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">By keeping intermediate tensors inside on-chip SRAM registers, Triton kernels eliminate memory bus thrashing and keep Tensor Cores fully fed.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🌡️ Lower Thermal Throttling</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Fewer HBM DRAM charge-discharge cycles lower GPU power draw and heat dissipation per batch by 25&ndash;35%.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Fewer HBM DRAM charge-discharge cycles lower GPU power draw and heat dissipation per batch by 25&ndash;35%.</span>
             </div>`,
             code: `# Memory Bandwidth Math
 # Standard PyTorch: Memory Traffic = 4 * (Batch * Seq * Hidden * 2 bytes)
@@ -3631,11 +3631,11 @@ Hidden States [B, L, d] ──► [ Tile Block of 64 Tokens in SRAM ]
                         ──► [ Final Scalar Loss ] (Zero 4.2GB memory allocation!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Instant VRAM Headroom</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Freeing 4.2GB of VRAM allows doubling the per-device micro-batch size from 1 to 2, or expanding context window from 2k to 8k on consumer GPUs.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Freeing 4.2GB of VRAM allows doubling the per-device micro-batch size from 1 to 2, or expanding context window from 2k to 8k on consumer GPUs.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #8b5cf6;">
                 <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🏎️ 3x Faster Backward Pass</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Computes loss gradients directly during the tiled forward pass, avoiding a redundant second memory read over vocabulary weights.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Computes loss gradients directly during the tiled forward pass, avoiding a redundant second memory read over vocabulary weights.</span>
             </div>`,
             code: `# Unsloth / FastCrossEntropy via Triton
 # Automatically hooked in FastLanguageModel:
@@ -3659,11 +3659,11 @@ Backward Pass ──► [ Recomputes Activations on-the-fly in SRAM registers ]
                   └── Direct fused gradient accumulation (70% VRAM Reduction!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Zero Accuracy Loss</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Exact mathematical equivalence to standard backpropagation. Gradients match PyTorch autograd to 1e-5 precision.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Exact mathematical equivalence to standard backpropagation. Gradients match PyTorch autograd to 1e-5 precision.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
                 <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚡ Fits 70B on 48GB GPU</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Combined with QLoRA NF4, allows fine-tuning Llama-3-70B on two 24GB GPUs or a single 48GB workstation GPU.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Combined with QLoRA NF4, allows fine-tuning Llama-3-70B on two 24GB GPUs or a single 48GB workstation GPU.</span>
             </div>`,
             code: `# Unsloth Triton Integration with Hugging Face
 from unsloth import FastLanguageModel
@@ -3699,11 +3699,11 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Unified RAG Stack on 1 Pod</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Serves the embedding model, reranker, and fine-tuned LLM inside a single Triton cluster, eliminating inter-service network latency hops.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Serves the embedding model, reranker, and fine-tuned LLM inside a single Triton cluster, eliminating inter-service network latency hops.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
                 <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚡ Enterprise SLA Control</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Enforces strict maximum queue delay timers (<code>max_queue_delay_microseconds: 5000</code>) to guarantee sub-200ms TTFT under peak load.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Enforces strict maximum queue delay timers (<code>max_queue_delay_microseconds: 5000</code>) to guarantee sub-200ms TTFT under peak load.</span>
             </div>`,
             code: `# NVIDIA Triton Model Configuration (config.pbtxt)
 name: "ensemble_rag_pipeline"
@@ -3736,11 +3736,11 @@ output [ { name: "GENERATED_RESPONSE", data_type: TYPE_STRING, dims: [ 1 ] } ]`
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 50 Tenants on 1 Cluster</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Replaces 50 dedicated LLM clusters with a single shared foundation model cluster, reducing enterprise cloud GPU infrastructure costs by 95%.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Replaces 50 dedicated LLM clusters with a single shared foundation model cluster, reducing enterprise cloud GPU infrastructure costs by 95%.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
                 <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚡ Zero Cold Start</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Adapter weights load into PCIe/NVLink cache in under 1 millisecond. No 60-second Kubernetes pod spin-up delays.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Adapter weights load into PCIe/NVLink cache in under 1 millisecond. No 60-second Kubernetes pod spin-up delays.</span>
             </div>`,
             code: `# Invoking Dynamic LoRA via Triton Client
 import tritonclient.http as httpclient
@@ -3825,11 +3825,11 @@ response = client.infer(model_name="tensorrt_llm", inputs=inputs)`
 • Throughput: 150,000 predictions/sec on a single 4-core CPU pod!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero GPU requirement. Microsecond inference latency. Handles missing values and categorical data natively. Deterministic auditability mandated by regulatory frameworks (FCRA, Basel III).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero GPU requirement. Microsecond inference latency. Handles missing values and categorical data natively. Deterministic auditability mandated by regulatory frameworks (FCRA, Basel III).</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
                 <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Cannot process unstructured text, speech, or images. Incapable of multi-step logical chain reasoning or cross-table relational semantic inference without manual feature engineering.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Cannot process unstructured text, speech, or images. Incapable of multi-step logical chain reasoning or cross-table relational semantic inference without manual feature engineering.</span>
             </div>`,
             code: `# High-Throughput Fraud Detection with XGBoost
 import xgboost as xgb
@@ -3860,11 +3860,11 @@ Query Time (Real-time Online):
 User Query q ──► [ Query Encoder ] ──► Embedding e_q ──► Cosine Search in HNSW ──► Top-100 Chunks in 6ms!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Blazing fast vector retrieval. ModernBERT supports 8,192 context length with FlashAttention-2. Matryoshka Representation Learning (MRL) allows truncating vectors from 1024d to 256d, slashing RAM by 75%.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Blazing fast vector retrieval. ModernBERT supports 8,192 context length with FlashAttention-2. Matryoshka Representation Learning (MRL) allows truncating vectors from 1024d to 256d, slashing RAM by 75%.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Information bottleneck: An entire 512-word document is compressed into a single vector. Query and document tokens never interact directly, leading to precision loss on exact keyword/negation matching.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Information bottleneck: An entire 512-word document is compressed into a single vector. Query and document tokens never interact directly, leading to precision loss on exact keyword/negation matching.</span>
             </div>`,
             code: `# High-Speed Inference with Hugging Face Text Embeddings Inference (TEI)
 # docker run -p 8080:80 ghcr.io/huggingface/text-embeddings-inference:1.5 --model-id BAAI/bge-m3
@@ -3887,11 +3887,11 @@ Stage 2: Cross-Encoder ────────┴──► Computes joint atten
                                ▼ Prunes candidates down to Top-5 razor-sharp chunks!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Highest possible search precision. Resolves subtle negations ("not covered under Section 4") and keyword misalignments that bi-encoders miss. Essential for legal, financial, and medical compliance RAG.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Highest possible search precision. Resolves subtle negations ("not covered under Section 4") and keyword misalignments that bi-encoders miss. Essential for legal, financial, and medical compliance RAG.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
                 <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">High computational complexity: Cannot pre-compute document representations offline. Must re-evaluate attention for every query-document pair at runtime; bounded to Top-25 to Top-100 candidates.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">High computational complexity: Cannot pre-compute document representations offline. Must re-evaluate attention for every query-document pair at runtime; bounded to Top-25 to Top-100 candidates.</span>
             </div>`,
             code: `# Production Cross-Encoder Re-ranking
 from sentence_transformers import CrossEncoder
@@ -3916,11 +3916,11 @@ Token t-1 ──► [ Attention over KV-Cache ] ──► [ MLP / MoE Router ] �
                                         Append Token t to KV-Cache ───┘ (Bounded by GPU Memory Bandwidth!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Unmatched general conversational competence, multi-turn dialogue memory, zero-shot code generation, and complex agentic tool-use orchestration. Native structured output via grammar-constrained sampling.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Unmatched general conversational competence, multi-turn dialogue memory, zero-shot code generation, and complex agentic tool-use orchestration. Native structured output via grammar-constrained sampling.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
                 <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Memory bandwidth bound during generation (each token requires reading full model weights from VRAM). High serving cost per token; vulnerable to hallucinations without external grounding.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Memory bandwidth bound during generation (each token requires reading full model weights from VRAM). High serving cost per token; vulnerable to hallucinations without external grounding.</span>
             </div>`,
             code: `# High-Throughput Serving with vLLM
 from vllm import LLM, SamplingParams
@@ -3951,11 +3951,11 @@ Reasoning Model: Prompt ──► <think>
                         ──► [ Verified Final Response ] (98% Accuracy on AIME / Codeforces!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">World-class performance on complex mathematical theorem proving, formal code verification, multi-step financial tax structuring, and reverse engineering. Transparent reasoning trace auditability.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">World-class performance on complex mathematical theorem proving, formal code verification, multi-step financial tax structuring, and reverse engineering. Transparent reasoning trace auditability.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
                 <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Severe latency penalty (5s to 30s per query). Token cost multiplier (spends 4,000 thinking tokens on a 50-word question). Unsuitable for interactive real-time conversational agents.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Severe latency penalty (5s to 30s per query). Token cost multiplier (spends 4,000 thinking tokens on a 50-word question). Unsuitable for interactive real-time conversational agents.</span>
             </div>`,
             code: `# Invoking DeepSeek-R1 with SGLang / vLLM Reasoning Parser
 from openai import OpenAI
@@ -3987,11 +3987,11 @@ response = client.chat.completions.create(
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Understands visual charts, hand-drawn architecture diagrams, signatures, invoices, and nested balance sheet tables with 100% spatial fidelity. Bypasses text slicing and OCR errors completely.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Understands visual charts, hand-drawn architecture diagrams, signatures, invoices, and nested balance sheet tables with 100% spatial fidelity. Bypasses text slicing and OCR errors completely.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Heavy token footprint (a single 1080p page generates 1,000+ visual tokens). Higher VRAM requirements than pure text LLMs; slower prefill phase during multi-page document ingestion.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Heavy token footprint (a single 1080p page generates 1,000+ visual tokens). Higher VRAM requirements than pure text LLMs; slower prefill phase during multi-page document ingestion.</span>
             </div>`,
             code: `# Processing Multi-Column PDF with Qwen2-VL
 from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
@@ -4019,11 +4019,11 @@ User Request ──► [ Edge Gateway (Phi-3.5 3.8B in GGUF on CPU) ]
                       (Saves 80% of Cloud GPU token spend!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero cloud infrastructure cost. Operates offline without internet. Sub-15ms Time-To-First-Token. Outstanding ROI for narrow triage, classification, and conversational guardrails.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero cloud infrastructure cost. Operates offline without internet. Sub-15ms Time-To-First-Token. Outstanding ROI for narrow triage, classification, and conversational guardrails.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Limited parametric world knowledge; struggles with highly nuanced multi-hop reasoning. Susceptible to instruction drift on very long multi-turn system prompts (&gt;4k tokens).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Limited parametric world knowledge; struggles with highly nuanced multi-hop reasoning. Susceptible to instruction drift on very long multi-turn system prompts (&gt;4k tokens).</span>
             </div>`,
             code: `# Running Local SLM with llama-cpp-python
 from llama_cpp import Llama
@@ -4035,7 +4035,7 @@ output = llm("Classify incoming support ticket priority: Server outage in region
         'gnn': {
             badge: 'MODEL FAMILY: GRAPH NEURAL NETWORK',
             title: '🕸️ Graph Neural Networks (GNN / GraphSAGE, GAT, GCN)',
-            stats: '<span style="background: rgba(244, 63, 94, 0.15); color: #f43f5e; padding: 3px 8px; border-radius: 4px;">Topological Reasoning</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Inductive Graph Learning</span>',
+            stats: '<span style="background: rgba(244, 63, 94, 0.15); color: #fb7185; padding: 3px 8px; border-radius: 4px;">Topological Reasoning</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Inductive Graph Learning</span>',
             desc: '<strong>Mathematical Formulation:</strong> Operates directly on non-Euclidean graph topologies \\(G = (V, E)\\). Generates node representations through localized <strong>neighborhood message passing</strong>: \\[\\mathbf{h}_v^{(k)} = \\sigma \\left( \\mathbf{W}^{(k)} \\cdot \\text{CONCAT} \\left( \\mathbf{h}_v^{(k-1)}, \\text{AGGREGATE} \\left( \\{ \\mathbf{h}_u^{(k-1)} : u \\in \\mathcal{N}(v) \\} \\right) \\right) \\right)\\] where GraphSAGE samples local neighbor subgraphs to scale inductive learning to billion-node enterprise relational graphs (Anti-Money Laundering, fraud rings, Knowledge Graph entity linking).',
             sketch: `Message Passing across Graph Edges:
 [ Customer Account Node V ] ◄── (Edge: Transferred $50k) ─── [ Foreign Shell Entity U_1 ]
@@ -4046,11 +4046,11 @@ output = llm("Classify incoming support ticket priority: Server outage in region
             Composite Node Embedding h_v captures deep multi-hop topological criminal ring!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Directly encodes relational and structural network topologies that flat tabular models cannot capture. Invaluable for Anti-Money Laundering (AML), drug discovery, and Graph RAG community synthesis.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Directly encodes relational and structural network topologies that flat tabular models cannot capture. Invaluable for Anti-Money Laundering (AML), drug discovery, and Graph RAG community synthesis.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Challenging distributed training across dynamic enterprise graphs with billions of edges (graph partitioning overhead). Susceptible to over-smoothing if message passing depth exceeds 3&ndash;4 hops.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Challenging distributed training across dynamic enterprise graphs with billions of edges (graph partitioning overhead). Susceptible to over-smoothing if message passing depth exceeds 3&ndash;4 hops.</span>
             </div>`,
             code: `# GraphSAGE Link Prediction with PyTorch Geometric (PyG)
 import torch
@@ -4233,11 +4233,11 @@ class EnterpriseGraphSAGE(torch.nn.Module):
           W_O (Multi-Head Projection to d_model)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Advantages</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Direct dynamic information routing between any two tokens across arbitrary distance. Solves the gradient decay failure mode of RNN/LSTM sequence models. Allows full parallel computation across prompt sequence during training and prefill.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Direct dynamic information routing between any two tokens across arbitrary distance. Solves the gradient decay failure mode of RNN/LSTM sequence models. Allows full parallel computation across prompt sequence during training and prefill.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Production Bottlenecks &amp; Hardware Traps</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Quadratic \\(\\mathcal{O}(N^2)\\) computational complexity and VRAM allocation. At \\(N = 32{,}768\\), storing the un-fused FP16 attention matrix requires \\(2 \\times 32768^2 \\times 2\\text{ bytes} \\approx 4.29\\text{ GB}\\) per head layer, leading to immediate CUDA OOM unless FlashAttention is used.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Quadratic \\(\\mathcal{O}(N^2)\\) computational complexity and VRAM allocation. At \\(N = 32{,}768\\), storing the un-fused FP16 attention matrix requires \\(2 \\times 32768^2 \\times 2\\text{ bytes} \\approx 4.29\\text{ GB}\\) per head layer, leading to immediate CUDA OOM unless FlashAttention is used.</span>
             </div>`,
             code: `import torch
 import torch.nn.functional as F
@@ -4273,11 +4273,11 @@ Value:   V1 V2 V3 V4 V5 V6 V7 V8  Value:               V1          Value:     V1
 • Latency: High memory thrash    • Latency: Maximum throughput    • Latency: Optimal bandwidth saturation`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Enables serving 8x larger concurrent batch sizes on a single GPU node. Increases maximum context window from 8k to 128k tokens without running out of GPU memory. Standardized in Llama-3, Qwen-2.5, Mistral, and Gemma.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Enables serving 8x larger concurrent batch sizes on a single GPU node. Increases maximum context window from 8k to 128k tokens without running out of GPU memory. Standardized in Llama-3, Qwen-2.5, Mistral, and Gemma.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Considerations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Tensor Parallelism (TP) sharding must divide evenly by number of KV groups. If a model has 8 KV groups, running on a 16-GPU cluster (TP=16) requires duplicating KV heads or using Context Parallelism (CP).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Tensor Parallelism (TP) sharding must divide evenly by number of KV groups. If a model has 8 KV groups, running on a 16-GPU cluster (TP=16) requires duplicating KV heads or using Context Parallelism (CP).</span>
             </div>`,
             code: `# Calculating GQA KV Cache VRAM in PyTorch
 def calculate_kv_cache_vram(batch_size, seq_len, num_layers, num_kv_heads, head_dim, dtype_bytes=2):
@@ -4313,11 +4313,11 @@ Attention Inner Product: <q_m, k_n> = q^T * R_{theta, m}^T * R_{theta, n} * k
                                     = q^T * R_{theta, n - m} * k  <-- STRICT RELATIVE DISTANCE!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero learnable parameters added to model weights. Decays smoothly with sequence distance. Easily extensible to 128k-1M contexts using frequency interpolation (NTK-aware RoPE, YaRN, and Dynamic RoPE scaling).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero learnable parameters added to model weights. Decays smoothly with sequence distance. Easily extensible to 128k-1M contexts using frequency interpolation (NTK-aware RoPE, YaRN, and Dynamic RoPE scaling).</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Context Length Degradation</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Extending context beyond training baseline without frequency rescaling causes high-frequency rotational phase distortion, causing complete model incoherence and failure to retrieve facts from early tokens (Lost in the Middle).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Extending context beyond training baseline without frequency rescaling causes high-frequency rotational phase distortion, causing complete model incoherence and failure to retrieve facts from early tokens (Lost in the Middle).</span>
             </div>`,
             code: `import torch
 
@@ -4355,11 +4355,11 @@ Token Vector x ──► [ Softmax Top-k Gating Router ] ──► Probabilities
           Weighted Sum: 0.72 * E1(x) + 0.28 * E4(x)  (Only 5% compute consumed!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">SwiGLU provides superior non-linear representational capacity with zero extra hyperparameter tuning. MoE decouples static memory capacity from runtime FLOP cost: DeepSeek-V3 houses 671B parameters with the serving FLOP cost of a 37B dense model.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">SwiGLU provides superior non-linear representational capacity with zero extra hyperparameter tuning. MoE decouples static memory capacity from runtime FLOP cost: DeepSeek-V3 houses 671B parameters with the serving FLOP cost of a 37B dense model.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Production Risks</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">SwiGLU requires 3 weight matrices instead of 2 (\\(3 \\times \\frac{8}{3} d_{\\text{model}}^2\\)). MoE introduces routing collapse (experts receiving unbalanced token loads) and necessitates expert parallelism across multi-GPU InfiniBand fabrics.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">SwiGLU requires 3 weight matrices instead of 2 (\\(3 \\times \\frac{8}{3} d_{\\text{model}}^2\\)). MoE introduces routing collapse (experts receiving unbalanced token loads) and necessitates expert parallelism across multi-GPU InfiniBand fabrics.</span>
             </div>`,
             code: `import torch
 import torch.nn as nn
@@ -4393,11 +4393,11 @@ x_l ──────┬──────────────────�
           [Direct identity residual highway flows unhindered across 100+ layers!]`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Enables rock-solid training of 405B parameter models without gradient explosion. RMSNorm eliminates the mean-calculation reduction step across GPU thread blocks, minimizing SRAM synchronization overhead.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Enables rock-solid training of 405B parameter models without gradient explosion. RMSNorm eliminates the mean-calculation reduction step across GPU thread blocks, minimizing SRAM synchronization overhead.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Implementation Caveats</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Pre-LN models develop slight representation growth at final layers. Requires a final RMSNorm layer before the LM head projection tensor to prevent logit explosion.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Pre-LN models develop slight representation growth at final layers. Requires a final RMSNorm layer before the LM head projection tensor to prevent logit explosion.</span>
             </div>`,
             code: `import torch
 import torch.nn as nn
@@ -4433,11 +4433,11 @@ FLASHATTENTION (SRAM TILING + ONLINE SOFTMAX):
 [ GPU HBM ] ◄── Write ONLY final output tile! (ZERO N x N matrices written to HBM!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">FlashAttention is 100% mathematically exact to standard attention (zero approximation error). Reduces VRAM by 80% and accelerates training/prefill by 3x-4x. Mamba-2 delivers constant KV memory usage on 1M token sequences.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">FlashAttention is 100% mathematically exact to standard attention (zero approximation error). Reduces VRAM by 80% and accelerates training/prefill by 3x-4x. Mamba-2 delivers constant KV memory usage on 1M token sequences.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Hardware &amp; Architecture Bounds</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">FlashAttention requires modern NVIDIA GPUs (Ampere A100, Ada L4, Hopper H100). Pure SSM models struggle with associative memory retrieval tasks unless interleaved with standard attention layers (e.g. Jamba).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">FlashAttention requires modern NVIDIA GPUs (Ampere A100, Ada L4, Hopper H100). Pure SSM models struggle with associative memory retrieval tasks unless interleaved with standard attention layers (e.g. Jamba).</span>
             </div>`,
             code: `# Invoking FlashAttention-2 natively in PyTorch 2.x
 import torch
@@ -4527,11 +4527,11 @@ Token + Position Embeddings (No Causal Masking!)
                                     └──► Token Classification / NER Logits`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero autoregressive decode loop overhead. Single-pass forward propagation gives 5-15ms inference latency. Contextual bidirectional visibility avoids left-to-right recency bias in dense embeddings. Highly compressible with ONNX/TensorRT for microsecond CPU inference.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero autoregressive decode loop overhead. Single-pass forward propagation gives 5-15ms inference latency. Contextual bidirectional visibility avoids left-to-right recency bias in dense embeddings. Highly compressible with ONNX/TensorRT for microsecond CPU inference.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Completely incapable of text generation or conversational completion. Historical BERT models suffered from 512-token context limits and padding token inefficiency (solved in ModernBERT with unpadding and 8192 context).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Completely incapable of text generation or conversational completion. Historical BERT models suffered from 512-token context limits and padding token inefficiency (solved in ModernBERT with unpadding and 8192 context).</span>
             </div>`,
             code: `from transformers import AutoModel, AutoTokenizer
 import torch
@@ -4578,11 +4578,11 @@ Token + RoPE Embeddings
        Softmax / Top-p Sampling ──► Next Token "Retrieval" (Append & Repeat)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Universal multi-task generalist: performs open conversation, JSON structured output, multi-hop reasoning, and tool execution in a single architecture. Easily guided with in-context prompting and system instructions.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Universal multi-task generalist: performs open conversation, JSON structured output, multi-hop reasoning, and tool execution in a single architecture. Easily guided with in-context prompting and system instructions.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Serving Bottlenecks</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Sequential token generation is memory-bandwidth bound. Every single token generated requires reading the entire model weight tensor from HBM into SRAM, yielding low GPU compute arithmetic intensity. Demands vLLM / TensorRT-LLM continuous batching.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Sequential token generation is memory-bandwidth bound. Every single token generated requires reading the entire model weight tensor from HBM into SRAM, yielding low GPU compute arithmetic intensity. Demands vLLM / TensorRT-LLM continuous batching.</span>
             </div>`,
             code: `from vllm import LLM, SamplingParams
 
@@ -4622,11 +4622,11 @@ Target Generation Y ("Unternehmens...")             ▼          ▼
                                                 Next Target Token`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Strict separation of source comprehension and target generation. Unbeatable for speech-to-text (Whisper audio encoder + text decoder), formal document translation, and length-constrained summarization without hallucinating beyond source context.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Strict separation of source comprehension and target generation. Unbeatable for speech-to-text (Whisper audio encoder + text decoder), formal document translation, and length-constrained summarization without hallucinating beyond source context.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Serving Realities</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Requires maintaining two distinct model blocks and dual KV-caches (one for decoder self-attention, one static cache for cross-attention). Serving engines (vLLM) historically optimized decoder-only models first, making seq2seq deployment less standardized.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Requires maintaining two distinct model blocks and dual KV-caches (one for decoder self-attention, one static cache for cross-attention). Serving engines (vLLM) historically optimized decoder-only models first, making seq2seq deployment less standardized.</span>
             </div>`,
             code: `from transformers import WhisperProcessor, WhisperForConditionalGeneration
 import soundfile as sf
@@ -4663,11 +4663,11 @@ transcription = processor.batch_decode(predicted_ids, skip_special_tokens=True)[
    Next Token Representation (Only 37B FLOPs spent despite 671B parameters in RAM!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Frontier model intelligence at a fraction of dense generation cost. Generates tokens at 3x-5x the speed of equivalent dense models because only active expert weights perform matrix multiplications.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Frontier model intelligence at a fraction of dense generation cost. Generates tokens at 3x-5x the speed of equivalent dense models because only active expert weights perform matrix multiplications.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Infrastructure Footprint</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">While active compute is 37B, ALL 671B parameters must reside in cluster VRAM simultaneously (~700GB VRAM in FP8 across 8x H100 GPUs). Requires expert parallelism across low-latency InfiniBand networks to avoid inter-node communication bottlenecks.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">While active compute is 37B, ALL 671B parameters must reside in cluster VRAM simultaneously (~700GB VRAM in FP8 across 8x H100 GPUs). Requires expert parallelism across low-latency InfiniBand networks to avoid inter-node communication bottlenecks.</span>
             </div>`,
             code: `# DeepSeek-V3 Multi-Head Latent Attention (MLA) Concept
 # Compresses 128k context KV cache into low-rank latent vector c_KV
@@ -4711,11 +4711,11 @@ Add 1D / 2D Learnable Positional Embeddings + [CLS] Token
                                     └──► All Patch Vectors ──► ColPali Late-Interaction Index`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Directly parses multi-column invoices, corporate stamps, signatures, graphs, and complex financial tables without fragile text OCR preprocessing. Maintains exact visual spatial geometry.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Directly parses multi-column invoices, corporate stamps, signatures, graphs, and complex financial tables without fragile text OCR preprocessing. Maintains exact visual spatial geometry.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Patch Memory Explosion</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">High-resolution document images (e.g. 2048x2048) generate thousands of patch tokens per page, rapidly consuming context window capacity when passed into multimodal decoders (Qwen2-VL, Llama-3.2-Vision).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">High-resolution document images (e.g. 2048x2048) generate thousands of patch tokens per page, rapidly consuming context window capacity when passed into multimodal decoders (Qwen2-VL, Llama-3.2-Vision).</span>
             </div>`,
             code: `# ColPali Late-Interaction Retrieval over Document Patches
 from colpali_engine.models import ColPali
@@ -4747,11 +4747,11 @@ JAMBA HYBRID TOPOLOGY (1 Attention Layer every 7 Mamba Layers):
 (Provides sharp associative needle-in-a-haystack recall with 85% lower VRAM overhead)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Infinite context feasibility with predictable, constant memory usage. Processing a 1-million-token technical log stream does not crash the serving GPU pod with KV cache OOM.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Infinite context feasibility with predictable, constant memory usage. Processing a 1-million-token technical log stream does not crash the serving GPU pod with KV cache OOM.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Trade-Offs</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Pure SSM models suffer slight performance degradation on complex algorithmic in-context reasoning compared to full softmax attention. Hybrid architectures (Jamba) are mandatory for production parity.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Pure SSM models suffer slight performance degradation on complex algorithmic in-context reasoning compared to full softmax attention. Hybrid architectures (Jamba) are mandatory for production parity.</span>
             </div>`,
             code: `# Mamba-2 Linear Attention Duality
 # Utilizes hardware-accelerated chunked scan in custom Triton kernels
@@ -4933,11 +4933,11 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct \\
                                                       └──► OpenLineage Error Log`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Prevents silent model corruption. Ensures garbage data never pollutes feature stores or vector embeddings. Clear contractual boundary between software engineering teams producing data and ML teams consuming it.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Prevents silent model corruption. Ensures garbage data never pollutes feature stores or vector embeddings. Clear contractual boundary between software engineering teams producing data and ML teams consuming it.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Traps</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Overly rigid contracts cause false-positive pipeline stalls when upstream systems legitimately expand schemas. Requires automated dead-letter queue reprocessing workflows and contract version negotiation.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Overly rigid contracts cause false-positive pipeline stalls when upstream systems legitimately expand schemas. Requires automated dead-letter queue reprocessing workflows and contract version negotiation.</span>
             </div>`,
             code: `import pandera as pa
 from pandera.typing import Series
@@ -4985,11 +4985,11 @@ def validate_ingestion_batch(df):
                                                 (Hash linked to exact data snapshot!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Guarantees 100% deterministic model reproducibility. Instant root-cause debugging: if model predictions degrade, lineage tracing immediately pinpoints the exact corrupted upstream data partition.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Guarantees 100% deterministic model reproducibility. Instant root-cause debugging: if model predictions degrade, lineage tracing immediately pinpoints the exact corrupted upstream data partition.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Storage Overhead</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Naive data versioning duplicates petabytes of storage. Requires copy-on-write table formats (Apache Iceberg / Delta Lake) and zero-copy metadata pointer branching (LakeFS).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Naive data versioning duplicates petabytes of storage. Requires copy-on-write table formats (Apache Iceberg / Delta Lake) and zero-copy metadata pointer branching (LakeFS).</span>
             </div>`,
             code: `# Reproducible Data Versioning via DVC & Git
 # 1. Track large training partition without committing raw gigabytes to Git
@@ -5023,11 +5023,11 @@ Model Training Pipeline           Triton / FastAPI Serving Engine
 • Production Feature Drift minimized by automated sync`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Eliminates redundant feature calculation across engineering teams. Enables sub-2ms feature enrichment on raw user requests. Point-in-time joins eliminate catastrophic lookahead data leakage in predictive models.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Eliminates redundant feature calculation across engineering teams. Enables sub-2ms feature enrichment on raw user requests. Point-in-time joins eliminate catastrophic lookahead data leakage in predictive models.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Synchronization Drift</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Offline and online stores must be constantly synchronized via streaming workers (Kafka/Flink). Stale online cache leads to serving degraded feature values while offline training assumes fresh data.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Offline and online stores must be constantly synchronized via streaming workers (Kafka/Flink). Stale online cache leads to serving degraded feature values while offline training assumes fresh data.</span>
             </div>`,
             code: `from feast import Entity, FeatureView, Field, FileSource
 from feast.types import Float32, Int64
@@ -5076,11 +5076,11 @@ user_stats_fv = FeatureView(
                CD Pipeline Deployment to Kubernetes`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Strict separation of model experimentation from production deployment. Full audit trail: who trained the model, on what data, who approved it, and what container image runs it. Instant 1-click rollback to previous pinned artifact.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Strict separation of model experimentation from production deployment. Full audit trail: who trained the model, on what data, who approved it, and what container image runs it. Instant 1-click rollback to previous pinned artifact.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Governance Bottlenecks</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Manual approval gates can create deployment logjams if not automated with synthetic evaluation test benches. Model serialization format mismatches (e.g. PyTorch pickling vulnerabilities vs ONNX/SafeTensors).</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Manual approval gates can create deployment logjams if not automated with synthetic evaluation test benches. Model serialization format mismatches (e.g. PyTorch pickling vulnerabilities vs ONNX/SafeTensors).</span>
             </div>`,
             code: `import mlflow
 from mlflow.tracking import MlflowClient
@@ -5129,11 +5129,11 @@ if run.data.metrics.get("val_f1", 0) >= 0.90 and run.data.metrics.get("latency_p
                 Trigger Automated Canary Rollout Pipeline`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero engineering toil to keep models accurate. Automatically adapts to seasonal trends and new vocabulary. Prevents silent revenue loss caused by stale model predictions.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero engineering toil to keep models accurate. Automatically adapts to seasonal trends and new vocabulary. Prevents silent revenue loss caused by stale model predictions.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Self-Reinforcing Feedback Loops</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Automated retraining on model-generated labels can cause self-referential model collapse. Strict data validation and human-in-the-loop review buffers are mandatory before training data enters the CT loop.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Automated retraining on model-generated labels can cause self-referential model collapse. Strict data validation and human-in-the-loop review buffers are mandatory before training data enters the CT loop.</span>
             </div>`,
             code: `# Airflow DAG Triggering Automated Continuous Training on Drift Alert
 from airflow import DAG
@@ -5178,11 +5178,11 @@ with DAG("mlops_continuous_training", start_date=datetime(2026, 1, 1), schedule_
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero downtime deployments. Limits real-world exposure to subtle model regressions to a tiny 5% canary slice. Automated circuit-breaker rollbacks prevent operational outages and customer dissatisfaction.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero downtime deployments. Limits real-world exposure to subtle model regressions to a tiny 5% canary slice. Automated circuit-breaker rollbacks prevent operational outages and customer dissatisfaction.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Infrastructure Footprint</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Shadow and canary deployments require running redundant GPU/CPU pod replicas simultaneously, temporarily increasing cluster hosting costs during rollout verification windows.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Shadow and canary deployments require running redundant GPU/CPU pod replicas simultaneously, temporarily increasing cluster hosting costs during rollout verification windows.</span>
             </div>`,
             code: `# Argo Rollouts Canary Strategy with Automated Analysis
 apiVersion: argoproj.io/v1alpha1
@@ -5375,11 +5375,11 @@ def sync_document_updates(doc_id, new_pdf_path, vector_db):
        (Guarantees full historical auditability &amp; complete replay capability)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero ingestion latency overhead. Data is never rejected or discarded at Bronze. Protects against upstream software bugs and provides legal proof of exact raw inputs for compliance audits.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero ingestion latency overhead. Data is never rejected or discarded at Bronze. Protects against upstream software bugs and provides legal proof of exact raw inputs for compliance audits.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ Consumption Warning</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;"><strong>Never connect ML models or RAG indexing directly to Bronze!</strong> Unvalidated schemas, duplicate records, unmasked PII, and formatting anomalies will degrade model embeddings and breach privacy laws.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Never connect ML models or RAG indexing directly to Bronze!</strong> Unvalidated schemas, duplicate records, unmasked PII, and formatting anomalies will degrade model embeddings and breach privacy laws.</span>
             </div>`,
             code: `import dlt
 from pyspark.sql.functions import current_timestamp, input_file_name
@@ -5419,11 +5419,11 @@ def bronze_raw_documents():
        (Cleaned, reliable, queryable conformed enterprise tables!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Strict schema-on-write prevents downstream pipeline failures. PII masking ensures zero private customer telemetry enters LLM prompts or vector databases. Single unified source of truth for both analytics and ML.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Strict schema-on-write prevents downstream pipeline failures. PII masking ensures zero private customer telemetry enters LLM prompts or vector databases. Single unified source of truth for both analytics and ML.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Considerations</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Silver tables are still entity-normalized or semi-structured; directly running complex multi-table joins during model training creates compute bottlenecks without an aggregated Gold layer.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Silver tables are still entity-normalized or semi-structured; directly running complex multi-table joins during model training creates compute bottlenecks without an aggregated Gold layer.</span>
             </div>`,
             code: `@dlt.table(
     name="silver_cleaned_documents",
@@ -5460,11 +5460,11 @@ def silver_cleaned_documents():
        └─► Distributed Model Training Pipeline (PyTorch DDP Cluster)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero join overhead during model training: reads high-speed columnar Parquet directly into PyTorch DataLoaders. Point-in-time correctness guarantees that test set accuracy translates faithfully to production.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero join overhead during model training: reads high-speed columnar Parquet directly into PyTorch DataLoaders. Point-in-time correctness guarantees that test set accuracy translates faithfully to production.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Storage Expansion</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Denormalized tables duplicate data across multiple specialized project-specific Gold views. Requires automated retention and lifecycle policies to prune historical training snapshots.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Denormalized tables duplicate data across multiple specialized project-specific Gold views. Requires automated retention and lifecycle policies to prune historical training snapshots.</span>
             </div>`,
             code: `# dbt SQL Model: Point-in-Time Gold Feature Table for Fraud Model
 SELECT
@@ -5497,11 +5497,11 @@ LEFT JOIN {{ ref('silver_user_aggregates') }} u
                                                                  (Sub-1.5ms Online Lookup)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Powers live production RAG queries and real-time fraud scoring. Decouples expensive offline batch generation from low-latency online serving. Enables automated cache invalidation when Gold data updates.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Powers live production RAG queries and real-time fraud scoring. Decouples expensive offline batch generation from low-latency online serving. Enables automated cache invalidation when Gold data updates.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Cache Invalidation Overhead</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Vector stores and Redis caches can become out-of-sync with the lakehouse. Requires automated Change Data Capture (CDC) triggers from Gold to Platinum to delete stale vectors on document revision.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Vector stores and Redis caches can become out-of-sync with the lakehouse. Requires automated Change Data Capture (CDC) triggers from Gold to Platinum to delete stale vectors on document revision.</span>
             </div>`,
             code: `# Materializing Gold Features into Platinum Online Redis Store via Feast
 from feast import FeatureStore
@@ -5588,11 +5588,11 @@ store.materialize(
 • If Pod 1 crashes: Cooperative Sticky Rebalance reassigns P1 without stopping P0, P2, P3!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Strict per-entity message ordering. Millions of events/sec throughput with sequential disk writes and Zero-Copy OS page-cache transfers (<code>sendfile()</code>). EOP prevents duplicate vector embedding generations.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Strict per-entity message ordering. Millions of events/sec throughput with sequential disk writes and Zero-Copy OS page-cache transfers (<code>sendfile()</code>). EOP prevents duplicate vector embedding generations.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Constraints</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Scaling consumer worker concurrency is strictly capped by partition count. Re-partitioning live topics requires careful data migration to avoid breaking key-hash locality.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Scaling consumer worker concurrency is strictly capped by partition count. Re-partitioning live topics requires careful data migration to avoid breaking key-hash locality.</span>
             </div>`,
             code: `from confluent_kafka import Producer, Consumer
 
@@ -5633,11 +5633,11 @@ except Exception as e:
 • If Pod 1 CUDA OOMs, other 6 pods continue running with 0% impact!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">True hardware-level fault isolation. Maximizes GPU ROI by co-locating up to 7 independent inference microservices on a single physical accelerator without latency jitter.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">True hardware-level fault isolation. Maximizes GPU ROI by co-locating up to 7 independent inference microservices on a single physical accelerator without latency jitter.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Boundaries</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">MIG profiles are statically configured per GPU and cannot be dynamically resized while pods are attached. Models requiring multi-GPU NVLink tensor parallelism cannot span across MIG slices.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">MIG profiles are statically configured per GPU and cannot be dynamically resized while pods are attached. Models requiring multi-GPU NVLink tensor parallelism cannot span across MIG slices.</span>
             </div>`,
             code: `# Kubernetes Pod Spec Requesting MIG Slice
 apiVersion: v1
@@ -5682,11 +5682,11 @@ spec:
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero manual capacity planning. Complete cloud cost optimization: idle workloads consume zero GPU/CPU pods. Automatically prevents SLA degradation during massive ingestion bursts.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero manual capacity planning. Complete cloud cost optimization: idle workloads consume zero GPU/CPU pods. Automatically prevents SLA degradation during massive ingestion bursts.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Cold Start Penalties</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Scaling large GPU containers from 0 takes 30-60 seconds for container image pulling and model weight loading into VRAM. Mitigated by setting <code>minReplicaCount: 1</code> or using Karpenter node warming.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Scaling large GPU containers from 0 takes 30-60 seconds for container image pulling and model weight loading into VRAM. Mitigated by setting <code>minReplicaCount: 1</code> or using Karpenter node warming.</span>
             </div>`,
             code: `apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
@@ -5730,11 +5730,11 @@ spec:
                                     └──► Vector DB: Invalidate & Upsert Point in Qdrant`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero application code changes required. 100% guarantee that every database mutation is captured in Kafka. Schema registry enforces backward compatibility, protecting downstream vector DBs from parsing failures.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero application code changes required. 100% guarantee that every database mutation is captured in Kafka. Schema registry enforces backward compatibility, protecting downstream vector DBs from parsing failures.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Database WAL Bloat</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">If Debezium consumer stops acknowledging offsets, PostgreSQL retains WAL segments on disk indefinitely, risking complete disk space exhaustion on primary database servers.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">If Debezium consumer stops acknowledging offsets, PostgreSQL retains WAL segments on disk indefinitely, risking complete disk space exhaustion on primary database servers.</span>
             </div>`,
             code: `# Debezium PostgreSQL Connector Configuration
 {
@@ -5779,11 +5779,11 @@ spec:
        [ Dead-Letter Queue Topic: documents.DLQ ] ──► PagerDuty Alert / Human Triage`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Zero stream stalls: corrupted messages cannot take down entire partition processing. Graceful SIGTERM handling allows in-flight batches to finish before container termination, eliminating duplicate processing.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero stream stalls: corrupted messages cannot take down entire partition processing. Graceful SIGTERM handling allows in-flight batches to finish before container termination, eliminating duplicate processing.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Unmonitored DLQ Growth</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">A silent upstream breaking change can flood the DLQ with thousands of discarded events without engineering awareness unless strict Prometheus alert rules monitor DLQ topic message rates.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">A silent upstream breaking change can flood the DLQ with thousands of discarded events without engineering awareness unless strict Prometheus alert rules monitor DLQ topic message rates.</span>
             </div>`,
             code: `import signal, sys
 from confluent_kafka import Consumer, Producer
@@ -5835,11 +5835,11 @@ consumer.close()  # Clean partition leave; prevents stop-the-world rebalance!`
 └───────────────────────────────────┘ └──────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
                 <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">True gRPC stream multiplexing and load balancing across active pods. Dynamic batching in Triton groups concurrent single requests into hardware-saturating GPU matrix operations, multiplying throughput by 4x.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">True gRPC stream multiplexing and load balancing across active pods. Dynamic batching in Triton groups concurrent single requests into hardware-saturating GPU matrix operations, multiplying throughput by 4x.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
                 <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 IPC Shared Memory Traps</strong>
-                <span style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">Default Kubernetes Docker containers allocate only 64MB of <code>/dev/shm</code>. Multi-GPU Tensor Parallelism immediately crashes with <code>Bus error (core dumped)</code> unless an explicit memory-backed volume is mounted.</span>
+                <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Default Kubernetes Docker containers allocate only 64MB of <code>/dev/shm</code>. Multi-GPU Tensor Parallelism immediately crashes with <code>Bus error (core dumped)</code> unless an explicit memory-backed volume is mounted.</span>
             </div>`,
             code: `# Triton Inference Server Kubernetes Deployment with Shared Memory
 apiVersion: apps/v1
@@ -6408,7 +6408,7 @@ Format Requirements:
         if (!data || !container) return;
 
         const toolsHTML = data.tools.map(t => 
-            `<span class="tool-tag" style="background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">${t}</span>`
+            `<span class="tool-tag" style="background: rgba(255, 255, 255, 0.05); color: #e2e8f0; border: 1px solid rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">${t}</span>`
         ).join(' ');
 
         const respHTML = data.responsibilities.map(r => 
@@ -6432,21 +6432,21 @@ Format Requirements:
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
                 <div>
-                    <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Key Responsibilities:</h5>
-                    <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
+                    <h5 style="color: #cbd5e1; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Key Responsibilities:</h5>
+                    <ul style="color: #e2e8f0; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
                         ${respHTML}
                     </ul>
 
-                    <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
+                    <h5 style="color: #cbd5e1; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
                     <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
                         ${toolsHTML}
                     </div>
                 </div>
 
-                <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <div style="background: #131c2e; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-family: monospace; font-size: 0.78rem; color: ${data.color};">${data.codeTitle}</span>
-                        <span style="color: #94a3b8; font-size: 0.75rem;">${data.codeLang}</span>
+                        <span style="color: #cbd5e1; font-size: 0.75rem;">${data.codeLang}</span>
                     </div>
                     <pre style="margin: 0; font-family: monospace; font-size: 0.78rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${data.codeSnippet}</code></pre>
                 </div>
@@ -6572,10 +6572,10 @@ Format Requirements:
         if (pane) {
             pane.innerHTML = `
                 <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.85rem;">
-                    <span style="background: ${step.color}; color: #090d16; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem;">${step.num}</span>
+                    <span style="background: ${step.color}; color: #131c2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem;">${step.num}</span>
                     <h4 style="margin: 0; color: ${step.color}; font-size: 1.2rem;">${step.title}</h4>
                 </div>
-                <div style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem;">
+                <div style="color: #e2e8f0; font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem;">
                     ${step.desc}
                 </div>
                 <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.85rem; font-family: monospace; font-size: 0.8rem; color: #a78bfa;">
@@ -6806,7 +6806,7 @@ allow_action = false {
 
         const subCompHTML = data.subComponents.map(s => `<li>${s}</li>`).join('');
         const toolsHTML = data.tools.map(t => 
-            `<span class="tool-tag" style="background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">${t}</span>`
+            `<span class="tool-tag" style="background: rgba(255, 255, 255, 0.05); color: #e2e8f0; border: 1px solid rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">${t}</span>`
         ).join(' ');
 
         container.innerHTML = `
@@ -6826,26 +6826,26 @@ allow_action = false {
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
                 <div>
-                    <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Core Sub-Components:</h5>
-                    <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
+                    <h5 style="color: #cbd5e1; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Core Sub-Components:</h5>
+                    <ul style="color: #e2e8f0; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
                         ${subCompHTML}
                     </ul>
 
-                    <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Enterprise Architecture Role:</h5>
-                    <p style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.5; margin: 0 0 1rem 0;">
+                    <h5 style="color: #cbd5e1; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Enterprise Architecture Role:</h5>
+                    <p style="color: #e2e8f0; font-size: 0.85rem; line-height: 1.5; margin: 0 0 1rem 0;">
                         ${data.role}
                     </p>
 
-                    <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
+                    <h5 style="color: #cbd5e1; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
                     <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
                         ${toolsHTML}
                     </div>
                 </div>
 
-                <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <div style="background: #131c2e; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-family: monospace; font-size: 0.78rem; color: ${data.color};">${data.codeTitle}</span>
-                        <span style="color: #94a3b8; font-size: 0.75rem;">${data.codeLang}</span>
+                        <span style="color: #cbd5e1; font-size: 0.75rem;">${data.codeLang}</span>
                     </div>
                     <pre style="margin: 0; font-family: monospace; font-size: 0.78rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${data.codeSnippet}</code></pre>
                 </div>
@@ -6965,27 +6965,27 @@ allow_action = false {
                         <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${concept.category}</span>
                     </div>
                 </div>
-                <button onclick="document.getElementById('${prefix}concept-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
+                <button onclick="document.getElementById('${prefix}concept-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
                     ✕ Close Inspector
                 </button>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
                 <div>
-                    <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Core Definition:</h5>
+                    <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Core Definition:</h5>
                     <p style="color: #f8fafc; font-size: 0.95rem; line-height: 1.6; margin: 0 0 1rem 0;">
                         ${concept.desc}
                     </p>
-                    <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Enterprise Architectural Role:</h5>
-                    <p style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; margin: 0;">
+                    <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Enterprise Architectural Role:</h5>
+                    <p style="color: #e2e8f0; font-size: 0.88rem; line-height: 1.6; margin: 0;">
                         ${concept.deep_dive}
                     </p>
                 </div>
 
-                <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <div style="background: #131c2e; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-family: monospace; font-size: 0.78rem; color: #60a5fa;">// Implementation Code Snippet</span>
-                        <span style="color: #94a3b8; font-size: 0.75rem;">Python / LangGraph</span>
+                        <span style="color: #cbd5e1; font-size: 0.75rem;">Python / LangGraph</span>
                     </div>
                     <pre style="margin: 0; font-family: monospace; font-size: 0.8rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${concept.code_example}</code></pre>
                 </div>
@@ -7342,27 +7342,27 @@ allow_action = false {
                         <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${concept.category}</span>
                     </div>
                 </div>
-                <button onclick="document.getElementById('${prefix}llm-concept-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
+                <button onclick="document.getElementById('${prefix}llm-concept-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
                     ✕ Close Inspector
                 </button>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
                 <div>
-                    <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Core Definition:</h5>
+                    <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Core Definition:</h5>
                     <p style="color: #f8fafc; font-size: 0.95rem; line-height: 1.6; margin: 0 0 1rem 0;">
                         ${concept.desc}
                     </p>
-                    <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Enterprise Architectural Role:</h5>
-                    <p style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; margin: 0;">
+                    <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Enterprise Architectural Role:</h5>
+                    <p style="color: #e2e8f0; font-size: 0.88rem; line-height: 1.6; margin: 0;">
                         ${concept.deep_dive}
                     </p>
                 </div>
 
-                <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <div style="background: #131c2e; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-family: monospace; font-size: 0.78rem; color: #38bdf8;">// Production Implementation Example</span>
-                        <span style="color: #94a3b8; font-size: 0.75rem;">Python / Transformers / PyTorch</span>
+                        <span style="color: #cbd5e1; font-size: 0.75rem;">Python / Transformers / PyTorch</span>
                     </div>
                     <pre style="margin: 0; font-family: monospace; font-size: 0.8rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${concept.code_example}</code></pre>
                 </div>
@@ -7602,27 +7602,27 @@ window.inspectLlmOptTechnique = function(prefix, techId) {
                     </div>
                 </div>
             </div>
-            <button onclick="document.getElementById('${prefix}llm-opt-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
+            <button onclick="document.getElementById('${prefix}llm-opt-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
                 ✕ Close Inspector
             </button>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
             <div>
-                <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Core Technique Objective:</h5>
+                <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Core Technique Objective:</h5>
                 <p style="color: #f8fafc; font-size: 0.95rem; line-height: 1.6; margin: 0 0 1rem 0;">
                     ${tech.desc}
                 </p>
-                <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Enterprise Architectural Deep Dive:</h5>
-                <p style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; margin: 0;">
+                <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Enterprise Architectural Deep Dive:</h5>
+                <p style="color: #e2e8f0; font-size: 0.88rem; line-height: 1.6; margin: 0;">
                     ${tech.deep_dive}
                 </p>
             </div>
 
-            <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+            <div style="background: #131c2e; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                     <span style="font-family: monospace; font-size: 0.78rem; color: #34d399;">// Production FinOps Code Implementation</span>
-                    <span style="color: #94a3b8; font-size: 0.75rem;">Python / Cloud Gateway</span>
+                    <span style="color: #cbd5e1; font-size: 0.75rem;">Python / Cloud Gateway</span>
                 </div>
                 <pre style="margin: 0; font-family: monospace; font-size: 0.8rem; color: #a7f3d0; line-height: 1.5; overflow-x: auto;"><code>${tech.code_example}</code></pre>
             </div>
@@ -8054,27 +8054,27 @@ window.inspectAiEngConcept = function(prefix, conceptId) {
                     <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${concept.category}</span>
                 </div>
             </div>
-            <button onclick="document.getElementById('${prefix}ai-eng-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
+            <button onclick="document.getElementById('${prefix}ai-eng-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
                 ✕ Close Inspector
             </button>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
             <div>
-                <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Core Definition:</h5>
+                <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Core Definition:</h5>
                 <p style="color: #f8fafc; font-size: 0.95rem; line-height: 1.6; margin: 0 0 1rem 0;">
                     ${concept.desc}
                 </p>
-                <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Enterprise Engineering Deep Dive:</h5>
-                <p style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; margin: 0;">
+                <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Enterprise Engineering Deep Dive:</h5>
+                <p style="color: #e2e8f0; font-size: 0.88rem; line-height: 1.6; margin: 0;">
                     ${concept.deep_dive}
                 </p>
             </div>
 
-            <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+            <div style="background: #131c2e; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                     <span style="font-family: monospace; font-size: 0.78rem; color: #60a5fa;">// Implementation Code Example</span>
-                    <span style="color: #94a3b8; font-size: 0.75rem;">Python / Architecture</span>
+                    <span style="color: #cbd5e1; font-size: 0.75rem;">Python / Architecture</span>
                 </div>
                 <pre style="margin: 0; font-family: monospace; font-size: 0.8rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${concept.code_example}</code></pre>
             </div>
@@ -8350,7 +8350,7 @@ window.inspectEnterpriseLayer = function(prefix, layerId) {
     const compList = layer.components.map(c => `
         <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.65rem;">
             <strong style="color: ${layer.color}; font-size: 0.85rem; display: block; margin-bottom: 0.2rem;">${c.title}</strong>
-            <span style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.4; display: block;">${c.desc}</span>
+            <span style="font-size: 0.8rem; color: #e2e8f0; line-height: 1.4; display: block;">${c.desc}</span>
         </div>
     `).join('');
 
@@ -8364,29 +8364,29 @@ window.inspectEnterpriseLayer = function(prefix, layerId) {
                     <span style="color: ${layer.color}; font-size: 0.85rem; font-weight: 600;">${layer.tagline}</span>
                 </div>
             </div>
-            <button onclick="document.getElementById('${prefix}enterprise-layer-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
+            <button onclick="document.getElementById('${prefix}enterprise-layer-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
                 ✕ Close Inspector
             </button>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
             <div>
-                <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Architectural Role:</h5>
+                <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Architectural Role:</h5>
                 <p style="color: #f8fafc; font-size: 0.92rem; line-height: 1.6; margin: 0 0 1rem 0;">${layer.role}</p>
 
-                <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Production Stack Standards:</h5>
+                <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.4rem 0;">Production Stack Standards:</h5>
                 <p style="color: #a7f3d0; font-family: monospace; font-size: 0.85rem; margin: 0 0 1rem 0; background: rgba(16, 185, 129, 0.1); padding: 0.5rem; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.2);">${layer.prod_stack}</p>
 
-                <h5 style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.6rem 0;">Sub-Components:</h5>
+                <h5 style="color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; margin: 0 0 0.6rem 0;">Sub-Components:</h5>
                 <div style="display: grid; grid-template-columns: 1fr; gap: 0.5rem;">
                     ${compList}
                 </div>
             </div>
 
-            <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+            <div style="background: #131c2e; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                     <span style="font-family: monospace; font-size: 0.78rem; color: ${layer.color};">// Enterprise Production Implementation</span>
-                    <span style="color: #94a3b8; font-size: 0.75rem;">Layer Blueprint</span>
+                    <span style="color: #cbd5e1; font-size: 0.75rem;">Layer Blueprint</span>
                 </div>
                 <pre style="margin: 0; font-family: monospace; font-size: 0.82rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${layer.code_snippet}</code></pre>
             </div>
@@ -8443,7 +8443,7 @@ window.stepEnterpriseTrace = function(prefix, delta) {
             </div>
             <span style="font-size: 0.78rem; color: #a78bfa; font-weight: 600;">Step ${s.step} of ${traceSteps.length}</span>
         </div>
-        <p style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.6; margin: 0 0 0.75rem 0;">${s.desc}</p>
+        <p style="color: #e2e8f0; font-size: 0.92rem; line-height: 1.6; margin: 0 0 0.75rem 0;">${s.desc}</p>
         <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.25); border-radius: 6px; padding: 0.75rem;">
             <strong style="color: #c4b5fd; font-size: 0.8rem; text-transform: uppercase;">Technical Action:</strong>
             <span style="display: block; font-family: monospace; font-size: 0.84rem; color: #e2e8f0; margin-top: 2px;">${s.action}</span>
@@ -8678,7 +8678,7 @@ window.simulateQueryOkafVsRag = function(prefix, queryId) {
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.4rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); pb-2;">
             <div>
                 <strong style="color: #f8fafc; font-size: 0.95rem;">Query: "${sim.query}"</strong>
-                <span style="display: block; font-size: 0.76rem; color: #94a3b8; margin-top: 2px;">Test Category: ${sim.type}</span>
+                <span style="display: block; font-size: 0.76rem; color: #cbd5e1; margin-top: 2px;">Test Category: ${sim.type}</span>
             </div>
             <span style="font-size: 0.75rem; color: #c4b5fd; background: rgba(139, 92, 246, 0.15); padding: 3px 8px; border-radius: 4px;">Live Simulation Comparison</span>
         </div>
@@ -8688,10 +8688,10 @@ window.simulateQueryOkafVsRag = function(prefix, queryId) {
             <div style="background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 6px; padding: 0.75rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                     <strong style="color: #60a5fa; font-size: 0.85rem;">Traditional RAG Pipeline</strong>
-                    <span style="font-size: 0.72rem; color: #94a3b8;">${sim.rag.latency} • ${sim.rag.tokens}</span>
+                    <span style="font-size: 0.72rem; color: #cbd5e1;">${sim.rag.latency} • ${sim.rag.tokens}</span>
                 </div>
-                <div style="font-size: 0.78rem; color: #94a3b8; margin-bottom: 0.35rem;"><strong>Retrieval:</strong> ${sim.rag.method}</div>
-                <div style="background: rgba(15, 23, 42, 0.6); padding: 0.5rem; border-radius: 4px; font-size: 0.78rem; color: #cbd5e1; margin-bottom: 0.4rem; font-style: italic;">
+                <div style="font-size: 0.78rem; color: #cbd5e1; margin-bottom: 0.35rem;"><strong>Retrieval:</strong> ${sim.rag.method}</div>
+                <div style="background: rgba(30, 41, 59, 0.6); padding: 0.5rem; border-radius: 4px; font-size: 0.78rem; color: #e2e8f0; margin-bottom: 0.4rem; font-style: italic;">
                     ${sim.rag.retrieved}
                 </div>
                 <div style="font-size: 0.82rem; color: #f8fafc; margin-bottom: 0.4rem;">
@@ -8704,10 +8704,10 @@ window.simulateQueryOkafVsRag = function(prefix, queryId) {
             <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 6px; padding: 0.75rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                     <strong style="color: #34d399; font-size: 0.85rem;">OKAF (Google) Pipeline</strong>
-                    <span style="font-size: 0.72rem; color: #94a3b8;">${sim.okaf.latency} • ${sim.okaf.tokens}</span>
+                    <span style="font-size: 0.72rem; color: #cbd5e1;">${sim.okaf.latency} • ${sim.okaf.tokens}</span>
                 </div>
-                <div style="font-size: 0.78rem; color: #94a3b8; margin-bottom: 0.35rem;"><strong>Traversal:</strong> ${sim.okaf.method}</div>
-                <div style="background: rgba(15, 23, 42, 0.6); padding: 0.5rem; border-radius: 4px; font-size: 0.78rem; color: #a7f3d0; margin-bottom: 0.4rem; font-family: monospace;">
+                <div style="font-size: 0.78rem; color: #cbd5e1; margin-bottom: 0.35rem;"><strong>Traversal:</strong> ${sim.okaf.method}</div>
+                <div style="background: rgba(30, 41, 59, 0.6); padding: 0.5rem; border-radius: 4px; font-size: 0.78rem; color: #a7f3d0; margin-bottom: 0.4rem; font-family: monospace;">
                     ${sim.okaf.retrieved}
                 </div>
                 <div style="font-size: 0.82rem; color: #f8fafc; margin-bottom: 0.4rem;">
@@ -8786,16 +8786,16 @@ window.simulateJevScenario = function(prefix, scenarioId) {
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 0.75rem;">
             <!-- Routing & Evidence -->
-            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.75rem;">
+            <div style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.75rem;">
                 <div style="font-size: 0.75rem; text-transform: uppercase; color: #93c5fd; font-weight: 700; margin-bottom: 0.3rem;">1. JEV Routing &amp; Anchors</div>
-                <div style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 0.4rem;">${sc.routing}</div>
-                <div style="font-size: 0.75rem; color: #94a3b8;"><strong>Candidate Anchors:</strong> ${sc.anchors}</div>
+                <div style="font-size: 0.8rem; color: #e2e8f0; margin-bottom: 0.4rem;">${sc.routing}</div>
+                <div style="font-size: 0.75rem; color: #cbd5e1;"><strong>Candidate Anchors:</strong> ${sc.anchors}</div>
             </div>
 
             <!-- Evidence Validation -->
-            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.75rem;">
+            <div style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.75rem;">
                 <div style="font-size: 0.75rem; text-transform: uppercase; color: #34d399; font-weight: 700; margin-bottom: 0.3rem;">2. Evidence &amp; Retrieve Path</div>
-                <div style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 0.4rem;">${sc.evidence}</div>
+                <div style="font-size: 0.8rem; color: #e2e8f0; margin-bottom: 0.4rem;">${sc.evidence}</div>
                 <div style="font-size: 0.75rem; color: #6ee7b7;"><strong>Execution Track:</strong> ${sc.path}</div>
             </div>
         </div>
@@ -8804,7 +8804,7 @@ window.simulateJevScenario = function(prefix, scenarioId) {
         <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 6px; padding: 0.75rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
                 <strong style="color: #34d399; font-size: 0.84rem;">Final LLM Reasoning Output:</strong>
-                <span style="font-size: 0.72rem; color: #94a3b8; font-family: monospace;">${sc.latency} • ${sc.tokensSaved}</span>
+                <span style="font-size: 0.72rem; color: #cbd5e1; font-family: monospace;">${sc.latency} • ${sc.tokensSaved}</span>
             </div>
             <p style="color: #f8fafc; font-size: 0.88rem; line-height: 1.5; margin: 0;">
                 "${sc.answer}"
@@ -9071,9 +9071,9 @@ window.simulateAgentPatternScenario = function(prefix, patternKey) {
 
         return `
             <div style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
-                <span style="font-family: monospace; color: #94a3b8; min-width: 42px;">${s.time}</span>
+                <span style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
                 <span style="font-weight: 700; color: ${color}; min-width: 140px;">${s.actor}</span>
-                <span style="color: #cbd5e1; flex: 1;">${s.msg}</span>
+                <span style="color: #e2e8f0; flex: 1;">${s.msg}</span>
                 ${ s.tokens ? `<span style="font-family: monospace; font-size: 0.75rem; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">${s.tokens} tok</span>` : '' }
             </div>
         `;
@@ -9086,40 +9086,40 @@ window.simulateAgentPatternScenario = function(prefix, patternKey) {
                 <h4 style="font-size: 1.15rem; font-weight: 700; color: #f8fafc; margin: 0.4rem 0 0 0;">${data.title}</h4>
             </div>
             <div style="text-align: right;">
-                <span style="font-size: 0.75rem; color: #94a3b8;">Topology Contract</span>
+                <span style="font-size: 0.75rem; color: #cbd5e1;">Topology Contract</span>
                 <div style="font-size: 0.85rem; font-weight: 700; color: #34d399;">Active Run</div>
             </div>
         </div>
 
-        <div style="background: rgba(0,0,0,0.4); border-left: 3px solid ${data.badgeColor}; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82rem; color: #93c5fd; margin-bottom: 1.25rem;">
+        <div style="background: rgba(19, 28, 46, 0.55); border-left: 3px solid ${data.badgeColor}; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82rem; color: #93c5fd; margin-bottom: 1.25rem;">
             ${data.topology}
         </div>
 
         <div style="margin-bottom: 1.25rem;">
-            <div style="font-size: 0.78rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Execution Trace Log:</div>
+            <div style="font-size: 0.78rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Execution Trace Log:</div>
             ${stepsHtml}
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
             <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-                <div style="font-size: 0.72rem; color: #94a3b8;">Latency</div>
+                <div style="font-size: 0.72rem; color: #cbd5e1;">Latency</div>
                 <div style="font-size: 0.95rem; font-weight: 700; color: #f8fafc;">${data.metrics.latency}</div>
             </div>
             <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-                <div style="font-size: 0.72rem; color: #94a3b8;">Token Usage</div>
+                <div style="font-size: 0.72rem; color: #cbd5e1;">Token Usage</div>
                 <div style="font-size: 0.95rem; font-weight: 700; color: #a78bfa;">${data.metrics.tokens}</div>
             </div>
             <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-                <div style="font-size: 0.72rem; color: #94a3b8;">Estimated Cost</div>
+                <div style="font-size: 0.72rem; color: #cbd5e1;">Estimated Cost</div>
                 <div style="font-size: 0.95rem; font-weight: 700; color: #34d399;">${data.metrics.cost}</div>
             </div>
             <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-                <div style="font-size: 0.72rem; color: #94a3b8;">Reliability SLA</div>
+                <div style="font-size: 0.72rem; color: #cbd5e1;">Reliability SLA</div>
                 <div style="font-size: 0.95rem; font-weight: 700; color: #38bdf8;">${data.metrics.reliability}</div>
             </div>
         </div>
-        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: #94a3b8; font-style: italic;">
-            <strong style="color: #cbd5e1;">Key Architectural Advantage:</strong> ${data.metrics.advantage}
+        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: #cbd5e1; font-style: italic;">
+            <strong style="color: #e2e8f0;">Key Architectural Advantage:</strong> ${data.metrics.advantage}
         </div>
     `;
 };
@@ -9151,9 +9151,9 @@ window.simulateCloudPatternScenario = function(prefix, patternKey) {
 
         return `
             <div style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
-                <span style="font-family: monospace; color: #94a3b8; min-width: 42px;">${s.time}</span>
+                <span style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
                 <span style="font-weight: 700; color: ${color}; min-width: 150px;">${s.actor}</span>
-                <span style="color: #cbd5e1; flex: 1;">${s.msg}</span>
+                <span style="color: #e2e8f0; flex: 1;">${s.msg}</span>
                 ${ s.tokens ? `<span style="font-family: monospace; font-size: 0.75rem; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">${s.tokens} tok</span>` : '' }
             </div>
         `;
@@ -9166,24 +9166,24 @@ window.simulateCloudPatternScenario = function(prefix, patternKey) {
                 <h4 style="font-size: 1.15rem; font-weight: 700; color: #f8fafc; margin: 0.4rem 0 0 0;">${data.title}</h4>
             </div>
             <div style="text-align: right;">
-                <span style="font-size: 0.75rem; color: #94a3b8;">Cloud Resilience</span>
+                <span style="font-size: 0.75rem; color: #cbd5e1;">Cloud Resilience</span>
                 <div style="font-size: 0.85rem; font-weight: 700; color: #60a5fa;">Fault-Tolerant Run</div>
             </div>
         </div>
 
-        <div style="background: rgba(0,0,0,0.4); border-left: 3px solid ${data.badgeColor}; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82rem; color: #93c5fd; margin-bottom: 1.25rem;">
+        <div style="background: rgba(19, 28, 46, 0.55); border-left: 3px solid ${data.badgeColor}; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82rem; color: #93c5fd; margin-bottom: 1.25rem;">
             ${data.topology}
         </div>
 
         <div style="margin-bottom: 1.25rem;">
-            <div style="font-size: 0.78rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Distributed Event Trace:</div>
+            <div style="font-size: 0.78rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Distributed Event Trace:</div>
             ${stepsHtml}
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
             ${ Object.entries(data.metrics).map(([k, v]) => `
                 <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-                    <div style="font-size: 0.72rem; color: #94a3b8; text-transform: capitalize;">${k.replace(/([A-Z])/g, ' $1')}</div>
+                    <div style="font-size: 0.72rem; color: #cbd5e1; text-transform: capitalize;">${k.replace(/([A-Z])/g, ' $1')}</div>
                     <div style="font-size: 0.9rem; font-weight: 700; color: #f8fafc; margin-top: 0.15rem;">${v}</div>
                 </div>
             `).join('') }
@@ -9335,9 +9335,9 @@ window.simulateOcrScenario = function(prefix, scenarioKey) {
 
         return `
             <div style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
-                <span style="font-family: monospace; color: #94a3b8; min-width: 42px;">${s.time}</span>
+                <span style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
                 <span style="font-weight: 700; color: ${color}; min-width: 160px;">${s.actor}</span>
-                <span style="color: #cbd5e1; flex: 1;">${s.msg}</span>
+                <span style="color: #e2e8f0; flex: 1;">${s.msg}</span>
                 ${ s.tokens ? `<span style="font-family: monospace; font-size: 0.75rem; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">${s.tokens} tok</span>` : '' }
             </div>
         `;
@@ -9350,29 +9350,29 @@ window.simulateOcrScenario = function(prefix, scenarioKey) {
                 <h4 style="font-size: 1.15rem; font-weight: 700; color: #f8fafc; margin: 0.4rem 0 0 0;">${data.title}</h4>
             </div>
             <div style="text-align: right;">
-                <span style="font-size: 0.75rem; color: #94a3b8;">Document AI Pipeline</span>
+                <span style="font-size: 0.75rem; color: #cbd5e1;">Document AI Pipeline</span>
                 <div style="font-size: 0.85rem; font-weight: 700; color: #38bdf8;">Production Ingestion</div>
             </div>
         </div>
 
-        <div style="background: rgba(0,0,0,0.4); border-left: 3px solid ${data.badgeColor}; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82rem; color: #93c5fd; margin-bottom: 1.25rem;">
+        <div style="background: rgba(19, 28, 46, 0.55); border-left: 3px solid ${data.badgeColor}; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82rem; color: #93c5fd; margin-bottom: 1.25rem;">
             ${data.pipeline}
         </div>
 
         <div style="margin-bottom: 1.25rem;">
-            <div style="font-size: 0.78rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Ingestion Trace & Processing Stages:</div>
+            <div style="font-size: 0.78rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Ingestion Trace & Processing Stages:</div>
             ${stepsHtml}
         </div>
 
         <div style="margin-bottom: 1.25rem;">
-            <div style="font-size: 0.78rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Structured Output Representation:</div>
-            <pre style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1rem; color: #a5f3fc; font-family: 'Fira Code', monospace; font-size: 0.8rem; overflow-x: auto; margin: 0; line-height: 1.5;">${data.output.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+            <div style="font-size: 0.78rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Structured Output Representation:</div>
+            <pre style="background: rgba(19, 28, 46, 0.55); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1rem; color: #a5f3fc; font-family: 'Fira Code', monospace; font-size: 0.8rem; overflow-x: auto; margin: 0; line-height: 1.5;">${data.output.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
             ${ Object.entries(data.metrics).map(([k, v]) => `
                 <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-                    <div style="font-size: 0.72rem; color: #94a3b8; text-transform: capitalize;">${k.replace(/([A-Z])/g, ' $1')}</div>
+                    <div style="font-size: 0.72rem; color: #cbd5e1; text-transform: capitalize;">${k.replace(/([A-Z])/g, ' $1')}</div>
                     <div style="font-size: 0.9rem; font-weight: 700; color: #f8fafc; margin-top: 0.15rem;">${v}</div>
                 </div>
             `).join('') }
@@ -9499,9 +9499,9 @@ window.simulateInferenceScenario = function(prefix, scenarioKey) {
 
         return `
             <div style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
-                <span style="font-family: monospace; color: #94a3b8; min-width: 46px;">${s.time}</span>
+                <span style="font-family: monospace; color: #cbd5e1; min-width: 46px;">${s.time}</span>
                 <span style="font-weight: 700; color: ${color}; min-width: 170px;">${s.actor}</span>
-                <span style="color: #cbd5e1; flex: 1;">${s.msg}</span>
+                <span style="color: #e2e8f0; flex: 1;">${s.msg}</span>
                 ${ s.tokens ? `<span style="font-family: monospace; font-size: 0.75rem; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">${s.tokens} tok</span>` : '' }
             </div>
         `;
@@ -9514,29 +9514,29 @@ window.simulateInferenceScenario = function(prefix, scenarioKey) {
                 <h4 style="font-size: 1.15rem; font-weight: 700; color: #f8fafc; margin: 0.4rem 0 0 0;">${data.title}</h4>
             </div>
             <div style="text-align: right;">
-                <span style="font-size: 0.75rem; color: #94a3b8;">Execution Pipeline</span>
+                <span style="font-size: 0.75rem; color: #cbd5e1;">Execution Pipeline</span>
                 <div style="font-size: 0.85rem; font-weight: 700; color: #fbbf24;">Silicon Telemetry</div>
             </div>
         </div>
 
-        <div style="background: rgba(0,0,0,0.4); border-left: 3px solid ${data.badgeColor}; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82rem; color: #fde047; margin-bottom: 1.25rem;">
+        <div style="background: rgba(19, 28, 46, 0.55); border-left: 3px solid ${data.badgeColor}; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82rem; color: #fde047; margin-bottom: 1.25rem;">
             ${data.pipeline}
         </div>
 
         <div style="margin-bottom: 1.25rem;">
-            <div style="font-size: 0.78rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Execution Trace & Stage Timing:</div>
+            <div style="font-size: 0.78rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Execution Trace & Stage Timing:</div>
             ${stepsHtml}
         </div>
 
         <div style="margin-bottom: 1.25rem;">
-            <div style="font-size: 0.78rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Generated Output / Runtime State:</div>
-            <pre style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1rem; color: #fef08a; font-family: 'Fira Code', monospace; font-size: 0.8rem; overflow-x: auto; margin: 0; line-height: 1.5;">${data.output.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+            <div style="font-size: 0.78rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em;">Generated Output / Runtime State:</div>
+            <pre style="background: rgba(19, 28, 46, 0.55); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1rem; color: #fef08a; font-family: 'Fira Code', monospace; font-size: 0.8rem; overflow-x: auto; margin: 0; line-height: 1.5;">${data.output.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
             ${ Object.entries(data.metrics).map(([k, v]) => `
                 <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-                    <div style="font-size: 0.72rem; color: #94a3b8; text-transform: capitalize;">${k.replace(/([A-Z])/g, ' $1')}</div>
+                    <div style="font-size: 0.72rem; color: #cbd5e1; text-transform: capitalize;">${k.replace(/([A-Z])/g, ' $1')}</div>
                     <div style="font-size: 0.9rem; font-weight: 700; color: #f8fafc; margin-top: 0.15rem;">${v}</div>
                 </div>
             `).join('') }
@@ -9609,28 +9609,28 @@ window.updateInferenceCalculator = function(prefix) {
 
     resultsEl.innerHTML = `
         <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-            <div style="font-size: 0.72rem; color: #94a3b8;">Model Weight VRAM</div>
+            <div style="font-size: 0.72rem; color: #cbd5e1;">Model Weight VRAM</div>
             <div style="font-size: 1.05rem; font-weight: 700; color: #38bdf8;">${weightGB.toFixed(1)} GB</div>
         </div>
         <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-            <div style="font-size: 0.72rem; color: #94a3b8;">KV Cache Footprint</div>
+            <div style="font-size: 0.72rem; color: #cbd5e1;">KV Cache Footprint</div>
             <div style="font-size: 1.05rem; font-weight: 700; color: #c084fc;">${kvGB.toFixed(1)} GB</div>
         </div>
         <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-            <div style="font-size: 0.72rem; color: #94a3b8;">Total VRAM Required (+15% ovh)</div>
+            <div style="font-size: 0.72rem; color: #cbd5e1;">Total VRAM Required (+15% ovh)</div>
             <div style="font-size: 1.05rem; font-weight: 700; color: #34d399;">${totalVRAM.toFixed(1)} GB</div>
         </div>
         <div style="background: rgba(255,255,255,0.03); padding: 0.6rem 0.8rem; border-radius: 6px;">
-            <div style="font-size: 0.72rem; color: #94a3b8;">Arithmetic Intensity (Decode)</div>
+            <div style="font-size: 0.72rem; color: #cbd5e1;">Arithmetic Intensity (Decode)</div>
             <div style="font-size: 1.05rem; font-weight: 700; color: #fbbf24;">${intensity.toFixed(1)} FLOPs/B</div>
         </div>
-        <div style="grid-column: 1 / -1; background: rgba(0,0,0,0.3); border-left: 3px solid ${regimeColor}; padding: 0.6rem 0.8rem; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <div style="grid-column: 1 / -1; background: rgba(19, 28, 46, 0.55); border-left: 3px solid ${regimeColor}; padding: 0.6rem 0.8rem; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
             <div>
-                <span style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase;">Roofline Operating Point:</span>
+                <span style="font-size: 0.72rem; color: #cbd5e1; text-transform: uppercase;">Roofline Operating Point:</span>
                 <div style="font-size: 0.85rem; font-weight: 700; color: ${regimeColor};">${regime}</div>
             </div>
             <div style="text-align: right;">
-                <span style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase;">Hardware Production Target:</span>
+                <span style="font-size: 0.72rem; color: #cbd5e1; text-transform: uppercase;">Hardware Production Target:</span>
                 <div style="font-size: 0.85rem; font-weight: 700; color: #f8fafc;">${hwRec}</div>
             </div>
         </div>
