@@ -52,86 +52,86 @@
 
     <!-- AI Architecture Presentation Suite — Primary Entry -->
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.95</priority>
     </url>
 
     <!-- Basics Tier — Public AI & LLM Foundations (7 Modules) -->
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-ai-eng-concepts</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-ai-eng-concepts</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-rag-basics</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-rag-basics</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-chunking</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-chunking</loc>
         <changefreq>weekly</changefreq>
         <priority>0.88</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-finetuning</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-finetuning</loc>
         <changefreq>weekly</changefreq>
         <priority>0.88</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-ml-models</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-ml-models</loc>
         <changefreq>weekly</changefreq>
         <priority>0.88</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-llm-concepts</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-llm-concepts</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-transformers</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-transformers</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <!-- Intermediate Tier — Public Agentic Systems & Optimization (8 Modules) -->
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-agent-arch</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-agent-arch</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-agentic-design</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-agentic-design</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-agent-concepts</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-agent-concepts</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-llm-opt</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-llm-opt</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-okaf-rag</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-okaf-rag</loc>
         <changefreq>weekly</changefreq>
         <priority>0.88</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-jev-memory</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-jev-memory</loc>
         <changefreq>weekly</changefreq>
         <priority>0.88</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-agent-patterns</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-agent-patterns</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://agelmahdi.github.io/ai%20architecture/presentation.html?tab=tab-sec-ocr-arch</loc>
+        <loc>https://agelmahdi.github.io/architectures/index.html?tab=tab-sec-ocr-arch</loc>
         <changefreq>weekly</changefreq>
         <priority>0.88</priority>
     </url>

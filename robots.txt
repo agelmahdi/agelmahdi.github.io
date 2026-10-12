@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Allow: /index.html
 Allow: /index-ar.html
-Allow: /ai%20architecture/presentation.html
+Allow: /architectures/index.html
 
 # Prevent indexing of proprietary consultation-gated Deep Dive tabs
 Disallow: /*?tab=tab-sec-mandate

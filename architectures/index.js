@@ -377,7 +377,7 @@
             if (el) el.setAttribute(attr, val);
         };
 
-        const baseUrl = `https://agelmahdi.github.io/ai%20architecture/presentation.html`;
+        const baseUrl = `https://agelmahdi.github.io/architectures/index.html`;
         const canonicalUrl = `${baseUrl}?tab=${tabId}`;
         setAttr('seo-meta-desc', 'content', pageDesc);
         setAttr('seo-meta-keywords', 'content', pageKeywords);
