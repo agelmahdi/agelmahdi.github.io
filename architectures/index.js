@@ -9252,7 +9252,7 @@ window.simulateQueryOkafVsRag = function(prefix, queryId) {
             <span style="font-size: 0.75rem; color: #c4b5fd; background: rgba(139, 92, 246, 0.15); padding: 3px 8px; border-radius: 4px;">Live Simulation Comparison</span>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+        <div class="okaf-sim-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
             <!-- RAG Result -->
             <div style="background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 6px; padding: 0.75rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
@@ -9374,7 +9374,7 @@ window.simulateJevScenario = function(prefix, scenarioId) {
             ${sysTwoBadge}
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 0.75rem;">
+        <div class="jev-sim-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 0.75rem;">
             <!-- Routing & Evidence -->
             <div style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.75rem;">
                 <div style="font-size: 0.75rem; text-transform: uppercase; color: #93c5fd; font-weight: 700; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 5px;">
@@ -9684,12 +9684,12 @@ window.simulateAgentPatternScenario = function(prefix, patternKey) {
         }
 
         return `
-            <div style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
+            <div class="sim-timeline-row" style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
                 ${statusSvg}
-                <span style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
-                <span style="font-weight: 700; color: ${color}; min-width: 140px;">${s.actor}</span>
-                <span style="color: #e2e8f0; flex: 1;">${s.msg}</span>
-                ${ s.tokens ? `<span style="font-family: monospace; font-size: 0.75rem; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">${s.tokens} tok</span>` : '' }
+                <span class="sim-row-time" style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
+                <span class="sim-row-actor" style="font-weight: 700; color: ${color}; min-width: 140px;">${s.actor}</span>
+                <span class="sim-row-msg" style="color: #e2e8f0; flex: 1;">${s.msg}</span>
+                ${ s.tokens ? `<span class="sim-row-tokens" style="font-family: monospace; font-size: 0.75rem; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">${s.tokens} tok</span>` : '' }
             </div>
         `;
     }).join('');
@@ -9967,12 +9967,12 @@ window.simulateOcrScenario = function(prefix, scenarioKey) {
         }
 
         return `
-            <div style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
+            <div class="sim-timeline-row" style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
                 ${statusSvg}
-                <span style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
-                <span style="font-weight: 700; color: ${color}; min-width: 160px;">${s.actor}</span>
-                <span style="color: #e2e8f0; flex: 1;">${s.msg}</span>
-                ${ s.tokens ? `<span style="font-family: monospace; font-size: 0.75rem; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">${s.tokens} tok</span>` : '' }
+                <span class="sim-row-time" style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
+                <span class="sim-row-actor" style="font-weight: 700; color: ${color}; min-width: 160px;">${s.actor}</span>
+                <span class="sim-row-msg" style="color: #e2e8f0; flex: 1;">${s.msg}</span>
+                ${ s.tokens ? `<span class="sim-row-tokens" style="font-family: monospace; font-size: 0.75rem; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">${s.tokens} tok</span>` : '' }
             </div>
         `;
     }).join('');
