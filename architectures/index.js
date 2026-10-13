@@ -1,3 +1,110 @@
+
+    // Keyboard Accessibility Handler: activates [role="button"] on Enter or Space
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const target = e.target.closest('[role="button"]');
+            if (target && target.tagName !== 'BUTTON' && target.tagName !== 'A' && target.tagName !== 'INPUT') {
+                e.preventDefault();
+                target.click();
+            }
+        }
+    });
+    
+
+    window.renderFlatIconSvg = function(iconStr, defaultKey = 'sparkles', strokeColor = 'currentColor') {
+        const svgMap = {
+            'brain': '<path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path>',
+            'chart': '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>',
+            'chart_bar': '<line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>',
+            'trending_down': '<polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline>',
+            'dna': '<path d="M2 15c6.667-6 13.333 0 20-6"></path><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"></path><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"></path>',
+            'network': '<circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>',
+            'sparkles': '<path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path>',
+            'database': '<ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>',
+            'sliders': '<line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line>',
+            'plug': '<path d="M12 22v-5"></path><path d="M9 8V2"></path><path d="M15 8V2"></path><path d="M18 8v5a6 6 0 0 1-12 0V8z"></path>',
+            'file_text': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>',
+            'doc': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>',
+            'bot': '<rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line>',
+            'puzzle': '<path d="M19.439 7.85c0-1.571-1.274-2.846-2.846-2.846a2.846 2.846 0 0 1-2.846 2.846H9.747a2.846 2.846 0 0 1-2.846-2.846c0-1.572-1.275-2.846-2.847-2.846A2.846 2.846 0 0 0 1.208 5.004v13.992a2.846 2.846 0 0 0 2.846 2.846c1.572 0 2.847-1.274 2.847-2.846a2.846 2.846 0 0 1 2.846 2.846h4a2.846 2.846 0 0 1 2.846-2.846c1.572 0 2.846 1.274 2.846 2.846a2.846 2.846 0 0 0 2.846-2.846V7.85z"></path>',
+            'scissors': '<circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line>',
+            'code': '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>',
+            'terminal': '<polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line>',
+            'layers': '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>',
+            'layout': '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line>',
+            'message': '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>',
+            'target': '<circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle>',
+            'lightbulb': '<path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>',
+            'book': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>',
+            'shield': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
+            'zap': '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>',
+            'scale': '<path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1zM2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"></path><path d="M7 21h10M12 3v18M3 7h18"></path>',
+            'globe': '<circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>',
+            'lock': '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>',
+            'cpu': '<rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line>',
+            'users': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>',
+            'user': '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>',
+            'tools': '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>',
+            'refresh': '<polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>',
+            'building': '<rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="18"></line><line x1="15" y1="22" x2="15" y2="18"></line><line x1="9" y1="6" x2="9.01" y2="6"></line><line x1="15" y1="6" x2="15.01" y2="6"></line><line x1="9" y1="10" x2="9.01" y2="10"></line><line x1="15" y1="10" x2="15.01" y2="10"></line><line x1="9" y1="14" x2="9.01" y2="14"></line><line x1="15" y1="14" x2="15.01" y2="14"></line>',
+            'search': '<circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>',
+            'alert': '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>',
+            'eye': '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>',
+            'box': '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line>',
+            'clipboard': '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>',
+            'check': '<polyline points="20 6 9 17 4 12"></polyline>',
+            'arrow_right': '<line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>',
+            'arrow_left': '<line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline>',
+            'play': '<polygon points="5 3 19 12 5 21 5 3"></polygon>',
+            'pause': '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>',
+            'copy': '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>',
+            'check_circle': '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>',
+            'filter': '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>'
+        };
+
+        if (iconStr && iconStr.startsWith('<svg')) return iconStr;
+
+        // Emoji / key resolver
+        let key = defaultKey;
+        if (iconStr === '🧠' || iconStr === '\ud83e\udde0') key = 'brain';
+        else if (iconStr === '📈' || iconStr === '\ud83d\udcc8') key = 'chart';
+        else if (iconStr === '🧬' || iconStr === '\ud83e\uddec') key = 'dna';
+        else if (iconStr === '🕸️' || iconStr === '🕸' || iconStr === '\ud83d\udd78️') key = 'network';
+        else if (iconStr === '✨') key = 'sparkles';
+        else if (iconStr === '🗄️' || iconStr === '💾' || iconStr === '\ud83d\uddc4️') key = 'database';
+        else if (iconStr === '📊' || iconStr === '\ud83d\udcca') key = 'chart_bar';
+        else if (iconStr === '⚙️' || iconStr === '🎛️' || iconStr === '✏️') key = 'sliders';
+        else if (iconStr === '🔌' || iconStr === '\ud83d\udd0c') key = 'plug';
+        else if (iconStr === '📄' || iconStr === '📜' || iconStr === '📑' || iconStr === '\ud83d\udcc4') key = 'doc';
+        else if (iconStr === '🤖' || iconStr === '\ud83e\udd16') key = 'bot';
+        else if (iconStr === '🧩' || iconStr === '\ud83e\udde9') key = 'puzzle';
+        else if (iconStr === '✂️' || iconStr === '✂') key = 'scissors';
+        else if (iconStr === '🔢' || iconStr === '</>' || iconStr === '&lt;/&gt;') key = 'code';
+        else if (iconStr === '💬' || iconStr === '💭' || iconStr === '\ud83d\udcac') key = 'message';
+        else if (iconStr === '🖥️' || iconStr === '>_' || iconStr === '&gt;_') key = 'terminal';
+        else if (iconStr === '🎯' || iconStr === '\ud83c\udfaf') key = 'target';
+        else if (iconStr === '💡' || iconStr === '\ud83d\udca1') key = 'lightbulb';
+        else if (iconStr === '📚' || iconStr === '📖' || iconStr === '\ud83d\udcda') key = 'book';
+        else if (iconStr === '🔍' || iconStr === '\ud83d\udd0d') key = 'search';
+        else if (iconStr === '⚖️' || iconStr === '⚖') key = 'scale';
+        else if (iconStr === '⚠️' || iconStr === '⚠') key = 'alert';
+        else if (iconStr === '🛡️' || iconStr === '🛡' || iconStr === '\ud83d\udee1️' || iconStr === '\ud83d\udee1\ufe0f') key = 'shield';
+        else if (iconStr === '♾️' || iconStr === '🔄' || iconStr === '\ud83d\udd04') key = 'refresh';
+        else if (iconStr === '⚡' || iconStr === '\u26a1') key = 'zap';
+        else if (iconStr === '👁️' || iconStr === '👁') key = 'eye';
+        else if (iconStr === '🛠️' || iconStr === '🛠' || iconStr === '\ud83d\udee0️' || iconStr === '\ud83d\udee0\ufe0f') key = 'tools';
+        else if (iconStr === '👥' || iconStr === '\ud83d\udc65') key = 'users';
+        else if (iconStr === '👤' || iconStr === '\ud83d\udc64') key = 'user';
+        else if (iconStr === '🏢' || iconStr === '🏛️' || iconStr === '\ud83c\udfe2') key = 'building';
+        else if (iconStr === '📦' || iconStr === '\ud83d\udce6') key = 'box';
+        else if (iconStr === '🔀' || iconStr === '\ud83d\udd00') key = 'network';
+        else if (iconStr === '📋' || iconStr === '\ud83d\udccb') key = 'clipboard';
+        else if (iconStr === '✔️' || iconStr === '✅') key = 'check';
+
+        const path = svgMap[key] || svgMap['sparkles'];
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true" focusable="false">${path}</svg>`;
+    };
+    
 /**
  * AI Architecture - Solutions & Systems - Enterprise Architecture & Interactive Tools Engine
  * Standalone Presentation Logic & Interactive Workbench
@@ -359,7 +466,7 @@
         let pageTitle, pageDesc, pageKeywords, pageRobots;
         if (isWorkbench && !unlocked) {
             const shortName = meta.title.split('|')[0].trim();
-            pageTitle = `🔒 ${shortName} (Consultation Access Required) | Ahmed El-Mahdi`;
+            pageTitle = `${shortName} (Consultation Access Required) | Ahmed El-Mahdi`;
             pageDesc = `Proprietary Enterprise AI Architecture Blueprint: ${shortName}. Schedule an executive consultation with Ahmed El-Mahdi to unlock full schematics.`;
             pageKeywords = `Enterprise AI Consultation, Ahmed El-Mahdi, Principal AI Architect`;
             pageRobots = `noindex, nofollow`;
@@ -487,7 +594,8 @@
             gateCard.innerHTML = `
                 <div style="text-align: center; max-width: 680px; margin: 2.5rem auto; padding: 1.5rem 1rem;">
                     <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: #fbbf24; padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem; letter-spacing: 0.5px;">
-                        <span>🔒</span> PROPRIETARY DEEP DIVE BLUEPRINT
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        <span>PROPRIETARY DEEP DIVE BLUEPRINT</span>
                     </div>
                     <h2 style="font-size: 1.75rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.85rem; line-height: 1.3;">
                         ${cleanTitle}
@@ -497,11 +605,12 @@
                     </p>
                     <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
                         <a href="https://wa.me/201558333533?text=${encodeURIComponent(waText)}" target="_blank" rel="noopener noreferrer" class="mode-btn mode-btn-whatsapp" style="padding: 0.8rem 1.5rem; font-size: 0.92rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.55rem; border-radius: 8px;">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.012 0C5.398 0 .04 5.352.04 11.96c0 2.104.543 4.154 1.58 5.944L0 24l6.196-1.62c1.73.94 3.708 1.44 5.804 1.44 6.616 0 11.96-5.352 11.96-11.96C24 5.352 18.64 0 12.012 0zm0 21.96c-1.87 0-3.708-.488-5.334-1.414l-.382-.224-3.666.96.974-3.564-.246-.39a9.882 9.882 0 0 1-1.516-5.368c0-5.452 4.436-9.89 9.89-9.89 5.452 0 9.89 4.438 9.89 9.89 0 5.452-4.438 9.89-9.89 9.89zm5.412-7.398c-.296-.148-1.758-.868-2.03-.966-.274-.098-.472-.148-.672.148-.198.298-.77 1.036-.944 1.234-.172.196-.346.222-.642.074-.296-.148-1.252-.462-2.386-1.472-.882-.788-1.478-1.76-1.652-2.056-.172-.296-.018-.456.13-.604.134-.132.296-.346.444-.518.148-.172.198-.296.296-.494.098-.198.05-.37-.024-.518-.074-.148-.672-1.62-.92-2.218-.242-.582-.488-.504-.672-.514-.174-.008-.372-.01-.57-.01-.198 0-.52.074-.792.37-.272.296-1.04 1.016-1.04 2.478 0 1.462 1.064 2.876 1.212 3.074.148.198 2.096 3.2 5.076 4.488.71.306 1.262.49 1.692.626.712.226 1.36.194 1.872.118.572-.086 1.758-.72 2.006-1.414.248-.692.248-1.284.172-1.414-.074-.12-.272-.196-.568-.344z"/></svg>
+                            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.012 0C5.398 0 .04 5.352.04 11.96c0 2.104.543 4.154 1.58 5.944L0 24l6.196-1.62c1.73.94 3.708 1.44 5.804 1.44 6.616 0 11.96-5.352 11.96-11.96C24 5.352 18.64 0 12.012 0zm0 21.96c-1.87 0-3.708-.488-5.334-1.414l-.382-.224-3.666.96.974-3.564-.246-.39a9.882 9.882 0 0 1-1.516-5.368c0-5.452 4.436-9.89 9.89-9.89 5.452 0 9.89 4.438 9.89 9.89 0 5.452-4.438 9.89-9.89 9.89zm5.412-7.398c-.296-.148-1.758-.868-2.03-.966-.274-.098-.472-.148-.672.148-.198.298-.77 1.036-.944 1.234-.172.196-.346.222-.642.074-.296-.148-1.252-.462-2.386-1.472-.882-.788-1.478-1.76-1.652-2.056-.172-.296-.018-.456.13-.604.134-.132.296-.346.444-.518.148-.172.198-.296.296-.494.098-.198.05-.37-.024-.518-.074-.148-.672-1.62-.92-2.218-.242-.582-.488-.504-.672-.514-.174-.008-.372-.01-.57-.01-.198 0-.52.074-.792.37-.272.296-1.04 1.016-1.04 2.478 0 1.462 1.064 2.876 1.212 3.074.148.198 2.096 3.2 5.076 4.488.71.306 1.262.49 1.692.626.712.226 1.36.194 1.872.118.572-.086 1.758-.72 2.006-1.414.248-.692.248-1.284.172-1.414-.074-.12-.272-.196-.568-.344z"/></svg>
                             <span>Schedule Consultation via WhatsApp</span>
                         </a>
-                        <button type="button" class="mode-btn" onclick="window.openBasics()" style="padding: 0.8rem 1.3rem; font-size: 0.88rem; cursor: pointer;">
-                            ← Explore Public Foundations
+                        <button type="button" class="mode-btn" onclick="window.openBasics()" style="padding: 0.8rem 1.3rem; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                            <span>Explore Public Foundations</span>
                         </button>
                     </div>
                 </div>
@@ -665,7 +774,7 @@
             toast.className = 'secret-toast';
             document.body.appendChild(toast);
         }
-        toast.textContent = message;
+        toast.innerHTML = message;
         toast.classList.toggle('locked', isLocked);
         toast.classList.add('visible');
 
@@ -677,8 +786,10 @@
 
     function updateDeepDiveLockUI(unlocked) {
         document.body.classList.toggle('deep-dive-locked', !unlocked);
+        document.body.classList.toggle('deep-dive-unlocked', unlocked);
 
         const wrapper = document.getElementById('deepDiveWrapper');
+        const popover = document.querySelector('.deep-dive-popover');
         const badge = document.getElementById('dd-popover-badge');
         const subtitle = document.getElementById('dd-popover-subtitle');
         const btn = document.getElementById('btn-mode-workbench');
@@ -686,12 +797,17 @@
         if (wrapper) {
             wrapper.classList.toggle('is-unlocked', unlocked);
         }
+        if (popover) {
+            popover.classList.toggle('is-unlocked', unlocked);
+        }
         if (btn) {
             btn.classList.toggle('btn-unlocked', unlocked);
             btn.title = unlocked ? "Deep Dive (Unlocked: Architect Access Active)" : "Deep Dive Consultation Topics";
         }
         if (badge) {
-            badge.textContent = unlocked ? '🔓 ARCHITECT ACCESS GRANTED' : 'ADVANCED ARCHITECTURE';
+            badge.innerHTML = unlocked 
+                ? '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="vertical-align: -1px; margin-right: 5px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>ARCHITECT ACCESS GRANTED' 
+                : 'ADVANCED ARCHITECTURE';
         }
         if (subtitle) {
             subtitle.textContent = unlocked 
@@ -699,10 +815,14 @@
                 : 'Click any topic to schedule a consultation, or perform secret pattern to unlock:';
         }
 
+        const lockSvg = unlocked
+            ? '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>'
+            : '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>';
+
         document.querySelectorAll('.dd-topic-item').forEach(el => {
             const lockIcon = el.querySelector('.dd-topic-lock');
             if (lockIcon) {
-                lockIcon.textContent = unlocked ? '🔓' : '🔒';
+                lockIcon.innerHTML = lockSvg;
                 lockIcon.title = unlocked ? 'Direct Access Unlocked' : 'Consultation Access Required';
             }
         });
@@ -725,14 +845,24 @@
             }
         } catch (e) {}
         updateDeepDiveLockUI(newStatus);
+        const unlockToastSvg = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align: -2px; margin-right: 6px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>';
+        const lockToastSvg = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align: -2px; margin-right: 6px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>';
         showSecretToast(
-            newStatus ? '🔓 Deep Dive Unlocked: Architect Access Granted' : '🔒 Deep Dive Locked: Consultation Mode Enabled',
+            newStatus ? `${unlockToastSvg}Deep Dive Unlocked: Architect Access Granted` : `${lockToastSvg}Deep Dive Locked: Consultation Mode Enabled`,
             !newStatus
         );
         // Keep popover open when unlocked so topics are immediately clickable
         const wrapper = document.getElementById('deepDiveWrapper');
-        if (wrapper && newStatus) {
-            wrapper.classList.add('active');
+        const popover = document.querySelector('.deep-dive-popover');
+        const backdrop = document.getElementById('deepDiveBackdrop');
+        if (newStatus) {
+            if (wrapper) wrapper.classList.add('active');
+            if (popover) popover.classList.add('active');
+            if (backdrop) backdrop.classList.add('active');
+            document.body.classList.add('deep-dive-active');
+            if (typeof updatePopoverPosition === 'function') {
+                updatePopoverPosition();
+            }
         }
     }
 
@@ -778,6 +908,27 @@
         window.open(waUrl, '_blank');
     };
 
+    function updatePopoverPosition() {
+        const popover = document.querySelector('.deep-dive-popover');
+        const btn = document.getElementById('btn-mode-workbench');
+        if (!popover || !btn) return;
+
+        if (window.innerWidth > 768) {
+            const rect = btn.getBoundingClientRect();
+            popover.style.top = (rect.bottom + 8) + 'px';
+            popover.style.right = Math.max(16, window.innerWidth - rect.right) + 'px';
+            popover.style.left = 'auto';
+            popover.style.bottom = 'auto';
+            popover.style.width = '380px';
+        } else {
+            popover.style.top = '';
+            popover.style.right = '';
+            popover.style.left = '';
+            popover.style.bottom = '';
+            popover.style.width = '';
+        }
+    }
+
     window.toggleDeepDiveTooltip = function(e) {
         if (e) {
             e.preventDefault();
@@ -787,11 +938,22 @@
         if (triggeredUnlock) return;
 
         const wrapper = document.getElementById('deepDiveWrapper');
-        if (!wrapper) return;
-        const willBeActive = !wrapper.classList.contains('active');
-        wrapper.classList.toggle('active', willBeActive);
-        
+        const popover = document.querySelector('.deep-dive-popover');
+        const backdrop = document.getElementById('deepDiveBackdrop');
         const btn = document.getElementById('btn-mode-workbench');
+
+        const willBeActive = !document.body.classList.contains('deep-dive-active');
+        
+        document.body.classList.toggle('deep-dive-active', willBeActive);
+        document.body.classList.toggle('deep-dive-sheet-open', willBeActive);
+        if (wrapper) wrapper.classList.toggle('active', willBeActive);
+        if (popover) popover.classList.toggle('active', willBeActive);
+        if (backdrop) backdrop.classList.toggle('active', willBeActive);
+
+        if (willBeActive) {
+            updatePopoverPosition();
+        }
+
         if (btn) {
             btn.setAttribute('aria-expanded', willBeActive ? 'true' : 'false');
         }
@@ -799,22 +961,35 @@
 
     window.closeDeepDiveTooltip = function() {
         const wrapper = document.getElementById('deepDiveWrapper');
-        if (wrapper && wrapper.classList.contains('active')) {
-            wrapper.classList.remove('active');
-            const btn = document.getElementById('btn-mode-workbench');
-            if (btn) {
-                btn.setAttribute('aria-expanded', 'false');
-            }
+        const popover = document.querySelector('.deep-dive-popover');
+        const backdrop = document.getElementById('deepDiveBackdrop');
+        const btn = document.getElementById('btn-mode-workbench');
+
+        document.body.classList.remove('deep-dive-active');
+        document.body.classList.remove('deep-dive-sheet-open');
+        if (wrapper) wrapper.classList.remove('active');
+        if (popover) popover.classList.remove('active');
+        if (backdrop) backdrop.classList.remove('active');
+        if (btn) {
+            btn.setAttribute('aria-expanded', 'false');
         }
     };
 
     // Close tooltip on outside click
     document.addEventListener('click', function(e) {
-        const wrapper = document.getElementById('deepDiveWrapper');
-        if (wrapper && wrapper.classList.contains('active')) {
-            if (!wrapper.contains(e.target)) {
+        if (document.body.classList.contains('deep-dive-active')) {
+            const wrapper = document.getElementById('deepDiveWrapper');
+            const popover = document.querySelector('.deep-dive-popover');
+            if (wrapper && !wrapper.contains(e.target) && popover && !popover.contains(e.target)) {
                 window.closeDeepDiveTooltip();
             }
+        }
+    });
+
+    // Reposition on window resize if open on desktop
+    window.addEventListener('resize', function() {
+        if (document.body.classList.contains('deep-dive-active')) {
+            updatePopoverPosition();
         }
     });
 
@@ -918,7 +1093,7 @@
     const archNodeData = {
         client_ingress: {
             title: "1. API Gateway & Envoy Ingress Proxy",
-            icon: "🌐",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>',
             latency: "Latency SLA: < 5ms",
             desc: "Terminates mutual TLS (mTLS) from enterprise clients, validates JSON Web Tokens (JWT) signed by enterprise IdPs (Okta, Keycloak, Azure AD), extracts role/clearance claims, and applies token-bucket rate limiting.",
             security: "Zero-Trust Edge Perimeter: Enforces strict IP whitelisting for sovereign government networks and prevents unauthenticated requests from reaching internal vector or LLM services.",
@@ -926,7 +1101,7 @@
         },
         pii_sanitizer: {
             title: "2. Pre-Ingestion PII Masking Engine (Presidio / RoBERTa)",
-            icon: "🔒",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>',
             latency: "Latency SLA: < 15ms",
             desc: "Scans inbound query payloads for Personally Identifiable Information (SSNs, emails, national identity numbers, health IDs) using Microsoft Presidio and specialized local NER transformers. Replaces raw values with persistent surrogate tokens (e.g. [CITIZEN_ID_982]).",
             security: "Data Privacy & Compliance: Ensures raw PII never enters the vector database index or LLM context window. Surrogate mapping is isolated inside an encrypted transient vault.",
@@ -934,7 +1109,7 @@
         },
         input_guardrails: {
             title: "3. Real-Time Input Guardrails (NeMo & Llama Guard)",
-            icon: "🛡️",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
             latency: "Latency SLA: < 40ms",
             desc: "Applies dual-stage prompt inspection using NVIDIA NeMo Guardrails Colang flows and a quantized Llama Guard 3 8B model. Scans for direct jailbreak attempts, indirect prompt injection signatures, and LeetSpeak evasion.",
             security: "Adversarial Robustness: Terminates malicious payloads at the edge, returning standardized compliance rejection messages before GPU inference resources are consumed.",
@@ -942,7 +1117,7 @@
         },
         semantic_cache: {
             title: "4. Semantic Vector Cache (Redis Vector Store)",
-            icon: "⚡",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
             latency: "Latency SLA: < 12ms",
             desc: "Embeds incoming queries and computes cosine similarity against a high-speed Redis vector index storing historical prompt-response pairs. If similarity is >= 0.94, returns verified cached responses instantly.",
             security: "Access-Aware Caching: Each cache entry inherits tenant and clearance tags. Users cannot receive cached responses for documents they lack permissions to access.",
@@ -950,7 +1125,7 @@
         },
         rbac_vector_db: {
             title: "5. Sovereign Vector Store with Chunk-Level RBAC (Qdrant/Milvus)",
-            icon: "🛢️",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>',
             latency: "Latency SLA: < 25ms",
             desc: "Executes pre-filtered approximate nearest neighbor (HNSW) search. Constrains graph traversal strictly to vectors whose metadata payload satisfies the caller's verified clearance and department claims.",
             security: "Granular Document Security: Pre-filtering prevents the critical 'empty pagination collapse' flaw common in naive post-filtering architectures. Complete multi-tenant isolation.",
@@ -958,7 +1133,7 @@
         },
         reranker: {
             title: "6. Cross-Encoder Context Reranker (bge-reranker-large)",
-            icon: "🎯",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>',
             latency: "Latency SLA: < 35ms",
             desc: "Receives the top 50 candidates from vector retrieval and scores query-passage relevance jointly using a cross-encoder model. Retains only the top 5 highest-precision chunks for LLM context packing.",
             security: "Context Pollution Prevention: Eliminates low-relevance 'distractor' chunks that could cause hallucinations or facilitate indirect prompt injection attacks.",
@@ -966,7 +1141,7 @@
         },
         self_hosted_llm: {
             title: "7. Air-Gapped Sovereign vLLM Cluster",
-            icon: "🧠",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path></svg>',
             latency: "TTFT: < 180ms | 45 tok/sec",
             desc: "High-throughput inference cluster running open-weight models (Llama 3.3 70B AWQ, Mistral NeMo) using vLLM with PagedAttention and continuous batching across an on-premise or private sovereign Kubernetes cluster.",
             security: "Complete Data Residency: No data ever exits the customer's sovereign cloud boundary. Absolute contractual guarantee of zero third-party training ingestion.",
@@ -974,7 +1149,7 @@
         },
         output_guardrail: {
             title: "8. Output Verification & Citation Fact-Checker",
-            icon: "⚖️",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1zM2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"></path><path d="M7 21h10M12 3v18M3 7h18"></path></svg>',
             latency: "Latency SLA: < 25ms",
             desc: "Deconstructs generated output into factual assertions and checks sentence-level token attribution against retrieved context chunks. Restores surrogate tokens back to authorized plain text.",
             security: "Hallucination & Leak Prevention: Blocks outputs containing unsourced factual claims or inadvertent system prompt leaks. Guarantees 100% citation grounding.",
@@ -982,7 +1157,7 @@
         },
         observability: {
             title: "9. OpenTelemetry, Langfuse & Immutable Audit Log",
-            icon: "📈",
+            icon: '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>',
             latency: "Async Stream: < 2ms",
             desc: "Captures full end-to-end spans (Gateway -> Masker -> Cache -> Vector Search -> Inference -> Output Guardrail) with OpenTelemetry. Streams immutable audit records to OpenSearch/ClickHouse.",
             security: "Regulatory Audit Compliance: Provides full forensic traceability for government investigations, SOC 2 compliance, and continuous RAG Triad quality scoring.",
@@ -1016,7 +1191,7 @@
         const securityEl = document.getElementById('inspect-security');
         const pitchEl = document.getElementById('inspect-pitch');
 
-        if (iconEl) iconEl.textContent = data.icon;
+        if (iconEl) iconEl.innerHTML = data.icon;
         if (titleEl) titleEl.textContent = `Selected Component: ${data.title}`;
         if (latencyEl) latencyEl.textContent = data.latency;
         if (descEl) descEl.textContent = data.desc;
@@ -1156,6 +1331,7 @@ data: {
         if (!data) return;
 
         document.querySelectorAll('.m5-contract-btn').forEach(btn => {
+            btn.classList.remove('active');
             btn.style.background = 'rgba(255,255,255,0.05)';
             btn.style.color = 'var(--text-secondary, #94a3b8)';
             btn.style.fontWeight = '500';
@@ -1164,6 +1340,7 @@ data: {
 
         const activeBtn = document.getElementById(`btn-${contractKey}`);
         if (activeBtn) {
+            activeBtn.classList.add('active');
             activeBtn.style.background = '#38bdf8';
             activeBtn.style.color = '#0f172a';
             activeBtn.style.fontWeight = '700';
@@ -1172,7 +1349,48 @@ data: {
 
         const box = document.getElementById('contract-inspector-box');
         if (box) {
-            box.innerHTML = `<strong style="color: #38bdf8; display: block; margin-bottom: 0.5rem;">${data.title}</strong><pre style="margin: 0; color: #e2e8f0; font-family: var(--font-mono, monospace); font-size: 0.85rem; line-height: 1.5; overflow-x: auto;">${data.snippet}</pre>`;
+            box.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; padding-bottom: 0.65rem; border-bottom: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 0.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.6rem;">
+                        <span style="display: inline-flex; gap: 5px;">
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+                        </span>
+                        <strong style="color: #7dd3fc; font-size: 0.95rem;">${data.title}</strong>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-family: var(--font-mono, monospace);">JSON SCHEMA DRAFT-7</span>
+                        <button type="button" class="seo-code-copy-btn" onclick="window.copyDataContractCode(this)" style="min-height: 32px; padding: 3px 10px; font-size: 0.75rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #e2e8f0; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>Copy Schema
+                        </button>
+                    </div>
+                </div>
+                <pre id="active-contract-code" style="margin: 0; color: #e2e8f0; font-family: var(--font-mono, monospace); font-size: 0.84rem; line-height: 1.55; overflow-x: auto;"><code>${escapeHtmlSeo(data.snippet)}</code></pre>
+            `;
+        }
+    };
+
+    window.copyDataContractCode = function(btn) {
+        const pre = document.getElementById('active-contract-code');
+        if (!pre) return;
+        navigator.clipboard.writeText(pre.textContent).then(() => {
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<span style="color: #34d399;">✓ Copied!</span>';
+            setTimeout(() => { btn.innerHTML = orig; }, 2000);
+        });
+    };
+
+    window.toggleWfAsciiDiagram = function() {
+        const el = document.getElementById('wf-ascii-trace-box');
+        const btn = document.getElementById('btn-toggle-wf-ascii');
+        if (!el || !btn) return;
+        if (el.style.display === 'none') {
+            el.style.display = 'block';
+            btn.textContent = 'Hide Terminal ASCII Trace ▲';
+        } else {
+            el.style.display = 'none';
+            btn.textContent = 'View Terminal ASCII Trace ▼';
         }
     };
 
@@ -1265,19 +1483,19 @@ data: {
         const clearance = clearanceInput ? parseInt(clearanceInput.value, 10) : 3;
         
         if (!prompt) {
-            resultsBox.innerHTML = '<span style="color: var(--color-rose, #ef4444);">⚠️ Please enter a prompt string first.</span>';
+            resultsBox.innerHTML = '<span style="color: var(--color-rose, #ef4444);"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -2px; margin-right: 4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Please enter a prompt string first.</span>';
             return;
         }
 
         const isAdversarial = prompt.toLowerCase().includes('ignore all previous instructions') || prompt.toLowerCase().includes('dump');
 
-        resultsBox.innerHTML = '<div style="color: var(--color-cyan-light, #38bdf8); font-family: var(--font-mono, monospace);">⚡ Executing Zero-Trust Data Pipeline...</div>';
+        resultsBox.innerHTML = '<div style="color: var(--color-cyan-light, #38bdf8); font-family: var(--font-mono, monospace);"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -2px; margin-right: 4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Executing Zero-Trust Data Pipeline...</div>';
 
         setTimeout(() => {
             if (isAdversarial) {
                 resultsBox.innerHTML = `
 <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 8px; padding: 1.25rem;">
-    <strong style="color: #f87171; font-size: 1rem;">🚨 PIPELINE HALTED: ADVERSARIAL VIOLATION DETECTED</strong>
+    <strong style="color: #f87171; font-size: 1rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="vertical-align: -3px; margin-right: 6px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>PIPELINE HALTED: ADVERSARIAL VIOLATION DETECTED</strong>
     <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #e2e8f0;"><strong>Component Intercepted:</strong> NVIDIA NeMo Guardrails (Colang 2.0 Flow)</p>
     <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #e2e8f0;"><strong>Threat Vector:</strong> Direct Prompt Injection / System Prompt Extraction Attempt</p>
     <p style="margin: 0.5rem 0; font-size: 0.88rem; color: #e2e8f0;"><strong>Security Action:</strong> Request dropped with 403 Forbidden. GPU inference aborted ($0.00 cost). Forensics dispatched to ClickHouse.</p>
@@ -1453,11 +1671,11 @@ data: {
             if (isCorrect) {
                 feedbackEl.style.background = 'rgba(16, 185, 129, 0.12)';
                 feedbackEl.style.borderLeft = '4px solid #10b981';
-                feedbackEl.innerHTML = `<strong style="color: #34d399; font-size: 1rem;">✅ Excellent Leadership Response!</strong><br><br><strong>How to Frame This in the Interview:</strong><br>${question.explanation}`;
+                feedbackEl.innerHTML = `<strong style="color: #34d399; font-size: 1rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15" style="vertical-align: -2px; margin-right: 5px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Excellent Leadership Response!</strong><br><br><strong>How to Frame This in the Interview:</strong><br>${question.explanation}`;
             } else {
                 feedbackEl.style.background = 'rgba(239, 68, 68, 0.12)';
                 feedbackEl.style.borderLeft = '4px solid #ef4444';
-                feedbackEl.innerHTML = `<strong style="color: #f87171; font-size: 1rem;">❌ Anti-Pattern Detected.</strong><br><br><strong>Why This Fails Enterprise Scrutiny & How to Answer Correctly:</strong><br>${question.explanation}`;
+                feedbackEl.innerHTML = `<strong style="color: #f87171; font-size: 1rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15" style="vertical-align: -2px; margin-right: 5px;"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>Anti-Pattern Detected.</strong><br><br><strong>Why This Fails Enterprise Scrutiny & How to Answer Correctly:</strong><br>${question.explanation}`;
             }
         }
 
@@ -1473,7 +1691,7 @@ data: {
                     Readiness Score: <span style="color: ${scorePercent >= 70 ? 'var(--color-emerald-light, #34d399)' : '#fbbf24'}">${scorePercent}%</span> (${correctCount}/${quizQuestions.length} Scenarios Mastered)
                 </div>
                 <p style="margin: 0.35rem 0 0 0; font-size: 0.88rem; color: #cbd5e1;">
-                    ${scorePercent >= 70 ? '🎉 Exceptional leadership positioning! Ready for senior executive interview rounds.' : 'Review the scenario talking points above to refine your enterprise architectural delivery.'}
+                    ${scorePercent >= 70 ? 'Exceptional leadership positioning! Ready for senior executive interview rounds.' : 'Review the scenario talking points above to refine your enterprise architectural delivery.'}
                 </p>
             `;
         }
@@ -1575,46 +1793,80 @@ data: {
                     <strong>Why This Wins:</strong> ${data.why}
                 </p>
                 <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; padding: 0.65rem 1rem; border-radius: 0 6px 6px 0; font-size: 0.84rem; color: #e2e8f0; font-style: italic;">
-                    <strong>🎤 Solutions Lead Interview Delivery:</strong> ${data.pitch}
+                    <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -2px; margin-right: 5px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>Solutions Lead Interview Delivery:</strong> ${data.pitch}
                 </div>
             `;
         }
     };
 
+    
+    const sectionTabIcons = {
+        'sec-ai-eng-concepts': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>',
+        'sec-rag-basics': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>',
+        'sec-chunking': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>',
+        'sec-finetuning': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>',
+        'sec-ml-models': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>',
+        'sec-llm-concepts': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path></svg>',
+        'sec-transformers': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+        'sec-agent-arch': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>',
+        'sec-agentic-design': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
+        'sec-agent-concepts': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>',
+        'sec-llm-opt': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>',
+        'sec-okaf-rag': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="18"></line><line x1="15" y1="22" x2="15" y2="18"></line></svg>',
+        'sec-jev-memory': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path></svg>',
+        'sec-agent-patterns': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M19.439 7.85c0-1.571-1.274-2.846-2.846-2.846a2.846 2.846 0 0 1-2.846 2.846H9.747a2.846 2.846 0 0 1-2.846-2.846c0-1.572-1.275-2.846-2.847-2.846A2.846 2.846 0 0 0 1.208 5.004v13.992a2.846 2.846 0 0 0 2.846 2.846c1.572 0 2.847-1.274 2.847-2.846a2.846 2.846 0 0 1 2.846 2.846h4a2.846 2.846 0 0 1 2.846-2.846c1.572 0 2.846 1.274 2.846 2.846a2.846 2.846 0 0 0 2.846-2.846V7.85z"></path></svg>',
+        'sec-ocr-arch': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
+        'sec-mandate': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>',
+        'sec-enterprise-ai-arch': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="18"></line><line x1="15" y1="22" x2="15" y2="18"></line></svg>',
+        'sec-cloud-patterns': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>',
+        'sec-llm-inference': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+        'sec-architecture': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
+        'sec-security': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+        'sec-efficiency': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+        'sec-data-mlops': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>',
+        'sec-kafka-k8s': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>',
+        'sec-llmops': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>',
+        'sec-mbse': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><polygon points="2 22 22 22 2 2"></polygon><line x1="5" y1="19" x2="8" y2="19"></line><line x1="5" y1="16" x2="11" y2="16"></line><line x1="5" y1="13" x2="14" y2="13"></line></svg>',
+        'sec-workflow': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>',
+        'sec-visuals': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>',
+        'sec-tools': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>',
+        'sec-interview': '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>'
+    };
+
     const sectionTabLabels = {
         // Basics Tier
-        'sec-ai-eng-concepts': '🎓 30 AI Engineering Concepts',
-        'sec-rag-basics': '📚 RAG Paradigms (Basic, Graph & Agentic)',
-        'sec-chunking': '✂️ Chunking Strategies',
-        'sec-finetuning': '🎯 Fine-Tuning Models',
-        'sec-ml-models': '🤖 ML Models Taxonomy',
-        'sec-llm-concepts': '💡 30 LLM Concepts',
-        'sec-transformers': '⚡ Transformer Architectures',
+        'sec-ai-eng-concepts': '30 AI Engineering Concepts',
+        'sec-rag-basics': 'RAG Paradigms (Basic, Graph & Agentic)',
+        'sec-chunking': 'Chunking Strategies',
+        'sec-finetuning': 'Fine-Tuning Models',
+        'sec-ml-models': 'ML Models Taxonomy',
+        'sec-llm-concepts': '30 LLM Concepts',
+        'sec-transformers': 'Transformer Architectures',
         // Intermediate Tier
-        'sec-agent-arch': '🤖 AI Agent Architecture',
-        'sec-agentic-design': '🏗️ Agentic AI Architecture Design',
-        'sec-agent-concepts': '💡 30 AI Agent Concepts',
-        'sec-llm-opt': '💰 15 LLM Optimization Techniques',
-        'sec-okaf-rag': '🌐 OKAF vs Traditional RAG',
-        'sec-jev-memory': '🧠 JEV Memory Architecture',
-        'sec-agent-patterns': '🧩 AI & Agentic Design Patterns',
-        'sec-ocr-arch': '📄 OCR & Vision Document AI',
+        'sec-agent-arch': 'AI Agent Architecture',
+        'sec-agentic-design': 'Agentic AI Architecture Design',
+        'sec-agent-concepts': '30 AI Agent Concepts',
+        'sec-llm-opt': '15 LLM Optimization Techniques',
+        'sec-okaf-rag': 'OKAF vs Traditional RAG',
+        'sec-jev-memory': 'JEV Memory Architecture',
+        'sec-agent-patterns': 'AI & Agentic Design Patterns',
+        'sec-ocr-arch': 'OCR & Vision Document AI',
         // Deep Dive / Workbench Tier
-        'sec-mandate': '🎯 Executive Mandate',
-        'sec-enterprise-ai-arch': '🏛️ Enterprise AI Architecture',
-        'sec-cloud-patterns': '🏛️ Enterprise & Cloud AI Patterns',
-        'sec-llm-inference': '⚡ LLM Inference & Serving',
-        'sec-architecture': '🏗️ Sovereign RAG',
-        'sec-security': '🛡️ GenAI Security',
-        'sec-efficiency': '💰 Cost & Routing',
-        'sec-data-mlops': '🔄 DataOps & MLOps',
-        'sec-kafka-k8s': '☸️ Kafka & Kubernetes',
-        'sec-llmops': '📊 LLMOps & Triad',
-        'sec-mbse': '📐 Visual MBSE Schematics',
-        'sec-workflow': '🔄 End-to-End Workflows',
-        'sec-visuals': '🎨 Visual Topologies',
-        'sec-tools': '🛠️ Interactive Tools',
-        'sec-interview': '📝 Interview Playbook'
+        'sec-mandate': 'Executive Mandate',
+        'sec-enterprise-ai-arch': 'Enterprise AI Architecture',
+        'sec-cloud-patterns': 'Enterprise & Cloud AI Patterns',
+        'sec-llm-inference': 'LLM Inference & Serving',
+        'sec-architecture': 'Sovereign RAG',
+        'sec-security': 'GenAI Security',
+        'sec-efficiency': 'Cost & Routing',
+        'sec-data-mlops': 'DataOps & MLOps',
+        'sec-kafka-k8s': 'Kafka & Kubernetes',
+        'sec-llmops': 'LLMOps & Triad',
+        'sec-mbse': 'Visual MBSE Schematics',
+        'sec-workflow': 'End-to-End Workflows',
+        'sec-visuals': 'Visual Topologies',
+        'sec-tools': 'Interactive Tools',
+        'sec-interview': 'Interview Playbook'
     };
 
     function escapeHtmlSeo(str) {
@@ -1638,18 +1890,18 @@ data: {
             const shortTitle = (meta.title || secId).split('|')[0].trim();
 
             let siblingIds = workbenchSections;
-            let tierBadgeText = '🔒 DEEP DIVE TIER';
+            let tierBadgeText = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="vertical-align: -1px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>DEEP DIVE TIER';
             let tierClass = 'tier-workbench';
             let tierModulesLabel = 'Deep Dive Modules:';
 
             if (isBasics) {
                 siblingIds = basicsSections;
-                tierBadgeText = '🟢 BASICS TIER';
+                tierBadgeText = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="vertical-align: -1px; margin-right: 4px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>BASICS TIER';
                 tierClass = 'tier-basics';
                 tierModulesLabel = 'Basics Modules:';
             } else if (isIntermediate) {
                 siblingIds = intermediateSections;
-                tierBadgeText = '🔵 INTERMEDIATE TIER';
+                tierBadgeText = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="vertical-align: -1px; margin-right: 4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>INTERMEDIATE TIER';
                 tierClass = 'tier-intermediate';
                 tierModulesLabel = 'Intermediate Modules:';
             }
@@ -1657,9 +1909,10 @@ data: {
             const siblingLinksHtml = siblingIds.map(sibSecId => {
                 const sibTabId = toTabId(sibSecId);
                 const sibLabel = sectionTabLabels[sibSecId] || sibTabId;
+                const sibIcon = (typeof sectionTabIcons !== 'undefined' && sectionTabIcons[sibSecId]) ? sectionTabIcons[sibSecId] : '';
                 const isCurrent = sibSecId === secId;
                 const idAttr = isCurrent ? ` id="${sibTabId}" role="tab" aria-selected="true" aria-controls="${sibSecId}" data-tab-id="${sibTabId}" data-seo-url="?tab=${sibTabId}"` : ` role="tab" aria-selected="false" aria-controls="${sibSecId}"`;
-                return `<a href="?tab=${sibTabId}"${idAttr} data-tab-link="${sibTabId}" class="tab-seo-sibling-chip${isCurrent ? ' active-seo-link' : ''}" onclick="return window.handleSeoTabClick(event, '${sibTabId}')" title="${escapeHtmlSeo(sibLabel)}">${sibLabel}</a>`;
+                return `<a href="?tab=${sibTabId}"${idAttr} data-tab-link="${sibTabId}" class="tab-seo-sibling-chip${isCurrent ? ' active-seo-link' : ''}" onclick="return window.handleSeoTabClick(event, '${sibTabId}')" title="${escapeHtmlSeo(sibLabel)}">${sibIcon}${sibLabel}</a>`;
             }).join('');
 
             const bar = document.createElement('nav');
@@ -1732,7 +1985,7 @@ data: {
                 details.addEventListener('click', (ev) => ev.stopPropagation());
                 details.innerHTML = `
                     <summary class="seo-card-summary">
-                        <span>📖 Deep Dive &amp; Implementation Code</span>
+                        <span><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 4px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>Deep Dive &amp; Implementation Code</span>
                     </summary>
                     <div class="seo-card-body">
                         ${item.savings_impact ? `<div class="seo-card-impact"><strong>Impact:</strong> ${escapeHtmlSeo(item.savings_impact)}</div>` : ''}
@@ -1810,7 +2063,7 @@ data: {
                             <span class="seo-spec-modal-counter" id="seo-spec-modal-counter">1 / 1</span>
                             <button type="button" class="seo-spec-modal-nav-btn" id="seo-spec-modal-next" onclick="window.stepSeoSpecModal(1)" title="Next Specification (→)">Next ▶</button>
                             <form method="dialog" style="margin: 0; display: inline-flex;">
-                                <button type="submit" class="seo-spec-modal-close-btn" aria-label="Close specification popup">✕ Close</button>
+                                <button type="submit" class="seo-spec-modal-close-btn" aria-label="Close specification popup"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="vertical-align: -1px; margin-right: 4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Close</button>
                             </form>
                         </div>
                     </div>
@@ -1819,7 +2072,7 @@ data: {
                     </div>
                     <div class="seo-spec-modal-body" id="seo-spec-modal-body"></div>
                     <div class="seo-spec-modal-footer">
-                        <span class="seo-spec-modal-hint">💡 Tip: Use <code>←</code> / <code>→</code> arrow keys to browse specs, or press <code>Esc</code> / click outside to dismiss.</span>
+                        <span class="seo-spec-modal-hint"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px;"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path></svg>Tip: Use <code>←</code> / <code>→</code> arrow keys to browse specs, or press <code>Esc</code> / click outside to dismiss.</span>
                         <form method="dialog" style="margin: 0;">
                             <button type="submit" class="seo-spec-collapse-btn">Done</button>
                         </form>
@@ -1943,7 +2196,7 @@ data: {
                     <summary class="seo-knowledge-summary">
                         <div class="seo-knowledge-summary-left">
                             <div class="seo-knowledge-badge-row">
-                                <span class="seo-knowledge-badge">📑 COMPLETE ARCHITECTURAL SPECIFICATION</span>
+                                <span class="seo-knowledge-badge"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>COMPLETE ARCHITECTURAL SPECIFICATION</span>
                                 <span class="seo-knowledge-tier-chip">${tierLabel}</span>
                                 <span class="seo-knowledge-count-chip"></span>
                             </div>
@@ -1957,7 +2210,7 @@ data: {
                     <div class="seo-knowledge-body">
                         <div class="seo-knowledge-toolbar">
                             <div class="seo-spec-search-box">
-                                <span class="seo-spec-search-icon">🔍</span>
+                                <span class="seo-spec-search-icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
                                 <input type="search" class="seo-spec-search-input" placeholder="Filter architectural specifications, metrics, or code..." aria-label="Filter architectural specifications" oninput="window.filterSeoSpecCatalog(this)">
                             </div>
                             <div class="seo-knowledge-toolbar-right">
@@ -1969,7 +2222,7 @@ data: {
                             ${articlesHtml}
                         </div>
                         <div class="seo-knowledge-footer">
-                            <span class="seo-knowledge-footer-note">📐 Click any specification card to open the interactive blueprint popup.</span>
+                            <span class="seo-knowledge-footer-note"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px;"><polygon points="2 22 22 22 2 2"></polygon><line x1="5" y1="19" x2="8" y2="19"></line><line x1="5" y1="16" x2="11" y2="16"></line><line x1="5" y1="13" x2="14" y2="13"></line></svg>Click any specification card to open the interactive blueprint popup.</span>
                             <button type="button" class="seo-spec-collapse-btn" onclick="const d = this.closest('details'); if(d) { d.open = false; d.scrollIntoView({behavior: 'smooth', block: 'nearest'}); }">▲ Collapse Specification</button>
                         </div>
                     </div>
@@ -1992,7 +2245,7 @@ data: {
                     topRow.className = 'seo-article-top-bar';
                     topRow.innerHTML = `
                         <span class="seo-spec-index-badge">SPEC #${specNum}</span>
-                        <span class="seo-article-permalink seo-spec-open-pill">🔍 View Spec ↗</span>
+                        <span class="seo-article-permalink seo-spec-open-pill"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>View Spec ↗</span>
                     `;
                     art.insertBefore(topRow, headerEl);
                 }
@@ -2005,8 +2258,8 @@ data: {
                     codeWrapper.className = 'seo-code-block-wrapper';
                     codeWrapper.innerHTML = `
                         <div class="seo-code-block-header">
-                            <span class="seo-code-lang-tag">💻 IMPLEMENTATION BLUEPRINT</span>
-                            <button type="button" class="seo-code-copy-btn" onclick="window.copySeoSpecCode(this, event)">📋 Copy</button>
+                            <span class="seo-code-lang-tag"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px;"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>IMPLEMENTATION BLUEPRINT</span>
+                            <button type="button" class="seo-code-copy-btn" onclick="window.copySeoSpecCode(this, event)"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>Copy</button>
                         </div>
                     `;
                     pre.parentNode.insertBefore(codeWrapper, pre);
@@ -2131,10 +2384,10 @@ data: {
                     </div>
                     <div class="seo-article-meta">Target SLA: <code>${sc.latency}</code>${sc.arch ? ` • Recommended Topology: <code>${escapeHtmlSeo(sc.arch)}</code>` : ''}</div>
                     <div class="seo-article-callout">
-                        <strong>🏛️ Architectural Rationale:</strong> ${sc.why}
+                        <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 5px;"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="18"></line><line x1="15" y1="22" x2="15" y2="18"></line><line x1="9" y1="6" x2="9.01" y2="6"></line><line x1="15" y1="6" x2="15.01" y2="6"></line><line x1="9" y1="10" x2="9.01" y2="10"></line><line x1="15" y1="10" x2="15.01" y2="10"></line><line x1="9" y1="14" x2="9.01" y2="14"></line><line x1="15" y1="14" x2="15.01" y2="14"></line></svg>Architectural Rationale:</strong> ${sc.why}
                     </div>
                     <div class="seo-article-callout seo-callout-emerald">
-                        <strong>💼 Executive Solutions Pitch:</strong> ${sc.pitch}
+                        <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 5px;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Executive Solutions Pitch:</strong> ${sc.pitch}
                     </div>
                 </article>
             `).join('');
@@ -2298,14 +2551,23 @@ data: {
             }
             if (typeof simSteps !== 'undefined' && Array.isArray(simSteps)) {
                 html += `
-                    <article class="seo-knowledge-article" id="seo-${tabId}-runtime-trace" style="grid-column: 1 / -1;">
+                    <article class="seo-knowledge-article" id="seo-${tabId}-runtime-trace" style="grid-column: 1 / -1; border-left: 4px solid #8b5cf6;">
                         <div class="seo-article-header">
                             <h4><a href="?tab=${tabId}&id=seo-${tabId}-runtime-trace">End-to-End 8-Step Autonomous Agent Runtime Execution Trace</a></h4>
                         </div>
                         <div class="seo-article-meta">Full Deterministic Lifecycle • Ingress ➔ Planning ➔ Tool Execution ➔ Verification</div>
-                        <ol class="seo-article-list">
-                            ${simSteps.map(s => `<li><strong>Step ${s.num} — ${s.title}:</strong> ${s.desc} <code>${escapeHtmlSeo(s.payload)}</code></li>`).join('')}
-                        </ol>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.85rem; margin-top: 1rem;">
+                            ${simSteps.map(s => `
+                                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-top: 3px solid ${s.color}; border-radius: 8px; padding: 0.85rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                                        <span style="font-weight: 700; color: ${s.color}; font-size: 0.85rem;">Stage ${s.num}: ${s.shortName.replace(/^[0-9]+\.\s*/, '')}</span>
+                                        <span style="font-size: 0.72rem; color: #94a3b8; font-family: monospace;">${s.latency}</span>
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: #e2e8f0; line-height: 1.5; margin-bottom: 0.5rem;">${s.desc}</div>
+                                    <div style="font-size: 0.72rem; color: #cbd5e1; background: rgba(0,0,0,0.25); padding: 4px 6px; border-radius: 4px;"><strong>Engine:</strong> ${s.actor} • <strong>Gate:</strong> ${s.gate}</div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </article>
                 `;
             }
@@ -2359,11 +2621,11 @@ data: {
                     </div>
                     <div class="seo-article-meta">Query Topology: <code>${sim.type}</code></div>
                     <div class="seo-article-callout seo-callout-rose">
-                        <strong>🔴 Traditional Vector RAG (<code>${sim.rag.latency}</code> • <code>${sim.rag.tokens}</code> • ${sim.rag.accuracy}):</strong><br>
+                        <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 5px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Traditional Vector RAG (<code>${sim.rag.latency}</code> • <code>${sim.rag.tokens}</code> • ${sim.rag.accuracy}):</strong><br>
                         <span>${sim.rag.method} — <em>${sim.rag.result}</em></span>
                     </div>
                     <div class="seo-article-callout seo-callout-emerald">
-                        <strong>🟢 OKAF Ontology &amp; Knowledge Graph (<code>${sim.okaf.latency}</code> • <code>${sim.okaf.tokens}</code> • ${sim.okaf.accuracy}):</strong><br>
+                        <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 5px; color: #34d399;"><polyline points="20 6 9 17 4 12"></polyline></svg>OKAF Ontology &amp; Knowledge Graph (<code>${sim.okaf.latency}</code> • <code>${sim.okaf.tokens}</code> • ${sim.okaf.accuracy}):</strong><br>
                         <span>${sim.okaf.method} — <code>${sim.okaf.retrieved}</code> — <strong>${sim.okaf.result}</strong></span>
                     </div>
                 </article>
@@ -2386,13 +2648,13 @@ data: {
                     </div>
                     <div class="seo-article-meta">Active 4D Dimensions: <code>${sc.activeDims.join(' + ')}</code> • <code>${sc.latency}</code> • <code>${sc.tokensSaved}</code></div>
                     <div class="seo-article-callout">
-                        <strong>🧭 Routing &amp; Anchors:</strong> ${sc.routing} <code>(${sc.anchors})</code>
+                        <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 5px;"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>Routing &amp; Anchors:</strong> ${sc.routing} <code>(${sc.anchors})</code>
                     </div>
                     <div class="seo-article-callout">
-                        <strong>🔬 Evidence &amp; Execution Track:</strong> ${sc.evidence} <code>(${sc.path})</code>
+                        <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 5px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>Evidence &amp; Execution Track:</strong> ${sc.evidence} <code>(${sc.path})</code>
                     </div>
                     <div class="seo-article-callout seo-callout-emerald">
-                        <strong>🧠 Synthesized Reasoning Output:</strong> "${sc.answer}"
+                        <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 5px;"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path></svg>Synthesized Reasoning Output:</strong> "${sc.answer}"
                     </div>
                 </article>
             `).join('');
@@ -2418,7 +2680,7 @@ data: {
                         ${(pat.steps || []).map(s => `<li><code>[${s.time}]</code> <strong>${s.actor}:</strong> ${s.msg}</li>`).join('')}
                     </ol>
                     <div class="seo-article-callout seo-callout-emerald">
-                        <strong>⚡ Architectural Advantage:</strong> ${pat.metrics.advantage}
+                        <strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: -2px; margin-right: 5px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Architectural Advantage:</strong> ${pat.metrics.advantage}
                     </div>
                 </article>
             `).join('');
@@ -2443,7 +2705,7 @@ data: {
                     <ol class="seo-article-list">
                         ${(ocr.steps || []).map(s => `<li><code>[${s.time}]</code> <strong>${s.actor}:</strong> ${s.msg}</li>`).join('')}
                     </ol>
-                    ${ocr.metrics && ocr.metrics.advantage ? `<div class="seo-article-callout seo-callout-emerald"><strong>⚡ Production Advantage:</strong> ${ocr.metrics.advantage}</div>` : ''}
+                    ${ocr.metrics && ocr.metrics.advantage ? `<div class="seo-article-callout seo-callout-emerald"><strong><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Production Advantage:</strong> ${ocr.metrics.advantage}</div>` : ''}
                     <pre class="seo-card-code"><code>${escapeHtmlSeo(ocr.output)}</code></pre>
                 </article>
             `).join('');
@@ -2603,7 +2865,7 @@ data: {
         const codeEl = document.getElementById('chunk-rec-code');
 
         if (scen === 'legal') {
-            if (titleEl) titleEl.textContent = "🌳 Hierarchical (Parent-Child) Chunking with Small-to-Big Retrieval";
+            if (titleEl) titleEl.textContent = "Hierarchical (Parent-Child) Chunking with Small-to-Big Retrieval";
             if (badgeEl) {
                 badgeEl.textContent = "Precision: 98% | Context: Complete";
                 badgeEl.style.background = "rgba(16, 185, 129, 0.2)";
@@ -2623,7 +2885,7 @@ retriever = ParentDocumentRetriever(
     parent_splitter=parent_splitter
 )`;
         } else if (scen === 'finance') {
-            if (titleEl) titleEl.textContent = "📊 Document & Layout-Aware Table Partitioning (Unstructured / LlamaParse)";
+            if (titleEl) titleEl.textContent = "Document & Layout-Aware Table Partitioning (Unstructured / LlamaParse)";
             if (badgeEl) {
                 badgeEl.textContent = "Table Fidelity: 100% | Format: Markdown Tables";
                 badgeEl.style.background = "rgba(168, 85, 247, 0.2)";
@@ -2642,7 +2904,7 @@ elements = partition_pdf(
     new_after_n_chars=1500
 )`;
         } else if (scen === 'code') {
-            if (titleEl) titleEl.textContent = "📑 Content-Aware AST Code & Syntax Tree Chunking (Tree-sitter / LangChain)";
+            if (titleEl) titleEl.textContent = "Content-Aware AST Code & Syntax Tree Chunking (Tree-sitter / LangChain)";
             if (badgeEl) {
                 badgeEl.textContent = "Syntax: Intact | Scoped to Functions & Classes";
                 badgeEl.style.background = "rgba(59, 130, 246, 0.2)";
@@ -2659,7 +2921,7 @@ code_splitter = PythonCodeTextSplitter.from_language(
 )
 chunks = code_splitter.create_documents([repo_python_code])`;
         } else if (scen === 'meetings') {
-            if (titleEl) titleEl.textContent = "🧠 Semantic Distance Breakpoint Chunking (Embedding Gradient)";
+            if (titleEl) titleEl.textContent = "Semantic Distance Breakpoint Chunking (Embedding Gradient)";
             if (badgeEl) {
                 badgeEl.textContent = "Topic Cohesion: High | Boundary: Dynamic";
                 badgeEl.style.background = "rgba(236, 72, 153, 0.2)";
@@ -2685,7 +2947,7 @@ chunks = semantic_chunker.create_documents([transcript_text])`;
     const cardinalityData = {
         'card-1-1': {
             badge: 'RELATIONAL MAPPING: 1:1',
-            title: '⚡ 1:1 Cardinality: Atomic Propositional & Single Q&A Pairs',
+            title: '1:1 Cardinality: Atomic Propositional & Single Q&A Pairs',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Precision: 99%</span><span style="background: rgba(239, 68, 68, 0.15); color: #f87171; padding: 3px 8px; border-radius: 4px;">Vector Multiplier: 15x</span>',
             desc: '<strong>Mathematical Model:</strong> \\(f: \\text{Claim}_i \\to \\mathbf{v}_i\\). Every individual factual claim or QA pair maps bijectively to exactly one embedding vector. Used in atomic propositional decomposition (Chen et al. "Dense X Retrieval") and curated customer support FAQ tables. Retrieval executes as a direct point-to-point match with zero context dilution.',
             sketch: `┌─────────────────────────────────┐                       ┌─────────────────────────────────┐
@@ -2700,11 +2962,11 @@ chunks = semantic_chunker.create_documents([transcript_text])`;
                                                           │ (No sentence slicing artifacts) │
                                                           └─────────────────────────────────┘`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #8b5cf6;">
-                <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Storage Architecture</strong>
+                <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path></svg>Storage Architecture</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Single Vector Database (Qdrant/Milvus). Payload stores full proposition string. No secondary docstore needed.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
-                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
+                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fbbf24;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>System Hazard &amp; Mitigation</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> High vector count &amp; context fragmentation.<br><strong>Mitigation:</strong> Set Top-K to 12 and apply Cross-Encoder Re-ranking to assemble coherent atoms.</span>
             </div>`,
             code: `# 1:1 Atomic Proposition Ingestion in Qdrant
@@ -2721,7 +2983,7 @@ client.upsert(collection_name="enterprise_knowledge", points=[point])`
         },
         'card-1-n': {
             badge: 'RELATIONAL MAPPING: 1:N',
-            title: '📄 1:N Cardinality: Source Document to Multiple Chunks (Fixed, AST & Parent-Child)',
+            title: '1:N Cardinality: Source Document to Multiple Chunks (Fixed, AST & Parent-Child)',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Industry Standard</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Throughput: 15k docs/hr</span>',
             desc: '<strong>Mathematical Model:</strong> \\(D \\to \\{C_1, C_2, \\dots, C_N\\}\\). One source document is segmented into N sequential or structural chunks. In Hierarchical Chunking, 1 Parent Chunk (1024 tokens) generates N Child Chunks (128 tokens) carrying a <code>parent_id</code> foreign key. The vector store indexes only child vectors to maintain sharp semantic specificity.',
             sketch: `┌───────────────────────────────────────────┐
@@ -2732,11 +2994,11 @@ client.upsert(collection_name="enterprise_knowledge", points=[point])`
                       ├─── [1..N] ──► [ Child Chunk C_2 (128t) ] ──► [ Vector v_2 in HNSW ]
                       └─── [1..N] ──► [ Child Chunk C_N (128t) ] ──► [ Vector v_N in HNSW ]`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
-                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Storage Architecture</strong>
+                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path></svg>Storage Architecture</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Polyglot Persistence: Vector DB stores child embeddings + foreign key <code>parent_id</code>. Key-Value DocStore (Redis / S3) stores full parent text.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fbbf24;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>System Hazard &amp; Mitigation</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> Orphaned chunks on document update or deletion.<br><strong>Mitigation:</strong> Implement cascading deletion by document UUID across both Vector DB and DocStore.</span>
             </div>`,
             code: `# 1:N Parent-Child Storage Architecture
@@ -2752,7 +3014,7 @@ qdrant.upsert("chunks", points=child_points)`
         },
         'card-n-1': {
             badge: 'RELATIONAL MAPPING: N:1',
-            title: '🔄 N:1 Cardinality: Semantic Merging & Parent Context Deduplication',
+            title: 'N:1 Cardinality: Semantic Merging & Parent Context Deduplication',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Context Deduplication</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Zero Token Waste</span>',
             desc: '<strong>Mathematical Model:</strong> Ingestion: \\(\\{S_1, \\dots, S_N\\} \\to C\\) (N sentences merged into 1 chunk based on cosine similarity gradient). Retrieval: \\(\\{C_1, \\dots, C_K\\} \\to P\\) (K retrieved child chunks sharing the same <code>parent_id</code> are deduplicated into 1 complete parent context). This completely eliminates repetitive context tokens passed to the LLM.',
             sketch: `INGESTION MERGE:
@@ -2765,11 +3027,11 @@ RETRIEVAL DEDUPLICATION:
 [ Hit Child C_2 (Parent #42) ] ──┼──► [N..1 Deduplication Resolver] ──► [ 1 Complete Parent #42 ]
 [ Hit Child C_3 (Parent #42) ] ──┘                                        (Zero duplicate prompt tokens!)`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Storage Architecture</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path></svg>Storage Architecture</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Ingestion: Streaming embedding buffer tracks moving cosine distance. Retrieval: In-memory hash set deduplicates parent IDs in O(1) time.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
-                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
+                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fbbf24;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>System Hazard &amp; Mitigation</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> Too many distinct parents retrieved exhausts LLM context.<br><strong>Mitigation:</strong> Set parent token budget quota (e.g. max 3 parents = 3,072 tokens).</span>
             </div>`,
             code: `# N:1 Retrieval Deduplication Resolver
@@ -2785,7 +3047,7 @@ for hit in retrieved_hits:
         },
         'card-n-m': {
             badge: 'RELATIONAL MAPPING: N:M',
-            title: '🕸️ N:M Cardinality: Knowledge Graph Triples & ColPali Late Interaction',
+            title: 'N:M Cardinality: Knowledge Graph Triples & ColPali Late Interaction',
             stats: '<span style="background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 3px 8px; border-radius: 4px;">Multi-Hop Reasoning</span><span style="background: rgba(236, 72, 153, 0.15); color: #f472b6; padding: 3px 8px; border-radius: 4px;">Late Interaction</span>',
             desc: '<strong>Mathematical Model:</strong> \\(\\{C_1, \\dots, C_N\\} \\bowtie \\{E_1, \\dots, E_M\\}\\). In Graph RAG, N document chunks extract M named entities and relations; 1 entity appears across multiple chunks. In ColPali/ColBERT, N query token vectors interact against M document patch vectors via token-level MaxSim late interaction: \\(\\sum_{i \\in Q} \\max_{j \\in D} (\\mathbf{q}_i^\\top \\mathbf{d}_j)\\).',
             sketch: `KNOWLEDGE GRAPH TRIPLES (N:M):
@@ -2798,11 +3060,11 @@ for hit in retrieved_hits:
 COLPALI LATE INTERACTION (N:M):
 Query Tokens Q (N) [q_1 .. q_n] ─── [N:M MaxSim Token-Patch Matrix] ───► Doc D (M patches) [d_1 .. d_m]`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #8b5cf6;">
-                <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Storage Architecture</strong>
+                <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path></svg>Storage Architecture</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Hybrid Multi-Model: Graph Database (Neo4j/Amazon Neptune) holds entity nodes &amp; edges; Vector DB holds chunk text &amp; token embeddings.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
-                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
+                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fbbf24;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>System Hazard &amp; Mitigation</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> Entity explosion &amp; graph traversal latency spikes.<br><strong>Mitigation:</strong> Entity resolution deduplication (spaCy / GLiNER) + cap graph traversal depth to 2 hops.</span>
             </div>`,
             code: `# Graph RAG N:M Cypher Query
@@ -2813,7 +3075,7 @@ RETURN c.text, org.name, c2.text LIMIT 5`
         },
         'card-meta-low': {
             badge: 'METADATA FILTERING: LOW CARDINALITY',
-            title: '🏷️ Low-Cardinality Metadata Filtering: Bitmasks & Segregated Namespaces',
+            title: 'Low-Cardinality Metadata Filtering: Bitmasks & Segregated Namespaces',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Latency: &lt; 2ms</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Selectivity: 5% - 80%</span>',
             desc: '<strong>System Dynamics:</strong> Low-cardinality fields have few distinct values relative to dataset size (e.g. <code>tenant_id</code>: 50 tenants; <code>security_clearance</code>: 3 levels; <code>is_active</code>: 2 values). Modern vector databases represent these as <strong>Roaring Bitmaps</strong>. During HNSW graph exploration, neighbor nodes are evaluated against the in-memory bitmask in O(1) CPU cycles without breaking graph connectivity.',
             sketch: `Query: "What is Q3 revenue?" + Filter: {tenant_id: "acme_corp", clearance: "public"}
@@ -2829,11 +3091,11 @@ RETURN c.text, org.name, c2.text LIMIT 5`
                       else:
                           skip_node() [Cost: 1 CPU cycle, 0 distance calcs!]`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Index Architecture</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path></svg>Index Architecture</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Roaring Bitmaps in RAM. For extreme multi-tenancy, use hard Partition Keys (Milvus Partition Key) to physically isolate vector segments.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
-                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Advantage</strong>
+                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #34d399;"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Advantage</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero graph disconnection; predictable latency under heavy enterprise concurrency; negligible RAM footprint (&lt;50MB for 1M vectors).</span>
             </div>`,
             code: `# Low-Cardinality Payload Index & Bitmask Query in Qdrant
@@ -2851,7 +3113,7 @@ results = client.search(
         },
         'card-meta-high': {
             badge: 'METADATA FILTERING: HIGH CARDINALITY',
-            title: '🔍 High-Cardinality Metadata Filtering: Inverted Indices & Graph Fallback',
+            title: 'High-Cardinality Metadata Filtering: Inverted Indices & Graph Fallback',
             stats: '<span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Selectivity: &lt; 0.1%</span><span style="background: rgba(239, 68, 68, 0.15); color: #f87171; padding: 3px 8px; border-radius: 4px;">Zero-Result Risk</span>',
             desc: '<strong>System Dynamics:</strong> High-cardinality fields have millions of unique values (e.g. <code>user_uuid</code>, <code>document_id</code>, <code>exact_timestamp</code>). If a filter matches only 10 vectors out of 10,000,000 (selectivity &lt; 0.001%), greedy HNSW graph traversal gets trapped on non-matching vertices and terminates early with <strong>0 results returned (Zero-Result Drop)</strong>! Advanced engines detect this and dynamically switch to an exact inverted index scan.',
             sketch: `Query: "My order status" + Filter: {user_uuid: "usr_88194a"} (Matches 4 vectors out of 5M)
@@ -2863,14 +3125,14 @@ results = client.search(
          ▼ [ Naive HNSW Graph Search ]                               ▼ [ Production Dynamic Fallback ]
     HNSW search enters island nodes.                             Bypass HNSW graph traversal entirely!
     Exhausts ef_search budget.                                   Lookup inverted index: [Doc 4, 19, 88, 102]
-    ❌ Returned: 0 results (Catastrophe!)                        Compute exact distance on only 4 vectors.
-                                                                 ✅ Returned: Top 4 matches in 0.8ms!`,
+    ✗ Returned: 0 results (Catastrophe!)                        Compute exact distance on only 4 vectors.
+                                                                 ✓ Returned: Top 4 matches in 0.8ms!`,
             storageHtml: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">💾 Index Architecture</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path></svg>Index Architecture</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">B-Tree / LSM-tree inverted payload index. Stored on NVMe SSD / memory-mapped to prevent RAM explosion.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
-                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ System Hazard &amp; Mitigation</strong>
+                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fbbf24;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>System Hazard &amp; Mitigation</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Risk:</strong> Graph disconnection leading to false negative zero results.<br><strong>Mitigation:</strong> Ensure vector DB uses iterative graph filtering with automatic inverted-list brute-force fallback.</span>
             </div>`,
             code: `# High-Cardinality Payload Indexing with Exact Fallback
@@ -3202,7 +3464,7 @@ merged_model.save_pretrained("./production_merged_model", safe_serialization=Tru
     const ftTypeData = {
         'lora': {
             badge: 'ADAPTATION STRATEGY: PEFT',
-            title: '⚡ LoRA (Low-Rank Adaptation): The Enterprise Default',
+            title: 'LoRA (Low-Rank Adaptation): The Enterprise Default',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Trainable Params: &lt; 0.5%</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Zero Serving Latency</span>',
             desc: '<strong>Mathematical Formulation:</strong> Freezes base model weight matrix \\(W_0 \\in \\mathbb{R}^{d \\times k}\\) and injects trainable low-rank decomposition matrices \\(A \\in \\mathbb{R}^{d \\times r}\\) and \\(B \\in \\mathbb{R}^{r \\times k}\\), where rank \\(r \\ll \\min(d, k)\\). The forward pass computes: \\[h = W_0 x + \\Delta W x = W_0 x + \\frac{\\alpha}{r} (B \\times A) x\\] Matrix \\(A\\) is initialized with Gaussian noise \\(\\mathcal{N}(0, \\sigma^2)\\) and \\(B\\) is initialized to 0, ensuring \\(\\Delta W = 0\\) at training onset. Once training finishes, \\(BA\\) is merged into \\(W_0\\), yielding <strong>zero runtime inference latency</strong>.',
             sketch: `Input Vector x (d-dim)
@@ -3214,11 +3476,11 @@ merged_model.save_pretrained("./production_merged_model", safe_serialization=Tru
          ─────────────────────────────────────────────────────────────────────────────
          Deployment: Merged Weight W_new = W_0 + (α/r)(B x A) ──► Zero Serving Latency!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Cuts VRAM requirements by 65%. Allows multi-tenant dynamic adapter hot-swapping in vLLM (serve 100 customer adapters on 1 base model). Merged weights add 0ms latency.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Cannot learn radically foreign language vocabularies (e.g. teaching an English model Japanese from scratch). Must target all linear modules (<code>all-linear</code>) for maximum quality.</span>
             </div>`,
             code: `# Production LoRA Configuration via Hugging Face PEFT + TRL
@@ -3239,7 +3501,7 @@ peft_model.print_trainable_parameters()`
         },
         'qlora': {
             badge: 'ADAPTATION STRATEGY: QUANTIZED PEFT',
-            title: '💾 QLoRA: Quantized 4-bit NormalFloat Adaptation',
+            title: 'QLoRA: Quantized 4-bit NormalFloat Adaptation',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">VRAM: 5.5GB for 8B model</span><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Train 70B on 2x A100</span>',
             desc: '<strong>Mathematical Formulation:</strong> Dettmers et al. introduced three innovations: (1) <strong>4-bit NormalFloat (NF4)</strong>: an information-theoretically optimal quantile quantization data type for normally distributed neural network weights; (2) <strong>Double Quantization (DQ)</strong>: quantizing the quantization constants themselves, saving 0.37 bits per parameter; (3) <strong>Paged Optimizers</strong>: leveraging CUDA unified memory to page memory spikes to CPU RAM during activation surges.',
             sketch: `[ Base Model 16-bit Weights ] ──► [ Quantized to 4-bit NormalFloat (NF4) ] ──► 75% VRAM Reduction!
@@ -3252,11 +3514,11 @@ peft_model.print_trainable_parameters()`
                    ▼ (Backprop updates ONLY the 16-bit LoRA gradients)
               Paged AdamW Optimizer (Spills to CPU RAM if GPU VRAM spikes)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Democratizes fine-tuning: Fine-tune Llama-3-70B on 2x A100-80GB GPUs instead of requiring an 8x H100 cluster! Preserves 99.3% of 16-bit LoRA accuracy.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">20-30% slower training throughput than 16-bit LoRA due to repeated dequantization overhead on memory bus (unless using Unsloth optimized kernels).</span>
             </div>`,
             code: `# QLoRA 4-bit NF4 Configuration with BitsAndBytes
@@ -3276,7 +3538,7 @@ model = AutoModelForCausalLM.from_pretrained(
         },
         'fft': {
             badge: 'ADAPTATION STRATEGY: FULL PARAMETER',
-            title: '🔥 Full Parameter Fine-Tuning (FFT): Unconstrained Plasticity',
+            title: 'Full Parameter Fine-Tuning (FFT): Unconstrained Plasticity',
             stats: '<span style="background: rgba(239, 68, 68, 0.15); color: #f87171; padding: 3px 8px; border-radius: 4px;">Trainable Params: 100%</span><span style="background: rgba(239, 68, 68, 0.15); color: #f87171; padding: 3px 8px; border-radius: 4px;">VRAM Footprint: 18x Model</span>',
             desc: '<strong>Mathematical Formulation:</strong> Updates all parameters \\(\\theta \\in \\mathbb{R}^N\\) during backpropagation via standard gradient descent: \\(\\theta_{t+1} = \\theta_t - \\eta \\nabla_\\theta \\mathcal{L}\\). Because AdamW tracks FP32 momentum and variance for every single parameter, full fine-tuning consumes 16 to 18 bytes per parameter in VRAM. For a 70B model, this necessitates <strong>1,260 GB of GPU RAM</strong> across an 8x or 16x GPU cluster.',
             sketch: `Full Weight Matrix Updates (Every Parameter Modified):
@@ -3287,11 +3549,11 @@ Memory Accounting per Parameter:
 └── AdamW Optimizer States:  12 Bytes (FP32 Momentum + FP32 Variance + FP32 Master Weight)
 Total Memory Required: 16 - 18 Bytes / Parameter! (144GB for an 8B model)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Maximum model plasticity. Capable of learning fundamentally new reasoning structures and complex mathematical systems that exceed low-rank subspace capacity.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
-                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Extreme GPU cluster infrastructure cost. Severe risk of Catastrophic Forgetting. High storage cost (each tenant requires an entire 14GB–140GB model checkpoint).</span>
             </div>`,
             code: `# Full Fine-Tuning with DeepSpeed ZeRO-3
@@ -3308,7 +3570,7 @@ Total Memory Required: 16 - 18 Bytes / Parameter! (144GB for an 8B model)`,
         },
         'sft': {
             badge: 'ADAPTATION STRATEGY: INSTRUCTION TUNING',
-            title: '📋 Supervised Instruction Tuning (SFT): The Conversational Bridge',
+            title: 'Supervised Instruction Tuning (SFT): The Conversational Bridge',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Format: ChatML / ShareGPT</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Loss Masking on Prompt</span>',
             desc: '<strong>Mathematical Formulation:</strong> Transforms raw causal foundation models (which simply predict internet text) into helpful instruction-following assistants. Critical production requirement: <strong>Loss Masking on Prompts</strong>. The cross-entropy loss is calculated strictly on the assistant response tokens, masking prompt tokens with -100 so the model does not waste capacity learning to generate user questions.',
             sketch: `ChatML Token Stream:
@@ -3318,11 +3580,11 @@ What is our EBITDA in Q3?<|im_end|>  ──► [ MASKED LOSS (Label = -100) ] (Z
 EBITDA was $42.5M, up 14% YoY.<|im_end|> ──► [ COMPUTED CROSS-ENTROPY LOSS ]
                                            (Gradients update weights strictly on response!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Transforms unpredictable raw base models into compliant assistants. Establishes core system-prompt respect, multi-turn conversation memory, and tool-call invocation syntax.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Does not resolve nuanced preferences or subtle policy decisions (e.g. choosing between two technically correct answers where one is more concise or compliant). Requires follow-up DPO.</span>
             </div>`,
             code: `# SFT with Prompt Loss Masking via TRL
@@ -3340,7 +3602,7 @@ trainer = SFTTrainer(
         },
         'dpo': {
             badge: 'ADAPTATION STRATEGY: PREFERENCE ALIGNMENT',
-            title: '⚖️ DPO & ORPO: Direct Preference Optimization without Reward Models',
+            title: 'DPO & ORPO: Direct Preference Optimization without Reward Models',
             stats: '<span style="background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 3px 8px; border-radius: 4px;">Zero Reward Model</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Stable Gradient Dynamics</span>',
             desc: '<strong>Mathematical Formulation:</strong> Rafailov et al. (Stanford) showed that the constrained RLHF objective can be solved analytically without training separate reward networks or running unstable PPO actor-critic loops. Loss evaluates pairwise chosen vs. rejected log-ratios relative to a reference model \\(\\pi_{\\text{ref}}\\): \\[\\mathcal{L}_{\\text{DPO}} = -\\mathbb{E} \\left[ \\log \\sigma \\left( \\beta \\log \\frac{\\pi_\\theta(y_w|x)}{\\pi_{\\text{ref}}(y_w|x)} - \\beta \\log \\frac{\\pi_\\theta(y_l|x)}{\\pi_{\\text{ref}}(y_l|x)} \\right) \\right]\\]',
             sketch: `Dataset Triple: [ Prompt x, Chosen Response y_w, Rejected Response y_l ]
@@ -3355,11 +3617,11 @@ LogProb(y_w) & LogProb(y_l)                     LogProb(y_w) & LogProb(y_l)
                              ▼ [ Sigmoid Binary Cross-Entropy ]
         Guarantees chosen probability rises while rejected probability falls!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Completely eliminates PPO instability, reward hacking, and hyperparameter sensitivity. Half the GPU memory footprint of PPO (no value networks or critic models).</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Requires high-quality preference data pairs. Sensitive to hyperparameter beta (if beta too high, model refuses to learn; if beta too low, model degenerates into repetitive loops).</span>
             </div>`,
             code: `# DPO Training Pipeline with TRL
@@ -3377,7 +3639,7 @@ trainer = DPOTrainer(
         },
         'dapt': {
             badge: 'ADAPTATION STRATEGY: DOMAIN CONTINUED PRE-TRAINING',
-            title: '📚 Domain-Adaptive Continued Pre-Training (DAPT / CPT)',
+            title: 'Domain-Adaptive Continued Pre-Training (DAPT / CPT)',
             stats: '<span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Unsupervised Next-Token</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">5B - 50B Domain Tokens</span>',
             desc: '<strong>Mathematical Formulation:</strong> Standard causal language modeling (next-token prediction) executed on billions of tokens of dense unstructured in-domain text (e.g. 50B tokens of financial SEC filings, proprietary biomedical clinical trial journals, or internal enterprise codebases). Executed <em>before</em> SFT instruction tuning to adapt the model\'s internal token representations to domain-specific jargon.',
             sketch: `RAW DOMAIN CORPUS (50B Tokens Unstructured Text)
@@ -3388,11 +3650,11 @@ trainer = DPOTrainer(
                      ▼
          [ Follow up with SFT & DPO for conversational obedience ]`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Deepest conceptual adaptation. Teaches foundation models specialized terminology and syntax completely absent from public internet pre-training sets.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
-                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Highest compute budget ($10k&ndash;$50k in GPU compute). Prone to catastrophic forgetting if domain corpus is not mixed with 15-20% general web data.</span>
             </div>`,
             code: `# Continued Pre-Training with Hugging Face Trainer
@@ -3547,7 +3809,7 @@ training_args = TrainingArguments(
     const tritonData = {
         'openai': {
             badge: 'OPENAI TRITON: GPU JIT COMPILER',
-            title: '⚡ OpenAI Triton: Block-Level GPU Programming in Pure Python',
+            title: 'OpenAI Triton: Block-Level GPU Programming in Pure Python',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Throughput: 85-95% of CUDA</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Language: Pure Python DSL</span>',
             desc: '<strong>Architecture:</strong> Developed by Philippe Tillet at OpenAI, Triton is a Python-like programming language and JIT compiler for writing custom Deep Learning primitives. It compiles directly into LLVM IR &rarr; PTX &rarr; native NVIDIA GPU SASS assembly. It abstracts away error-prone CUDA thread synchronization, warp shuffles, and shared memory bank conflicts, allowing architects to write hardware-optimal block-tiled kernels in concise Python.',
             sketch: `Python Code (@triton.jit) ──► Triton AST ──► Triton-IR (Block Dialect)
@@ -3558,11 +3820,11 @@ training_args = TrainingArguments(
 • Eliminates manual CUDA shared memory allocation and __syncthreads() deadlocks.
 • Automatic memory coalescing, vectorization, and asynchronous tensor copy (cp.async on Hopper).`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #6366f1;">
-                <strong style="color: #818cf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Why Fine-Tuning Relies on Triton</strong>
+                <strong style="color: #818cf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #34d399;"><polyline points="20 6 9 17 4 12"></polyline></svg>Why Fine-Tuning Relies on Triton</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Powers FlashAttention-2/3, Unsloth, and vLLM custom ops. Allows writing fused LoRA backward passes in 200 lines of Python instead of 2,000 lines of fragile C++/CUDA.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚡ Silicon Efficiency</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Silicon Efficiency</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Achieves up to 92% of theoretical hardware memory bandwidth saturation on NVIDIA H100 SXM5 (\\(3.0\\text{ TB/s}\\) out of \\(3.35\\text{ TB/s}\\)) with zero C++ compilation steps.</span>
             </div>`,
             code: `# Production OpenAI Triton JIT Fused Addition Kernel
@@ -3582,7 +3844,7 @@ def fused_add_kernel(x_ptr, y_ptr, output_ptr, n_elements, BLOCK_SIZE: tl.conste
         },
         'memory': {
             badge: 'SILICON MEMORY HIERARCHY',
-            title: '💾 The GPU Memory Wall: SRAM (19 TB/s) vs. HBM (2 TB/s)',
+            title: 'The GPU Memory Wall: SRAM (19 TB/s) vs. HBM (2 TB/s)',
             stats: '<span style="background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 3px 8px; border-radius: 4px;">SRAM Bandwidth: 19 TB/s</span><span style="background: rgba(239, 68, 68, 0.15); color: #f87171; padding: 3px 8px; border-radius: 4px;">HBM Bandwidth: 2-3 TB/s</span>',
             desc: '<strong>Hardware Dynamics:</strong> Modern LLM training is rarely limited by floating-point compute (FLOPs)&mdash;it is bottlenecked by the <em>Memory Bandwidth Wall</em>. GPUs possess small, blazing-fast on-chip SRAM (L1 Cache / Shared Memory, ~228KB per SM, 19 TB/s bandwidth) and massive off-chip High Bandwidth Memory (HBM3, 80GB capacity, but only 3.35 TB/s bandwidth). Standard PyTorch moves tensors back and forth across this slow interconnect between every layer, throttling execution.',
             sketch: `STANDARD PYTORCH (Unfused - 4 HBM Round-Trips):
@@ -3600,11 +3862,11 @@ Input ──► [ Load ONCE from HBM ]
                └── Compute LoRA B (r x k)
           └──► [ Write ONCE to HBM ] ──► 1 HBM round-trip! (4x bandwidth reduction!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
-                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🚀 4x Memory Traffic Reduction</strong>
+                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>4x Memory Traffic Reduction</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">By keeping intermediate tensors inside on-chip SRAM registers, Triton kernels eliminate memory bus thrashing and keep Tensor Cores fully fed.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🌡️ Lower Thermal Throttling</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path></svg>Lower Thermal Throttling</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Fewer HBM DRAM charge-discharge cycles lower GPU power draw and heat dissipation per batch by 25&ndash;35%.</span>
             </div>`,
             code: `# Memory Bandwidth Math
@@ -3614,7 +3876,7 @@ Input ──► [ Load ONCE from HBM ]
         },
         'cross-entropy': {
             badge: 'VRAM OPTIMIZATION: TRITON LOSS',
-            title: '🔥 Fused Cross-Entropy: Eliminating 4GB Logit Memory Bloat',
+            title: 'Fused Cross-Entropy: Eliminating 4GB Logit Memory Bloat',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">VRAM Saved: ~4.2 GB</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Vocabulary: 128k Tokens</span>',
             desc: '<strong>The Enterprise Trap:</strong> In foundation models with massive vocabularies (e.g. Llama 3 has \\(V = 128,256\\) tokens), calculating standard PyTorch Cross-Entropy Loss requires materializing the full 3D logits tensor in VRAM: \\[\\text{Logits Tensor} = B \\times L \\times V = 4 \\times 4096 \\times 128,256 \\times 2\\text{ bytes (BF16)} \\approx \\mathbf{4.2\\text{ GB VRAM}}\\] Triton\'s custom Fused Cross-Entropy processes the token sequence in small tiles directly in SRAM, computing softmax and cross-entropy simultaneously without ever writing the 4.2GB logits tensor to global GPU memory!',
             sketch: `STANDARD PYTORCH (Materializes 4.2GB Logits):
@@ -3630,11 +3892,11 @@ Hidden States [B, L, d] ──► [ Tile Block of 64 Tokens in SRAM ]
                             └── Directly accumulate Loss & Gradients
                         ──► [ Final Scalar Loss ] (Zero 4.2GB memory allocation!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Instant VRAM Headroom</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #34d399;"><polyline points="20 6 9 17 4 12"></polyline></svg>Instant VRAM Headroom</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Freeing 4.2GB of VRAM allows doubling the per-device micro-batch size from 1 to 2, or expanding context window from 2k to 8k on consumer GPUs.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #8b5cf6;">
-                <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🏎️ 3x Faster Backward Pass</strong>
+                <strong style="color: #c084fc; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><path d="M12 3l1.912 5.886L20 10.8l-4.956 3.6 1.895 5.885L12 16.685 7.061 20.285l1.895-5.885L4 10.8l6.088-1.914L12 3z"></path></svg>3x Faster Backward Pass</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Computes loss gradients directly during the tiled forward pass, avoiding a redundant second memory read over vocabulary weights.</span>
             </div>`,
             code: `# Unsloth / FastCrossEntropy via Triton
@@ -3646,7 +3908,7 @@ from unsloth import FastLanguageModel
         },
         'unsloth': {
             badge: 'BACKPROPAGATION COMPILATION',
-            title: '🏎️ Manual Backward Pass: The Unsloth 5x Speedup Architecture',
+            title: 'Manual Backward Pass: The Unsloth 5x Speedup Architecture',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Training Speed: 2x - 5x</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Activation VRAM: -70%</span>',
             desc: '<strong>Architectural Breakthrough:</strong> Standard PyTorch autograd engine records every intermediate forward activation in VRAM to compute partial derivatives during the backward pass. Unsloth (Daniel & Michael Han) manually derives and hand-codes the entire backward gradient step in custom <strong>OpenAI Triton kernels</strong>. By using mathematical symmetries, it recomputes small activations on-the-fly in SRAM registers during backprop rather than storing them in global VRAM.',
             sketch: `Standard PyTorch Autograd:
@@ -3658,11 +3920,11 @@ Forward Pass  ──► Discards intermediate activations (0 VRAM cached!)
 Backward Pass ──► [ Recomputes Activations on-the-fly in SRAM registers ]
                   └── Direct fused gradient accumulation (70% VRAM Reduction!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Zero Accuracy Loss</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #34d399;"><polyline points="20 6 9 17 4 12"></polyline></svg>Zero Accuracy Loss</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Exact mathematical equivalence to standard backpropagation. Gradients match PyTorch autograd to 1e-5 precision.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
-                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚡ Fits 70B on 48GB GPU</strong>
+                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Fits 70B on 48GB GPU</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Combined with QLoRA NF4, allows fine-tuning Llama-3-70B on two 24GB GPUs or a single 48GB workstation GPU.</span>
             </div>`,
             code: `# Unsloth Triton Integration with Hugging Face
@@ -3678,7 +3940,7 @@ model, tokenizer = FastLanguageModel.from_pretrained(
         },
         'nvidia': {
             badge: 'ENTERPRISE PRODUCTION SERVING',
-            title: '🚀 NVIDIA Triton Inference Server: Multi-Model Orchestration',
+            title: 'NVIDIA Triton Inference Server: Multi-Model Orchestration',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Dynamic Batching</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Multi-Framework Backend</span>',
             desc: '<strong>Serving Architecture:</strong> NVIDIA Triton Inference Server is a production-grade, containerized model serving system. Unlike single-model servers, it hosts heterogeneous backends (TensorRT-LLM, vLLM, ONNX, PyTorch) on shared GPU hardware. It features hardware-accelerated <strong>Dynamic Batching</strong> (combining concurrent asynchronous client requests into optimal GPU batch windows) and concurrent model execution.',
             sketch: `Enterprise Client Requests (gRPC / REST / Streaming)
@@ -3698,11 +3960,11 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 │ └────────────────────────────────────────────────────────────────────┘ │
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Unified RAG Stack on 1 Pod</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #34d399;"><polyline points="20 6 9 17 4 12"></polyline></svg>Unified RAG Stack on 1 Pod</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Serves the embedding model, reranker, and fine-tuned LLM inside a single Triton cluster, eliminating inter-service network latency hops.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #38bdf8;">
-                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚡ Enterprise SLA Control</strong>
+                <strong style="color: #38bdf8; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Enterprise SLA Control</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Enforces strict maximum queue delay timers (<code>max_queue_delay_microseconds: 5000</code>) to guarantee sub-200ms TTFT under peak load.</span>
             </div>`,
             code: `# NVIDIA Triton Model Configuration (config.pbtxt)
@@ -3717,7 +3979,7 @@ output [ { name: "GENERATED_RESPONSE", data_type: TYPE_STRING, dims: [ 1 ] } ]`
         },
         'lora-routing': {
             badge: 'DYNAMIC ADAPTER ROUTING & BLS',
-            title: '🔀 Dynamic LoRA Routing & Business Logic Scripting (BLS)',
+            title: 'Dynamic LoRA Routing & Business Logic Scripting (BLS)',
             stats: '<span style="background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 3px 8px; border-radius: 4px;">Zero Base Model Duplication</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Switching: &lt; 1ms</span>',
             desc: '<strong>Multi-Tenant Architecture:</strong> NVIDIA Triton supports <strong>Dynamic LoRA Routing</strong> with the TensorRT-LLM and vLLM backends. The base 70B foundation model is pinned permanently in GPU memory. Incoming requests carry adapter metadata (e.g. <code>adapter_id: "legal_compliance"</code>). Triton loads the lightweight 50MB LoRA weights into GPU memory on-the-fly and applies them to the request tokens without reloading the base model or causing cold starts.',
             sketch: `Client Request: { "prompt": "Review NDA clause", "adapter": "legal_covenants" }
@@ -3735,11 +3997,11 @@ output [ { name: "GENERATED_RESPONSE", data_type: TYPE_STRING, dims: [ 1 ] } ]`
 │                   (Single 140GB VRAM Footprint)                        │
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 50 Tenants on 1 Cluster</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #34d399;"><polyline points="20 6 9 17 4 12"></polyline></svg>50 Tenants on 1 Cluster</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Replaces 50 dedicated LLM clusters with a single shared foundation model cluster, reducing enterprise cloud GPU infrastructure costs by 95%.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ec4899;">
-                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚡ Zero Cold Start</strong>
+                <strong style="color: #f472b6; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #38bdf8;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Zero Cold Start</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Adapter weights load into PCIe/NVLink cache in under 1 millisecond. No 60-second Kubernetes pod spin-up delays.</span>
             </div>`,
             code: `# Invoking Dynamic LoRA via Triton Client
@@ -3809,7 +4071,7 @@ response = client.infer(model_name="tensorrt_llm", inputs=inputs)`
     const mlFamilyData = {
         'tabular': {
             badge: 'MODEL FAMILY: TABULAR ENSEMBLE',
-            title: '📊 Gradient Boosted Decision Trees (XGBoost, LightGBM, CatBoost)',
+            title: 'Gradient Boosted Decision Trees (XGBoost, LightGBM, CatBoost)',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">P95 Latency: &lt; 0.8ms</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Memory: &lt; 50MB RAM</span>',
             desc: '<strong>Mathematical Formulation:</strong> Sequential additive ensemble of \\(K\\) decision trees minimizing a regularized objective: \\[\\mathcal{L}^{(t)} = \\sum_{i=1}^n \\left[ l(y_i, \\hat{y}_i^{(t-1)}) + g_i f_t(x_i) + \\frac{1}{2} h_i f_t^2(x_i) \\right] + \\Omega(f_t)\\] where \\(g_i\\) and \\(h_i\\) are first- and second-order Taylor gradients. In enterprise risk, credit underwriting, fraud detection, and transactional telemetry, tree ensembles consistently outperform neural networks on tabular heterogeneous data while providing exact TreeSHAP feature attribution.',
             sketch: `Tabular Features x = [ credit_score, debt_to_income, velocity_1hr, ip_risk ]
@@ -3824,11 +4086,11 @@ response = client.infer(model_name="tensorrt_llm", inputs=inputs)`
 • Inference Engine: Compiled C++ / Treelite / Triton FIL Backend (Forest Inference Library).
 • Throughput: 150,000 predictions/sec on a single 4-core CPU pod!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero GPU requirement. Microsecond inference latency. Handles missing values and categorical data natively. Deterministic auditability mandated by regulatory frameworks (FCRA, Basel III).</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
-                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Cannot process unstructured text, speech, or images. Incapable of multi-step logical chain reasoning or cross-table relational semantic inference without manual feature engineering.</span>
             </div>`,
             code: `# High-Throughput Fraud Detection with XGBoost
@@ -3850,7 +4112,7 @@ treelite_model.compile(dirpath="./compiled_fraud_model")`
         },
         'biencoder': {
             badge: 'MODEL FAMILY: REPRESENTATION BI-ENCODER',
-            title: '🔍 Dense Representation Bi-Encoders (BGE-M3, ModernBERT, E5-v2)',
+            title: 'Dense Representation Bi-Encoders (BGE-M3, ModernBERT, E5-v2)',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">P95 Latency: 8 - 15ms</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Vector Indexing: HNSW O(log N)</span>',
             desc: '<strong>Mathematical Formulation:</strong> Independent dual-tower Transformer encoders projecting query \\(q\\) and document \\(d\\) into a shared \\(D\\)-dimensional metric space: \\[s(q, d) = \\langle \\mathbf{e}_q, \\mathbf{e}_d \\rangle = \\frac{\\text{Enc}(q)^\\top \\text{Enc}(d)}{\\|\\text{Enc}(q)\\| \\cdot \\|\\text{Enc}(d)\\|}\\] Because \\(\\mathbf{e}_d\\) is computed once at ingestion time, retrieval over 100 million documents executes via Approximate Nearest Neighbors (ANN HNSW / ScaNN) in sub-10ms time.',
             sketch: `Ingestion Time (Offline 1-time compute):
@@ -3859,11 +4121,11 @@ Document d ──► [ BERT / ModernBERT Encoder ] ──► Dense Embedding e_d
 Query Time (Real-time Online):
 User Query q ──► [ Query Encoder ] ──► Embedding e_q ──► Cosine Search in HNSW ──► Top-100 Chunks in 6ms!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Blazing fast vector retrieval. ModernBERT supports 8,192 context length with FlashAttention-2. Matryoshka Representation Learning (MRL) allows truncating vectors from 1024d to 256d, slashing RAM by 75%.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Information bottleneck: An entire 512-word document is compressed into a single vector. Query and document tokens never interact directly, leading to precision loss on exact keyword/negation matching.</span>
             </div>`,
             code: `# High-Speed Inference with Hugging Face Text Embeddings Inference (TEI)
@@ -3875,7 +4137,7 @@ embeddings = response.json() # Returns 1024-dim vector in 4.2ms!`
         },
         'crossencoder': {
             badge: 'MODEL FAMILY: CROSS-ENCODER & LATE INTERACTION',
-            title: '🎯 Cross-Encoders & Re-rankers (BGE-Reranker-Large, ColPali)',
+            title: 'Cross-Encoders & Re-rankers (BGE-Reranker-Large, ColPali)',
             stats: '<span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">P95 Latency: 25 - 45ms</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Top-5 Precision: &gt; 98%</span>',
             desc: '<strong>Mathematical Formulation:</strong> Full joint cross-attention over concatenated tokens: \\(s(q, d) = \\text{MLP}(\\text{Enc}([\\text{CLS}], q, [\\text{SEP}], d))\\). Every token in the query attends directly to every token in the document across all self-attention layers (\\(O((L_q + L_d)^2)\\)). In late interaction (ColBERT/ColPali), token embeddings are kept separate and pooled via all-pairs MaxSim: \\(S(Q, D) = \\sum_{i \\in Q} \\max_{j \\in D} (\\mathbf{q}_i^\\top \\mathbf{d}_j)\\).',
             sketch: `Dual-Stage RAG Pipeline:
@@ -3886,11 +4148,11 @@ Stage 2: Cross-Encoder ────────┴──► Computes joint atten
                                │
                                ▼ Prunes candidates down to Top-5 razor-sharp chunks!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Highest possible search precision. Resolves subtle negations ("not covered under Section 4") and keyword misalignments that bi-encoders miss. Essential for legal, financial, and medical compliance RAG.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
-                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">High computational complexity: Cannot pre-compute document representations offline. Must re-evaluate attention for every query-document pair at runtime; bounded to Top-25 to Top-100 candidates.</span>
             </div>`,
             code: `# Production Cross-Encoder Re-ranking
@@ -3904,7 +4166,7 @@ ranked_docs = [doc for _, doc in sorted(zip(scores, candidate_chunks), reverse=T
         },
         'decoder': {
             badge: 'MODEL FAMILY: AUTOREGRESSIVE DECODER',
-            title: '🧠 Autoregressive Generative LLMs (Llama 3.1, Qwen 2.5, DeepSeek-V3 MoE)',
+            title: 'Autoregressive Generative LLMs (Llama 3.1, Qwen 2.5, DeepSeek-V3 MoE)',
             stats: '<span style="background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 3px 8px; border-radius: 4px;">Throughput: 80 - 150 tok/s</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Context: 128k Tokens</span>',
             desc: '<strong>Mathematical Formulation:</strong> Causal auto-regressive next-token prediction factorizing joint probability via the chain rule: \\[P(x_1, \\dots, x_T) = \\prod_{t=1}^T P(x_t \\mid x_1, \\dots, x_{t-1})\\] Utilizing Grouped-Query Attention (GQA), RoPE positional embeddings, and SwiGLU activation. In Mixture of Experts (MoE: Mixtral, DeepSeek-V3), a router gate dynamically routes each token to Top-\\(k\\) out of \\(N\\) specialized feedforward networks, keeping active parameter compute low while scaling total model capacity to 600B+.',
             sketch: `Autoregressive Generation Loop (KV-Cache Accelerated):
@@ -3915,11 +4177,11 @@ Token t-1 ──► [ Attention over KV-Cache ] ──► [ MLP / MoE Router ] �
                                                                       │
                                         Append Token t to KV-Cache ───┘ (Bounded by GPU Memory Bandwidth!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Unmatched general conversational competence, multi-turn dialogue memory, zero-shot code generation, and complex agentic tool-use orchestration. Native structured output via grammar-constrained sampling.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
-                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Memory bandwidth bound during generation (each token requires reading full model weights from VRAM). High serving cost per token; vulnerable to hallucinations without external grounding.</span>
             </div>`,
             code: `# High-Throughput Serving with vLLM
@@ -3936,7 +4198,7 @@ outputs = llm.generate(["Draft executive summary of Q3 risk..."], sampling)`
         },
         'reasoning': {
             badge: 'MODEL FAMILY: TEST-TIME REASONING',
-            title: '🤔 Test-Time Compute Reasoning Models (DeepSeek-R1, OpenAI o1/o3-mini)',
+            title: 'Test-Time Compute Reasoning Models (DeepSeek-R1, OpenAI o1/o3-mini)',
             stats: '<span style="background: rgba(236, 72, 153, 0.15); color: #f472b6; padding: 3px 8px; border-radius: 4px;">Method: Large-Scale RL (GRPO)</span><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Latent Thinking Tokens: 2k - 16k</span>',
             desc: '<strong>Mathematical Formulation:</strong> Represents a paradigm shift: trading <strong>test-time inference compute</strong> for super-human mathematical and algorithmic accuracy. Trained via pure Reinforcement Learning (DeepSeek-R1-Zero uses Group Relative Policy Optimization - GRPO without cold-start SFT). The model generates hidden Chain-of-Thought (CoT) tokens &mdash; backtracking, reflecting, and self-correcting errors before outputting the final response.',
             sketch: `Standard LLM vs. Reasoning Model Execution:
@@ -3950,11 +4212,11 @@ Reasoning Model: Prompt ──► <think>
                             </think>
                         ──► [ Verified Final Response ] (98% Accuracy on AIME / Codeforces!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">World-class performance on complex mathematical theorem proving, formal code verification, multi-step financial tax structuring, and reverse engineering. Transparent reasoning trace auditability.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444;">
-                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #f87171; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Severe latency penalty (5s to 30s per query). Token cost multiplier (spends 4,000 thinking tokens on a 50-word question). Unsuitable for interactive real-time conversational agents.</span>
             </div>`,
             code: `# Invoking DeepSeek-R1 with SGLang / vLLM Reasoning Parser
@@ -3970,7 +4232,7 @@ response = client.chat.completions.create(
         },
         'vlm': {
             badge: 'MODEL FAMILY: VISION-LANGUAGE MULTIMODAL',
-            title: '👁️ Vision-Language & Multimodal Models (Llama-3.2-Vision, Qwen2-VL, ColPali)',
+            title: 'Vision-Language & Multimodal Models (Llama-3.2-Vision, Qwen2-VL, ColPali)',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Modality: Vision + Text</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Replaces OCR Pipelines</span>',
             desc: '<strong>Mathematical Formulation:</strong> Combines a Vision Transformer (ViT) patch encoder with a language model decoder via a cross-attention projection layer: \\[\\mathbf{Z}_v = \\text{LinearProj}(\\text{ViT}(\\text{Image Patches})), \\quad P(Y \\mid X_t, \\mathbf{Z}_v) = \\text{LLM}(\\mathbf{Z}_v \\oplus X_t)\\] Completely eliminates fragile optical character recognition (OCR) and PDF parsing pipelines by treating visual pages directly as native 2D image tokens.',
             sketch: `Complex Multi-Column PDF Document / Invoice:
@@ -3986,11 +4248,11 @@ response = client.chat.completions.create(
 │ Direct spatial question answering: "What was Q3 margin in Table 4?"    │
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Understands visual charts, hand-drawn architecture diagrams, signatures, invoices, and nested balance sheet tables with 100% spatial fidelity. Bypasses text slicing and OCR errors completely.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Heavy token footprint (a single 1080p page generates 1,000+ visual tokens). Higher VRAM requirements than pure text LLMs; slower prefill phase during multi-page document ingestion.</span>
             </div>`,
             code: `# Processing Multi-Column PDF with Qwen2-VL
@@ -4007,7 +4269,7 @@ output = model.generate(**inputs, max_new_tokens=512)`
         },
         'slm': {
             badge: 'MODEL FAMILY: SMALL LANGUAGE MODEL (SLM)',
-            title: '📱 Small Language Models & Edge Models (Phi-3.5, Gemma-2 2B, SmolLM)',
+            title: 'Small Language Models & Edge Models (Phi-3.5, Gemma-2 2B, SmolLM)',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">P95 Latency: 12 - 25ms</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Footprint: 1.5GB - 4GB RAM</span>',
             desc: '<strong>Mathematical Formulation:</strong> Highly compressed autoregressive language models (1B to 3.8B parameters) trained on massive synthetic textbook data (e.g. Microsoft Phi-3 trained on 3.3T synthetic educational tokens) with extensive knowledge distillation from frontier teacher models. Quantized to 4-bit GGUF or INT8 ONNX, SLMs run entirely inside air-gapped CPU nodes, mobile devices, and sovereign edge gateways.',
             sketch: `Enterprise Edge Tiering Architecture:
@@ -4018,11 +4280,11 @@ User Request ──► [ Edge Gateway (Phi-3.5 3.8B in GGUF on CPU) ]
                       └─► Complex Multi-Step Reasoning ──────────────► Escalate to Sovereign 70B Pod
                       (Saves 80% of Cloud GPU token spend!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero cloud infrastructure cost. Operates offline without internet. Sub-15ms Time-To-First-Token. Outstanding ROI for narrow triage, classification, and conversational guardrails.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Limited parametric world knowledge; struggles with highly nuanced multi-hop reasoning. Susceptible to instruction drift on very long multi-turn system prompts (&gt;4k tokens).</span>
             </div>`,
             code: `# Running Local SLM with llama-cpp-python
@@ -4034,7 +4296,7 @@ output = llm("Classify incoming support ticket priority: Server outage in region
         },
         'gnn': {
             badge: 'MODEL FAMILY: GRAPH NEURAL NETWORK',
-            title: '🕸️ Graph Neural Networks (GNN / GraphSAGE, GAT, GCN)',
+            title: 'Graph Neural Networks (GNN / GraphSAGE, GAT, GCN)',
             stats: '<span style="background: rgba(244, 63, 94, 0.15); color: #fb7185; padding: 3px 8px; border-radius: 4px;">Topological Reasoning</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Inductive Graph Learning</span>',
             desc: '<strong>Mathematical Formulation:</strong> Operates directly on non-Euclidean graph topologies \\(G = (V, E)\\). Generates node representations through localized <strong>neighborhood message passing</strong>: \\[\\mathbf{h}_v^{(k)} = \\sigma \\left( \\mathbf{W}^{(k)} \\cdot \\text{CONCAT} \\left( \\mathbf{h}_v^{(k-1)}, \\text{AGGREGATE} \\left( \\{ \\mathbf{h}_u^{(k-1)} : u \\in \\mathcal{N}(v) \\} \\right) \\right) \\right)\\] where GraphSAGE samples local neighbor subgraphs to scale inductive learning to billion-node enterprise relational graphs (Anti-Money Laundering, fraud rings, Knowledge Graph entity linking).',
             sketch: `Message Passing across Graph Edges:
@@ -4045,11 +4307,11 @@ output = llm("Classify incoming support ticket priority: Server outage in region
                                           ▼ [ Graph Attention / GraphSAGE Neighborhood Aggregator ]
             Composite Node Embedding h_v captures deep multi-hop topological criminal ring!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Directly encodes relational and structural network topologies that flat tabular models cannot capture. Invaluable for Anti-Money Laundering (AML), drug discovery, and Graph RAG community synthesis.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fbbf24; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Challenging distributed training across dynamic enterprise graphs with billions of edges (graph partitioning overhead). Susceptible to over-smoothing if message passing depth exceeds 3&ndash;4 hops.</span>
             </div>`,
             code: `# GraphSAGE Link Prediction with PyTorch Geometric (PyG)
@@ -4120,7 +4382,7 @@ class EnterpriseGraphSAGE(torch.nn.Module):
     // ==========================================
     const mlUseCaseData = {
         'fraud': {
-            title: '💳 Real-Time Fraud &amp; Credit: LightGBM / XGBoost + GraphSAGE (GNN)',
+            title: 'Real-Time Fraud &amp; Credit: LightGBM / XGBoost + GraphSAGE (GNN)',
             badge: 'SLA: &lt; 2ms | Hardware: CPU Cluster',
             desc: '<strong>Why This Wins:</strong> High-throughput credit card transactions occur at 50,000 QPS. Deploying an LLM would cost $100k/day and breach the 10ms payment gateway timeout. An ensemble of LightGBM on user transaction features paired with GraphSAGE for fraud ring community detection executes in <strong>0.6ms on standard CPUs</strong> with 100% SHAP auditability.',
             code: `# Production Fraud Architecture Pipeline:
@@ -4130,7 +4392,7 @@ class EnterpriseGraphSAGE(torch.nn.Module):
 # Total Pipeline Latency: 0.6ms | Zero GPU Cost | 99.999% Availability`
         },
         'rag': {
-            title: '📚 Enterprise Document RAG: Bi-Encoder BGE-M3 + BGE-Reranker + Llama-3.1-70B',
+            title: 'Enterprise Document RAG: Bi-Encoder BGE-M3 + BGE-Reranker + Llama-3.1-70B',
             badge: 'SLA: 250ms | Hardware: 1x A100 GPU Pod',
             desc: '<strong>Why This Wins:</strong> Pure keyword search misses synonyms, while pure LLM processing over millions of documents exceeds budget. The dual-tower architecture uses BGE-M3 to prune 10M documents to 100 in 10ms, BGE-Reranker to extract the top-5 relevant clauses in 30ms, and Llama-3.1-70B on vLLM to synthesize the final verified answer.',
             code: `# Two-Tier Sovereign RAG Architecture:
@@ -4139,7 +4401,7 @@ class EnterpriseGraphSAGE(torch.nn.Module):
 # Stage 3: Sovereign LLM Generation (Llama-3.1-70B): Streamed answer in 180ms`
         },
         'pdf': {
-            title: '📑 Complex Financial Invoices & 10-Ks: Qwen2-VL / ColPali Multimodal',
+            title: 'Complex Financial Invoices & 10-Ks: Qwen2-VL / ColPali Multimodal',
             badge: 'SLA: 400ms | Hardware: NVIDIA L4 / A10G',
             desc: '<strong>Why This Wins:</strong> Standard OCR parsing strips nested tables into unreadable plain text. Multimodal Vision-Language Models (VLMs) and ColPali inspect the PDF as raw 2D visual patches, directly reading multi-column tables, company stamps, and financial footnotes with 100% mathematical alignment.',
             code: `# Multimodal Document Ingestion Pipeline:
@@ -4148,7 +4410,7 @@ class EnterpriseGraphSAGE(torch.nn.Module):
 # 3. Qwen2-VL Extraction: Direct visual extraction into strict Pydantic JSON`
         },
         'reason': {
-            title: '💻 Code Verification &amp; Logic Proofs: DeepSeek-R1 / OpenAI o1 (Test-Time CoT)',
+            title: 'Code Verification &amp; Logic Proofs: DeepSeek-R1 / OpenAI o1 (Test-Time CoT)',
             badge: 'SLA: 5s - 15s | Hardware: Multi-GPU H100 Cluster',
             desc: '<strong>Why This Wins:</strong> When auditing smart contracts or generating formal regulatory filings, a single logical bug can cost millions. Reasoning models spend up to 10,000 hidden thinking tokens exploring alternative mathematical lemmas, self-correcting logic flaws, and verifying edge cases before generating the final audited code.',
             code: `# Automated Code Verification Harness:
@@ -4157,7 +4419,7 @@ class EnterpriseGraphSAGE(torch.nn.Module):
 # Yields 98.2% automated security vulnerability detection rate`
         },
         'edge': {
-            title: '📱 Edge / On-Prem Triage: Microsoft Phi-3.5 3.8B / Gemma-2 2B (GGUF INT4)',
+            title: 'Edge / On-Prem Triage: Microsoft Phi-3.5 3.8B / Gemma-2 2B (GGUF INT4)',
             badge: 'SLA: &lt; 15ms | Hardware: Commodity CPU / Edge Device',
             desc: '<strong>Why This Wins:</strong> For air-gapped hospital rooms or field worker tablets with zero cloud internet access, quantized Small Language Models (SLMs) execute fully local inference in 2.2GB of RAM. Acts as an instant triage router, handling 80% of routine requests locally and queuing complex cases for sync.',
             code: `# Air-Gapped Local SLM Deployment:
@@ -4206,7 +4468,7 @@ class EnterpriseGraphSAGE(torch.nn.Module):
         'attention': {
             badge: 'ATTENTION ENGINE: SCALED DOT-PRODUCT',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Complexity: O(N²) Time &amp; Space</span><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Memory: Softmax Attention Matrix</span>',
-            title: '🎯 Scaled Dot-Product Attention: Query, Key &amp; Value Interactions',
+            title: 'Scaled Dot-Product Attention: Query, Key &amp; Value Interactions',
             desc: '<strong>Mathematical Formulation:</strong> Given input sequence embeddings \\(X \\in \\mathbb{R}^{N \\times d}\\), linear projection matrices produce Queries \\(Q = X W_Q\\), Keys \\(K = X W_K\\), and Values \\(V = X W_V\\). The attention output is: \\[\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_k}} + M\\right) V\\] The scaling factor \\(\\frac{1}{\\sqrt{d_k}}\\) counteracts the mathematical reality that for large projection dimensions \\(d_k\\), dot products grow large in magnitude, pushing the softmax function into regions with vanishingly small gradients.',
             sketch: `Input Embeddings X (Tokens: N, Dim: d_model)
       │
@@ -4232,11 +4494,11 @@ class EnterpriseGraphSAGE(torch.nn.Module):
                      ▼
           W_O (Multi-Head Projection to d_model)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Advantages</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #34d399;"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Advantages</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Direct dynamic information routing between any two tokens across arbitrary distance. Solves the gradient decay failure mode of RNN/LSTM sequence models. Allows full parallel computation across prompt sequence during training and prefill.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Production Bottlenecks &amp; Hardware Traps</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Production Bottlenecks &amp; Hardware Traps</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Quadratic \\(\\mathcal{O}(N^2)\\) computational complexity and VRAM allocation. At \\(N = 32{,}768\\), storing the un-fused FP16 attention matrix requires \\(2 \\times 32768^2 \\times 2\\text{ bytes} \\approx 4.29\\text{ GB}\\) per head layer, leading to immediate CUDA OOM unless FlashAttention is used.</span>
             </div>`,
             code: `import torch
@@ -4260,7 +4522,7 @@ def scaled_dot_product_attention(Q, K, V, mask=None, is_causal=False):
         'gqa': {
             badge: 'KV-CACHE TOPOLOGY: MHA vs MQA vs GQA',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Memory Reduction: Up to 8x Cut</span><span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 8px; border-radius: 4px;">Standard: Llama 3 / Mistral / Qwen</span>',
-            title: '🔄 Grouped-Query Attention (GQA): Slashing the KV-Cache Memory Wall',
+            title: 'Grouped-Query Attention (GQA): Slashing the KV-Cache Memory Wall',
             desc: '<strong>The Enterprise KV-Cache Crisis:</strong> In standard Multi-Head Attention (MHA), every query head has its own dedicated Key and Value head. During autoregressive decoding, storing past KV states consumes: \\[\\text{KV Cache Size} = 2 \\times b \\times s \\times n_{\\text{layers}} \\times n_{\\text{heads}} \\times d_{\\text{head}} \\times \\text{precision}\\] For Llama-70B with batch size 32 at 8k context, MHA demands <strong>131 GB of VRAM just for KV cache</strong>! Multi-Query Attention (MQA) collapses this to 1 shared KV head (causing quality degradation). <strong>Grouped-Query Attention (GQA)</strong> partitions query heads into \\(G\\) groups (e.g. 8 groups for 64 query heads), slashing KV cache size by 8x with 99.8% quality retention.',
             sketch: `MULTI-HEAD ATTENTION (MHA)      MULTI-QUERY ATTENTION (MQA)      GROUPED-QUERY ATTENTION (GQA)
 ------------------------------   ------------------------------   ------------------------------
@@ -4272,11 +4534,11 @@ Value:   V1 V2 V3 V4 V5 V6 V7 V8  Value:               V1          Value:     V1
 • KV Cache: 100% (Baseline)      • KV Cache: 12.5% (High loss)    • KV Cache: 12.5% - 25% (Gold Standard)
 • Latency: High memory thrash    • Latency: Maximum throughput    • Latency: Optimal bandwidth saturation`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Enables serving 8x larger concurrent batch sizes on a single GPU node. Increases maximum context window from 8k to 128k tokens without running out of GPU memory. Standardized in Llama-3, Qwen-2.5, Mistral, and Gemma.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Considerations</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Considerations</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Tensor Parallelism (TP) sharding must divide evenly by number of KV groups. If a model has 8 KV groups, running on a 16-GPU cluster (TP=16) requires duplicating KV heads or using Context Parallelism (CP).</span>
             </div>`,
             code: `# Calculating GQA KV Cache VRAM in PyTorch
@@ -4292,7 +4554,7 @@ vram_gqa = calculate_kv_cache_vram(32, 8192, 80, 8, 128, 2)   # GQA: 17.2 GB VRA
         'rope': {
             badge: 'POSITIONAL MATHEMATICS: ROTARY POSITION EMBEDDING',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Property: Relative Distance Invariant</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Context: 128k+ with YaRN / NTK</span>',
-            title: '🧭 Rotary Position Embedding (RoPE): Geometric Relative Attention',
+            title: 'Rotary Position Embedding (RoPE): Geometric Relative Attention',
             desc: '<strong>Mathematical Formulation:</strong> Standard dot-product attention has no intrinsic notion of sequence order. Rather than adding fixed additive embeddings \\(X + PE\\), Jianlin Su (2021) introduced RoPE, which rotates Query and Key vector pairs in 2D orthogonal planes by an angle proportional to token position \\(m\\): \\[R_{\\Theta, m}^d x_m = \\begin{pmatrix} x^{(1)} \\cos m\\theta_1 - x^{(2)} \\sin m\\theta_1 \\\\ x^{(1)} \\sin m\\theta_1 + x^{(2)} \\cos m\\theta_1 \\\\ \\vdots \\end{pmatrix}\\] The profound mathematical beauty: the dot product \\(\\langle R_m q, R_n k \\rangle\\) depends <em>strictly on relative distance</em> \\(m - n\\), not absolute position!',
             sketch: `Token Vector x at Position m (Dimension d)
       │
@@ -4312,11 +4574,11 @@ Rotated Vector q_m and k_n
 Attention Inner Product: <q_m, k_n> = q^T * R_{theta, m}^T * R_{theta, n} * k
                                     = q^T * R_{theta, n - m} * k  <-- STRICT RELATIVE DISTANCE!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero learnable parameters added to model weights. Decays smoothly with sequence distance. Easily extensible to 128k-1M contexts using frequency interpolation (NTK-aware RoPE, YaRN, and Dynamic RoPE scaling).</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Context Length Degradation</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Context Length Degradation</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Extending context beyond training baseline without frequency rescaling causes high-frequency rotational phase distortion, causing complete model incoherence and failure to retrieve facts from early tokens (Lost in the Middle).</span>
             </div>`,
             code: `import torch
@@ -4334,7 +4596,7 @@ def apply_rotary_pos_emb(x, cos, sin):
         'ffn': {
             badge: 'FEED-FORWARD DUALITY: DENSE SwiGLU vs SPARSE MoE',
             stats: '<span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">SwiGLU: +15% Parameter Quality</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">MoE: 10x Parameter Capacity</span>',
-            title: '🧬 FFN Sub-Layers: SwiGLU Gating &amp; Sparse Mixture of Experts Routing',
+            title: 'FFN Sub-Layers: SwiGLU Gating &amp; Sparse Mixture of Experts Routing',
             desc: '<strong>Evolution from Standard ReLU:</strong> In early transformers, the Feed-Forward Network consisted of two linear transformations with ReLU or GELU: \\(\\text{FFN}(x) = \\max(0, x W_1 + b_1) W_2 + b_2\\). Shazeer (2020) demonstrated that <strong>SwiGLU</strong> (Swish Gated Linear Unit) consistently outperforms all other activations: \\[\\text{FFN}_{\\text{SwiGLU}}(x) = \\left( \\text{Swish}(x W_{\\text{gate}}) \\odot (x W_{\\text{up}}) \\right) W_{\\text{down}}\\] In <strong>Sparse Mixture of Experts (MoE)</strong>, this FFN layer is duplicated into \\(E\\) independent expert networks, with a Softmax Top-\\(k\\) router dynamically dispatching tokens to only 2 or 8 experts per token.',
             sketch: `DENSE SwiGLU FFN ARCHITECTURE:
 x ──────┬────────────────────────► W_up (d_model x d_ff) ────────┐
@@ -4354,11 +4616,11 @@ Token Vector x ──► [ Softmax Top-k Gating Router ] ──► Probabilities
                                    ▼
           Weighted Sum: 0.72 * E1(x) + 0.28 * E4(x)  (Only 5% compute consumed!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">SwiGLU provides superior non-linear representational capacity with zero extra hyperparameter tuning. MoE decouples static memory capacity from runtime FLOP cost: DeepSeek-V3 houses 671B parameters with the serving FLOP cost of a 37B dense model.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Production Risks</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Production Risks</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">SwiGLU requires 3 weight matrices instead of 2 (\\(3 \\times \\frac{8}{3} d_{\\text{model}}^2\\)). MoE introduces routing collapse (experts receiving unbalanced token loads) and necessitates expert parallelism across multi-GPU InfiniBand fabrics.</span>
             </div>`,
             code: `import torch
@@ -4378,7 +4640,7 @@ class SwiGLUFFN(nn.Module):
         'norm': {
             badge: 'STABILITY & SPEED: Pre-LN vs RMSNorm',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Latency: 15-20% Faster Kernels</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Zero Warmup Instability</span>',
-            title: '⚖️ Layer Normalization: Pre-LN Gradient Highways &amp; RMSNorm Acceleration',
+            title: 'Layer Normalization: Pre-LN Gradient Highways &amp; RMSNorm Acceleration',
             desc: '<strong>Why Original Post-LN Failed at Scale:</strong> In Vaswani (2017), normalization was placed <em>after</em> the residual addition: \\(x_{l+1} = \\text{LayerNorm}(x_l + f(x_l))\\). For deep models (&gt;12 layers), gradients passing through the normalization derivative vanish exponentially, requiring fragile learning rate warmups. <strong>Pre-LN</strong> places normalization on the branch: \\(x_{l+1} = x_l + f(\\text{Norm}(x_l))\\), creating an unhindered identity shortcut highway. <strong>RMSNorm (Zhang &amp; Sennrich 2019)</strong> strips mean-centering entirely: \\[\\text{RMSNorm}(x) = \\frac{x}{\\sqrt{\\frac{1}{d} \\sum_{i=1}^d x_i^2 + \\epsilon}} \\odot \\gamma\\] Saving 15-20% CUDA kernel execution time without any loss in convergence quality.',
             sketch: `POST-LN ARCHITECTURE (Vaswani 2017 - UNSTABLE AT SCALE):
 x_l ──────┬────────────────────────► [ Sub-Layer f(x) ]
@@ -4392,11 +4654,11 @@ x_l ──────┬──────────────────�
           └─► [ RMSNorm ] ──► [ Sub-Layer f(x) ] ──► [ Scaling / Dropout ] ──+ (Addition) ──► x_l+1
           [Direct identity residual highway flows unhindered across 100+ layers!]`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Enables rock-solid training of 405B parameter models without gradient explosion. RMSNorm eliminates the mean-calculation reduction step across GPU thread blocks, minimizing SRAM synchronization overhead.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Implementation Caveats</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Implementation Caveats</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Pre-LN models develop slight representation growth at final layers. Requires a final RMSNorm layer before the LM head projection tensor to prevent logit explosion.</span>
             </div>`,
             code: `import torch
@@ -4416,7 +4678,7 @@ class RMSNorm(nn.Module):
         'subquad': {
             badge: 'KERNEL REVOLUTION: FLASHATTENTION & STATE-SPACE SCALING',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Memory: O(N) Linear VRAM</span><span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 8px; border-radius: 4px;">Speedup: 3x-5x Wall-Clock</span>',
-            title: '⚡ Sub-Quadratic Breakthroughs: FlashAttention IO-Aware Tiling &amp; State Space Duality',
+            title: 'Sub-Quadratic Breakthroughs: FlashAttention IO-Aware Tiling &amp; State Space Duality',
             desc: '<strong>Overcoming the GPU Memory Wall:</strong> In standard attention, the bottleneck is not FLOP computation, but GPU memory IO traffic between High-Bandwidth Memory (HBM at 3.35 TB/s) and on-chip SRAM cache (19 TB/s). Tri Dao et al. introduced <strong>FlashAttention-1/2/3</strong>, which computes attention in small blocks loaded into SRAM, computing online softmax without ever writing the massive \\(N \\times N\\) attention matrix to HBM. For true linear scaling, <strong>Mamba-2 &amp; State-Space Models (SSM)</strong> replace attention entirely with selective continuous state transitions: \\[h_t = A h_{t-1} + B x_t, \\quad y_t = C h_t\\] Achieving \\(\\mathcal{O}(N)\\) training and strict \\(\\mathcal{O}(1)\\) constant-time inference.',
             sketch: `STANDARD ATTENTION (IO-BOUND MEMORY DISASTER):
 [ GPU HBM (Slow) ] ◄── Q, K, V Read ──► [ Compute Q*K^T ]
@@ -4432,11 +4694,11 @@ FLASHATTENTION (SRAM TILING + ONLINE SOFTMAX):
              ▼
 [ GPU HBM ] ◄── Write ONLY final output tile! (ZERO N x N matrices written to HBM!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">FlashAttention is 100% mathematically exact to standard attention (zero approximation error). Reduces VRAM by 80% and accelerates training/prefill by 3x-4x. Mamba-2 delivers constant KV memory usage on 1M token sequences.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Hardware &amp; Architecture Bounds</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Hardware &amp; Architecture Bounds</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">FlashAttention requires modern NVIDIA GPUs (Ampere A100, Ada L4, Hopper H100). Pure SSM models struggle with associative memory retrieval tasks unless interleaved with standard attention layers (e.g. Jamba).</span>
             </div>`,
             code: `# Invoking FlashAttention-2 natively in PyTorch 2.x
@@ -4499,7 +4761,7 @@ with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable
         'encoder': {
             badge: 'ARCHITECTURE: BIDIRECTIONAL ENCODER',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Attention: Unmasked Bidirectional</span><span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 8px; border-radius: 4px;">Primary Metric: MRR@10 / NDCG</span>',
-            title: '🔍 Encoder-Only Architecture: Bidirectional Representation Learning',
+            title: 'Encoder-Only Architecture: Bidirectional Representation Learning',
             desc: '<strong>Structural Anatomy:</strong> Stack of Transformer blocks utilizing unconstrained bidirectional self-attention where every token attends simultaneously to every token before and after it. Pre-trained via <strong>Masked Language Modeling (MLM)</strong>, where 15% of tokens are corrupted and reconstructed: \\[\\mathcal{L}_{\\text{MLM}} = -\\sum_{i \\in \\text{masked}} \\log P(x_i \\mid \\tilde{X})\\] Generates rich contextual embeddings suitable for semantic retrieval, token classification, and ranking. <em>Cannot autoregressively generate open text.</em>',
             sketch: `Input Text: "The quick brown fox [MASK] over the lazy dog"
       │
@@ -4526,11 +4788,11 @@ Token + Position Embeddings (No Causal Masking!)
                                     ├──► Passage Vector for HNSW Vector DB
                                     └──► Token Classification / NER Logits`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero autoregressive decode loop overhead. Single-pass forward propagation gives 5-15ms inference latency. Contextual bidirectional visibility avoids left-to-right recency bias in dense embeddings. Highly compressible with ONNX/TensorRT for microsecond CPU inference.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Limitations</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Limitations</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Completely incapable of text generation or conversational completion. Historical BERT models suffered from 512-token context limits and padding token inefficiency (solved in ModernBERT with unpadding and 8192 context).</span>
             </div>`,
             code: `from transformers import AutoModel, AutoTokenizer
@@ -4549,7 +4811,7 @@ with torch.no_grad():
         'decoder': {
             badge: 'ARCHITECTURE: CAUSAL AUTOREGRESSIVE DECODER',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Attention: Lower Triangular Mask</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Execution: Prefill + Decode Phase</span>',
-            title: '🧠 Decoder-Only Architecture: Generative Causal Language Models',
+            title: 'Decoder-Only Architecture: Generative Causal Language Models',
             desc: '<strong>Structural Anatomy:</strong> Stack of Transformer blocks enforcing a <strong>strictly causal attention mask</strong>: token at position \\(t\\) can only attend to tokens at positions \\(\\le t\\). Pre-trained on next-token prediction across trillions of tokens: \\[\\mathcal{L}_{\\text{CLM}} = -\\sum_{t=1}^T \\log P(x_t \\mid x_{<t})\\] During generation, the model executes a fast parallel <strong>Prefill Phase</strong> (processing user prompt) followed by sequential memory-bandwidth-bound <strong>Decode Steps</strong> (generating one token at a time utilizing cached KV states).',
             sketch: `Prompt: "Explain RAG architecture"
       │
@@ -4577,11 +4839,11 @@ Token + RoPE Embeddings
                                     ▼
        Softmax / Top-p Sampling ──► Next Token "Retrieval" (Append & Repeat)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Universal multi-task generalist: performs open conversation, JSON structured output, multi-hop reasoning, and tool execution in a single architecture. Easily guided with in-context prompting and system instructions.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Serving Bottlenecks</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Serving Bottlenecks</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Sequential token generation is memory-bandwidth bound. Every single token generated requires reading the entire model weight tensor from HBM into SRAM, yielding low GPU compute arithmetic intensity. Demands vLLM / TensorRT-LLM continuous batching.</span>
             </div>`,
             code: `from vllm import LLM, SamplingParams
@@ -4601,7 +4863,7 @@ outputs = llm.generate(prompts, sampling_params)`
         'seq2seq': {
             badge: 'ARCHITECTURE: ENCODER-DECODER / SEQUENCE-TO-SEQUENCE',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Mechanism: Bidirectional Enc + Cross-Attn Dec</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Excellence: Audio / Translation / Rewriting</span>',
-            title: '🔄 Encoder-Decoder Architecture: Cross-Attention Sequence Mapping',
+            title: 'Encoder-Decoder Architecture: Cross-Attention Sequence Mapping',
             desc: '<strong>Structural Anatomy:</strong> Comprises two distinct modules bridged by <strong>Cross-Attention</strong>. An Encoder processes arbitrary length source tokens \\(X\\) using bidirectional self-attention to generate memory representations \\(H_{\\text{enc}}\\). An autoregressive Decoder generates target sequence \\(Y\\), where each decoder layer computes self-attention on past target tokens, followed by Cross-Attention querying the encoder: \\[\\text{CrossAttention}(Q_{\\text{dec}}, K_{\\text{enc}}, V_{\\text{enc}}) = \\text{softmax}\\left(\\frac{H_{\\text{dec}} W_Q (H_{\\text{enc}} W_K)^\\top}{\\sqrt{d_k}}\\right) H_{\\text{enc}} W_V\\]',
             sketch: `Source Input X ("Translate to German: Enterprise Systems")
       │
@@ -4621,11 +4883,11 @@ Target Generation Y ("Unternehmens...")             ▼          ▼
                                                          ▼
                                                 Next Target Token`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Strict separation of source comprehension and target generation. Unbeatable for speech-to-text (Whisper audio encoder + text decoder), formal document translation, and length-constrained summarization without hallucinating beyond source context.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Serving Realities</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Serving Realities</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Requires maintaining two distinct model blocks and dual KV-caches (one for decoder self-attention, one static cache for cross-attention). Serving engines (vLLM) historically optimized decoder-only models first, making seq2seq deployment less standardized.</span>
             </div>`,
             code: `from transformers import WhisperProcessor, WhisperForConditionalGeneration
@@ -4643,7 +4905,7 @@ transcription = processor.batch_decode(predicted_ids, skip_special_tokens=True)[
         'moe': {
             badge: 'ARCHITECTURE: SPARSE MIXTURE OF EXPERTS',
             stats: '<span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Efficiency: 37B Active / 671B Total</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Throughput: 5x Dense Economy</span>',
-            title: '🧬 Sparse Mixture of Experts (MoE): Decoupled Parameters &amp; Compute',
+            title: 'Sparse Mixture of Experts (MoE): Decoupled Parameters &amp; Compute',
             desc: '<strong>Architectural Breakthrough:</strong> Replaces dense FFN layers with a bank of \\(E\\) independent expert networks and a dynamic Gating Router: \\[y = \\sum_{i \\in \\text{Top-}k(G(x))} G(x)_i \\cdot \\text{Expert}_i(x)\\] In DeepSeek-V3, 1 shared expert is always active to preserve common factual grounding, while 256 fine-grained routed experts are selected dynamically (Top-8 active). <strong>Multi-Head Latent Attention (MLA)</strong> compresses the KV-cache into a low-rank latent representation \\(c_{KV} \\in \\mathbb{R}^{512}\\), slashing VRAM consumption by 93% compared to standard MHA.',
             sketch: `Token Vector x_t
       │
@@ -4662,11 +4924,11 @@ transcription = processor.batch_decode(predicted_ids, skip_special_tokens=True)[
               ▼
    Next Token Representation (Only 37B FLOPs spent despite 671B parameters in RAM!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Frontier model intelligence at a fraction of dense generation cost. Generates tokens at 3x-5x the speed of equivalent dense models because only active expert weights perform matrix multiplications.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Infrastructure Footprint</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Infrastructure Footprint</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">While active compute is 37B, ALL 671B parameters must reside in cluster VRAM simultaneously (~700GB VRAM in FP8 across 8x H100 GPUs). Requires expert parallelism across low-latency InfiniBand networks to avoid inter-node communication bottlenecks.</span>
             </div>`,
             code: `# DeepSeek-V3 Multi-Head Latent Attention (MLA) Concept
@@ -4688,7 +4950,7 @@ class MultiHeadLatentAttention(nn.Module):
         'vit': {
             badge: 'ARCHITECTURE: 2D VISION TRANSFORMER (ViT)',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Input: 16x16 Pixel Patches</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Advantage: Eliminates OCR Errors</span>',
-            title: '👁️ Vision Transformers: 2D Spatial Patch Projections &amp; ColPali Late Interaction',
+            title: 'Vision Transformers: 2D Spatial Patch Projections &amp; ColPali Late Interaction',
             desc: '<strong>Discarding Convolutional Filters:</strong> Dosovitskiy et al. (2020) proved that raw 2D images can be processed natively by standard Transformers without convolutions. An image \\(X \\in \\mathbb{R}^{H \\times W \\times C}\\) is sliced into a grid of non-overlapping \\(P \\times P\\) patches (e.g. \\(16 \\times 16\\) pixels), flattened into vectors of dimension \\(P^2 \\cdot C\\), linearly projected into model dimension \\(d\\), augmented with 2D positional embeddings, and fed into an encoder. In <strong>ColPali</strong>, vision transformer patch embeddings are directly indexed for multi-vector MaxSim retrieval: \\[S(q, d) = \\sum_{i \\in Q} \\max_{j \\in \\text{Patches}} (\\mathbf{q}_i^\\top \\mathbf{p}_j)\\]',
             sketch: `Document / PDF Image (e.g. 1024 x 1024 Pixels)
       │
@@ -4710,11 +4972,11 @@ Add 1D / 2D Learnable Positional Embeddings + [CLS] Token
                                     ├──► [CLS] Token ──► Global Image Vector (CLIP / SigLIP)
                                     └──► All Patch Vectors ──► ColPali Late-Interaction Index`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Directly parses multi-column invoices, corporate stamps, signatures, graphs, and complex financial tables without fragile text OCR preprocessing. Maintains exact visual spatial geometry.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Patch Memory Explosion</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Patch Memory Explosion</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">High-resolution document images (e.g. 2048x2048) generate thousands of patch tokens per page, rapidly consuming context window capacity when passed into multimodal decoders (Qwen2-VL, Llama-3.2-Vision).</span>
             </div>`,
             code: `# ColPali Late-Interaction Retrieval over Document Patches
@@ -4730,7 +4992,7 @@ doc_embeddings = model.process_images(images)  # [1, num_patches, 128]`
         'ssm': {
             badge: 'ARCHITECTURE: SUB-QUADRATIC &amp; STATE-SPACE HYBRIDS',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Complexity: O(N) Linear Time</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Decode: O(1) Constant Memory</span>',
-            title: '⚡ State-Space Models &amp; Sub-Quadratic Hybrids: Mamba-2 &amp; Jamba',
+            title: 'State-Space Models &amp; Sub-Quadratic Hybrids: Mamba-2 &amp; Jamba',
             desc: '<strong>Breaking the Quadratic Ceiling:</strong> State-Space Models (Gu &amp; Dao 2023) map continuous 1D inputs through hidden continuous variables using selective matrices \\(A, B, C\\). During training, the recurrence is converted into an \\(\\mathcal{O}(N)\\) parallel scan. During inference, decoding maintains a <strong>constant-size recurrent state vector</strong>, eliminating the massive KV-cache entirely! Leading production models like <strong>Jamba (AI21)</strong> interleave 1 Attention layer for every 7 Mamba-2 layers, achieving frontier associative recall with linear scaling up to 1,000,000+ tokens.',
             sketch: `TOKEN STREAM: x_1, x_2, ... x_t ... x_N (Up to 1,000,000 Tokens)
       │
@@ -4746,11 +5008,11 @@ JAMBA HYBRID TOPOLOGY (1 Attention Layer every 7 Mamba Layers):
 [ Mamba SSM ] ──► [ Mamba SSM ] ──► [ Mamba SSM ] ──► [ Attention + GQA ] ──► [ Mamba SSM ] ...
 (Provides sharp associative needle-in-a-haystack recall with 85% lower VRAM overhead)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Infinite context feasibility with predictable, constant memory usage. Processing a 1-million-token technical log stream does not crash the serving GPU pod with KV cache OOM.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Trade-Offs</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Trade-Offs</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Pure SSM models suffer slight performance degradation on complex algorithmic in-context reasoning compared to full softmax attention. Hybrid architectures (Jamba) are mandatory for production parity.</span>
             </div>`,
             code: `# Mamba-2 Linear Attention Duality
@@ -4813,7 +5075,7 @@ out = mamba_block(x)`
 
     const tfWorkloadData = {
         'search': {
-            title: '🔍 Workload: High-Concurrency Dense Retrieval &amp; Semantic Search',
+            title: 'Workload: High-Concurrency Dense Retrieval &amp; Semantic Search',
             badge: 'SLA: P95 &lt; 10ms | Hardware: NVIDIA L4 / T4',
             desc: '<strong>Architectural Recommendation: ModernBERT / BGE-M3 (Encoder-Only).</strong> Dense retrieval requires bidirectional contextual attention without autoregressive generation overhead. Deploying decoder models for pure embedding generation wastes up to 90% of GPU compute and creates massive KV-cache thrashing. ModernBERT executes native FlashAttention-2 with unpadded sequence packing, delivering 15,000 queries/sec per L4 GPU at $0.00001 per request.',
             code: `# Serving High-Throughput ModernBERT via ONNX Runtime & Triton
@@ -4822,7 +5084,7 @@ out = mamba_block(x)`
 # Latency: 3.2ms | Throughput: 4,500 req/sec | GPU Memory: 1.2GB VRAM`
         },
         'chat': {
-            title: '🧠 Workload: Enterprise Conversational Agent &amp; Tool Calling',
+            title: 'Workload: Enterprise Conversational Agent &amp; Tool Calling',
             badge: 'SLA: P95 TTFT &lt; 150ms | Hardware: NVIDIA A100 / H100',
             desc: '<strong>Architectural Recommendation: Llama-3.1-8B-Instruct with GQA (Decoder-Only).</strong> Conversational workflows demand high instruction fidelity and structured JSON output. Grouped-Query Attention (GQA) reduces KV-cache memory footprint by 8x, allowing high concurrency (batch sizes of 64+) under vLLM PagedAttention with zero out-of-memory crashes.',
             code: `# Production vLLM Deployment with Tensor Parallelism
@@ -4834,7 +5096,7 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct \\
     --kv-cache-dtype auto`
         },
         'seq2seq': {
-            title: '🔄 Workload: High-Fidelity Audio Transcription &amp; Document Translation',
+            title: 'Workload: High-Fidelity Audio Transcription &amp; Document Translation',
             badge: 'SLA: P95 &lt; 250ms | Hardware: NVIDIA L4 / A10G',
             desc: '<strong>Architectural Recommendation: Whisper-Large-v3 / T5 (Encoder-Decoder).</strong> For speech-to-text and multi-lingual translation, Cross-Attention acts as an explicit memory anchor, preventing the decoder from wandering or hallucinating facts absent from the input audio or text. Audio spectrograms are processed once by the bidirectional encoder; the autoregressive decoder outputs timestamps and tokens.',
             code: `# Serving Whisper-Large-v3 via TensorRT-LLM
@@ -4843,7 +5105,7 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct \\
 # Memory footprint: 4.8GB VRAM | Throughput: 120 audio streams concurrently`
         },
         'moe': {
-            title: '🧬 Workload: High-Volume Multi-Tenant Cloud Platform',
+            title: 'Workload: High-Volume Multi-Tenant Cloud Platform',
             badge: 'SLA: P95 &lt; 200ms | Hardware: 8x H100 GPU Pod',
             desc: '<strong>Architectural Recommendation: DeepSeek-V3 / Mixtral 8x7B (Sparse MoE).</strong> Cloud platforms serving hundreds of diverse enterprise applications cannot afford to run separate specialized models for coding, math, legal, and chat. DeepSeek-V3 activates only 37B parameters per token out of 671B total, delivering GPT-4-class reasoning at 1/5th the serving token cost.',
             code: `# DeepSeek-V3 Production Sharding via SGLang & DeepSpeed
@@ -4852,7 +5114,7 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct \\
 # Multi-Head Latent Attention (MLA) slashes KV cache memory by 93%`
         },
         'vlm': {
-            title: '👁️ Workload: Complex Invoices, Stamped Forms &amp; Technical Diagrams',
+            title: 'Workload: Complex Invoices, Stamped Forms &amp; Technical Diagrams',
             badge: 'SLA: P95 &lt; 400ms | Hardware: NVIDIA L4 / A10G',
             desc: '<strong>Architectural Recommendation: ColPali (ViT Late-Interaction) + Qwen2-VL.</strong> Standard OCR parsers mangle multi-column tables, financial footnotes, and corporate signatures into unreadable text. Vision Transformers split high-resolution document pages into 2D patches, allowing direct visual token indexing and multi-modal question answering without any OCR data corruption.',
             code: `# End-to-End Multimodal Document Ingestion Pipeline
@@ -4861,7 +5123,7 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct \\
 # 3. Top retrieved page image passed to Qwen2-VL for structured Pydantic JSON extraction`
         },
         'long': {
-            title: '⚡ Workload: Million-Token Telemetry &amp; Entire Codebase Auditing',
+            title: 'Workload: Million-Token Telemetry &amp; Entire Codebase Auditing',
             badge: 'SLA: P95 &lt; 500ms | Hardware: Single GPU A100 / L4',
             desc: '<strong>Architectural Recommendation: Jamba / Mamba-2 State-Space Hybrids.</strong> Feeding 500,000+ tokens of system logs, distributed traces, or massive git repositories into standard quadratic transformers crashes GPU VRAM with massive KV caches. State-space hybrids process token streams in linear time with a constant ~8KB state vector, maintaining low latency and zero memory exhaustion.',
             code: `# Long-Context Log Ingestion Harness via Jamba-1.5
@@ -4910,7 +5172,7 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct \\
         'contract': {
             badge: 'DATAOPS PILLAR 1: DATA QUALITY CONTRACTS',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Validation: Circuit-Breaker Ingestion</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Standard: Great Expectations / Pandera</span>',
-            title: '📜 Data Contracts &amp; Automated Schema Validation: Circuit-Breaker Ingestion',
+            title: 'Data Contracts &amp; Automated Schema Validation: Circuit-Breaker Ingestion',
             desc: '<strong>The Production Crisis:</strong> Upstream application changes (e.g., renaming a column from <code>user_id</code> to <code>account_id</code>, converting a float score to string, or injecting unexpected NULLs) silently break downstream feature pipelines and corrupt embeddings without throwing SQL syntax errors. <strong>Data Contracts</strong> treat datasets as APIs with strict, versioned schemas, semantic assertions, and automated circuit-breaker quarantine rules.',
             sketch: `Raw Ingestion Stream (Kafka / S3 / Batch Files)
       │
@@ -4932,11 +5194,11 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct \\
         Trigger Feature Pipeline                      ├──► Slack / PagerDuty Alert
                                                       └──► OpenLineage Error Log`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Prevents silent model corruption. Ensures garbage data never pollutes feature stores or vector embeddings. Clear contractual boundary between software engineering teams producing data and ML teams consuming it.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Traps</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Traps</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Overly rigid contracts cause false-positive pipeline stalls when upstream systems legitimately expand schemas. Requires automated dead-letter queue reprocessing workflows and contract version negotiation.</span>
             </div>`,
             code: `import pandera as pa
@@ -4963,7 +5225,7 @@ def validate_ingestion_batch(df):
         'lineage': {
             badge: 'DATAOPS PILLAR 2: PROVENANCE & LINEAGE',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Compliance: EU AI Act &amp; HIPAA</span><span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 8px; border-radius: 4px;">Standard: DVC / OpenLineage</span>',
-            title: '🔗 Immutable Data Versioning &amp; End-to-End Lineage: Cryptographic Provenance',
+            title: 'Immutable Data Versioning &amp; End-to-End Lineage: Cryptographic Provenance',
             desc: '<strong>The Regulatory Mandate:</strong> In enterprise banking and healthcare, regulators mandate answering: <em>"Which exact 1,240,500 training records generated the model weights deployed on August 14th?"</em> Merely versioning code via Git is insufficient. <strong>Data Version Control (DVC)</strong> and <strong>LakeFS</strong> treat multi-terabyte data partitions with content-addressable SHA-256 hashes, while <strong>OpenLineage</strong> captures full directed acyclic graph (DAG) metadata across transformations.',
             sketch: `Git Commit (Code: e8a91c) ──► DVC File Pointer (.dvc hash: f42a78bc...)
                                                │
@@ -4984,11 +5246,11 @@ def validate_ingestion_batch(df):
                                                 [ MLflow Model Run #882 ]
                                                 (Hash linked to exact data snapshot!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Guarantees 100% deterministic model reproducibility. Instant root-cause debugging: if model predictions degrade, lineage tracing immediately pinpoints the exact corrupted upstream data partition.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Storage Overhead</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Storage Overhead</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Naive data versioning duplicates petabytes of storage. Requires copy-on-write table formats (Apache Iceberg / Delta Lake) and zero-copy metadata pointer branching (LakeFS).</span>
             </div>`,
             code: `# Reproducible Data Versioning via DVC & Git
@@ -5004,7 +5266,7 @@ def validate_ingestion_batch(df):
         'featurestore': {
             badge: 'DATAOPS / MLOPS PILLAR 3: FEATURE STORES',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Latency: Sub-2ms Redis Lookup</span><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Zero Training-Serving Skew</span>',
-            title: '⚡ Dual-Tier Feature Stores: Solving Training-Serving Skew &amp; Point-in-Time Joins',
+            title: 'Dual-Tier Feature Stores: Solving Training-Serving Skew &amp; Point-in-Time Joins',
             desc: '<strong>The Enterprise Trap:</strong> When features are engineered in SQL/Spark for batch training, but re-implemented in Python/Java for real-time serving, mathematical discrepancies inevitably arise (<strong>Training-Serving Skew</strong>). Furthermore, joining historical data without <strong>point-in-time correctness</strong> creates "Data Leakage" (model trained on future events). <strong>Feature Stores (Feast / Hopsworks)</strong> unify feature definitions into a single abstraction.',
             sketch: `Single Feature Definition: "user_rolling_spend_1hr"
                          │
@@ -5022,11 +5284,11 @@ Model Training Pipeline           Triton / FastAPI Serving Engine
 • Training-Serving Skew = 0.0000%
 • Production Feature Drift minimized by automated sync`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Eliminates redundant feature calculation across engineering teams. Enables sub-2ms feature enrichment on raw user requests. Point-in-time joins eliminate catastrophic lookahead data leakage in predictive models.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Synchronization Drift</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Synchronization Drift</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Offline and online stores must be constantly synchronized via streaming workers (Kafka/Flink). Stale online cache leads to serving degraded feature values while offline training assumes fresh data.</span>
             </div>`,
             code: `from feast import Entity, FeatureView, Field, FileSource
@@ -5051,7 +5313,7 @@ user_stats_fv = FeatureView(
         'registry': {
             badge: 'MLOPS PILLAR 4: EXPERIMENT TRACKING & REGISTRY',
             stats: '<span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 8px; border-radius: 4px;">Governance: Stage-Gated Promotion</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Standard: MLflow / W&amp;B</span>',
-            title: '🏛️ Experiment Tracking &amp; Enterprise Model Registry: Cryptographic Governance',
+            title: 'Experiment Tracking &amp; Enterprise Model Registry: Cryptographic Governance',
             desc: '<strong>Eliminating Cowboy Deployments:</strong> An Enterprise Model Registry acts as the authoritative system of record for all trained model artifacts. Tracks training hyperparameters, evaluation metrics (ROC-AUC, F1, latency), model signatures, dependencies, and git commits. Enforces <strong>stage-gated promotion workflows</strong>: models must pass automated validation benchmarks before transitioning from <code>Staging</code> to <code>Production</code>.',
             sketch: `TRAINING CLUSTER (Kubeflow / Slurm)
   • Run #1204: lr=2e-5, bsz=64 ──► Logs Metrics (F1=0.924, Latency=12ms)
@@ -5075,11 +5337,11 @@ user_stats_fv = FeatureView(
                                ▼
                CD Pipeline Deployment to Kubernetes`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Strict separation of model experimentation from production deployment. Full audit trail: who trained the model, on what data, who approved it, and what container image runs it. Instant 1-click rollback to previous pinned artifact.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Governance Bottlenecks</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Governance Bottlenecks</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Manual approval gates can create deployment logjams if not automated with synthetic evaluation test benches. Model serialization format mismatches (e.g. PyTorch pickling vulnerabilities vs ONNX/SafeTensors).</span>
             </div>`,
             code: `import mlflow
@@ -5103,7 +5365,7 @@ if run.data.metrics.get("val_f1", 0) >= 0.90 and run.data.metrics.get("latency_p
         'ct': {
             badge: 'MLOPS PILLAR 5: CONTINUOUS TRAINING (CT)',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Automation: Google MLOps Level 1</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Orchestrator: Kubeflow / Airflow</span>',
-            title: '🔄 Continuous Training (CT) Pipelines: Automated Closed-Loop Adaptation',
+            title: 'Continuous Training (CT) Pipelines: Automated Closed-Loop Adaptation',
             desc: '<strong>Moving Beyond Static Models:</strong> Static machine learning models deteriorate the moment they are deployed as consumer habits, market conditions, and language evolve. <strong>Continuous Training (CT)</strong> automates the retraining loop without manual engineer intervention. Retraining is triggered by: (1) Schedule (e.g. weekly), (2) Data Drift thresholds (PSI > 0.25), (3) Performance degradation, or (4) Event-driven thresholds (e.g. 10,000 newly verified user correction labels).',
             sketch: `EVENTS & DRIFT TRIGGERS:
   • Trigger 1: Population Stability Index (PSI > 0.25)
@@ -5128,11 +5390,11 @@ if run.data.metrics.get("val_f1", 0) >= 0.90 and run.data.metrics.get("latency_p
                                   ▼
                 Trigger Automated Canary Rollout Pipeline`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero engineering toil to keep models accurate. Automatically adapts to seasonal trends and new vocabulary. Prevents silent revenue loss caused by stale model predictions.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Self-Reinforcing Feedback Loops</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Self-Reinforcing Feedback Loops</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Automated retraining on model-generated labels can cause self-referential model collapse. Strict data validation and human-in-the-loop review buffers are mandatory before training data enters the CT loop.</span>
             </div>`,
             code: `# Airflow DAG Triggering Automated Continuous Training on Drift Alert
@@ -5152,7 +5414,7 @@ with DAG("mlops_continuous_training", start_date=datetime(2026, 1, 1), schedule_
         'deployment': {
             badge: 'MLOPS PILLAR 6: PROGRESSIVE CANARY & DRIFT LOOPS',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Zero Downtime: Argo Rollouts</span><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Drift Metric: KS-Test / PSI < 0.10</span>',
-            title: '🚀 Progressive Canary Deployment &amp; Closed-Loop Drift Compensation',
+            title: 'Progressive Canary Deployment &amp; Closed-Loop Drift Compensation',
             desc: '<strong>Zero-Risk Production Rollouts:</strong> Big-bang deployments are unacceptable in mission-critical applications. <strong>Shadow Deployments</strong> mirror live production traffic to the new model without returning its responses to users, validating latency and accuracy in silence. <strong>Canary Rollouts</strong> shift traffic progressively (5% ➔ 20% ➔ 100%) while <strong>Evidently AI</strong> calculates real-time data drift (Kolmogorov-Smirnov test) and concept drift, triggering an instant automatic rollback if error rates exceed 0.5%.',
             sketch: `Live User Ingress Traffic (10,000 QPS)
             │
@@ -5177,11 +5439,11 @@ with DAG("mlops_continuous_training", start_date=datetime(2026, 1, 1), schedule_
 │  [-] Metrics Degrade: Instant Rollback in 200ms!                       │
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero downtime deployments. Limits real-world exposure to subtle model regressions to a tiny 5% canary slice. Automated circuit-breaker rollbacks prevent operational outages and customer dissatisfaction.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Infrastructure Footprint</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Infrastructure Footprint</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Shadow and canary deployments require running redundant GPU/CPU pod replicas simultaneously, temporarily increasing cluster hosting costs during rollout verification windows.</span>
             </div>`,
             code: `# Argo Rollouts Canary Strategy with Automated Analysis
@@ -5248,7 +5510,7 @@ spec:
 
     const dmlScenarioData = {
         'fraud': {
-            title: '⚡ Workload 1: Fintech High-Throughput Fraud Detection &amp; Streaming Ingestion',
+            title: 'Workload 1: Fintech High-Throughput Fraud Detection &amp; Streaming Ingestion',
             badge: 'SLA: P95 &lt; 5ms | Zero Feature Skew | 100k QPS',
             desc: '<strong>Architectural Recommendation: Streaming Kafka + Feast Online Store (Redis) + Treelite XGBoost.</strong> Card swipe transactions cannot wait for batch database queries. High-velocity clickstream and historical spend aggregation features are computed in Flink, materialized to Redis via Feast at 1.2ms latency, while the offline Parquet store retains point-in-time exact training rows for continuous daily retraining.',
             code: `# Feast Online Feature Retrieval at Inference Time (< 2ms)
@@ -5266,7 +5528,7 @@ features = store.get_online_features(
 # Direct scoring in Treelite / Triton FIL backend in 0.4ms`
         },
         'health': {
-            title: '🏥 Workload 2: Clinical EHR Patient Triage &amp; Regulatory Auditability',
+            title: 'Workload 2: Clinical EHR Patient Triage &amp; Regulatory Auditability',
             badge: 'Compliance: HIPAA &amp; EU AI Act | 100% Provenance Audit',
             desc: '<strong>Architectural Recommendation: Great Expectations Schema Contracts + DVC Lineage + Shadow Testing.</strong> When machine learning impacts clinical diagnosis, regulatory authorities mandate proving exact dataset provenance. Pandera blocks dirty patient rows at the ingestion boundary; DVC cryptographically hashes the training cohort; models undergo 30-day shadow testing against human physician decisions before canary traffic authorization.',
             code: `# Clinical Data Provenance Hash Linking in MLflow
@@ -5281,7 +5543,7 @@ with mlflow.start_run():
     # Deploy to shadow cluster (0% live user impact)`
         },
         'ecom': {
-            title: '🛍️ Workload 3: E-Commerce Recommendation Engine &amp; Continuous Training',
+            title: 'Workload 3: E-Commerce Recommendation Engine &amp; Continuous Training',
             badge: 'Automation: Daily Retraining CT | Airflow + KFP',
             desc: '<strong>Architectural Recommendation: Continuous Retraining DAG (Airflow + Kubeflow) + Feast Offline Joins.</strong> Consumer purchase trends shift rapidly across holiday sales and seasons. Airflow triggers daily continuous training (CT) DAGs joining user interactions against Feast offline features, running distributed candidate retrieval training on PyTorch, and auto-promoting models if NDCG@10 improves by >0.5%.',
             code: `# Automated Champion-Challenger Evaluation Script
@@ -5296,7 +5558,7 @@ def evaluate_candidate(champion_model, challenger_model, test_dataset):
         print("Candidate rejected: Insufficient improvement")`
         },
         'rag': {
-            title: '📚 Workload 4: Enterprise RAG DataOps &amp; Vector Lifecycle Management',
+            title: 'Workload 4: Enterprise RAG DataOps &amp; Vector Lifecycle Management',
             badge: 'Throughput: 50k Pages/Hr | Qdrant / Milvus Vector Store',
             desc: '<strong>Architectural Recommendation: Unstructured Parsing + Apache Iceberg Document Lakehouse + Vector Store Lineage.</strong> In enterprise RAG, DataOps governs the raw document ingestion pipeline. When corporate policy documents are updated, DataOps tracks chunk-to-document parent lineage, invalidates stale vector embeddings in Qdrant, and automatically updates the semantic index with zero downtime.',
             code: `# RAG DataOps: Document Version Tracking & Embedding Invalidation
@@ -5353,7 +5615,7 @@ def sync_document_updates(doc_id, new_pdf_path, vector_db):
         'bronze': {
             badge: 'TIER 1: RAW INGESTION LANDING ZONE',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Fidelity: 100% Unmodified Raw</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Pattern: Append-Only Immutable</span>',
-            title: '🥉 Bronze Layer: The Unmodified Raw Audit Trail &amp; Historical Landing Zone',
+            title: 'Bronze Layer: The Unmodified Raw Audit Trail &amp; Historical Landing Zone',
             desc: '<strong>Architectural Role in AI Systems:</strong> The Bronze layer preserves raw incoming data in its exact native state (unparsed JSON payloads, raw PDFs, audio streams, CDC changelogs, Kafka event offsets) enriched strictly with metadata: <code>_ingest_timestamp</code>, <code>_source_system</code>, and <code>_batch_id</code>. In enterprise AI, Bronze is the <strong>ultimate disaster-recovery anchor</strong>: whenever embedding models are upgraded, tokenizers evolve, or parsing heuristics change, the Bronze layer enables 100% deterministic re-ingestion and reprocessing without data loss.',
             sketch: `Raw Ingestion Streams (Kafka, Debezium CDC, S3 Document Dumps, Third-Party APIs)
       │
@@ -5374,11 +5636,11 @@ def sync_document_updates(doc_id, new_pdf_path, vector_db):
        [ S3 Bronze Bucket: s3://enterprise-lakehouse/bronze/iceberg/ ]
        (Guarantees full historical auditability &amp; complete replay capability)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero ingestion latency overhead. Data is never rejected or discarded at Bronze. Protects against upstream software bugs and provides legal proof of exact raw inputs for compliance audits.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f59e0b;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">⚠️ Consumption Warning</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fbbf24;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Consumption Warning</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;"><strong>Never connect ML models or RAG indexing directly to Bronze!</strong> Unvalidated schemas, duplicate records, unmasked PII, and formatting anomalies will degrade model embeddings and breach privacy laws.</span>
             </div>`,
             code: `import dlt
@@ -5400,7 +5662,7 @@ def bronze_raw_documents():
         'silver': {
             badge: 'TIER 2: CONFORMED SINGLE SOURCE OF TRUTH',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Quality: Schema Enforced (Pandera)</span><span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 8px; border-radius: 4px;">Security: Presidio PII Masking</span>',
-            title: '🥈 Silver Layer: Cleaned, Conformed &amp; Enriched Single Source of Truth',
+            title: 'Silver Layer: Cleaned, Conformed &amp; Enriched Single Source of Truth',
             desc: '<strong>Architectural Role in AI Systems:</strong> The Silver layer cleanses and normalizes Bronze records into reliable enterprise datasets. Executes <strong>Data Contracts</strong> validation, de-duplicates event logs, unifies timestamps to UTC, redacts sensitive customer PII (credit cards, SSNs, medical codes) via Microsoft Presidio, and parses raw text into clean markdown structures. In AI, Silver is the authoritative reservoir that feeds <strong>Feature Stores (Feast)</strong>, document chunking pipelines, and domain pre-training corpora.',
             sketch: `Bronze Raw Lakehouse Table (Raw JSON / PDF Blobs)
       │
@@ -5418,11 +5680,11 @@ def bronze_raw_documents():
        [ S3 Silver Bucket: s3://enterprise-lakehouse/silver/iceberg/ ]
        (Cleaned, reliable, queryable conformed enterprise tables!)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Strict schema-on-write prevents downstream pipeline failures. PII masking ensures zero private customer telemetry enters LLM prompts or vector databases. Single unified source of truth for both analytics and ML.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Considerations</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Considerations</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Silver tables are still entity-normalized or semi-structured; directly running complex multi-table joins during model training creates compute bottlenecks without an aggregated Gold layer.</span>
             </div>`,
             code: `@dlt.table(
@@ -5441,7 +5703,7 @@ def silver_cleaned_documents():
         'gold': {
             badge: 'TIER 3: CURATED ML & ANALYTICAL FEATURES',
             stats: '<span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Structure: ML-Ready (X, y) Matrices</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Integrity: Point-in-Time Correct</span>',
-            title: '🥇 Gold Layer: Business-Aggregated &amp; ML-Ready Feature Consumption',
+            title: 'Gold Layer: Business-Aggregated &amp; ML-Ready Feature Consumption',
             desc: '<strong>Architectural Role in AI Systems:</strong> The Gold layer produces specialized, highly denormalized, project-level analytical and machine learning tables. Here, features are aggregated (e.g. <code>user_rolling_spend_30d</code>, <code>login_failure_rate_1hr</code>, <code>risk_index_ratio</code>) with strict <strong>point-in-time correctness</strong> to eliminate lookahead data leakage. Gold tables serve directly as training matrices \\((X, y)\\) for PyTorch/XGBoost models and feed the offline storage tier of enterprise Feature Stores.',
             sketch: `Silver Conformed Tables (Transactions, User Profiles, Auth Logs)
       │
@@ -5459,11 +5721,11 @@ def silver_cleaned_documents():
        ├─► Feast Offline Feature Store (Parquet partitions)
        └─► Distributed Model Training Pipeline (PyTorch DDP Cluster)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero join overhead during model training: reads high-speed columnar Parquet directly into PyTorch DataLoaders. Point-in-time correctness guarantees that test set accuracy translates faithfully to production.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Storage Expansion</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Storage Expansion</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Denormalized tables duplicate data across multiple specialized project-specific Gold views. Requires automated retention and lifecycle policies to prune historical training snapshots.</span>
             </div>`,
             code: `# dbt SQL Model: Point-in-Time Gold Feature Table for Fraud Model
@@ -5483,7 +5745,7 @@ LEFT JOIN {{ ref('silver_user_aggregates') }} u
         'platinum': {
             badge: 'TIER 4: VECTOR EMBEDDINGS & ONLINE SERVING CACHE',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Latency: Sub-2ms Redis / Sub-10ms Qdrant</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Architecture: HNSW Index &amp; Semantic Cache</span>',
-            title: '💎 Platinum / Vector AI Layer: Real-Time Embeddings &amp; Low-Latency Serving',
+            title: 'Platinum / Vector AI Layer: Real-Time Embeddings &amp; Low-Latency Serving',
             desc: '<strong>Architectural Role in Generative AI:</strong> The modern AI Lakehouse extends the classical Medallion model with a <strong>Platinum / Vector AI Layer</strong>. This layer operationalizes Gold data for sub-10ms real-time inference. Contains <strong>Vector Embeddings</strong> (HNSW/IVF indexes in Qdrant/Milvus), token-level late-interaction patch matrices (ColPali), <strong>Online Feature Stores</strong> (Redis/Dragonfly key-value caches), and semantic prompt caches.',
             sketch: `Gold Curated Datasets (Document Chunks & Entity Aggregate Features)
       │
@@ -5496,11 +5758,11 @@ LEFT JOIN {{ ref('silver_user_aggregates') }} u
       └──► Aggregated Features ──► [ Feast Materialization ] ──► Redis Key-Value (Platinum)
                                                                  (Sub-1.5ms Online Lookup)`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Powers live production RAG queries and real-time fraud scoring. Decouples expensive offline batch generation from low-latency online serving. Enables automated cache invalidation when Gold data updates.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Cache Invalidation Overhead</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Cache Invalidation Overhead</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Vector stores and Redis caches can become out-of-sync with the lakehouse. Requires automated Change Data Capture (CDC) triggers from Gold to Platinum to delete stale vectors on document revision.</span>
             </div>`,
             code: `# Materializing Gold Features into Platinum Online Redis Store via Feast
@@ -5571,7 +5833,7 @@ store.materialize(
         'internals': {
             badge: 'PILLAR 1: STREAMING CORE',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Delivery: Exactly-Once Processing (EOP)</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Concurrency: Partition Bounded (C &le; P)</span>',
-            title: '📨 Kafka Partitions, Consumer Groups &amp; Exactly-Once Processing (EOP)',
+            title: 'Kafka Partitions, Consumer Groups &amp; Exactly-Once Processing (EOP)',
             desc: '<strong>Architectural Mechanics:</strong> Partitions are Kafka\'s unit of horizontal scale. Messages sharing an entity key (e.g. <code>doc_id</code> or <code>user_id</code>) are deterministically routed to the identical partition via <code>murmur2(key) % num_partitions</code>, ensuring strict sequential ordering. Within a Consumer Group, maximum concurrency is bounded by partition count (\\(C \\le P\\)). <strong>Exactly-Once Processing (EOP)</strong> leverages transactional producers and two-phase commit: consumers reading with <code>isolation.level=read_committed</code> never process uncommitted or aborted messages.',
             sketch: `Transactional Producer (enable.idempotence=true, acks=all)
       │
@@ -5587,11 +5849,11 @@ store.materialize(
 • If 5th Consumer Pod joins: IDLE (Cannot read; C > P partition limit).
 • If Pod 1 crashes: Cooperative Sticky Rebalance reassigns P1 without stopping P0, P2, P3!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Strict per-entity message ordering. Millions of events/sec throughput with sequential disk writes and Zero-Copy OS page-cache transfers (<code>sendfile()</code>). EOP prevents duplicate vector embedding generations.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Constraints</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Constraints</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Scaling consumer worker concurrency is strictly capped by partition count. Re-partitioning live topics requires careful data migration to avoid breaking key-hash locality.</span>
             </div>`,
             code: `from confluent_kafka import Producer, Consumer
@@ -5617,7 +5879,7 @@ except Exception as e:
         'gpu': {
             badge: 'PILLAR 2: CLOUD-NATIVE GPU SCHEDULING',
             stats: '<span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 8px; border-radius: 4px;">Hardware Slicing: Up to 7x MIG</span><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Lifecycle: NVIDIA GPU Operator</span>',
-            title: '🎮 Kubernetes GPU Scheduling, Operators &amp; Hardware Slicing (MIG / MPS)',
+            title: 'Kubernetes GPU Scheduling, Operators &amp; Hardware Slicing (MIG / MPS)',
             desc: '<strong>Solving the GPU Cost Crisis:</strong> Dedicating an entire $35,000 NVIDIA H100 to a lightweight text embedding model wastes 85% of GPU compute. <strong>Multi-Instance GPU (MIG)</strong> physically slices an A100 or H100 into up to 7 completely isolated GPU instances with dedicated Streaming Multiprocessors (SMs), memory controllers, and high-bandwidth memory (HBM). The <strong>NVIDIA GPU Operator</strong> exposes these instances directly as Kubernetes schedulable resources (<code>nvidia.com/mig-1g.10gb</code>).',
             sketch: `PHYSICAL NVIDIA A100 / H100 80GB GPU NODE
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -5632,11 +5894,11 @@ except Exception as e:
 • Zero Noisy-Neighbor Interference: Memory bandwidth & compute strictly walled!
 • If Pod 1 CUDA OOMs, other 6 pods continue running with 0% impact!`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">True hardware-level fault isolation. Maximizes GPU ROI by co-locating up to 7 independent inference microservices on a single physical accelerator without latency jitter.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Architectural Boundaries</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Architectural Boundaries</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">MIG profiles are statically configured per GPU and cannot be dynamically resized while pods are attached. Models requiring multi-GPU NVLink tensor parallelism cannot span across MIG slices.</span>
             </div>`,
             code: `# Kubernetes Pod Spec Requesting MIG Slice
@@ -5662,7 +5924,7 @@ spec:
         'keda': {
             badge: 'PILLAR 3: EVENT-DRIVEN AUTOSCALING',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Scale-to-Zero: 100% Compute Savings</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Trigger: Kafka Broker Consumer Lag</span>',
-            title: '⚡ Event-Driven Pod Autoscaling with KEDA on Kafka Consumer Lag',
+            title: 'Event-Driven Pod Autoscaling with KEDA on Kafka Consumer Lag',
             desc: '<strong>Why Standard HPA Fails for Streaming AI:</strong> Kubernetes Horizontal Pod Autoscaler (HPA) monitors CPU and RAM. When 100,000 PDF documents land in a Kafka topic, CPU usage inside existing workers might remain normal while the queue backlog explodes to an unacceptable 2-hour processing delay! <strong>KEDA (Kubernetes Event-driven Autoscaling)</strong> connects directly to Kafka broker metrics to monitor <strong>Consumer Group Lag</strong>: \\[\\text{Target Pods} = \\min\\left(\\text{maxReplicas}, \\left\\lceil \\frac{\\text{Total Consumer Lag}}{\\text{lagThreshold}} \\right\\rceil \\right)\\] Enabling scale-to-zero when queues are empty and instant scaling to partition limits under load.',
             sketch: `Kafka Broker Metrics (Consumer Group Lag = 12,000 Messages, lagThreshold = 500)
       │
@@ -5681,11 +5943,11 @@ spec:
 │  • Consumer Lag Drops to 0: KEDA scales pods back down to 0!           │
 └────────────────────────────────────────────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero manual capacity planning. Complete cloud cost optimization: idle workloads consume zero GPU/CPU pods. Automatically prevents SLA degradation during massive ingestion bursts.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Cold Start Penalties</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="vertical-align: -1px; margin-right: 4px; color: #fb7185;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Cold Start Penalties</strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Scaling large GPU containers from 0 takes 30-60 seconds for container image pulling and model weight loading into VRAM. Mitigated by setting <code>minReplicaCount: 1</code> or using Karpenter node warming.</span>
             </div>`,
             code: `apiVersion: keda.sh/v1alpha1
@@ -5710,7 +5972,7 @@ spec:
         'cdc': {
             badge: 'PILLAR 4: CHANGE DATA CAPTURE & STREAMING RAG',
             stats: '<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Mechanism: Database WAL Log Mining</span><span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 8px; border-radius: 4px;">Schema: Confluent Avro Registry</span>',
-            title: '🔄 Debezium CDC &amp; Confluent Schema Registry: Zero Dual-Write Ingestion',
+            title: 'Debezium CDC &amp; Confluent Schema Registry: Zero Dual-Write Ingestion',
             desc: '<strong>Eliminating the Dual-Write Bug:</strong> In naive systems, web applications write to PostgreSQL and then attempt to write to Kafka/Vector DB. If the network hiccups between calls, data silently desynchronizes. <strong>Change Data Capture (Debezium)</strong> reads the database transaction log (Write-Ahead Log / WAL) directly at the storage engine level, streaming every row INSERT, UPDATE, and DELETE into Kafka. <strong>Confluent Schema Registry</strong> validates message schemas against strict Avro/Protobuf definitions, blocking unannounced schema breaking changes.',
             sketch: `PostgreSQL Database (Transaction Commit)
       │
@@ -5729,11 +5991,11 @@ spec:
                                     ├──► Worker Pod: Chunk & Embed Updated Text
                                     └──► Vector DB: Invalidate & Upsert Point in Qdrant`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero application code changes required. 100% guarantee that every database mutation is captured in Kafka. Schema registry enforces backward compatibility, protecting downstream vector DBs from parsing failures.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Database WAL Bloat</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Database WAL Bloat</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">If Debezium consumer stops acknowledging offsets, PostgreSQL retains WAL segments on disk indefinitely, risking complete disk space exhaustion on primary database servers.</span>
             </div>`,
             code: `# Debezium PostgreSQL Connector Configuration
@@ -5758,7 +6020,7 @@ spec:
         'resilience': {
             badge: 'PILLAR 5: RESILIENCY & FAULT TOLERANCE',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Pattern: Dead-Letter Queue (DLQ)</span><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 3px 8px; border-radius: 4px;">Shutdown: Graceful SIGTERM Offset Flush</span>',
-            title: '🛡️ Poison Pills, Dead-Letter Queues (DLQ) &amp; Graceful Pod Shutdown',
+            title: 'Poison Pills, Dead-Letter Queues (DLQ) &amp; Graceful Pod Shutdown',
             desc: '<strong>The Poison Pill CrashLoop Trap:</strong> In streaming consumers, if an unparseable malformed document causes an uncaught exception, the container crashes. Kubernetes automatically restarts the pod; the pod re-fetches the identical uncommitted message offset, crashes again, and enters an infinite <strong>CrashLoopBackOff</strong>, completely halting the partition! A resilient streaming pipeline catches parsing failures, publishes the corrupted payload to a <strong>Dead-Letter Queue (DLQ)</strong> with diagnostic headers, commits the offset, and handles <strong>SIGTERM</strong> gracefully.',
             sketch: `Incoming Message Stream
       │
@@ -5778,11 +6040,11 @@ spec:
                                     ▼
        [ Dead-Letter Queue Topic: documents.DLQ ] ──► PagerDuty Alert / Human Triage`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Zero stream stalls: corrupted messages cannot take down entire partition processing. Graceful SIGTERM handling allows in-flight batches to finish before container termination, eliminating duplicate processing.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 Unmonitored DLQ Growth</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Unmonitored DLQ Growth</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">A silent upstream breaking change can flood the DLQ with thousands of discarded events without engineering awareness unless strict Prometheus alert rules monitor DLQ topic message rates.</span>
             </div>`,
             code: `import signal, sys
@@ -5814,7 +6076,7 @@ consumer.close()  # Clean partition leave; prevents stop-the-world rebalance!`
         'serving': {
             badge: 'PILLAR 6: CLOUD-NATIVE SERVING & SERVICE MESH',
             stats: '<span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 3px 8px; border-radius: 4px;">Mesh: Istio gRPC Load Balancing</span><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 3px 8px; border-radius: 4px;">Engine: Triton / vLLM StatefulSet</span>',
-            title: '🚀 Cloud-Native Model Serving &amp; Service Mesh on Kubernetes (Triton / vLLM)',
+            title: 'Cloud-Native Model Serving &amp; Service Mesh on Kubernetes (Triton / vLLM)',
             desc: '<strong>High-Concurrency Serving Topology:</strong> Hosting high-throughput LLMs and embedding models on Kubernetes requires specialized configurations. PyTorch and vLLM multi-GPU tensor parallelism utilize inter-process communication (IPC) via shared memory: omitting an <code>emptyDir: { medium: Memory }</code> mount on <code>/dev/shm</code> causes silent bus crashes. <strong>Istio Service Mesh</strong> provides true L7 gRPC load balancing across streaming connections, ensuring model inference requests are evenly distributed across all GPU replicas.',
             sketch: `Incoming Streaming Requests (HTTP/2 / gRPC)
       │
@@ -5834,11 +6096,11 @@ consumer.close()  # Clean partition leave; prevents stop-the-world rebalance!`
 │  • Memory-backed /dev/shm volume  │ │  • Memory-backed /dev/shm volume │
 └───────────────────────────────────┘ └──────────────────────────────────┘`,
             grid: `<div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #10b981;">
-                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🟢 Production Strengths</strong>
+                <strong style="color: #34d399; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill pros"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>Production Strengths</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">True gRPC stream multiplexing and load balancing across active pods. Dynamic batching in Triton groups concurrent single requests into hardware-saturating GPU matrix operations, multiplying throughput by 4x.</span>
             </div>
             <div style="background: rgba(30, 41, 59, 0.6); padding: 0.8rem; border-radius: 6px; border-left: 3px solid #f43f5e;">
-                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">🔴 IPC Shared Memory Traps</strong>
+                <strong style="color: #fb7185; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;"><span class="badge-status-pill cons"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>IPC Shared Memory Traps</span></strong>
                 <span style="font-size: 0.78rem; color: #e2e8f0; line-height: 1.45;">Default Kubernetes Docker containers allocate only 64MB of <code>/dev/shm</code>. Multi-GPU Tensor Parallelism immediately crashes with <code>Bus error (core dumped)</code> unless an explicit memory-backed volume is mounted.</span>
             </div>`,
             code: `# Triton Inference Server Kubernetes Deployment with Shared Memory
@@ -5914,7 +6176,7 @@ spec:
 
     const kkScenarioData = {
         'rag': {
-            title: '⚡ Workload 1: Million-Scale Real-Time Streaming RAG Ingestion &amp; KEDA Autoscaling',
+            title: 'Workload 1: Million-Scale Real-Time Streaming RAG Ingestion &amp; KEDA Autoscaling',
             badge: 'SLA: P95 &lt; 150ms | 0➔32 Pod Autoscaling | Zero Queue Lag',
             desc: '<strong>Architectural Recommendation: Debezium CDC + Kafka Topic (32 Partitions) + KEDA ScaledObject + Qdrant Vector Store.</strong> When corporate repositories update thousands of documents simultaneously, consumer lag builds up instantly. KEDA detects consumer lag spikes on Kafka topic <code>enterprise.documents</code>, scaling embedding worker pods from 0 to 32 replicas in 15 seconds. Workers embed text via GPU-accelerated ModernBERT and upsert vectors directly to Qdrant.',
             code: `# KEDA ScaledObject Manifest: Scaling on Kafka Consumer Group Lag
@@ -5936,7 +6198,7 @@ spec:
       lagThreshold: "500"  # Scales 1 new pod for every 500 queued messages`
         },
         'fraud': {
-            title: '💳 Workload 2: Sub-10ms Fraud Detection &amp; Real-Time Scoring Stream',
+            title: 'Workload 2: Sub-10ms Fraud Detection &amp; Real-Time Scoring Stream',
             badge: 'SLA: P95 &lt; 3.5ms | 100k QPS | Zero Data Loss',
             desc: '<strong>Architectural Recommendation: Streaming Kafka Ingress + Triton Inference Pods on K8s + Feast Online Redis.</strong> Credit card transactions arrive on Kafka topic <code>payment-transactions</code>. Kubernetes worker pods pull pre-computed features from Redis at 1.2ms, execute compiled XGBoost scoring in Triton FIL backend in 0.4ms, and publish high-risk alerts to topic <code>fraud-alerts</code> in under 3.5ms total round-trip.',
             code: `# Low-Latency Streaming Inference Loop in Worker Pod
@@ -5954,7 +6216,7 @@ while True:
         producer.produce('fraud-alerts', key=msg.key(), value=msg.value())`
         },
         'mig': {
-            title: '🎮 Workload 3: GPU Multi-Tenancy via MIG on an 8x H100 Kubernetes Cluster',
+            title: 'Workload 3: GPU Multi-Tenancy via MIG on an 8x H100 Kubernetes Cluster',
             badge: 'Efficiency: 56 Isolated Microservices on 8 GPUs | 100% QoS',
             desc: '<strong>Architectural Recommendation: NVIDIA GPU Operator + MIG 1g.10gb Partitioning.</strong> An 8x H100 cluster is partitioned into 56 hardware-isolated <code>1g.10gb</code> GPU instances. Slices are assigned across 40 departmental semantic search workers and 16 cross-encoder reranking pods. Dedicated hardware memory controllers guarantee zero noisy-neighbor interference or latency spikes during concurrent peak traffic.',
             code: `# MIG Slicing Node Configuration via NVIDIA GPU Operator
@@ -5975,7 +6237,7 @@ data:
         },
         'rebalance': {
             badge: 'SLA: Zero Stop-the-World Pauses | 100% Partition Availability',
-            title: '🔄 Workload 4: Zero-Downtime Kafka Broker Rebalancing &amp; Resilient Recovery',
+            title: 'Workload 4: Zero-Downtime Kafka Broker Rebalancing &amp; Resilient Recovery',
             desc: '<strong>Architectural Recommendation: Strimzi KRaft Operator + Cruise Control + CooperativeStickyAssignor.</strong> Rolling node upgrades on Kubernetes traditionally trigger eager consumer rebalances that freeze streaming processing. Implementing the Cooperative Sticky Rebalance protocol allows unaffected consumers to process data uninterrupted while reassigned partitions migrate in under 200ms.',
             code: `# Enabling Cooperative Sticky Partition Rebalancing in Consumer
 consumer_conf = {
@@ -6492,64 +6754,143 @@ Format Requirements:
 
     // Agent Simulator State
     let currentAgentSimStep = 1;
+    let agentSimPlayInterval = null;
+
     const simSteps = [
         {
             num: 1,
             title: "Stage 1: Perception & Intent Ingestion",
+            shortName: "1. Perception",
+            iconKey: "eye",
+            subsystem: "Perception & Ingress Layer",
+            actor: "Whisper v3 + Regex Intent NER",
+            latency: "120ms (Ingress)",
+            tokens: "120 tokens",
+            status: "PERCEIVED",
+            gate: "Input Clean • Confidence 0.99",
             color: "#38bdf8",
             desc: "The agent ingests the unstructured user request via whisper audio transcription and text parsing. Entity extraction extracts: Client AcroCorp (UUID: c4f2-901), Intent: Competitor_Audit_And_Proposal_Draft, Target Quarter: Q3.",
-            payload: '{"status": "PERCEIVED", "intent_confidence": 0.99, "action_needed": "ASSEMBLE_CONTEXT_AND_PLAN"}'
+            rationale: "Canonicalizing unstructured audio and raw text into strongly typed Pydantic payloads before any LLM inference prevents prompt injection and downstream schema crashes.",
+            payload: '{\n  "status": "PERCEIVED",\n  "intent_confidence": 0.99,\n  "client": "AcroCorp",\n  "client_uuid": "c4f2-901",\n  "intent": "Competitor_Audit_And_Proposal_Draft",\n  "target_quarter": "Q3",\n  "action_needed": "ASSEMBLE_CONTEXT_AND_PLAN"\n}'
         },
         {
             num: 2,
             title: "Stage 2: Context Assembly & Memory Recall",
+            shortName: "2. Memory Recall",
+            iconKey: "database",
+            subsystem: "Context & 4-Tier Memory",
+            actor: "Pinecone Hybrid Index + Zep/Mem0",
+            latency: "240ms (Hybrid BM25)",
+            tokens: "540 tokens",
+            status: "RECALLED",
+            gate: "Context Hydrated • 3 Chunks",
             color: "#a78bfa",
             desc: "The agent queries Pinecone vector store with hybrid BM25 and consults Zep/Mem0 memory. Recalls: AcroCorp is a VIP Tier client with an existing 14% Q2 discount SLA. Reranks top 3 Q3 SaaS competitor reports from Perplexity.",
-            payload: '{"memories_found": 1, "vip_tier": true, "historical_discount": "14%", "competitor_chunks": 3}'
+            rationale: "Coupling lexical BM25 with dense vector embeddings ensures exact UUID/acronym lookups while retrieving relevant competitor intelligence.",
+            payload: '{\n  "memories_found": 1,\n  "vip_tier": true,\n  "historical_discount": "14%",\n  "sla_tier": "Enterprise_Gold",\n  "competitor_chunks": 3,\n  "rerank_score": 0.94,\n  "context_tokens": 1280\n}'
         },
         {
             num: 3,
             title: "Stage 3: Guardrail & Policy Evaluation",
+            shortName: "3. Guardrails",
+            iconKey: "shield",
+            subsystem: "Safety & Policy Evaluation",
+            actor: "LlamaGuard 3 + OPA Policy Engine",
+            latency: "95ms (Deterministic)",
+            tokens: "210 tokens",
+            status: "GUARD_PASSED",
+            gate: "Policy Constrained • $10k Threshold",
             color: "#f87171",
             desc: "LlamaGuard 3 inspects input prompt for prompt injection and confirms clean score (0.001). Policy engine (OPA) verifies read access to market databases. Notes that any final quote exceeding $10,000 discount will require Slack HITL approval.",
-            payload: '{"guardrail_check": "PASSED", "injection_risk": 0.001, "opa_policy": "ALLOWED_WITH_HITL_THRESHOLD"}'
+            rationale: "Evaluating inputs against corporate Open Policy Agent (OPA) rules establishes hard guardrails before spending compute or invoking external tools.",
+            payload: '{\n  "guardrail_check": "PASSED",\n  "injection_risk": 0.001,\n  "opa_policy": "ALLOWED_WITH_HITL_THRESHOLD",\n  "hitl_discount_threshold_usd": 10000,\n  "pii_masked": false,\n  "egress_whitelisted": true\n}'
         },
         {
             num: 4,
             title: "Stage 4: Planning DAG Generation",
+            shortName: "4. DAG Planning",
+            iconKey: "network",
+            subsystem: "Dynamic Workflow Planner",
+            actor: "LangGraph Pregel State Machine",
+            latency: "310ms (DAG Compile)",
+            tokens: "380 tokens",
+            status: "DAG_COMPILED",
+            gate: "DAG Validated • 3 Sequential Nodes",
             color: "#60a5fa",
             desc: "LangGraph planner creates a 3-step execution Directed Acyclic Graph (DAG): Step 1: SQL query to Snowflake for competitor pricing; Step 2: Calculate contract margin in Python sandbox; Step 3: Trigger Human-in-the-Loop approval if required.",
-            payload: '{"dag_nodes": ["sql_snowflake_tool", "python_margin_calc", "hitl_approval_gate"], "concurrency": "sequential"}'
+            rationale: "Compiling a deterministic Directed Acyclic Graph prevents unconstrained while-loop hallucinations and enables stateful checkpointing.",
+            payload: '{\n  "dag_nodes": [\n    "sql_snowflake_tool",\n    "python_margin_calc",\n    "hitl_approval_gate"\n  ],\n  "concurrency": "sequential",\n  "max_allowed_loops": 4,\n  "checkpoint_id": "chk_8829_q3"\n}'
         },
         {
             num: 5,
             title: "Stage 5: Reasoning & Tool Execution (MCP)",
+            shortName: "5. Tool MCP",
+            iconKey: "tools",
+            subsystem: "Model Context Protocol Tool Egress",
+            actor: "Claude 3.5 Sonnet + Snowflake MCP",
+            latency: "420ms (Tool Run)",
+            tokens: "1,420 tokens",
+            status: "TOOL_SUCCESS",
+            gate: "Exit Code 0 • 3 Rows Returned",
             color: "#4ade80",
             desc: "Claude 3.5 Sonnet formats tool call via Model Context Protocol (MCP) to Snowflake. SQL query runs: SELECT competitor, price_per_seat FROM market_pricing WHERE quarter = 'Q3'. Returns Competitor A: $85/seat, Competitor B: $92/seat, Internal Base: $95/seat.",
-            payload: '{"tool_invoked": "mcp::snowflake_query", "exit_code": 0, "rows_returned": 3, "latency_ms": 420}'
+            rationale: "Executing via the Model Context Protocol (MCP) in isolated sandboxes guarantees least-privilege database access and auditable latency tracking.",
+            payload: '{\n  "tool_invoked": "mcp::snowflake_query",\n  "exit_code": 0,\n  "rows_returned": 3,\n  "latency_ms": 420,\n  "results": [\n    {"competitor": "A", "price": 85},\n    {"competitor": "B", "price": 92},\n    {"internal_base": "AcroCorp", "price": 95}\n  ]\n}'
         },
         {
             num: 6,
             title: "Stage 6: Policy Gate — Slack Approval Triggered",
+            shortName: "6. HITL Gate",
+            iconKey: "user",
+            subsystem: "Human-in-the-Loop Policy Gate",
+            actor: "#deal-desk Slack Webhook + Commercial Director",
+            latency: "Async (168s human click)",
+            tokens: "85 tokens",
+            status: "HITL_APPROVED",
+            gate: "Commercial Director [APPROVED]",
             color: "#fb923c",
             desc: "Agent calculates recommended counter-offer: 15% discount ($80.75/seat) to win deal against Competitor A ($85/seat). Total discount value = $12,500 (> $10k policy threshold). Agent posts interactive approval card to #deal-desk Slack channel. Commercial Director clicks [APPROVE].",
-            payload: '{"hitl_triggered": true, "channel": "#deal-desk", "approver": "dir_finance", "decision": "APPROVED", "timestamp": "2026-10-07T08:00:15Z"}'
+            rationale: "Human-in-the-Loop gates ensure critical business commitments (discounts exceeding $10,000) require auditable executive sign-off before contract emission.",
+            payload: '{\n  "hitl_triggered": true,\n  "channel": "#deal-desk",\n  "calculated_discount": "15%",\n  "discount_total_usd": 12500,\n  "approver": "dir_finance",\n  "decision": "APPROVED",\n  "timestamp": "2026-10-07T08:00:15Z"\n}'
         },
         {
             num: 7,
             title: "Stage 7: Metacognitive Reflection & Self-Check",
+            shortName: "7. Reflection",
+            iconKey: "refresh",
+            subsystem: "Metacognitive Self-Audit",
+            actor: "LangSmith Reflection Scorer",
+            latency: "280ms (Audit)",
+            tokens: "680 tokens",
+            status: "GOAL_SATISFIED",
+            gate: "Groundedness Score 0.98 • Margin 68%",
             color: "#818cf8",
             desc: "LangSmith reflection evaluator audits generated proposal draft. Validates: 100% facts cited from Snowflake query, discount approved by authorized executive, margin remains above 68% profitability threshold. Groundedness Score = 0.98.",
-            payload: '{"completeness_score": 1.0, "groundedness_score": 0.98, "margin_compliance": true, "status": "GOAL_SATISFIED"}'
+            rationale: "Metacognitive self-evaluators verify factual citations, margin compliance, and completeness against ground truth before customer delivery.",
+            payload: '{\n  "completeness_score": 1.0,\n  "groundedness_score": 0.98,\n  "margin_compliance": true,\n  "target_profit_margin": "68.4%",\n  "citation_coverage": "100%",\n  "status": "GOAL_SATISFIED"\n}'
         },
         {
             num: 8,
             title: "Stage 8: Final Response Synthesis Delivered",
+            shortName: "8. Delivery",
+            iconKey: "check",
+            subsystem: "Response Synthesis & Delivery",
+            actor: "Client Account CRM Sync + Egress",
+            latency: "160ms (4.2s runtime total)",
+            tokens: "2,840 tokens total",
+            status: "DELIVERED",
+            gate: "Goal Satisfied in 1 Cycle",
             color: "#34d399",
             desc: "Agent delivers tailored executive proposal directly to client account team with competitor comparison table, approved 15% VIP pricing tier, and ROI projection graph. Loop terminates successfully in 1 cycle without timeouts.",
-            payload: '{"status": "DELIVERED", "total_cycles": 1, "tokens_consumed": 2840, "total_execution_time_s": 4.2}'
+            rationale: "Synthesizing structured deliverables with complete citation lineage closes the autonomous loop without human latency on standard steps.",
+            payload: '{\n  "status": "DELIVERED",\n  "total_cycles": 1,\n  "tokens_consumed": 2840,\n  "total_execution_time_s": 4.2,\n  "artifacts_produced": [\n    "q3_executive_proposal.pdf",\n    "competitor_pricing_matrix.csv"\n  ]\n}'
         }
     ];
+
+    window.jumpAgentSimStep = function(prefix, stepNum) {
+        currentAgentSimStep = Math.max(1, Math.min(8, stepNum));
+        renderAgentSim(prefix);
+    };
 
     window.stepAgentSimulator = function(prefix, delta) {
         currentAgentSimStep = Math.max(1, Math.min(8, currentAgentSimStep + delta));
@@ -6557,33 +6898,211 @@ Format Requirements:
     };
 
     window.resetAgentSimulator = function(prefix) {
+        if (agentSimPlayInterval) {
+            clearInterval(agentSimPlayInterval);
+            agentSimPlayInterval = null;
+            updatePlayBtnUI(prefix, false);
+        }
         currentAgentSimStep = 1;
         renderAgentSim(prefix);
+    };
+
+    window.toggleAgentSimPlay = function(prefix) {
+        if (agentSimPlayInterval) {
+            clearInterval(agentSimPlayInterval);
+            agentSimPlayInterval = null;
+            updatePlayBtnUI(prefix, false);
+        } else {
+            updatePlayBtnUI(prefix, true);
+            agentSimPlayInterval = setInterval(function() {
+                if (currentAgentSimStep >= 8) {
+                    currentAgentSimStep = 1;
+                } else {
+                    currentAgentSimStep++;
+                }
+                renderAgentSim(prefix);
+            }, 2800);
+        }
+    };
+
+    function updatePlayBtnUI(prefix, isPlaying) {
+        const icon = document.getElementById(`${prefix}agent-sim-play-icon`);
+        const text = document.getElementById(`${prefix}agent-sim-play-text`);
+        if (icon) {
+            icon.innerHTML = isPlaying 
+                ? '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>'
+                : '<polygon points="5 3 19 12 5 21 5 3"></polygon>';
+        }
+        if (text) {
+            text.textContent = isPlaying ? 'Pause' : 'Auto Run';
+        }
+    }
+
+    window.copyAgentSimPayload = function(btnId) {
+        const step = simSteps[currentAgentSimStep - 1];
+        if (!step) return;
+        navigator.clipboard.writeText(step.payload).then(function() {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg><span style="color: #34d399;">Copied!</span>';
+                setTimeout(function() {
+                    btn.innerHTML = orig;
+                }, 2000);
+            }
+        }).catch(function() {
+            // fallback
+        });
     };
 
     function renderAgentSim(prefix) {
         const step = simSteps[currentAgentSimStep - 1];
         const badge = document.getElementById(`${prefix}sim-step-badge`);
+        const stepper = document.getElementById(`${prefix}agent-sim-stepper`);
         const pane = document.getElementById(`${prefix}sim-content-pane`);
+
         if (badge) {
-            badge.textContent = `Step ${step.num} of 8: ${step.title.split(':')[1].trim()}`;
-            badge.style.color = step.color;
+            badge.innerHTML = `
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: ${step.color}; display: inline-block; box-shadow: 0 0 8px ${step.color};"></span>
+                Stage ${step.num} of 8: ${step.shortName.split('.')[1].trim()}
+            `;
+            badge.style.borderColor = `${step.color}66`;
         }
+
+        // Render Stepper Bar
+        if (stepper) {
+            stepper.innerHTML = simSteps.map(s => {
+                const isActive = s.num === currentAgentSimStep;
+                const iconSvg = window.renderFlatIconSvg ? window.renderFlatIconSvg(s.iconKey, 'sparkles', isActive ? '#ffffff' : '#94a3b8') : '';
+                return `
+                    <button type="button" 
+                        class="agent-sim-step-pill ${isActive ? 'active' : ''}" 
+                        onclick="window.jumpAgentSimStep('${prefix}', ${s.num})" 
+                        role="tab" 
+                        aria-selected="${isActive}"
+                        aria-label="Stage ${s.num}: ${s.shortName}"
+                        style="${isActive ? `border-color: ${s.color}; box-shadow: 0 0 14px ${s.color}40; background: ${s.color}18;` : ''}">
+                        <span class="agent-sim-step-pill-num" style="${isActive ? `background: ${s.color}; color: #0f172a;` : ''}">${s.num}</span>
+                        <span style="display: inline-flex; align-items: center; width: 15px; height: 15px; flex-shrink: 0; color: ${isActive ? s.color : '#94a3b8'};">
+                            ${iconSvg.replace('width="24" height="24"', 'width="15" height="15"')}
+                        </span>
+                        <span style="color: ${isActive ? '#f8fafc' : '#cbd5e1'}; font-size: 0.82rem;">${s.shortName.replace(/^[0-9]+\.\s*/, '')}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // Render Content Pane
         if (pane) {
+            // Format JSON with syntax color
+            let prettyJson = '';
+            try {
+                const parsed = JSON.parse(step.payload);
+                prettyJson = JSON.stringify(parsed, null, 2)
+                    .replace(/"([^"]+)":/g, '<span style="color: #93c5fd;">"$1"</span>:')
+                    .replace(/: "([^"]+)"/g, ': <span style="color: #a7f3d0;">"$1"</span>')
+                    .replace(/: ([0-9\.]+)/g, ': <span style="color: #fde047;">$1</span>')
+                    .replace(/: (true|false)/g, ': <span style="color: #f472b6;">$1</span>');
+            } catch(e) {
+                prettyJson = step.payload;
+            }
+
             pane.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.85rem;">
-                    <span style="background: ${step.color}; color: #131c2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem;">${step.num}</span>
-                    <h4 style="margin: 0; color: ${step.color}; font-size: 1.2rem;">${step.title}</h4>
+                <!-- 4-KPI Executive Runtime HUD -->
+                <div class="agent-sim-hud">
+                    <div class="agent-sim-hud-card" style="border-left: 3px solid ${step.color};">
+                        <div style="font-size: 0.72rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.04em;">Subsystem &amp; Status</div>
+                        <div style="font-size: 0.96rem; font-weight: 700; color: #f8fafc; margin: 3px 0 2px 0;">${step.subsystem}</div>
+                        <span style="background: ${step.color}20; color: ${step.color}; border: 1px solid ${step.color}50; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">
+                            STATUS: ${step.status}
+                        </span>
+                    </div>
+
+                    <div class="agent-sim-hud-card">
+                        <div style="font-size: 0.72rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.04em;">Cognitive Actor / Engine</div>
+                        <div style="font-size: 0.94rem; font-weight: 700; color: #38bdf8; margin: 3px 0 2px 0;">${step.actor.split('+')[0].trim()}</div>
+                        <div style="font-size: 0.76rem; color: #cbd5e1;">${step.actor.includes('+') ? '+ ' + step.actor.split('+')[1].trim() : 'Autonomous Loop'}</div>
+                    </div>
+
+                    <div class="agent-sim-hud-card">
+                        <div style="font-size: 0.72rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.04em;">Execution Telemetry</div>
+                        <div style="font-size: 0.94rem; font-weight: 700; color: #a78bfa; margin: 3px 0 2px 0;">${step.latency}</div>
+                        <div style="font-size: 0.76rem; color: #cbd5e1;">${step.tokens}</div>
+                    </div>
+
+                    <div class="agent-sim-hud-card">
+                        <div style="font-size: 0.72rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.04em;">Deterministic Gate</div>
+                        <div style="font-size: 0.88rem; font-weight: 700; color: #34d399; margin: 3px 0 2px 0;">${step.gate.split('•')[0].trim()}</div>
+                        <div style="font-size: 0.76rem; color: #cbd5e1;">${step.gate.includes('•') ? step.gate.split('•')[1].trim() : 'Assertion Passed'}</div>
+                    </div>
                 </div>
-                <div style="color: #e2e8f0; font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem;">
-                    ${step.desc}
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.85rem; font-family: monospace; font-size: 0.8rem; color: #a78bfa;">
-                    ${step.payload}
+
+                <!-- Split Grid: Narrative & IDE State Inspector -->
+                <div class="agent-sim-grid">
+                    <!-- Left: Operational Narrative & Architecture Rationale -->
+                    <div style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 1.25rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
+                            <div style="display: flex; align-items: center; gap: 0.65rem;">
+                                <span style="background: ${step.color}; color: #0f172a; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.95rem; flex-shrink: 0;">
+                                    ${step.num}
+                                </span>
+                                <div>
+                                    <h4 style="margin: 0; color: ${step.color}; font-size: 1.2rem; font-weight: 700;">${step.title}</h4>
+                                    <span style="font-size: 0.75rem; color: #94a3b8;">${step.subsystem}</span>
+                                </div>
+                            </div>
+                            <span style="background: ${step.color}18; color: ${step.color}; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid ${step.color}40;">
+                                Stage ${step.num} / 8
+                            </span>
+                        </div>
+
+                        <div style="color: #e2e8f0; font-size: 0.92rem; line-height: 1.65; margin-bottom: 1.15rem;">
+                            ${step.desc}
+                        </div>
+
+                        <!-- Architectural Rationale Card -->
+                        <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 3px solid ${step.color}; border-radius: 6px; padding: 0.85rem 1rem;">
+                            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="${step.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                <span style="font-size: 0.74rem; text-transform: uppercase; color: ${step.color}; font-weight: 700; letter-spacing: 0.04em;">Production Rationale &amp; Determinism</span>
+                            </div>
+                            <p style="margin: 0; font-size: 0.84rem; color: #cbd5e1; line-height: 1.55;">
+                                ${step.rationale}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Production IDE Runtime State Inspector -->
+                    <div style="background: #0b1120; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;">
+                        <!-- IDE Window Header -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(19, 28, 46, 0.95); padding: 0.6rem 0.95rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
+                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #eab308; display: inline-block;"></span>
+                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
+                                <span style="font-family: monospace; font-size: 0.76rem; color: #94a3b8; margin-left: 6px;">STATE_SNAPSHOT_STAGE_${step.num}.json</span>
+                            </div>
+                            <button id="${prefix}btn-copy-sim-payload" type="button" aria-label="Copy JSON payload snapshot" onclick="window.copyAgentSimPayload('${prefix}btn-copy-sim-payload')" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); color: #cbd5e1; padding: 3px 8px; border-radius: 5px; font-size: 0.74rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s;">
+                                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span>Copy JSON</span>
+                            </button>
+                        </div>
+                        <!-- IDE Code Body -->
+                        <div style="padding: 1rem; overflow-x: auto; flex: 1; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.8rem; line-height: 1.55; color: #e2e8f0;">
+                            <pre style="margin: 0; white-space: pre-wrap; word-break: break-all;"><code>${prettyJson}</code></pre>
+                        </div>
+                    </div>
                 </div>
             `;
         }
     }
+
+    setTimeout(function() {
+        if (typeof renderAgentSim === 'function') {
+            renderAgentSim('');
+            renderAgentSim('m5-');
+        }
+    }, 250);
     
     // ==========================================
     // 18. AGENTIC AI ARCHITECTURE DESIGN (7 LAYERS)
@@ -6596,9 +7115,9 @@ Format Requirements:
             badgeBg: "rgba(99, 102, 241, 0.2)",
             badgeBorder: "rgba(99, 102, 241, 0.4)",
             subComponents: [
-                "📋 Planner: Decomposes complex user goals into atomic, dependency-aware task graphs.",
-                "🔄 Workflow: Manages state machines, cyclic loops, and step checkpoints (LangGraph, Temporal, AWS Step Functions).",
-                "🧠 Reasoning: Evaluates intermediate step outputs using structured cognitive patterns (ReAct, Chain-of-Thought)."
+                "Planner: Decomposes complex user goals into atomic, dependency-aware task graphs.",
+                "Workflow: Manages state machines, cyclic loops, and step checkpoints (LangGraph, Temporal, AWS Step Functions).",
+                "Reasoning: Evaluates intermediate step outputs using structured cognitive patterns (ReAct, Chain-of-Thought)."
             ],
             role: "Prevents the agent from devolving into unconstrained, non-deterministic black boxes by enforcing stateful checkpointers, timeout bounds, and maximum step thresholds.",
             tools: ["LangGraph (Pregel Engine)", "Temporal.io", "AWS Step Functions", "LlamaIndex Workflows", "Semantic Kernel Planners"],
@@ -6625,9 +7144,9 @@ def orchestrate_next(state: OrchestrationState) -> str:
             badgeBg: "rgba(2, 132, 199, 0.2)",
             badgeBorder: "rgba(2, 132, 199, 0.4)",
             subComponents: [
-                "🤖 Specialized Personas: Assigning distinct system prompts and tools to Agent A (Researcher), Agent B (Coder), Agent N (Reviewer).",
-                "💬 Inter-Agent Messaging: Message bus protocols enabling structured peer dialogue and state handover.",
-                "⚖️ Consensus & Arbitration: Voting or manager review logic resolving divergent findings between agents."
+                "Specialized Personas: Assigning distinct system prompts and tools to Agent A (Researcher), Agent B (Coder), Agent N (Reviewer).",
+                "Inter-Agent Messaging: Message bus protocols enabling structured peer dialogue and state handover.",
+                "Consensus & Arbitration: Voting or manager review logic resolving divergent findings between agents."
             ],
             role: "Distributes cognitive load and prevents prompt saturation by decomposing domain problems into focused, expert personas.",
             tools: ["CrewAI Hierarchical Crews", "Microsoft AutoGen 0.4", "LangGraph Multi-Agent", "ChatDev", "MetaGPT"],
@@ -6651,10 +7170,10 @@ enterprise_crew = Crew(
             badgeBg: "rgba(5, 150, 105, 0.2)",
             badgeBorder: "rgba(5, 150, 105, 0.4)",
             subComponents: [
-                "🔌 API Connectors: REST/GraphQL/gRPC endpoints communicating with internal microservices.",
-                "💾 Databases: Read-only SQL replicas, NoSQL key-value stores, and transactional records.",
-                "🔍 Search Engines: Enterprise hybrid search (Elastic) and real-time web crawlers.",
-                "🏢 Enterprise Apps: Direct integrations with Salesforce, ServiceNow, GitHub, Jira, and Slack."
+                "API Connectors: REST/GraphQL/gRPC endpoints communicating with internal microservices.",
+                "Databases: Read-only SQL replicas, NoSQL key-value stores, and transactional records.",
+                "Search Engines: Enterprise hybrid search (Elastic) and real-time web crawlers.",
+                "Enterprise Apps: Direct integrations with Salesforce, ServiceNow, GitHub, Jira, and Slack."
             ],
             role: "Grounds the agent in factual, current organizational reality, turning an isolated LLM into an actionable enterprise worker.",
             tools: ["Model Context Protocol (MCP)", "OpenAPI 3.0", "Zapier Central", "n8n", "LangChain Toolkits", "Puppeteer"],
@@ -6678,9 +7197,9 @@ def execute_readonly_sql(tool_input: DatabaseQueryTool) -> dict:
             badgeBg: "rgba(217, 119, 6, 0.2)",
             badgeBorder: "rgba(217, 119, 6, 0.4)",
             subComponents: [
-                "📝 Short-term Context: Working memory scratchpad retaining active thread state and immediate findings.",
-                "🗄️ Vector DB: Storing embedding vectors for semantic semantic lookup across historical conversations.",
-                "📚 Knowledge Base: Structured enterprise graphs (Neo4j) maintaining corporate entities and domain facts."
+                "Short-term Context: Working memory scratchpad retaining active thread state and immediate findings.",
+                "Vector DB: Storing embedding vectors for semantic semantic lookup across historical conversations.",
+                "Knowledge Base: Structured enterprise graphs (Neo4j) maintaining corporate entities and domain facts."
             ],
             role: "Ensures multi-turn conversational continuity and historical recall while preventing context window overflow.",
             tools: ["Mem0", "Zep", "Redis", "Pinecone", "Qdrant", "Neo4j", "Supabase", "DataStax Astra DB"],
@@ -6703,9 +7222,9 @@ def execute_readonly_sql(tool_input: DatabaseQueryTool) -> dict:
             badgeBg: "rgba(37, 99, 235, 0.2)",
             badgeBorder: "rgba(37, 99, 235, 0.4)",
             subComponents: [
-                "📜 Logs: Structured JSON execution logs recording prompt payloads, model versions, and response metadata.",
-                "📊 Metrics: Real-time dashboards monitoring p95 latency, token cost per task, and completion success rates.",
-                "🔔 Alerts: Immediate alerts dispatched to Slack or PagerDuty on rate-limit spikes or cascading errors."
+                "Logs: Structured JSON execution logs recording prompt payloads, model versions, and response metadata.",
+                "Metrics: Real-time dashboards monitoring p95 latency, token cost per task, and completion success rates.",
+                "Alerts: Immediate alerts dispatched to Slack or PagerDuty on rate-limit spikes or cascading errors."
             ],
             role: "Provides full transparency into black-box agent reasoning loops, enabling rapid debugging and financial spend management.",
             tools: ["LangSmith", "Arize Phoenix", "OpenTelemetry", "Datadog LLM Observability", "Prometheus & Grafana", "Weights & Biases"],
@@ -6728,9 +7247,9 @@ with tracer.start_as_current_span("agent_step_execution") as span:
             badgeBg: "rgba(220, 38, 38, 0.2)",
             badgeBorder: "rgba(220, 38, 38, 0.4)",
             subComponents: [
-                "🔁 Retry: Automated exponential backoff with jitter on transient network or 429 throttling errors.",
-                "🔀 Fallback: Gracefully degrading to secondary model providers or cached deterministic responses.",
-                "👤 Human-in-the-Loop (HITL): Automatic pause and escalation to human reviewers when risk exceeds safe thresholds."
+                "Retry: Automated exponential backoff with jitter on transient network or 429 throttling errors.",
+                "Fallback: Gracefully degrading to secondary model providers or cached deterministic responses.",
+                "Human-in-the-Loop (HITL): Automatic pause and escalation to human reviewers when risk exceeds safe thresholds."
             ],
             role: "Protects enterprise systems against silent failures, infinite loops, and hallucinated tool invocations.",
             tools: ["Tenacity", "Resilienz", "LlamaGuard 3", "Guardrails AI", "Slack Interactive Approval Webhooks"],
@@ -6755,9 +7274,9 @@ def resilient_tool_dispatch(tool_name: str, args: dict):
             badgeBg: "rgba(15, 118, 110, 0.2)",
             badgeBorder: "rgba(15, 118, 110, 0.4)",
             subComponents: [
-                "🔐 Auth: Fine-grained RBAC/ABAC role verification and OAuth 2.0 token delegation.",
-                "🛡️ Compliance: Strict alignment with SOC 2 Type II, HIPAA, and GDPR zero-data-retention standards.",
-                "📑 Audit: Immutable Write-Once-Read-Many (WORM) audit logs tracking every agent decision and data access."
+                "Auth: Fine-grained RBAC/ABAC role verification and OAuth 2.0 token delegation.",
+                "Compliance: Strict alignment with SOC 2 Type II, HIPAA, and GDPR zero-data-retention standards.",
+                "Audit: Immutable Write-Once-Read-Many (WORM) audit logs tracking every agent decision and data access."
             ],
             role: "Ensures legal defensibility, data sovereignty, and alignment with corporate security baselines before agents act autonomously.",
             tools: ["Open Policy Agent (OPA)", "HashiCorp Vault", "Azure Key Vault", "AWS CloudTrail", "Okta", "Azure Entra ID"],
@@ -6959,15 +7478,13 @@ allow_action = false {
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                     <span style="background: #2563eb; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">${concept.id}</span>
-                    <span style="font-size: 1.8rem;">${concept.icon}</span>
+                    <span style="font-size: 1.8rem; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;">${window.renderFlatIconSvg(concept.icon, "brain")}</span>
                     <div>
                         <h3 style="margin: 0; color: #f8fafc; font-size: 1.35rem;">${concept.title}</h3>
                         <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${concept.category}</span>
                     </div>
                 </div>
-                <button onclick="document.getElementById('${prefix}concept-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
-                    ✕ Close Inspector
-                </button>
+                <button type="button" class="inspector-close-btn" aria-label="Close Inspector" onclick="document.getElementById('${prefix}concept-inspector-box').style.display='none'"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Close Inspector</button>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
@@ -7336,15 +7853,13 @@ allow_action = false {
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                     <span style="background: #38bdf8; color: #0f172a; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">${concept.id}</span>
-                    <span style="font-size: 1.8rem;">${concept.icon}</span>
+                    <span style="font-size: 1.8rem; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;">${window.renderFlatIconSvg(concept.icon, "brain")}</span>
                     <div>
                         <h3 style="margin: 0; color: #f8fafc; font-size: 1.35rem;">${concept.title}</h3>
                         <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${concept.category}</span>
                     </div>
                 </div>
-                <button onclick="document.getElementById('${prefix}llm-concept-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
-                    ✕ Close Inspector
-                </button>
+                <button type="button" class="inspector-close-btn" aria-label="Close Inspector" onclick="document.getElementById('${prefix}llm-concept-inspector-box').style.display='none'"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Close Inspector</button>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
@@ -7593,7 +8108,7 @@ window.inspectLlmOptTechnique = function(prefix, techId) {
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
             <div style="display: flex; align-items: center; gap: 0.75rem;">
                 <span style="background: #10b981; color: #0f172a; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">${tech.id}</span>
-                <span style="font-size: 1.8rem;">${tech.icon}</span>
+                <span style="font-size: 1.8rem; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;">${window.renderFlatIconSvg(tech.icon, "trending_down")}</span>
                 <div>
                     <h3 style="margin: 0; color: #f8fafc; font-size: 1.35rem;">${tech.title}</h3>
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 2px;">
@@ -7602,9 +8117,7 @@ window.inspectLlmOptTechnique = function(prefix, techId) {
                     </div>
                 </div>
             </div>
-            <button onclick="document.getElementById('${prefix}llm-opt-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
-                ✕ Close Inspector
-            </button>
+            <button type="button" class="inspector-close-btn" aria-label="Close Inspector" onclick="document.getElementById('${prefix}llm-opt-inspector-box').style.display='none'"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Close Inspector</button>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
@@ -8048,15 +8561,13 @@ window.inspectAiEngConcept = function(prefix, conceptId) {
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
             <div style="display: flex; align-items: center; gap: 0.75rem;">
                 <span style="background: #3b82f6; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">${concept.id}</span>
-                <span style="font-size: 1.8rem;">${concept.icon}</span>
+                <span style="font-size: 1.8rem; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;">${window.renderFlatIconSvg(concept.icon, "brain")}</span>
                 <div>
                     <h3 style="margin: 0; color: #f8fafc; font-size: 1.35rem;">${concept.title}</h3>
                     <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${concept.category}</span>
                 </div>
             </div>
-            <button onclick="document.getElementById('${prefix}ai-eng-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
-                ✕ Close Inspector
-            </button>
+            <button type="button" class="inspector-close-btn" aria-label="Close Inspector" onclick="document.getElementById('${prefix}ai-eng-inspector-box').style.display='none'"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Close Inspector</button>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
@@ -8358,15 +8869,13 @@ window.inspectEnterpriseLayer = function(prefix, layerId) {
     box.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
             <div style="display: flex; align-items: center; gap: 0.75rem;">
-                <span style="background: ${layer.color}; color: #0f172a; width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">${layer.icon}</span>
+                <span style="background: ${layer.color}; color: #0f172a; width: 34px; height: 34px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center;">${window.renderFlatIconSvg(layer.icon, "layers", "#0f172a")}</span>
                 <div>
                     <h3 style="margin: 0; color: #f8fafc; font-size: 1.35rem;">${layer.name}</h3>
                     <span style="color: ${layer.color}; font-size: 0.85rem; font-weight: 600;">${layer.tagline}</span>
                 </div>
             </div>
-            <button onclick="document.getElementById('${prefix}enterprise-layer-inspector-box').style.display='none'" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.8rem;">
-                ✕ Close Inspector
-            </button>
+            <button type="button" class="inspector-close-btn" aria-label="Close Inspector" onclick="document.getElementById('${prefix}enterprise-layer-inspector-box').style.display='none'"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align: -1px; margin-right: 5px; flex-shrink: 0;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Close Inspector</button>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
@@ -8429,24 +8938,69 @@ const traceSteps = [
 ];
 
 let activeTraceStep = 0;
+window.jumpEnterpriseTrace = function(prefix, stepIdx) {
+    activeTraceStep = stepIdx;
+    window.stepEnterpriseTrace(prefix, 0);
+};
+
 window.stepEnterpriseTrace = function(prefix, delta) {
     activeTraceStep = Math.max(0, Math.min(traceSteps.length - 1, activeTraceStep + delta));
     const container = document.getElementById(`${prefix}enterprise-trace-display`);
     if (!container) return;
 
     const s = traceSteps[activeTraceStep];
+    const layerColors = {
+        1: '#3b82f6',
+        2: '#8b5cf6',
+        3: '#10b981',
+        4: '#f59e0b',
+        5: '#06b6d4'
+    };
+    const accentColor = layerColors[s.step] || '#8b5cf6';
+
+    const stepperDotsHtml = traceSteps.map((st, idx) => {
+        const isCurrent = idx === activeTraceStep;
+        const isDone = idx < activeTraceStep;
+        const bg = isCurrent ? accentColor : (isDone ? '#34d399' : 'rgba(255,255,255,0.08)');
+        const border = isCurrent ? `2px solid ${accentColor}` : '1px solid rgba(255,255,255,0.18)';
+        const shadow = isCurrent ? `box-shadow: 0 0 12px ${accentColor}88;` : '';
+        const shortName = st.title.split(':')[0].replace('Layer', 'L');
+        return `
+            <button type="button" onclick="window.jumpEnterpriseTrace('${prefix}', ${idx})" 
+                    style="flex: 1; min-height: 40px; background: ${bg}; border: ${border}; ${shadow} color: white; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 4px 6px; transition: all 0.2s; touch-action: manipulation;"
+                    aria-label="Step ${st.step}: ${st.title}">
+                <span style="display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: rgba(0,0,0,0.3); line-height: 18px; font-size: 0.72rem;">${st.step}</span>
+                <span class="trace-step-label" style="font-size: 0.72rem; opacity: 0.95;">${shortName}</span>
+            </button>
+        `;
+    }).join('');
+
     container.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-            <div style="display: flex; align-items: center; gap: 0.6rem;">
-                <span style="background: #8b5cf6; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem;">${s.step}</span>
-                <h4 style="margin: 0; color: #f8fafc; font-size: 1.1rem;">${s.title}</h4>
-            </div>
-            <span style="font-size: 0.78rem; color: #a78bfa; font-weight: 600;">Step ${s.step} of ${traceSteps.length}</span>
+        <div style="display: flex; gap: 0.4rem; margin-bottom: 1.15rem; flex-wrap: wrap;">
+            ${stepperDotsHtml}
         </div>
-        <p style="color: #e2e8f0; font-size: 0.92rem; line-height: 1.6; margin: 0 0 0.75rem 0;">${s.desc}</p>
-        <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.25); border-radius: 6px; padding: 0.75rem;">
-            <strong style="color: #c4b5fd; font-size: 0.8rem; text-transform: uppercase;">Technical Action:</strong>
-            <span style="display: block; font-family: monospace; font-size: 0.84rem; color: #e2e8f0; margin-top: 2px;">${s.action}</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span style="background: ${accentColor}; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; box-shadow: 0 0 14px ${accentColor}66;">${s.step}</span>
+                <div>
+                    <h4 style="margin: 0; color: #f8fafc; font-size: 1.18rem; font-weight: 700;">${s.title}</h4>
+                    <span style="font-size: 0.75rem; color: #cbd5e1; font-family: var(--font-mono, monospace);">Active Execution Phase</span>
+                </div>
+            </div>
+            <span style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 3px 10px; border-radius: 20px; font-size: 0.76rem; font-weight: 700; border: 1px solid rgba(139, 92, 246, 0.3);">
+                Step ${s.step} of ${traceSteps.length}
+            </span>
+        </div>
+        <p style="color: #e2e8f0; font-size: 0.94rem; line-height: 1.6; margin: 0 0 1rem 0;">${s.desc}</p>
+        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 8px; padding: 0.9rem 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <strong style="color: #c4b5fd; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 5px;">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    Technical Runtime Action
+                </strong>
+                <span style="font-size: 0.72rem; color: #34d399; font-family: var(--font-mono, monospace); font-weight: 700;">AUDIT PASS</span>
+            </div>
+            <span style="display: block; font-family: var(--font-mono, monospace); font-size: 0.86rem; color: #f1f5f9; line-height: 1.5;">${s.action}</span>
         </div>
     `;
 };
@@ -8538,7 +9092,7 @@ window.stepEnterpriseSketch = function(prefix, stepIdx) {
     const counterEl = document.getElementById(`${prefix}sketch-trace-counter`);
 
     if (banner) banner.style.display = 'flex';
-    if (textEl) textEl.innerHTML = `<strong>${step.title}</strong>: ${step.desc} <span style="display:inline-block; margin-left:8px; color:#fca5a5;">[🛡️ ${step.security}]</span> <span style="display:inline-block; margin-left:8px; color:#6ee7b7;">[📊 ${step.telemetry}]</span>`;
+    if (textEl) textEl.innerHTML = `<strong>${step.title}</strong>: ${step.desc} <span style="display:inline-block; margin-left:8px; color:#fca5a5;">[<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="vertical-align: -1px; margin-right: 3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>${step.security}]</span> <span style="display:inline-block; margin-left:8px; color:#6ee7b7;">[<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="vertical-align: -1px; margin-right: 3px;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>${step.telemetry}]</span>`;
     if (counterEl) counterEl.textContent = `Step ${stepIdx + 1} / ${sketchStepInfo.length}`;
 
     // Also update inspector
@@ -8614,7 +9168,7 @@ window.okafSimulations = {
             method: "Vector Embedding Search (Cosine Sim: 0.81)",
             retrieved: "Retrieved 450-word biography paragraph: '...Sundar Pichai became CEO in August 2015 after leading Product. He grew up in Chennai and attended IIT Kharagpur...'",
             result: "Model Extrapolation / Incomplete: 'Sundar Pichai was appointed CEO in 2015, but the exact joining date is not specified in the text.'",
-            accuracy: "⚠️ Incomplete (Hallucination Risk)",
+            accuracy: "Incomplete (Hallucination Risk)",
             latency: "240ms",
             tokens: "620 tokens"
         },
@@ -8622,7 +9176,7 @@ window.okafSimulations = {
             method: "Knowledge Graph Traversal: [Sundar Pichai] ➔ WorksAt ➔ [Google]",
             retrieved: "Fact Triple: (Sundar Pichai, joined_date, 2004-10-02)",
             result: "Deterministic Exact Fact: 'Sundar Pichai joined Google on October 2, 2004.'",
-            accuracy: "✅ 100% Verifiable & Accurate",
+            accuracy: "100% Verifiable & Accurate",
             latency: "45ms",
             tokens: "48 tokens"
         }
@@ -8634,7 +9188,7 @@ window.okafSimulations = {
             method: "Vector Embedding Search across corporate disclosures",
             retrieved: "Retrieved 3 separate documents: DeepMind acquisition docs (2014), London office lease (2008), UK tax filing overview.",
             result: "Chunk Boundary Failure: Missed connection between incorporation dates and UK tax residency.",
-            accuracy: "⚠️ Fragmented / Missing Entities",
+            accuracy: "Fragmented / Missing Entities",
             latency: "480ms",
             tokens: "1,850 tokens"
         },
@@ -8642,7 +9196,7 @@ window.okafSimulations = {
             method: "Multi-Hop Graph Query: Match (Alphabet)-[:SUBSIDIARY]->(c)-[:LOCATED_IN]->(UK) WHERE c.founded < 2010",
             retrieved: "3 Exact Subgraph Nodes: Google UK Ltd (2003), DoubleClick UK (1998), YouTube UK (2007)",
             result: "Complete Relational List: 'Google UK Ltd (Founded 2003), DoubleClick UK (1998), YouTube UK (2007).'",
-            accuracy: "✅ 100% Complete Multi-Hop Proof",
+            accuracy: "100% Complete Multi-Hop Proof",
             latency: "62ms",
             tokens: "95 tokens"
         }
@@ -8654,7 +9208,7 @@ window.okafSimulations = {
             method: "Hierarchical Chunking + Cross-Encoder Reranking",
             retrieved: "Retrieved top 8 thematic chunks across Executive Summary, OKRs, and Competitive Threats.",
             result: "Comprehensive Narrative: 'The Q3 deck emphasizes AI agent monetization, cloud gross margin expansion, and enterprise security guardrails.'",
-            accuracy: "✅ Ideal Fit for Broad Document Synthesis",
+            accuracy: "Ideal Fit for Broad Document Synthesis",
             latency: "310ms",
             tokens: "2,200 tokens"
         },
@@ -8662,7 +9216,7 @@ window.okafSimulations = {
             method: "Graph Entity Extraction",
             retrieved: "Graph contains isolated entity nodes (Revenue, EMEA, Cloud), but lacks qualitative narrative nuance.",
             result: "Structured but Overly Rigid: Lacks the conversational qualitative richness of free-form prose.",
-            accuracy: "⚠️ Graph Schema Too Narrow for Broad Narratives",
+            accuracy: "Graph Schema Too Narrow for Broad Narratives",
             latency: "280ms",
             tokens: "450 tokens"
         }
@@ -8673,6 +9227,21 @@ window.simulateQueryOkafVsRag = function(prefix, queryId) {
     const sim = window.okafSimulations[queryId];
     const container = document.getElementById(`${prefix}okaf-simulation-output`);
     if (!sim || !container) return;
+
+    [1, 2, 3].forEach(id => {
+        const btn = document.getElementById(`${prefix}btn-okaf-q${id}`) || document.getElementById(`btn-okaf-q${id}`);
+        if (btn) {
+            if (id === queryId) {
+                btn.classList.add('active');
+                btn.style.borderColor = 'rgba(56, 189, 248, 0.8)';
+                btn.style.boxShadow = '0 0 10px rgba(56, 189, 248, 0.25)';
+            } else {
+                btn.classList.remove('active');
+                btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                btn.style.boxShadow = 'none';
+            }
+        }
+    });
 
     container.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.4rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); pb-2;">
@@ -8687,7 +9256,10 @@ window.simulateQueryOkafVsRag = function(prefix, queryId) {
             <!-- RAG Result -->
             <div style="background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 6px; padding: 0.75rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                    <strong style="color: #60a5fa; font-size: 0.85rem;">Traditional RAG Pipeline</strong>
+                    <strong style="color: #60a5fa; font-size: 0.85rem; display: flex; align-items: center; gap: 5px;">
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        Traditional RAG Pipeline
+                    </strong>
                     <span style="font-size: 0.72rem; color: #cbd5e1;">${sim.rag.latency} • ${sim.rag.tokens}</span>
                 </div>
                 <div style="font-size: 0.78rem; color: #cbd5e1; margin-bottom: 0.35rem;"><strong>Retrieval:</strong> ${sim.rag.method}</div>
@@ -8703,7 +9275,10 @@ window.simulateQueryOkafVsRag = function(prefix, queryId) {
             <!-- OKAF Result -->
             <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 6px; padding: 0.75rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                    <strong style="color: #34d399; font-size: 0.85rem;">OKAF (Google) Pipeline</strong>
+                    <strong style="color: #34d399; font-size: 0.85rem; display: flex; align-items: center; gap: 5px;">
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        OKAF (Google) Pipeline
+                    </strong>
                     <span style="font-size: 0.72rem; color: #cbd5e1;">${sim.okaf.latency} • ${sim.okaf.tokens}</span>
                 </div>
                 <div style="font-size: 0.78rem; color: #cbd5e1; margin-bottom: 0.35rem;"><strong>Traversal:</strong> ${sim.okaf.method}</div>
@@ -8769,6 +9344,21 @@ window.simulateJevScenario = function(prefix, scenarioId) {
     const container = document.getElementById(`${prefix}jev-simulation-output`);
     if (!sc || !container) return;
 
+    [1, 2, 3].forEach(id => {
+        const btn = document.getElementById(`${prefix}btn-jev-scenario${id}`) || document.getElementById(`btn-jev-scenario${id}`);
+        if (btn) {
+            if (id === scenarioId) {
+                btn.classList.add('active');
+                btn.style.borderColor = 'rgba(56, 189, 248, 0.8)';
+                btn.style.boxShadow = '0 0 10px rgba(56, 189, 248, 0.25)';
+            } else {
+                btn.classList.remove('active');
+                btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                btn.style.boxShadow = 'none';
+            }
+        }
+    });
+
     const sysTwoBadge = sc.systemTwoUsed 
         ? `<span style="background: rgba(245, 158, 11, 0.2); color: #fde68a; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;">System 2 Deliberation Activated</span>`
         : `<span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;">Fast Path Execution (&lt;60ms JEV)</span>`;
@@ -8787,14 +9377,20 @@ window.simulateJevScenario = function(prefix, scenarioId) {
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 0.75rem;">
             <!-- Routing & Evidence -->
             <div style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.75rem;">
-                <div style="font-size: 0.75rem; text-transform: uppercase; color: #93c5fd; font-weight: 700; margin-bottom: 0.3rem;">1. JEV Routing &amp; Anchors</div>
+                <div style="font-size: 0.75rem; text-transform: uppercase; color: #93c5fd; font-weight: 700; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 5px;">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    1. JEV Routing &amp; Anchors
+                </div>
                 <div style="font-size: 0.8rem; color: #e2e8f0; margin-bottom: 0.4rem;">${sc.routing}</div>
                 <div style="font-size: 0.75rem; color: #cbd5e1;"><strong>Candidate Anchors:</strong> ${sc.anchors}</div>
             </div>
 
             <!-- Evidence Validation -->
             <div style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.75rem;">
-                <div style="font-size: 0.75rem; text-transform: uppercase; color: #34d399; font-weight: 700; margin-bottom: 0.3rem;">2. Evidence &amp; Retrieve Path</div>
+                <div style="font-size: 0.75rem; text-transform: uppercase; color: #34d399; font-weight: 700; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 5px;">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    2. Evidence &amp; Retrieve Path
+                </div>
                 <div style="font-size: 0.8rem; color: #e2e8f0; margin-bottom: 0.4rem;">${sc.evidence}</div>
                 <div style="font-size: 0.75rem; color: #6ee7b7;"><strong>Execution Track:</strong> ${sc.path}</div>
             </div>
@@ -8803,7 +9399,10 @@ window.simulateJevScenario = function(prefix, scenarioId) {
         <!-- Synthesized Output -->
         <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 6px; padding: 0.75rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
-                <strong style="color: #34d399; font-size: 0.84rem;">Final LLM Reasoning Output:</strong>
+                <strong style="color: #34d399; font-size: 0.84rem; display: flex; align-items: center; gap: 5px;">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path></svg>
+                    Final LLM Reasoning Output:
+                </strong>
                 <span style="font-size: 0.72rem; color: #cbd5e1; font-family: monospace;">${sc.latency} • ${sc.tokensSaved}</span>
             </div>
             <p style="color: #f8fafc; font-size: 0.88rem; line-height: 1.5; margin: 0;">
@@ -9048,15 +9647,19 @@ window.simulateAgentPatternScenario = function(prefix, patternKey) {
     const data = window.agentPatternData[patternKey];
     if (!data) return;
 
-    document.querySelectorAll(`.${prefix}agent-pattern-btn`).forEach(b => {
+    document.querySelectorAll(`.${prefix}agent-pattern-btn, .agent-pattern-btn`).forEach(b => {
         b.classList.remove('active');
         b.style.background = 'transparent';
-        b.style.color = '#94a3b8';
+        b.style.color = '#cbd5e1';
+        b.style.borderColor = 'rgba(255, 255, 255, 0.15)';
     });
-    if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add('active');
-        window.event.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)';
-        window.event.currentTarget.style.color = '#38bdf8';
+    const keyId = patternKey.replace(/_/g, '-');
+    const activeBtn = (window.event && window.event.currentTarget) || document.getElementById(`${prefix}btn-pattern-${keyId}`) || document.getElementById(`btn-pattern-${keyId}`);
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.style.background = 'rgba(56, 189, 248, 0.15)';
+        activeBtn.style.color = '#38bdf8';
+        activeBtn.style.borderColor = 'rgba(56, 189, 248, 0.6)';
     }
 
     const outEl = document.getElementById(`${prefix}agent-pattern-simulation-output`);
@@ -9065,12 +9668,24 @@ window.simulateAgentPatternScenario = function(prefix, patternKey) {
     let stepsHtml = data.steps.map(s => {
         let color = '#94a3b8';
         let bg = 'rgba(255,255,255,0.03)';
-        if (s.status === 'success') { color = '#34d399'; bg = 'rgba(52, 211, 153, 0.08)'; }
-        else if (s.status === 'warn') { color = '#fbbf24'; bg = 'rgba(251, 191, 36, 0.08)'; }
-        else if (s.status === 'error') { color = '#f87171'; bg = 'rgba(248, 113, 113, 0.08)'; }
+        let statusSvg = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><circle cx="12" cy="12" r="4"></circle></svg>';
+        if (s.status === 'success') { 
+            color = '#34d399'; 
+            bg = 'rgba(52, 211, 153, 0.08)'; 
+            statusSvg = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        } else if (s.status === 'warn') { 
+            color = '#fbbf24'; 
+            bg = 'rgba(251, 191, 36, 0.08)'; 
+            statusSvg = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+        } else if (s.status === 'error') { 
+            color = '#f87171'; 
+            bg = 'rgba(248, 113, 113, 0.08)'; 
+            statusSvg = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>';
+        }
 
         return `
             <div style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
+                ${statusSvg}
                 <span style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
                 <span style="font-weight: 700; color: ${color}; min-width: 140px;">${s.actor}</span>
                 <span style="color: #e2e8f0; flex: 1;">${s.msg}</span>
@@ -9312,15 +9927,22 @@ window.simulateOcrScenario = function(prefix, scenarioKey) {
     const data = window.ocrSimulationData[scenarioKey];
     if (!data) return;
 
-    document.querySelectorAll(`.${prefix}ocr-scenario-btn`).forEach(b => {
+    document.querySelectorAll(`.${prefix}ocr-scenario-btn, .ocr-scenario-btn`).forEach(b => {
         b.classList.remove('active');
         b.style.background = 'transparent';
-        b.style.color = '#94a3b8';
+        b.style.color = '#cbd5e1';
+        b.style.borderColor = 'rgba(255, 255, 255, 0.15)';
     });
-    if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add('active');
-        window.event.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)';
-        window.event.currentTarget.style.color = '#38bdf8';
+    const keyId = scenarioKey === 'invoice_vie' ? 'invoice' :
+                  scenarioKey === 'scientific_latex' ? 'scientific' :
+                  scenarioKey === 'handwritten_medical' ? 'medical' :
+                  scenarioKey === 'high_volume_batch' ? 'batch' : scenarioKey;
+    const activeBtn = (window.event && window.event.currentTarget) || document.getElementById(`${prefix}btn-ocr-${keyId}`) || document.getElementById(`btn-ocr-${keyId}`);
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.style.background = 'rgba(56, 189, 248, 0.15)';
+        activeBtn.style.color = '#38bdf8';
+        activeBtn.style.borderColor = 'rgba(56, 189, 248, 0.6)';
     }
 
     const outEl = document.getElementById(`${prefix}ocr-simulation-output`);
@@ -9329,12 +9951,24 @@ window.simulateOcrScenario = function(prefix, scenarioKey) {
     let stepsHtml = data.steps.map(s => {
         let color = '#94a3b8';
         let bg = 'rgba(255,255,255,0.03)';
-        if (s.status === 'success') { color = '#34d399'; bg = 'rgba(52, 211, 153, 0.08)'; }
-        else if (s.status === 'warn') { color = '#fbbf24'; bg = 'rgba(251, 191, 36, 0.08)'; }
-        else if (s.status === 'error') { color = '#f87171'; bg = 'rgba(248, 113, 113, 0.08)'; }
+        let statusSvg = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><circle cx="12" cy="12" r="4"></circle></svg>';
+        if (s.status === 'success') { 
+            color = '#34d399'; 
+            bg = 'rgba(52, 211, 153, 0.08)'; 
+            statusSvg = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        } else if (s.status === 'warn') { 
+            color = '#fbbf24'; 
+            bg = 'rgba(251, 191, 36, 0.08)'; 
+            statusSvg = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+        } else if (s.status === 'error') { 
+            color = '#f87171'; 
+            bg = 'rgba(248, 113, 113, 0.08)'; 
+            statusSvg = '<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>';
+        }
 
         return `
             <div style="display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0.75rem; background: ${bg}; border-radius: 6px; margin-bottom: 0.4rem; font-size: 0.84rem;">
+                ${statusSvg}
                 <span style="font-family: monospace; color: #cbd5e1; min-width: 42px;">${s.time}</span>
                 <span style="font-weight: 700; color: ${color}; min-width: 160px;">${s.actor}</span>
                 <span style="color: #e2e8f0; flex: 1;">${s.msg}</span>
