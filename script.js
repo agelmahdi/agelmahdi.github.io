@@ -194,6 +194,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function switchTab(targetTab) {
+        if (targetTab !== 'consultant' && targetTab !== 'portfolio' && targetTab !== 'media') {
+            targetTab = 'consultant';
+        }
         activeTab = targetTab;
         trackEvent('tab_switch', { target: targetTab });
 
@@ -224,7 +227,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUrlHash();
 
         // Save active tab state to browser storage
-        localStorage.setItem('ahmed_twin_active_tab', targetTab);
+        try {
+            localStorage.setItem('ahmed_twin_active_tab', targetTab);
+        } catch (e) {}
     }
 
     const sceneSlugs = ['intro', 'credentials', 'techno-business', 'architecture', 'metrics', 'faqs'];
@@ -1747,19 +1752,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Fallback to localStorage if no query or hash is present in the URL
-        const savedTab = localStorage.getItem('ahmed_twin_active_tab');
-        if (savedTab) {
+        // Fallback to localStorage or default to consultant if no query or hash is present in the URL
+        let savedTab = null;
+        try {
+            savedTab = localStorage.getItem('ahmed_twin_active_tab');
+        } catch (e) {}
+
+        if (savedTab && (savedTab === 'consultant' || savedTab === 'portfolio' || savedTab === 'media')) {
             switchTab(savedTab);
             if (savedTab === 'portfolio') {
-                const savedSlide = localStorage.getItem('ahmed_twin_slide_index');
-                if (savedSlide !== null) {
-                    const slideIndex = parseInt(savedSlide, 10);
-                    if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < scenes.length) {
-                        goToSlide(slideIndex);
+                try {
+                    const savedSlide = localStorage.getItem('ahmed_twin_slide_index');
+                    if (savedSlide !== null) {
+                        const slideIndex = parseInt(savedSlide, 10);
+                        if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < scenes.length) {
+                            goToSlide(slideIndex);
+                        }
                     }
-                }
+                } catch (e) {}
             }
+        } else {
+            switchTab('consultant');
         }
     }
 

@@ -5936,7 +5936,7 @@ parsed_input = parse_multimodal_intent(user_audio_stream)</code></pre>
             </div>
 
             <!-- 7 Layer Buttons -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div class="agentic-layers-grid">
                 <button id="m5-layer-btn-1" class="agentic-layer-btn active" onclick="window.switchAgenticLayer('m5-', 1)" style="text-align: left; padding: 0.9rem; border-radius: 8px; border: 1px solid #6366f1; background: rgba(99, 102, 241, 0.15); cursor: pointer; transition: all 0.2s;">
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
                         <span style="background: #4f46e5; color: white; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">1</span>
@@ -5995,26 +5995,26 @@ parsed_input = parse_multimodal_intent(user_audio_stream)</code></pre>
             </div>
 
             <!-- Dynamic Detail Pane for Selected Layer -->
-            <div id="m5-agentic-layer-detail-box" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 10px; padding: 1.5rem;">
+            <div id="m5-agentic-layer-detail-box" class="agentic-layer-detail-box">
                 <!-- Updated dynamically by JS -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-                    <div>
-                        <span style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(99, 102, 241, 0.4);">
+                <div class="agentic-detail-header">
+                    <div class="agentic-detail-title-group">
+                        <span style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(99, 102, 241, 0.4); display: inline-block; width: fit-content;">
                             LAYER 1 OF 7
                         </span>
-                        <h4 style="margin: 0.4rem 0 0.1rem 0; font-size: 1.35rem; color: #f8fafc;">
+                        <h4 class="agentic-detail-title">
                             1. Orchestration Layer
                         </h4>
                     </div>
-                    <div style="color: #a5b4fc; font-size: 0.85rem; font-weight: 600;">
+                    <div class="agentic-detail-objective" style="color: #a5b4fc;">
                         Controls workflow, reasoning, planning, and task execution
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
-                    <div>
+                <div class="agentic-detail-grid">
+                    <div class="agentic-detail-content">
                         <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Core Sub-Components:</h5>
-                        <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
+                        <ul>
                             <li><strong>📋 Planner:</strong> Decomposes complex user goals into atomic, dependency-aware task graphs.</li>
                             <li><strong>🔄 Workflow:</strong> Manages state machines, cyclic loops, and step checkpoints (e.g. LangGraph Pregel Engine, Temporal).</li>
                             <li><strong>🧠 Reasoning:</strong> Evaluates intermediate step outputs using structured cognitive patterns (ReAct, Chain-of-Thought).</li>
@@ -6024,14 +6024,22 @@ parsed_input = parse_multimodal_intent(user_audio_stream)</code></pre>
                         <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.5; margin: 0 0 1rem 0;">
                             Prevents the agent from devolving into unconstrained, non-deterministic black boxes by enforcing stateful checkpointers, timeout bounds, and maximum step thresholds.
                         </p>
+
+                        <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
+                        <div class="agentic-detail-tools-wrap">
+                            <span class="tool-tag" style="background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">LangGraph</span>
+                            <span class="tool-tag" style="background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">LlamaIndex Workflows</span>
+                            <span class="tool-tag" style="background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">Temporal.io</span>
+                            <span class="tool-tag" style="background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">Semantic Kernel</span>
+                        </div>
                     </div>
 
-                    <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                    <div class="agentic-detail-code-card">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                             <span style="font-family: monospace; font-size: 0.78rem; color: #a5b4fc;">// LangGraph Stateful Orchestration Node</span>
                             <span style="color: #64748b; font-size: 0.75rem;">Python 3.11</span>
                         </div>
-                        <pre style="margin: 0; font-family: monospace; font-size: 0.78rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>from langgraph.graph import StateGraph, END
+                        <pre><code>from langgraph.graph import StateGraph, END
 from typing import TypedDict
 
 class OrchestrationState(TypedDict):
@@ -18592,24 +18600,24 @@ allow_action = false {
         ).join(' ');
 
         container.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-                <div>
-                    <span style="background: ${data.badgeBg}; color: ${data.color}; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid ${data.badgeBorder};">
+            <div class="agentic-detail-header">
+                <div class="agentic-detail-title-group">
+                    <span style="background: ${data.badgeBg}; color: ${data.color}; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid ${data.badgeBorder}; display: inline-block; width: fit-content;">
                         LAYER ${layerId} OF 7
                     </span>
-                    <h4 style="margin: 0.4rem 0 0.1rem 0; font-size: 1.35rem; color: #f8fafc;">
+                    <h4 class="agentic-detail-title">
                         ${data.title}
                     </h4>
                 </div>
-                <div style="color: ${data.color}; font-size: 0.85rem; font-weight: 600;">
+                <div class="agentic-detail-objective" style="color: ${data.color};">
                     ${data.objective}
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
-                <div>
+            <div class="agentic-detail-grid">
+                <div class="agentic-detail-content">
                     <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Core Sub-Components:</h5>
-                    <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
+                    <ul>
                         ${subCompHTML}
                     </ul>
 
@@ -18619,17 +18627,17 @@ allow_action = false {
                     </p>
 
                     <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
-                    <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                    <div class="agentic-detail-tools-wrap">
                         ${toolsHTML}
                     </div>
                 </div>
 
-                <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <div class="agentic-detail-code-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-family: monospace; font-size: 0.78rem; color: ${data.color};">${data.codeTitle}</span>
                         <span style="color: #64748b; font-size: 0.75rem;">${data.codeLang}</span>
                     </div>
-                    <pre style="margin: 0; font-family: monospace; font-size: 0.78rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${data.codeSnippet}</code></pre>
+                    <pre><code>${data.codeSnippet}</code></pre>
                 </div>
             </div>
         `;
