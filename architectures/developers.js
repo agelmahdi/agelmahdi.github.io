@@ -5404,7 +5404,7 @@ with torch.no_grad():
             </div>
 
             <!-- 12 Component Selector Grid -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div class="agent-comp-grid">
                 <button id="m5-comp-btn-1" class="agent-comp-btn active" onclick="window.switchAgentComponent('m5-', 1)" style="text-align: left; padding: 0.85rem; border-radius: 8px; border: 1px solid #38bdf8; background: rgba(56, 189, 248, 0.12); cursor: pointer; transition: all 0.2s;">
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
                         <span style="background: #0284c7; color: white; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">1</span>
@@ -5503,26 +5503,26 @@ with torch.no_grad():
             </div>
 
             <!-- Dynamic Detail Container for Selected Component -->
-            <div id="m5-agent-comp-detail-box" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 10px; padding: 1.5rem;">
+            <div id="m5-agent-comp-detail-box" class="agent-comp-detail-box">
                 <!-- Default Component 1 rendered here, updated dynamically by JS -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-                    <div>
-                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">
+                <div class="agentic-detail-header">
+                    <div class="agentic-detail-title-group">
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3); display: inline-block; width: fit-content;">
                             LAYER 1 OF 12
                         </span>
-                        <h4 style="margin: 0.4rem 0 0.1rem 0; font-size: 1.35rem; color: #f8fafc;">
+                        <h4 class="agentic-detail-title">
                             1. Perception Layer — Understand and Structure the Input
                         </h4>
                     </div>
-                    <div style="color: #38bdf8; font-size: 0.85rem; font-weight: 600;">
+                    <div class="agentic-detail-objective" style="color: #38bdf8;">
                         Primary Objective: Ingestion & Typed Canonicalization
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
-                    <div>
+                <div class="agentic-detail-grid">
+                    <div class="agentic-detail-content">
                         <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Key Responsibilities:</h5>
-                        <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
+                        <ul>
                             <li><strong>Multimodal Ingestion:</strong> Ingest text streams, voice recordings (Whisper/STT), PDF invoices, spreadsheets, and UI screenshots.</li>
                             <li><strong>Intent Detection:</strong> Zero-shot route requests to sub-intents (e.g., Data Query vs Action Request vs Policy Clarification).</li>
                             <li><strong>Entity Extraction (NER):</strong> Extract structured entities (Client IDs, monetary amounts, SQL filters, dates) into Pydantic models.</li>
@@ -5530,7 +5530,7 @@ with torch.no_grad():
                         </ul>
 
                         <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
-                        <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                        <div class="agentic-detail-tools-wrap">
                             <span class="tool-tag" style="background: rgba(14, 165, 233, 0.15); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">OpenAI (Whisper, Vision)</span>
                             <span class="tool-tag" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">Azure AI (Doc Intelligence)</span>
                             <span class="tool-tag" style="background: rgba(234, 88, 12, 0.15); color: #fb923c; border: 1px solid rgba(234, 88, 12, 0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">Amazon Textract</span>
@@ -5538,12 +5538,12 @@ with torch.no_grad():
                         </div>
                     </div>
 
-                    <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                    <div class="agentic-detail-code-card">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                             <span style="font-family: monospace; font-size: 0.78rem; color: #a78bfa;">// Production Pydantic Canonicalizer</span>
                             <span style="color: #64748b; font-size: 0.75rem;">Python 3.11</span>
                         </div>
-                        <pre style="margin: 0; font-family: monospace; font-size: 0.78rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>from pydantic import BaseModel, Field
+                        <pre><code>from pydantic import BaseModel, Field
 from typing import Optional, List
 
 class AgentPerceptionOutput(BaseModel):
@@ -18212,39 +18212,39 @@ Format Requirements:
         ).join('');
 
         container.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-                <div>
-                    <span style="background: ${data.badgeBg}; color: ${data.color}; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid ${data.badgeBorder};">
+            <div class="agentic-detail-header">
+                <div class="agentic-detail-title-group">
+                    <span style="background: ${data.badgeBg}; color: ${data.color}; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid ${data.badgeBorder}; display: inline-block; width: fit-content;">
                         LAYER ${compId} OF 12
                     </span>
-                    <h4 style="margin: 0.4rem 0 0.1rem 0; font-size: 1.35rem; color: #f8fafc;">
+                    <h4 class="agentic-detail-title">
                         ${data.title}
                     </h4>
                 </div>
-                <div style="color: ${data.color}; font-size: 0.85rem; font-weight: 600;">
+                <div class="agentic-detail-objective" style="color: ${data.color};">
                     ${data.objective}
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
-                <div>
+            <div class="agentic-detail-grid">
+                <div class="agentic-detail-content">
                     <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Key Responsibilities:</h5>
-                    <ul style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
+                    <ul>
                         ${respHTML}
                     </ul>
 
                     <h5 style="color: #94a3b8; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
-                    <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <div class="agentic-detail-tools-wrap">
                         ${toolsHTML}
                     </div>
                 </div>
 
-                <div style="background: #090d16; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <div class="agentic-detail-code-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-family: monospace; font-size: 0.78rem; color: ${data.color};">${data.codeTitle}</span>
                         <span style="color: #64748b; font-size: 0.75rem;">${data.codeLang}</span>
                     </div>
-                    <pre style="margin: 0; font-family: monospace; font-size: 0.78rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${data.codeSnippet}</code></pre>
+                    <pre><code>${data.codeSnippet}</code></pre>
                 </div>
             </div>
         `;

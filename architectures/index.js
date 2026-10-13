@@ -6416,39 +6416,39 @@ Format Requirements:
         ).join('');
 
         container.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-                <div>
-                    <span style="background: ${data.badgeBg}; color: ${data.color}; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid ${data.badgeBorder};">
+            <div class="agentic-detail-header">
+                <div class="agentic-detail-title-group">
+                    <span style="background: ${data.badgeBg}; color: ${data.color}; font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid ${data.badgeBorder}; display: inline-block; width: fit-content;">
                         LAYER ${compId} OF 12
                     </span>
-                    <h4 style="margin: 0.4rem 0 0.1rem 0; font-size: 1.35rem; color: #f8fafc;">
+                    <h4 class="agentic-detail-title">
                         ${data.title}
                     </h4>
                 </div>
-                <div style="color: ${data.color}; font-size: 0.85rem; font-weight: 600;">
+                <div class="agentic-detail-objective" style="color: ${data.color};">
                     ${data.objective}
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
-                <div>
+            <div class="agentic-detail-grid">
+                <div class="agentic-detail-content">
                     <h5 style="color: #cbd5e1; font-size: 0.82rem; text-transform: uppercase; margin-top: 0; margin-bottom: 0.5rem;">Key Responsibilities:</h5>
-                    <ul style="color: #e2e8f0; font-size: 0.88rem; line-height: 1.6; padding-left: 1.25rem; margin: 0 0 1rem 0;">
+                    <ul>
                         ${respHTML}
                     </ul>
 
                     <h5 style="color: #cbd5e1; font-size: 0.82rem; text-transform: uppercase; margin-bottom: 0.4rem;">Production Tools & Ecosystem:</h5>
-                    <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <div class="agentic-detail-tools-wrap">
                         ${toolsHTML}
                     </div>
                 </div>
 
-                <div style="background: #131c2e; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <div class="agentic-detail-code-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-family: monospace; font-size: 0.78rem; color: ${data.color};">${data.codeTitle}</span>
                         <span style="color: #cbd5e1; font-size: 0.75rem;">${data.codeLang}</span>
                     </div>
-                    <pre style="margin: 0; font-family: monospace; font-size: 0.78rem; color: #e2e8f0; line-height: 1.5; overflow-x: auto;"><code>${data.codeSnippet}</code></pre>
+                    <pre><code>${data.codeSnippet}</code></pre>
                 </div>
             </div>
         `;
