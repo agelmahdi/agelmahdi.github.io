@@ -3760,7 +3760,7 @@ pre code {
 div[style*="overflow-x: auto"] > table,
 .spec-table-container > table,
 .spec-table {
-    min-width: 580px;
+    min-width: 620px;
 }
 
 @media (max-width: 768px) {
@@ -3768,6 +3768,27 @@ div[style*="overflow-x: auto"] > table,
     input[type="search"] {
         font-size: 16px !important;
         min-height: 44px;
+    }
+
+    /* Enterprise AI 3-Column Topology & Wide Grids Collapse on Tablets / Large Phones */
+    .enterprise-blueprint-grid,
+    .content-section div[style*="minmax(240px, 1fr) minmax(380px"],
+    .cloud-patterns-catalog-grid,
+    .content-section div[style*="minmax(360px"],
+    .content-section div[style*="minmax(380px"],
+    .content-section div[style*="minmax(420px"],
+    .content-section div[style*="minmax(440px"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Deep Dive Section Header Stat / Formula Boxes */
+    .header-stat-box,
+    .content-section div[style*="min-width: 240px"],
+    .content-section div[style*="min-width: 230px"],
+    .content-section div[style*="min-width: 220px"] {
+        width: 100% !important;
+        min-width: 0 !important;
+        text-align: left !important;
     }
 }
 
@@ -3785,6 +3806,108 @@ div[style*="overflow-x: auto"] > table,
     .jev-sim-grid {
         grid-template-columns: 1fr !important;
     }
+
+    /* Deep Dive Simulator Traces (Cloud, Inference, etc.) */
+    [id$="simulation-output"] div[style*="display: flex; gap: 0.75rem"],
+    #cloud-pattern-simulation-output div[style*="display: flex; gap: 0.75rem"],
+    #inference-simulation-output div[style*="display: flex; gap: 0.75rem"] {
+        flex-wrap: wrap !important;
+        gap: 0.35rem 0.6rem !important;
+    }
+    [id$="simulation-output"] div[style*="display: flex; gap: 0.75rem"] > span:nth-child(3),
+    #cloud-pattern-simulation-output div[style*="display: flex; gap: 0.75rem"] > span:nth-child(3),
+    #inference-simulation-output div[style*="display: flex; gap: 0.75rem"] > span:nth-child(3) {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        margin-top: 2px;
+    }
+
+    /* Deep Dive Section Card Headers: Ensure Title & Badges Wrap Cleanly */
+    .content-section .card > div[style*="justify-content: space-between"],
+    .content-section .calc-card > div[style*="justify-content: space-between"] {
+        flex-wrap: wrap !important;
+        gap: 0.5rem 0.75rem !important;
+    }
+
+    /* RAG Paradigms & Chunking Strategy Pills on Mobile Viewports */
+    #sec-rag-basics .m5-wf-pill,
+    #sec-chunking .m5-wf-pill,
+    #sec-chunking .m5-card-pill {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+        white-space: normal !important;
+        min-height: 44px !important;
+        padding: 0.55rem 0.85rem !important;
+        font-size: 0.82rem !important;
+    }
+
+    /* Deep Dive Subtab Pills & Scenario Touch Targets */
+    .m5-sysml-pill,
+    .m5-visual-pill,
+    .cloud-pattern-btn,
+    .inference-scenario-btn,
+    .sub-pill,
+    #sec-workflow .m5-wf-pill,
+    #sec-data-mlops .nav-tab,
+    #sec-kafka-k8s .nav-tab,
+    .m5-quiz-btn,
+    button[id^="btn-sketch-"],
+    button[id^="btn-rag-scen-"],
+    button[id^="btn-chunk-scen-"] {
+        min-height: 44px !important;
+        touch-action: manipulation;
+        font-size: 0.82rem !important;
+        padding: 0.55rem 0.85rem !important;
+    }
+
+    /* Deep Dive Interactive Tools: Sliders & Pipeline Trigger */
+    .slider-input {
+        min-height: 44px;
+        padding: 10px 0;
+        touch-action: pan-x;
+    }
+    .slider-input::-webkit-slider-thumb {
+        width: 22px;
+        height: 22px;
+    }
+    .calc-card div[style*="grid-template-columns: 1fr auto"] {
+        grid-template-columns: 1fr !important;
+    }
+    .calc-card div[style*="grid-template-columns: 1fr auto"] > button {
+        min-height: 44px !important;
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    /* Deep Dive Locked Gating Card on Mobile */
+    .deep-dive-gate-card > div {
+        margin: 1.25rem auto !important;
+        padding: 0.75rem 0.25rem !important;
+    }
+    .deep-dive-gate-card h2 {
+        font-size: 1.35rem !important;
+    }
+    .deep-dive-gate-card .mode-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        min-height: 44px !important;
+    }
+
+    /* Comprehensive Grid Column Collapse for minmax >= 240px */
+    .content-section div[style*="minmax(240px"],
+    .content-section div[style*="minmax(260px"],
+    .content-section div[style*="minmax(280px"],
+    .content-section div[style*="minmax(290px"],
+    .content-section div[style*="minmax(300px"],
+    .content-section div[style*="minmax(310px"],
+    .content-section div[style*="minmax(320px"],
+    .content-section div[style*="minmax(360px"],
+    .content-section div[style*="minmax(380px"],
+    .content-section div[style*="minmax(420px"],
+    .content-section div[style*="minmax(440px"] {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -3795,4 +3918,60 @@ div[style*="overflow-x: auto"] > table,
     .agent-sim-hud {
         grid-template-columns: 1fr !important;
     }
+
+    /* 10-Catalog RAG Pills balanced 2-column grid on mobile phones */
+    button[id^="pill-cat-"] {
+        flex: 1 1 calc(50% - 0.4rem) !important;
+        min-height: 44px !important;
+        touch-action: manipulation;
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 0.45rem 0.5rem !important;
+        font-size: 0.78rem !important;
+    }
+
+    /* Deep Dive Subtab Full Width Stacking on Small Viewports */
+    .m5-sysml-pill,
+    .m5-visual-pill,
+    .cloud-pattern-btn,
+    .inference-scenario-btn,
+    .sub-pill,
+    #sec-workflow .m5-wf-pill {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+        white-space: normal !important;
+    }
+
+    /* Cloud Pattern 2-Column Specs Collapse */
+    #sec-cloud-patterns div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Tool Interactive Calculator Mobile Polish */
+    .calc-card {
+        padding: 1rem 0.85rem !important;
+    }
+    .metric-stat-box {
+        padding: 0.85rem 0.5rem !important;
+    }
+    .metric-val {
+        font-size: 1.45rem !important;
+    }
+
+    /* Collapse smaller 200px - 230px minmax grids */
+    .content-section div[style*="minmax(200px"],
+    .content-section div[style*="minmax(210px"],
+    .content-section div[style*="minmax(220px"],
+    .content-section div[style*="minmax(230px"] {
+        grid-template-columns: 1fr !important;
+    }
 }
+
+@media (max-width: 360px) {
+    .content-section h2,
+    .content-section h3 {
+        word-break: break-word;
+    }
+}
+

@@ -655,7 +655,7 @@
                 if (id === sectionId) {
                     tabEl.classList.add('active');
                     tabEl.setAttribute('aria-selected', 'true');
-                    tabEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    tabEl.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
                 } else {
                     tabEl.classList.remove('active');
                     tabEl.setAttribute('aria-selected', 'false');
@@ -697,7 +697,7 @@
         if (activeSectionEl && typeof window.renderMathEquations === 'function') {
             window.renderMathEquations(activeSectionEl);
         }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo(0, 0);
     };
 
     window.renderMathEquations = function(rootEl) {
@@ -2757,7 +2757,7 @@ data: {
                             parentDetails = parentDetails.parentElement ? parentDetails.parentElement.closest('details') : null;
                         }
                         if (typeof targetEl.click === 'function') targetEl.click();
-                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        targetEl.scrollIntoView({ behavior: 'auto', block: 'center' });
                     }, 150);
                 }
             }
