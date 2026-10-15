@@ -114,7 +114,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css?v=2.5">
+    <link rel="stylesheet" href="style.css?v=3.0">
 </head>
 <body dir="rtl">
     <!-- Background Noise & Ambient Orbs -->
@@ -200,6 +200,12 @@
                 </button>
             
                 <div style="height: 1px; background: rgba(0,0,0,0.1); margin: 8px 0;"></div>
+                <button type="button" class="side-drawer-tab" id="drawerTabBook" onclick="window.openBookingModal()">
+                    <span class="mode-icon" style="color: #fbbf24;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </span>
+                    <span class="mode-label" data-translate="bookConsultationBtn">حجز موعد استشارة</span>
+                </button>
                 <button type="button" class="side-drawer-tab" id="modeBtn" data-mode="standard">
                     <span class="mode-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -231,7 +237,7 @@
                         <div class="message-content">
                             <p class="greeting-title" data-translate="greetingTitle">مرحباً بك في معمل هندسة الذكاء الاصطناعي</p>
                             <p class="mt-1" data-translate="greetingDesc">أنا التوأم الذكي  للمهدي، والمتخصص في حلول الذكاء الاصطناعي الجاهزة للتشغيل الفعلي. لأي استفسارات تجارية أو فرص للشراكة، يرجى التواصل مباشرةً عبر
-                            <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a>.</p>
+                            <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a> أو <a href="javascript:void(0)" onclick="window.openBookingModal()" style="color: var(--gold); font-weight: bold; text-decoration: underline;">حجز موعد استشارة</a>.</p>
                         </div>
                     </div>
                 </div>
@@ -533,6 +539,16 @@
 
         <footer class="app-footer">
             <span class="footer-title" data-translate="ctaTitle">لنبدأ البناء معاً</span>
+            <button type="button" class="footer-booking-btn" id="footerBookingBtn" onclick="window.openBookingModal()" aria-label="حجز استشارة">
+                <span class="footer-booking-pulse"></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span data-translate="bookConsultationBtn">حجز استشارة</span>
+            </button>
             <div class="footer-buttons">
                 <a href="https://linkedin.com/in/agelmahdi" target="_blank" class="footer-btn" id="footerLinkedIn" aria-label="LinkedIn">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -552,6 +568,152 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Meeting Scheduling Modal -->
+    <div class="booking-modal" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
+        <div class="booking-modal-overlay" id="bookingModalOverlay"></div>
+        <div class="booking-modal-content">
+            <div class="booking-modal-header dd-popover-header">
+                <div class="dd-popover-header-top">
+                    <span class="dd-popover-badge badge-general" id="modalHeaderBadge">استراتيجية وخارطة طريق</span>
+                    <button type="button" class="dd-popover-close-btn" id="bookingCloseBtn" aria-label="إغلاق نافذة الحجز" title="إغلاق">
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <h3 class="dd-popover-title" id="bookingModalTitle" data-translate="bookingTitle">حجز استشارة معمارية متعمقة</h3>
+                <p class="dd-popover-subtitle" data-translate="bookingSubtitle">جلسة استراتيجية مباشرة 1-على-1 مع م. أحمد المهدي</p>
+            </div>
+
+            <div class="booking-modal-body">
+                <!-- Consultation Track Selector Trigger -->
+                <div class="booking-section">
+                    <div class="booking-track-header-row">
+                        <label class="booking-label booking-clickable-label" id="trackPickerTriggerLabel" data-translate="bookingStep1">مسار الاستشارة</label>
+                        <button type="button" class="btn-change-track" id="btnChangeTrack" aria-label="تغيير المسار">
+                            <span data-translate="btnChangeTrack">تغيير المسار</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                    </div>
+                    <div class="selected-track-card category-general" id="selectedTrackCard" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" title="انقر لتغيير أو اختيار مسار الاستشارة">
+                        <div class="selected-track-main">
+                            <span class="selected-track-icon" id="selectedTrackIcon" style="color: #fbbf24;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </span>
+                            <div class="selected-track-info">
+                                <div class="selected-track-title-row">
+                                    <strong id="selectedTrackTitle">استراتيجية وخارطة طريق الذكاء الاصطناعي</strong>
+                                    <span class="selected-track-badge badge-general" id="selectedTrackBadge">استشارة عامة</span>
+                                </div>
+                                <div class="selected-track-meta">
+                                    <span class="selected-track-dur" id="selectedTrackDuration">30 دقيقة</span>
+                                    <span class="selected-track-sep">•</span>
+                                    <span class="selected-track-desc" id="selectedTrackDesc">تقييم البناء مقابل الشراء، فحص جاهزية الفريق، وخطة التنفيذ لـ 12 شهراً.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selected-track-action">
+                            <span class="selected-track-action-text" data-translate="btnBrowse">تصفح</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14" height="14"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferred Date & Time Slot -->
+                <div class="booking-section">
+                    <div class="booking-label-row">
+                        <label class="booking-label" data-translate="bookingStep2">الموعد والتوقيت</label>
+                        <div class="booking-timezone-note" id="bookingTimezoneNote">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <span data-translate="bookingTimezone">بتوقيت مصر (القاهرة، GMT+3)</span>
+                        </div>
+                    </div>
+                    <!-- Horizontal Day Picker -->
+                    <div class="booking-days-scroll" id="bookingDaysScroll">
+                        <!-- Injected dynamically via script.js -->
+                    </div>
+                    <!-- Time Slots Grid -->
+                    <div class="booking-slots-grid" id="bookingSlotsGrid">
+                        <!-- Injected dynamically via script.js -->
+                    </div>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="booking-section">
+                    <label class="booking-label" data-translate="bookingStep3">بيانات التواصل</label>
+                    <div class="booking-form-grid">
+                        <div class="booking-field">
+                            <label for="bookingName" data-translate="fieldName">الاسم الكامل *</label>
+                            <input type="text" id="bookingName" placeholder="مثال: م. سارة أحمد" required autocomplete="name">
+                        </div>
+                        <div class="booking-field">
+                            <label for="bookingEmail" data-translate="fieldEmail">البريد المهني *</label>
+                            <input type="email" id="bookingEmail" placeholder="sarah@company.com" required autocomplete="email">
+                        </div>
+                        <div class="booking-field full-width">
+                            <label for="bookingCompany" data-translate="fieldCompany">المؤسسة / جهة العمل</label>
+                            <input type="text" id="bookingCompany" placeholder="مثال: البنك الأهلي / شركة أرامكو" autocomplete="organization">
+                        </div>
+                        <div class="booking-field full-width">
+                            <label for="bookingNotes" data-translate="fieldNotes">سياق تقني موجز (اختياري)</label>
+                            <textarea id="bookingNotes" rows="2" placeholder="مثال: بناء منصة RAG داخلية، خفض فواتير LLM بنسبة 40%..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-modal-footer">
+                <div class="booking-actions">
+                    <button type="button" class="btn-confirm-wa" id="btnConfirmWhatsApp">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                            <path d="M12.012 0C5.398 0 .04 5.352.04 11.96c0 2.104.543 4.154 1.58 5.944L0 24l6.196-1.62c1.73.94 3.708 1.44 5.804 1.44 6.616 0 11.96-5.352 11.96-11.96C24 5.352 18.64 0 12.012 0zm0 21.96c-1.87 0-3.708-.488-5.334-1.414l-.382-.224-3.666.96.974-3.564-.246-.39a9.882 9.882 0 0 1-1.516-5.368c0-5.452 4.436-9.89 9.89-9.89 5.452 0 9.89 4.438 9.89 9.89 0 5.452-4.438 9.89-9.89 9.89zm5.412-7.398c-.296-.148-1.758-.868-2.03-.966-.274-.098-.472-.148-.672.148-.198.298-.77 1.036-.944 1.234-.172.196-.346.222-.642.074-.296-.148-1.252-.462-2.386-1.472-.882-.788-1.478-1.76-1.652-2.056-.172-.296-.018-.456.13-.604.134-.132.296-.346.444-.518.148-.172.198-.296.296-.494.098-.198.05-.37-.024-.518-.074-.148-.672-1.62-.92-2.218-.242-.582-.488-.504-.672-.514-.174-.008-.372-.01-.57-.01-.198 0-.52.074-.792.37-.272.296-1.04 1.016-1.04 2.478 0 1.462 1.064 2.876 1.212 3.074.148.198 2.096 3.2 5.076 4.488.71.306 1.262.49 1.692.626.712.226 1.36.194 1.872.118.572-.086 1.758-.72 2.006-1.414.248-.692.248-1.284.172-1.414-.074-.12-.272-.196-.568-.344z"/>
+                        </svg>
+                        <span data-translate="btnConfirmWA">تأكيد عبر واتساب</span>
+                    </button>
+                    <button type="button" class="btn-confirm-email" id="btnConfirmEmail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span data-translate="btnConfirmEmail">تأكيد عبر البريد الإلكتروني</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Focus Track Selection Modal (Deep Dive Modal Style) -->
+    <div class="track-modal" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle">
+        <div class="track-modal-backdrop" id="trackModalBackdrop"></div>
+        <div class="track-modal-content dd-popover-style">
+            <div class="dd-popover-header track-modal-header">
+                <div class="dd-popover-header-top">
+                    <span class="dd-popover-badge badge-general" id="trackModalBadge">استراتيجية وخارطة طريق</span>
+                    <button type="button" class="dd-popover-close-btn" id="trackModalCloseBtn" aria-label="إغلاق نافذة اختيار المسار" title="إغلاق">
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div class="track-modal-header-nav">
+                    <div>
+                        <h3 class="dd-popover-title" id="trackModalTitle" data-translate="trackModalTitle">اختيار مسار الاستشارة</h3>
+                        <p class="dd-popover-subtitle" data-translate="trackModalSubtitle">اختر مخططاً معمارياً متعمقاً أو مساراً استشارياً استراتيجياً</p>
+                    </div>
+                    <div class="mode-toggle-group track-mode-toggle-group" role="tablist" aria-label="مسارات الاستشارة">
+                        <button type="button" class="mode-btn track-mode-btn active" id="trackModeGeneral" role="tab" aria-selected="true">
+                            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            <span data-translate="trackTabGeneral">عام</span>
+                        </button>
+                        <button type="button" class="mode-btn track-mode-btn" id="trackModeDeepDive" role="tab" aria-selected="false">
+                            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="vertical-align: -1px; margin-left: 4px;"><path d="M12.012 0C5.398 0 .04 5.352.04 11.96c0 2.104.543 4.154 1.58 5.944L0 24l6.196-1.62c1.73.94 3.708 1.44 5.804 1.44 6.616 0 11.96-5.352 11.96-11.96C24 5.352 18.64 0 12.012 0zm0 21.96c-1.87 0-3.708-.488-5.334-1.414l-.382-.224-3.666.96.974-3.564-.246-.39a9.882 9.882 0 0 1-1.516-5.368c0-5.452 4.436-9.89 9.89-9.89 5.452 0 9.89 4.438 9.89 9.89 0 5.452-4.438 9.89-9.89 9.89zm5.412-7.398c-.296-.148-1.758-.868-2.03-.966-.274-.098-.472-.148-.672.148-.198.298-.77 1.036-.944 1.234-.172.196-.346.222-.642.074-.296-.148-1.252-.462-2.386-1.472-.882-.788-1.478-1.76-1.652-2.056-.172-.296-.018-.456.13-.604.134-.132.296-.346.444-.518.148-.172.198-.296.296-.494.098-.198.05-.37-.024-.518-.074-.148-.672-1.62-.92-2.218-.242-.582-.488-.504-.672-.514-.174-.008-.372-.01-.57-.01-.198 0-.52.074-.792.37-.272.296-1.04 1.016-1.04 2.478 0 1.462 1.064 2.876 1.212 3.074.148.198 2.096 3.2 5.076 4.488.71.306 1.262.49 1.692.626.712.226 1.36.194 1.872.118.572-.086 1.758-.72 2.006-1.414.248-.692.248-1.284.172-1.414-.074-.12-.272-.196-.568-.344z"/></svg>
+                            <span data-translate="trackTabDeepDive">تعمق تقني</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="track-modal-topics-list" id="bookingTopicsGrid">
+                <!-- Injected dynamically via script.js -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=3.0"></script>
 </body>
 </html>

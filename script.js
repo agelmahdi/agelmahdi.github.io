@@ -1,3 +1,19 @@
+// Early global bindings for meeting scheduler
+window.openBookingModal = window.openBookingModal || function(topicId) {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+};
+window.closeBookingModal = window.closeBookingModal || function() {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const reelsData = [
         {
@@ -588,6 +604,35 @@ document.addEventListener('DOMContentLoaded', () => {
             phaseFName: 'F: Rollout & Migration',
             phaseGName: 'G: Security Guardrails',
             phaseHName: 'H: Drift & Feedback',
+            bookConsultationBtn: 'Book Consultation',
+            bookingBadge: 'EXECUTIVE ADVISORY',
+            bookingTitle: 'Book AI Consultation',
+            bookingSubtitle: 'Direct 1-on-1 strategy session with Ahmed El-Mahdi',
+            bookingStep1: 'Select Focus Track',
+            btnChangeTrack: 'Change Track',
+            btnBrowse: 'Browse',
+            trackModalTitle: 'Select Focus Track',
+            trackModalSubtitle: 'Choose an architecture blueprint or strategic advisory track',
+            trackTabGeneral: 'General',
+            trackTabDeepDive: 'Deep Dive',
+            ddTrackBadgeDeepDive: 'ADVANCED ARCHITECTURE',
+            ddTrackBadgeGeneral: 'STRATEGY & ROADMAP',
+            ddTrackHint: 'Select an engineering blueprint below:',
+            ddTrackHintGeneral: 'Select executive advisory track below:',
+            bookingStep2: 'Date & Time',
+            bookingTimezone: 'Egypt Time (Cairo, GMT+3)',
+            bookingStep3: 'Your Contact Details',
+            fieldName: 'Full Name *',
+            fieldEmail: 'Work Email *',
+            fieldCompany: 'Organization / Company',
+            fieldNotes: 'Brief Architecture Context (Optional)',
+            summarySelected: 'Selected Focus:',
+            summaryTime: 'Preferred Slot:',
+            btnConfirmWA: 'Confirm via WhatsApp',
+            btnConfirmEmail: 'Confirm via Email',
+            btnConfirmCal: 'Add to Calendar (.ics)',
+            chipBookMeeting: 'Book Consultation',
+            drawerTabBook: 'Book Architecture Consultation',
             msgEnterpriseEnabled: '🛡️ <strong>Enterprise Mode Enabled:</strong> Future responses will feature highly detailed technical architectures. For advanced content, please leave a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a>; we will contact you as soon as possible.',
             msgStandardRestored: '💡 <strong>Standard Mode Restored:</strong> Future responses will be concise, high-level summaries.',
             msgBlueprintLocked: '🔒 <strong>Enterprise Architecture Blueprint Locked:</strong> Advanced production plans, GPU topologies, and custom cost optimizations are reserved for advanced content. Please leave a message via <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">WhatsApp</a>, and we will contact you as soon as possible to grant access.',
@@ -601,6 +646,12 @@ document.addEventListener('DOMContentLoaded', () => {
             reel1Title: 'What is a Data Pipeline?',
             reel1Desc: 'A Data Pipeline is the engineered infrastructure that transforms chaotic, raw data into a reliable and actionable digital asset. Think of it as the "nervous system" of any enterprise AI architecture. It automates the process of extracting data from disparate sources, transforming and cleaning it, and securely delivering it to storage systems or AI models for consumption.',
             responses: {
+                booking: `<strong>Schedule 1-on-1 AI Architecture Consultation:</strong><br>
+        Direct strategic advisory session with Ahmed El-Mahdi to analyze your system constraints, token cost curves, or enterprise RAG roadmap.<br><br>
+        <button type="button" class="chat-action-btn" onclick="window.openBookingModal()" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),#d97706);color:#0f172a;font-weight:700;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;margin-top:6px;font-size:0.875rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Open Booking Scheduler
+        </button>`,
                 rag: `<strong>Hallucination-Free RAG:</strong><br>
         To build accurate and grounded retrieval systems, we use:
         <ul>
@@ -897,6 +948,35 @@ document.addEventListener('DOMContentLoaded', () => {
             phaseFName: 'F: الترحيل والتكامل والنشر',
             phaseGName: 'G: حوكمة الحماية والأمان',
             phaseHName: 'H: إدارة التغيير والتعلم المستمر',
+            bookConsultationBtn: 'حجز استشارة',
+            bookingBadge: 'استشارة معمارية متقدمة',
+            bookingTitle: 'حجز استشارة معمارية',
+            bookingSubtitle: 'جلسة استراتيجية مباشرة 1-على-1 مع م. أحمد المهدي',
+            bookingStep1: 'مسار الاستشارة',
+            btnChangeTrack: 'تغيير المسار',
+            btnBrowse: 'تصفح',
+            trackModalTitle: 'اختيار مسار الاستشارة',
+            trackModalSubtitle: 'اختر مخططاً معمارياً متعمقاً أو مساراً استشارياً استراتيجياً',
+            trackTabGeneral: 'عام',
+            trackTabDeepDive: 'تعمق تقني',
+            ddTrackBadgeDeepDive: 'معمارية متقدمة',
+            ddTrackBadgeGeneral: 'استراتيجية وخارطة طريق',
+            ddTrackHint: 'اختر المخطط المعماري للاستشارة:',
+            ddTrackHintGeneral: 'اختر مسار الاستشارة التنفيذية:',
+            bookingStep2: 'الموعد والتوقيت',
+            bookingTimezone: 'بتوقيت مصر (القاهرة، GMT+3)',
+            bookingStep3: 'بيانات التواصل',
+            fieldName: 'الاسم الكامل *',
+            fieldEmail: 'البريد المهني *',
+            fieldCompany: 'المؤسسة / جهة العمل',
+            fieldNotes: 'سياق تقني موجز (اختياري)',
+            summarySelected: 'المسار المختار:',
+            summaryTime: 'الموعد المقترح:',
+            btnConfirmWA: 'تأكيد عبر واتساب',
+            btnConfirmEmail: 'تأكيد عبر البريد الإلكتروني',
+            btnConfirmCal: 'إضافة إلى التقويم (.ics)',
+            chipBookMeeting: 'حجز استشارة',
+            drawerTabBook: 'حجز استشارة معمارية',
             msgEnterpriseEnabled: '🛡️ <strong>تم تفعيل الوضع المتقدم:</strong> الإجابات القادمة ستتضمن تفاصيل البنية التحتية الدقيقة. للمحتوى المتقدم، يرجى ترك رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">الواتساب</a> وسنتواصل معك في أقرب وقت.',
             msgStandardRestored: '💡 <strong>تم استعادة الوضع العادي:</strong> الإجابات القادمة ستكون ملخصات عالية المستوى.',
             msgBlueprintLocked: '🔒 <strong>مخطط البنية المؤسسية مقفل:</strong> خطط الإنتاج المتقدمة، وهيكليات وحدات معالجة الرسومات (GPU)، وتحسينات التكلفة المخصصة محجوزة للمحتوى المتقدم. يرجى ترك رسالة عبر <a href="https://wa.me/201558333533" target="_blank" style="color: #000000ff; font-weight: bold; text-decoration: underline;">واتساب</a>، وسنتواصل معك في أقرب وقت ممكن لمنحك صلاحية الوصول.',
@@ -910,6 +990,12 @@ document.addEventListener('DOMContentLoaded', () => {
             reel1Title: 'ما هو الـ Data Pipeline (مسار تدفق البيانات)؟',
             reel1Desc: 'الـ Data Pipeline هو البنية التحتية الهندسية التي تحول البيانات الخام والعشوائية إلى أصل رقمي منظّم ذي قيمة. يمكنك اعتباره "الجهاز العصبي" لأي نظام ذكاء اصطناعي مؤسسي، حيث يقوم آلياً باستخراج البيانات من مصادر متعددة، تنظيفها ومعالجتها، ثم توجيهها بشكل آمن لتغذية نماذج الـ AI أو أنظمة اتخاذ القرار.',
             responses: {
+                booking: `<strong>حجز جلسة استشارية خاصة 1-على-1 في معمارية الذكاء الاصطناعي:</strong><br>
+        جلسة استراتيجية مباشرة مع م. أحمد المهدي لتحليل قيود بنيتكم التحتية، خفض فواتير الاستدلال، أو خارطة نشر الـ RAG للمؤسسات.<br><br>
+        <button type="button" class="chat-action-btn" onclick="window.openBookingModal()" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),#d97706);color:#0f172a;font-weight:700;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;margin-top:6px;font-size:0.875rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            فتح جدول حجز الاستشارة
+        </button>`,
                 rag: `<strong>دقة البيانات وRAG بدون تهييس:</strong><br>
         عشان نبني أنظمة استرجاع (RAG) دقيقة وموثوقة، بنعتمد على:
         <ul>
@@ -1185,7 +1271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-translate]').forEach(el => {
             const key = el.getAttribute('data-translate');
             if (translations[lang][key]) {
-                if (el.tagName === 'INPUT') {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                     el.placeholder = translations[lang][key];
                 } else if (key === 'tabConsultant') {
                     el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> ` + translations[lang][key];
@@ -1200,6 +1286,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+
+        // Sync Meeting Scheduler if initialized
+        if (typeof window.updateMeetingSchedulerLanguage === 'function') {
+            window.updateMeetingSchedulerLanguage();
+        }
     }
 
     // Auto-scroll chat to the bottom
@@ -1278,14 +1369,19 @@ document.addEventListener('DOMContentLoaded', () => {
             let responseText = '';
             
             if (isPremiumMode) {
-                // If they are asking basic greeting/bio, let them read standard summaries
+                // If they are asking basic greeting/bio/booking, let them read standard summaries
                 const query = customQuery.toLowerCase();
-                const isBasic = questionKey === 'about' || questionKey === 'greeting' ||
+                const isBooking = questionKey === 'booking' || (customQuery && (query.includes('meet') || query.includes('book') || query.includes('schedule') || query.includes('call') || query.includes('appointment') || query.includes('calendar') || query.includes('consultation') || query.includes('موعد') || query.includes('حجز') || query.includes('ميتنج') || query.includes('مكالمة') || query.includes('استشارة')));
+                const isBasic = questionKey === 'about' || questionKey === 'greeting' || isBooking ||
                                 (customQuery && (query.includes('hello') || query.includes('hi') || query.includes('welcome') || query.includes('أهلا') || query.includes('سلام') || query.includes('مرحبا') || query.includes('who') || query.includes('about') || query.includes('ahmed') || query.includes('مين')));
                 
                 if (isBasic) {
                     const responses = translations[currentLang].responses;
-                    responseText = questionKey ? responses[questionKey] : responses.about;
+                    if (isBooking) {
+                        responseText = responses.booking;
+                    } else {
+                        responseText = questionKey ? responses[questionKey] : responses.about;
+                    }
                 } else {
                     // Lock premium technical content and show WhatsApp gate message
                     let topicName = '';
@@ -1322,8 +1418,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Keyword matching for custom user entries (supports English & Arabic keywords)
                     const query = customQuery.toLowerCase();
                     
+                    // Meeting / Consultation Keywords
+                    if (query.includes('meet') || query.includes('book') || query.includes('schedule') || query.includes('call') || query.includes('appointment') || query.includes('calendar') || query.includes('consultation') || query.includes('موعد') || query.includes('حجز') || query.includes('ميتنج') || query.includes('مكالمة') || query.includes('استشارة') || questionKey === 'booking') {
+                        responseText = responses.booking;
+                    }
                     // RAG Keywords
-                    if (query.includes('rag') || query.includes('hallucination') || query.includes('grounding') || query.includes('retrieval') || query.includes('تهييس') || query.includes('استرجاع') || query.includes('دقة')) {
+                    else if (query.includes('rag') || query.includes('hallucination') || query.includes('grounding') || query.includes('retrieval') || query.includes('تهييس') || query.includes('استرجاع') || query.includes('دقة')) {
                         responseText = responses.rag;
                     } 
                     // Agentic Keywords
@@ -1386,6 +1486,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionText = chip.textContent.trim();
 
         trackEvent('chip_click', { question: questionKey, text: questionText });
+
+        if (questionKey === 'booking') {
+            if (typeof window.openBookingModal === 'function') {
+                window.openBookingModal();
+            }
+            return;
+        }
 
         // Add user bubble
         addMessage('user', questionText);
@@ -1866,6 +1973,714 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    // --- Meeting Scheduling Modal & Flow ---
+    function initMeetingScheduler() {
+        const modal = document.getElementById('bookingModal');
+        const overlay = document.getElementById('bookingModalOverlay');
+        const closeBtn = document.getElementById('bookingCloseBtn');
+        const topicsGrid = document.getElementById('bookingTopicsGrid');
+        const daysScroll = document.getElementById('bookingDaysScroll');
+        const slotsGrid = document.getElementById('bookingSlotsGrid');
+        const summaryTopic = document.getElementById('summaryTopicText');
+        const summaryDate = document.getElementById('summaryDateText');
+        const btnWA = document.getElementById('btnConfirmWhatsApp');
+        const btnEmail = document.getElementById('btnConfirmEmail');
+        const btnCal = document.getElementById('btnConfirmCalendar');
+        const footerBookingBtn = document.getElementById('footerBookingBtn');
+        const floatingBtn = document.getElementById('btnFloatingBook');
+        const drawerTabBook = document.getElementById('drawerTabBook');
+        const btnModeGeneral = document.getElementById('trackModeGeneral');
+        const btnModeDeepDive = document.getElementById('trackModeDeepDive');
+        const modalHeaderBadge = document.getElementById('modalHeaderBadge');
+
+        // Focus Track Selection Modal & Selected Track Trigger Card elements
+        const trackModal = document.getElementById('trackModal');
+        const trackModalBackdrop = document.getElementById('trackModalBackdrop');
+        const trackModalCloseBtn = document.getElementById('trackModalCloseBtn');
+        const trackModalBadge = document.getElementById('trackModalBadge');
+        const selectedTrackCard = document.getElementById('selectedTrackCard');
+        const btnChangeTrack = document.getElementById('btnChangeTrack');
+        const trackPickerTriggerLabel = document.getElementById('trackPickerTriggerLabel');
+        const selectedTrackIcon = document.getElementById('selectedTrackIcon');
+        const selectedTrackTitle = document.getElementById('selectedTrackTitle');
+        const selectedTrackBadge = document.getElementById('selectedTrackBadge');
+        const selectedTrackDuration = document.getElementById('selectedTrackDuration');
+        const selectedTrackDesc = document.getElementById('selectedTrackDesc');
+
+        if (!modal) return;
+
+        const consultationTopics = [
+            // Deep Dive Tracks (Architecture Index Blueprints)
+            {
+                id: 'enterprise-arch',
+                category: 'deep-dive',
+                titleEn: 'Enterprise AI Architecture Blueprint',
+                titleAr: 'معمارية الذكاء الاصطناعي المؤسسي',
+                durationTextEn: '45 mins',
+                durationTextAr: '45 دقيقة',
+                tagEn: 'High Impact',
+                tagAr: 'تأثير استراتيجي',
+                descEn: '7 core layers + dual pillars connecting business triggers to sovereign data.',
+                descAr: '7 طبقات أساسية مع ركائز الحوكمة لربط الأهداف ببياناتك السيادية المؤسسية.',
+                iconColor: '#60a5fa',
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>'
+            },
+            {
+                id: 'finops-cost',
+                category: 'deep-dive',
+                titleEn: 'LLM Inference & FinOps Engines',
+                titleAr: 'محركات الاستدلال وهندسة FinOps',
+                durationTextEn: '30 mins',
+                durationTextAr: '30 دقيقة',
+                tagEn: 'Cost Saving',
+                tagAr: 'خفض نفقات',
+                descEn: 'vLLM, SGLang, TensorRT-LLM, KV cache scaling & slashing token bills.',
+                descAr: 'تقنيات vLLM وSGLang وتوسيع ذاكرة KV وتقليص تكلفة التوكن بنسبة 40%+',
+                iconColor: '#fbbf24',
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>'
+            },
+            {
+                id: 'agentic-workflows',
+                category: 'deep-dive',
+                titleEn: 'Autonomous Agents & HITL Workflows',
+                titleAr: 'الوكلاء الذاتية ومسارات التدخل البشري',
+                durationTextEn: '45 mins',
+                durationTextAr: '45 دقيقة',
+                tagEn: 'Deep Tech',
+                tagAr: 'تقنية متقدمة',
+                descEn: 'Multi-agent orchestration, LangGraph supervisors, memory & human checkpoints.',
+                descAr: 'تنسيق الوكلاء المتعددين، مشرفي LangGraph، إدارة الذاكرة، وبوابات الاعتماد.',
+                iconColor: '#34d399',
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>'
+            },
+            {
+                id: 'sovereign-rag',
+                category: 'deep-dive',
+                titleEn: 'Sovereign RAG & Vector Topologies',
+                titleAr: 'طوبولوجيا RAG السيادية وقواعد الفيكتور',
+                durationTextEn: '45 mins',
+                durationTextAr: '45 دقيقة',
+                tagEn: 'Architecture',
+                tagAr: 'طوبولوجيا متقدمة',
+                descEn: 'Milvus, Qdrant, Pgvector, chunk-level RBAC & hybrid retrieval.',
+                descAr: 'تصميم Milvus وQdrant، صلاحيات RBAC على مستوى القطع، والاسترجاع الهجين.',
+                iconColor: '#a78bfa',
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>'
+            },
+            // General Advisory Tracks
+            {
+                id: 'executive-advisory',
+                category: 'general',
+                titleEn: 'Executive AI Strategy & Roadmap',
+                titleAr: 'استراتيجية وخارطة طريق الذكاء الاصطناعي',
+                durationTextEn: '30 mins',
+                durationTextAr: '30 دقيقة',
+                tagEn: 'Advisory',
+                tagAr: 'جلسة توجيهية',
+                descEn: 'Build vs buy evaluation, security governance, team audit & 12-month horizon.',
+                descAr: 'تقييم البناء مقابل الشراء، فحص جاهزية الفريق، وخطة التنفيذ لـ 12 شهراً.',
+                iconColor: '#fbbf24',
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+            },
+            {
+                id: 'security-guardrails',
+                category: 'general',
+                titleEn: 'Zero-Trust GenAI & Security Guardrails',
+                titleAr: 'حوكمة الأمان وحواجز الحماية Zero-Trust',
+                durationTextEn: '30 mins',
+                durationTextAr: '30 دقيقة',
+                tagEn: 'Security',
+                tagAr: 'أمان وحوكمة',
+                descEn: 'OWASP Top 10 for LLMs, prompt injection firewalls & enterprise compliance.',
+                descAr: 'معايير OWASP للنماذج، جدران حماية الحقن، والتوافق مع الحوكمة المؤسسية.',
+                iconColor: '#38bdf8',
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'
+            }
+        ];
+
+        const defaultTimeSlots = [
+            { time24: '10:00', labelEn: '10:00 AM', labelAr: '10:00 ص' },
+            { time24: '11:30', labelEn: '11:30 AM', labelAr: '11:30 ص' },
+            { time24: '14:00', labelEn: '02:00 PM', labelAr: '02:00 م' },
+            { time24: '16:30', labelEn: '04:30 PM', labelAr: '04:30 م' }
+        ];
+
+        let activeTrackCategory = 'general';
+        let selectedTopicId = 'executive-advisory';
+        let upcomingDays = [];
+        let selectedDateIndex = 0;
+        let selectedSlotIndex = 0;
+
+        function computeUpcomingDays() {
+            upcomingDays = [];
+            const curr = new Date();
+            while (upcomingDays.length < 10) {
+                curr.setDate(curr.getDate() + 1);
+                // Exclude Friday (5) as weekend in MENA/Egypt/Gulf
+                if (curr.getDay() === 5) continue;
+                upcomingDays.push(new Date(curr));
+            }
+        }
+        computeUpcomingDays();
+
+        function openTrackPickerModal() {
+            if (!trackModal) return;
+            renderTopics();
+            trackModal.classList.add('active');
+            if (selectedTrackCard) selectedTrackCard.setAttribute('aria-expanded', 'true');
+            trackEvent('track_picker_modal_opened', { currentTopicId: selectedTopicId, category: activeTrackCategory });
+        }
+
+        function closeTrackPickerModal() {
+            if (!trackModal) return;
+            trackModal.classList.remove('active');
+            if (selectedTrackCard) selectedTrackCard.setAttribute('aria-expanded', 'false');
+            trackEvent('track_picker_modal_closed');
+        }
+
+        function updateSelectedTrackCard() {
+            const isAr = currentLang === 'ar';
+            const topic = consultationTopics.find(t => t.id === selectedTopicId) || consultationTopics[0];
+            const title = isAr ? topic.titleAr : topic.titleEn;
+            const duration = isAr ? topic.durationTextAr : topic.durationTextEn;
+            const desc = isAr ? topic.descAr : topic.descEn;
+            const isDeepDive = topic.category === 'deep-dive';
+
+            if (selectedTrackIcon) {
+                selectedTrackIcon.innerHTML = topic.icon;
+                selectedTrackIcon.style.color = topic.iconColor;
+            }
+            if (selectedTrackTitle) {
+                selectedTrackTitle.textContent = title;
+            }
+            if (selectedTrackDuration) {
+                selectedTrackDuration.textContent = duration;
+            }
+            if (selectedTrackDesc) {
+                selectedTrackDesc.textContent = desc;
+            }
+            if (selectedTrackBadge) {
+                selectedTrackBadge.textContent = isDeepDive ? (isAr ? 'تعمق تقني' : 'Deep Dive') : (isAr ? 'استشارة عامة' : 'General');
+                selectedTrackBadge.className = isDeepDive ? 'selected-track-badge' : 'selected-track-badge badge-general';
+            }
+            if (selectedTrackCard) {
+                selectedTrackCard.classList.toggle('category-general', !isDeepDive);
+                selectedTrackCard.classList.toggle('category-deep-dive', isDeepDive);
+            }
+        }
+
+        function updateTrackHeader() {
+            const isAr = currentLang === 'ar';
+            const isDD = (activeTrackCategory === 'deep-dive');
+            if (btnModeGeneral) {
+                btnModeGeneral.classList.toggle('active', !isDD);
+                btnModeGeneral.setAttribute('aria-selected', !isDD ? 'true' : 'false');
+            }
+            if (btnModeDeepDive) {
+                btnModeDeepDive.classList.toggle('active', isDD);
+                btnModeDeepDive.setAttribute('aria-selected', isDD ? 'true' : 'false');
+            }
+            const badgeText = isDD 
+                ? (isAr ? 'معمارية متقدمة' : 'ADVANCED ARCHITECTURE')
+                : (isAr ? 'استراتيجية وخارطة طريق' : 'STRATEGY & ROADMAP');
+            const badgeClass = isDD ? 'dd-popover-badge' : 'dd-popover-badge badge-general';
+            if (modalHeaderBadge) {
+                modalHeaderBadge.className = badgeClass;
+                modalHeaderBadge.textContent = badgeText;
+            }
+            if (trackModalBadge) {
+                trackModalBadge.className = badgeClass;
+                trackModalBadge.textContent = badgeText;
+            }
+        }
+
+        function renderTopics() {
+            if (!topicsGrid) return;
+            const isAr = currentLang === 'ar';
+            updateTrackHeader();
+
+            const visibleTopics = consultationTopics.filter(t => t.category === activeTrackCategory);
+
+            topicsGrid.innerHTML = visibleTopics.map(topic => {
+                const isSelected = topic.id === selectedTopicId;
+                const title = isAr ? topic.titleAr : topic.titleEn;
+                const duration = isAr ? topic.durationTextAr : topic.durationTextEn;
+                const desc = isAr ? topic.descAr : topic.descEn;
+
+                return `
+                    <div class="dd-topic-item category-${topic.category} ${isSelected ? 'active' : ''}" data-topic-id="${topic.id}" tabindex="0" role="button" aria-pressed="${isSelected ? 'true' : 'false'}" title="${title}">
+                        <span class="dd-topic-icon" style="color: ${topic.iconColor};">
+                            ${topic.icon}
+                        </span>
+                        <div class="dd-topic-text">
+                            <div class="dd-topic-text-top">
+                                <strong>${title}</strong>
+                                <span class="dd-topic-dur">${duration}</span>
+                            </div>
+                            <span class="dd-topic-desc">${desc}</span>
+                        </div>
+                        <span class="dd-topic-status" title="${isSelected ? (isAr ? 'تم الاختيار' : 'Selected') : ''}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </span>
+                    </div>
+                `;
+            }).join('');
+
+            topicsGrid.querySelectorAll('.dd-topic-item').forEach(card => {
+                card.addEventListener('click', () => {
+                    selectedTopicId = card.getAttribute('data-topic-id');
+                    renderTopics();
+                    updateSelectedTrackCard();
+                    updateSummary();
+                    trackEvent('booking_topic_selected', { topicId: selectedTopicId, category: activeTrackCategory });
+                    setTimeout(() => {
+                        closeTrackPickerModal();
+                    }, 140);
+                });
+            });
+        }
+
+        if (btnModeGeneral) {
+            btnModeGeneral.addEventListener('click', () => {
+                activeTrackCategory = 'general';
+                if (!consultationTopics.some(t => t.id === selectedTopicId && t.category === 'general')) {
+                    const firstGen = consultationTopics.find(t => t.category === 'general');
+                    if (firstGen) selectedTopicId = firstGen.id;
+                }
+                renderTopics();
+                updateSelectedTrackCard();
+                updateSummary();
+                trackEvent('booking_category_switched', { category: 'general' });
+            });
+        }
+
+        if (btnModeDeepDive) {
+            btnModeDeepDive.addEventListener('click', () => {
+                activeTrackCategory = 'deep-dive';
+                if (!consultationTopics.some(t => t.id === selectedTopicId && t.category === 'deep-dive')) {
+                    const firstDD = consultationTopics.find(t => t.category === 'deep-dive');
+                    if (firstDD) selectedTopicId = firstDD.id;
+                }
+                renderTopics();
+                updateSelectedTrackCard();
+                updateSummary();
+                trackEvent('booking_category_switched', { category: 'deep-dive' });
+            });
+        }
+
+        function renderDays() {
+            if (!daysScroll) return;
+            const isAr = currentLang === 'ar';
+            const locale = isAr ? 'ar-EG' : 'en-US';
+
+            daysScroll.innerHTML = upcomingDays.map((d, index) => {
+                const isSelected = index === selectedDateIndex;
+                const weekday = d.toLocaleDateString(locale, { weekday: 'short' });
+                const dayNum = d.toLocaleDateString(locale, { day: 'numeric', month: 'short' });
+
+                return `
+                    <div class="booking-day-item ${isSelected ? 'active' : ''}" data-day-index="${index}">
+                        <span class="day-name">${weekday}</span>
+                        <span class="day-date">${dayNum}</span>
+                    </div>
+                `;
+            }).join('');
+
+            daysScroll.querySelectorAll('.booking-day-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    selectedDateIndex = parseInt(item.getAttribute('data-day-index'), 10);
+                    renderDays();
+                    updateSummary();
+                    trackEvent('booking_day_selected', { dayIndex: selectedDateIndex });
+                });
+            });
+        }
+
+        function renderSlots() {
+            if (!slotsGrid) return;
+            const isAr = currentLang === 'ar';
+
+            slotsGrid.innerHTML = defaultTimeSlots.map((slot, index) => {
+                const isSelected = index === selectedSlotIndex;
+                const label = isAr ? slot.labelAr : slot.labelEn;
+
+                return `
+                    <button type="button" class="booking-slot-btn ${isSelected ? 'active' : ''}" data-slot-index="${index}">
+                        ${label}
+                    </button>
+                `;
+            }).join('');
+
+            slotsGrid.querySelectorAll('.booking-slot-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedSlotIndex = parseInt(btn.getAttribute('data-slot-index'), 10);
+                    renderSlots();
+                    updateSummary();
+                    trackEvent('booking_slot_selected', { slotIndex: selectedSlotIndex });
+                });
+            });
+        }
+
+        function updateSummary() {
+            const isAr = currentLang === 'ar';
+            const topic = consultationTopics.find(t => t.id === selectedTopicId) || consultationTopics[0];
+            const dateObj = upcomingDays[selectedDateIndex] || upcomingDays[0];
+            const slot = defaultTimeSlots[selectedSlotIndex] || defaultTimeSlots[0];
+
+            if (summaryTopic) {
+                const title = isAr ? topic.titleAr : topic.titleEn;
+                const duration = isAr ? topic.durationTextAr : topic.durationTextEn;
+                summaryTopic.textContent = `${title} (${duration})`;
+            }
+
+            if (summaryDate && dateObj) {
+                const locale = isAr ? 'ar-EG' : 'en-US';
+                const formattedDate = dateObj.toLocaleDateString(locale, { weekday: 'short', month: 'short', day: 'numeric' });
+                const slotLabel = isAr ? slot.labelAr : slot.labelEn;
+                summaryDate.textContent = `${formattedDate} @ ${slotLabel}`;
+            }
+        }
+
+        function openModal(preselectTopicId = null) {
+            if (preselectTopicId) {
+                const found = consultationTopics.find(t => t.id === preselectTopicId);
+                if (found) {
+                    selectedTopicId = found.id;
+                    activeTrackCategory = found.category;
+                }
+            }
+            renderTopics();
+            updateSelectedTrackCard();
+            renderDays();
+            renderSlots();
+            updateSummary();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            trackEvent('booking_modal_opened', { topicId: selectedTopicId, category: activeTrackCategory });
+        }
+
+        function closeModal() {
+            if (trackModal && trackModal.classList.contains('active')) {
+                closeTrackPickerModal();
+            }
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            trackEvent('booking_modal_closed');
+        }
+
+        // Expose open and close globally
+        window.openBookingModal = openModal;
+        window.closeBookingModal = closeModal;
+        window.openTrackPickerModal = openTrackPickerModal;
+        window.closeTrackPickerModal = closeTrackPickerModal;
+        window.updateMeetingSchedulerLanguage = () => {
+            renderTopics();
+            updateSelectedTrackCard();
+            renderDays();
+            renderSlots();
+            updateSummary();
+        };
+
+        if (overlay) overlay.addEventListener('click', closeModal);
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+        // Track Picker Modal Triggers & Close listeners
+        if (selectedTrackCard) {
+            selectedTrackCard.addEventListener('click', openTrackPickerModal);
+            selectedTrackCard.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openTrackPickerModal();
+                }
+            });
+        }
+        if (btnChangeTrack) {
+            btnChangeTrack.addEventListener('click', openTrackPickerModal);
+        }
+        if (trackPickerTriggerLabel) {
+            trackPickerTriggerLabel.addEventListener('click', openTrackPickerModal);
+        }
+        if (trackModalBackdrop) {
+            trackModalBackdrop.addEventListener('click', closeTrackPickerModal);
+        }
+        if (trackModalCloseBtn) {
+            trackModalCloseBtn.addEventListener('click', closeTrackPickerModal);
+        }
+
+        if (footerBookingBtn) {
+            footerBookingBtn.addEventListener('click', () => openModal());
+        }
+
+        if (floatingBtn) {
+            floatingBtn.addEventListener('click', () => openModal());
+        }
+
+        if (drawerTabBook) {
+            drawerTabBook.addEventListener('click', () => {
+                closeDrawer();
+                openModal();
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (trackModal && trackModal.classList.contains('active')) {
+                    closeTrackPickerModal();
+                    e.stopPropagation();
+                } else if (modal && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            }
+        });
+
+        // WhatsApp Confirmation Handler (C-Level Executive Format)
+        if (btnWA) {
+            btnWA.addEventListener('click', () => {
+                const nameInput = document.getElementById('bookingName');
+                const emailInput = document.getElementById('bookingEmail');
+                const companyInput = document.getElementById('bookingCompany');
+                const notesInput = document.getElementById('bookingNotes');
+
+                const name = nameInput ? nameInput.value.trim() : '';
+                const email = emailInput ? emailInput.value.trim() : '';
+                const company = companyInput ? companyInput.value.trim() : '';
+                const notes = notesInput ? notesInput.value.trim() : '';
+
+                const isAr = currentLang === 'ar';
+
+                if (!name) {
+                    alert(isAr ? 'يرجى إدخال الاسم كاملاً للمتابعة.' : 'Please enter your Full Name to continue.');
+                    if (nameInput) nameInput.focus();
+                    return;
+                }
+                if (!email || !email.includes('@')) {
+                    alert(isAr ? 'يرجى إدخال بريد مهني صحيح.' : 'Please enter a valid work email.');
+                    if (emailInput) emailInput.focus();
+                    return;
+                }
+
+                const topic = consultationTopics.find(t => t.id === selectedTopicId) || consultationTopics[0];
+                const topicTitle = isAr ? topic.titleAr : topic.titleEn;
+                const duration = isAr ? topic.durationTextAr : topic.durationTextEn;
+                const dateObj = upcomingDays[selectedDateIndex] || upcomingDays[0];
+                const slot = defaultTimeSlots[selectedSlotIndex] || defaultTimeSlots[0];
+                const locale = isAr ? 'ar-EG' : 'en-US';
+                const dateFormatted = dateObj.toLocaleDateString(locale, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                const slotLabel = isAr ? slot.labelAr : slot.labelEn;
+
+                let waMessage = '';
+                if (isAr) {
+                    waMessage = `السلام عليكم م. أحمد، تحية طيبة،\n\n` +
+                        `أود حجز جلسة استشارية في الذكاء الاصطناعي:\n\n` +
+                        `• المسار: ${topicTitle} (${duration})\n` +
+                        `• الموعد: ${dateFormatted} @ ${slotLabel} (توقيت القاهرة)\n` +
+                        `• الاسم: ${name}\n` +
+                        `• البريد: ${email}\n` +
+                        (company ? `• الشركة: ${company}\n` : '') +
+                        (notes ? `• ملاحظات: ${notes}\n` : '') +
+                        `\nبانتظار تأكيد الموعد ورابط الاجتماع، شكراً جزيلاً.\n\n` +
+                        `مع التحية،\n${name}`;
+                } else {
+                    waMessage = `Hello Eng. Ahmed,\n\n` +
+                        `I would like to book an AI architecture consultation session:\n\n` +
+                        `• Track: ${topicTitle} (${duration})\n` +
+                        `• Time: ${dateFormatted} @ ${slotLabel} (Cairo Time, GMT+3)\n` +
+                        `• Name: ${name}\n` +
+                        `• Email: ${email}\n` +
+                        (company ? `• Company: ${company}\n` : '') +
+                        (notes ? `• Context: ${notes}\n` : '') +
+                        `\nLooking forward to confirming the slot and meeting link.\n\n` +
+                        `Best regards,\n${name}`;
+                }
+
+                trackEvent('booking_confirmed_whatsapp', {
+                    topic: selectedTopicId,
+                    date: dateFormatted,
+                    slot: slotLabel,
+                    name,
+                    company
+                });
+
+                const waUrl = `https://wa.me/201558333533?text=${encodeURIComponent(waMessage)}`;
+                window.open(waUrl, '_blank');
+            });
+        }
+
+        // Email Confirmation Handler (Simpler Shortened Executive Form)
+        if (btnEmail) {
+            btnEmail.addEventListener('click', () => {
+                const nameInput = document.getElementById('bookingName');
+                const emailInput = document.getElementById('bookingEmail');
+                const companyInput = document.getElementById('bookingCompany');
+                const notesInput = document.getElementById('bookingNotes');
+
+                const name = nameInput ? nameInput.value.trim() : '';
+                const email = emailInput ? emailInput.value.trim() : '';
+                const company = companyInput ? companyInput.value.trim() : '';
+                const notes = notesInput ? notesInput.value.trim() : '';
+
+                const isAr = currentLang === 'ar';
+
+                if (!name) {
+                    alert(isAr ? 'يرجى إدخال الاسم كاملاً للمتابعة.' : 'Please enter your Full Name to continue.');
+                    if (nameInput) nameInput.focus();
+                    return;
+                }
+                if (!email || !email.includes('@')) {
+                    alert(isAr ? 'يرجى إدخال بريد مهني صحيح.' : 'Please enter a valid work email.');
+                    if (emailInput) emailInput.focus();
+                    return;
+                }
+
+                const topic = consultationTopics.find(t => t.id === selectedTopicId) || consultationTopics[0];
+                const topicTitle = isAr ? topic.titleAr : topic.titleEn;
+                const duration = isAr ? topic.durationTextAr : topic.durationTextEn;
+                const dateObj = upcomingDays[selectedDateIndex] || upcomingDays[0];
+                const slot = defaultTimeSlots[selectedSlotIndex] || defaultTimeSlots[0];
+                const locale = isAr ? 'ar-EG' : 'en-US';
+                const dateFormatted = dateObj.toLocaleDateString(locale, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                const slotLabel = isAr ? slot.labelAr : slot.labelEn;
+
+                const subject = isAr
+                    ? `طلب استشارة: ${topicTitle} — ${name}${company ? ' (' + company + ')' : ''}`
+                    : `Consultation Request: ${topicTitle} — ${name}${company ? ' (' + company + ')' : ''}`;
+
+                let emailBody = '';
+                if (isAr) {
+                    emailBody = `المهندس أحمد مهدي، تحية طيبة وبعد،\n\n` +
+                        `أود حجز موعد لجلسة استشارية في معمارية الذكاء الاصطناعي:\n\n` +
+                        `• المسار: ${topicTitle} (${duration})\n` +
+                        `• الموعد المقترح: ${dateFormatted} الساعة ${slotLabel} (توقيت القاهرة، GMT+3)\n` +
+                        (company ? `• الشركة / المؤسسة: ${company}\n` : '') +
+                        (notes ? `• تفاصيل إضافية: ${notes}\n` : '') +
+                        `\nيرجى تأكيد ملاءمة الموعد أو اقتراح موعد بديل.\n\n` +
+                        `مع خالص التحية والتقدير،\n` +
+                        `${name}\n` +
+                        (company ? `${company}\n` : '') +
+                        `${email}`;
+                } else {
+                    emailBody = `Dear Eng. El-Mahdi,\n\n` +
+                        `I would like to schedule an AI architecture consultation session:\n\n` +
+                        `• Focus Track: ${topicTitle} (${duration})\n` +
+                        `• Proposed Time: ${dateFormatted} at ${slotLabel} (Cairo Time, GMT+3)\n` +
+                        (company ? `• Organization: ${company}\n` : '') +
+                        (notes ? `• Architecture Context: ${notes}\n` : '') +
+                        `\nPlease let me know if this slot works or feel free to suggest an alternative time.\n\n` +
+                        `Best regards,\n` +
+                        `${name}\n` +
+                        (company ? `${company}\n` : '') +
+                        `${email}`;
+                }
+
+                trackEvent('booking_confirmed_email', {
+                    topic: selectedTopicId,
+                    date: dateFormatted,
+                    slot: slotLabel,
+                    name,
+                    email,
+                    company
+                });
+
+                const mailtoUrl = `mailto:agelmahdi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+                window.location.href = mailtoUrl;
+            });
+        }
+
+        // Calendar (.ics) Download Handler
+        if (btnCal) {
+            btnCal.addEventListener('click', () => {
+                const nameInput = document.getElementById('bookingName');
+                const emailInput = document.getElementById('bookingEmail');
+                const companyInput = document.getElementById('bookingCompany');
+                const notesInput = document.getElementById('bookingNotes');
+
+                const name = nameInput && nameInput.value.trim() ? nameInput.value.trim() : 'Guest';
+                const email = emailInput && emailInput.value.trim() ? emailInput.value.trim() : 'guest@company.com';
+                const company = companyInput && companyInput.value.trim() ? companyInput.value.trim() : 'Enterprise';
+                const notes = notesInput && notesInput.value.trim() ? notesInput.value.trim() : 'AI Architecture Advisory';
+
+                const topic = consultationTopics.find(t => t.id === selectedTopicId) || consultationTopics[0];
+                const durationMinutes = (topic.id === 'finops-cost' || topic.id === 'executive-advisory') ? 30 : 45;
+                const dateObj = upcomingDays[selectedDateIndex] || upcomingDays[0];
+                const slot = defaultTimeSlots[selectedSlotIndex] || defaultTimeSlots[0];
+
+                const [hours, mins] = (slot.time24 || '10:00').split(':').map(Number);
+                // Timeslot is GMT+3. UTC hour is hours - 3
+                const utcYear = dateObj.getFullYear();
+                const utcMonth = dateObj.getMonth();
+                const utcDay = dateObj.getDate();
+
+                const startUtcDate = new Date(Date.UTC(utcYear, utcMonth, utcDay, hours - 3, mins, 0));
+                const endUtcDate = new Date(startUtcDate.getTime() + durationMinutes * 60 * 1000);
+
+                const pad = (n) => String(n).padStart(2, '0');
+                const formatIcsDate = (d) => `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
+
+                const dtStart = formatIcsDate(startUtcDate);
+                const dtEnd = formatIcsDate(endUtcDate);
+                const dtStamp = formatIcsDate(new Date());
+                const uid = `booking-${Date.now()}-${Math.random().toString(36).substr(2, 6)}@ahmedelmahdi.tech`;
+
+                const summary = `AI Architecture Consultation: ${topic.titleEn}`;
+                const description = `Direct Strategic Session with Ahmed El-Mahdi (Principal AI Architect)\\n` +
+                    `Focus Track: ${topic.titleEn}\\n` +
+                    `Attendee: ${name} (${company})\\n` +
+                    `Work Email: ${email}\\n` +
+                    `Architecture Context: ${notes}\\n\\n` +
+                    `Direct WhatsApp Coordination: https://wa.me/201558333533\\n` +
+                    `Direct Email: agelmahdi@gmail.com`;
+
+                const icsContent = [
+                    'BEGIN:VCALENDAR',
+                    'VERSION:2.0',
+                    'PRODID:-//Ahmed El-Mahdi//AI Architecture Consultation//EN',
+                    'CALSCALE:GREGORIAN',
+                    'METHOD:REQUEST',
+                    'BEGIN:VEVENT',
+                    `UID:${uid}`,
+                    `DTSTAMP:${dtStamp}`,
+                    `DTSTART:${dtStart}`,
+                    `DTEND:${dtEnd}`,
+                    `SUMMARY:${summary}`,
+                    `DESCRIPTION:${description}`,
+                    'LOCATION:Virtual Meeting / Google Meet / WhatsApp (+201558333533)',
+                    'ORGANIZER;CN="Ahmed El-Mahdi":mailto:agelmahdi@gmail.com',
+                    `ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN="${name}":mailto:${email}`,
+                    'STATUS:CONFIRMED',
+                    'TRANSP:OPAQUE',
+                    'END:VEVENT',
+                    'END:VCALENDAR'
+                ].join('\r\n');
+
+                const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `AI_Architecture_Consultation_Ahmed_ElMahdi.ics`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+
+                trackEvent('booking_downloaded_calendar', {
+                    topic: selectedTopicId,
+                    date: dtStart,
+                    name
+                });
+            });
+        }
+
+        // Initial render
+        renderTopics();
+        updateSelectedTrackCard();
+        renderDays();
+        renderSlots();
+        updateSummary();
+    }
+
+    // Initialize Meeting Scheduler
+    initMeetingScheduler();
+
     // Bind hashchange and popstate listeners and execute on initial boot
     window.addEventListener('hashchange', restoreState);
     window.addEventListener('popstate', restoreState);
